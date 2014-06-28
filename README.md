@@ -1,8 +1,11 @@
 # withlinux
 
 (Part of) My personal linux journal for sharing, including skills, little tricks, etc.  
-Sometimes they are amazingly useful.  
+Some of them are amazingly useful.  
+Some of them are not so useful.  
 by the way this helps me to organize note files neatly.  
+  
+Anyway, thanks for reading, any advice will be appreciated.  
   
 NOTE that  
 I mainly use [Debian](http://debian.org), so there may be many contents related to it.  
@@ -18,6 +21,7 @@ This repo was started on 2014/06/28.
 2.1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
 3. [System management](./config)  
 3.1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
+3.2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
 
 ## LICENSE
 The MIT LICENSE.  

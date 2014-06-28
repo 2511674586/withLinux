@@ -1,0 +1,9 @@
+1. some default config of grub
+	/etc/default/grub
+		-> default cmd line...etc
+
+2. grub menu, grub version 2
+	/boot/grub/grub.cfg
+
+3. some other
+	/etc/grub.d/*
