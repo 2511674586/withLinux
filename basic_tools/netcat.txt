@@ -1,0 +1,54 @@
+# lumin's nc note
+# 14/05/2014
+
+-----------------------------------------
+nc_file_transfer
+
+The sender :
+tar -Jcv ./Cache | nc -w 3 localhost 1234
+
+The reciever :
+nc -l -p 1234 | tar -Jxv -C .
+-----------------------------------------
+
+Taste of netcat (traditional) :
+	for more detail, please look up it's man page.
+
+1. connect to a remote host
+	$ nc -nv IP PORT
+	$ nc IP PORT
+2. listen at a local port
+	$ nc -l -p PORT
+3. scan remote host
+	$ nc -nv -w2 -z IP PORT[-PORT]
+4. bind a shell
+	$ nc -l -p PORT | bash -> server
+	$ nc SERVER_IP PORT    -> client
+5. attack
+	$ cat exploit.txt | nc IP PORT
+	OR $ nc IP PORT < exploit.txt
+		both work.
+6. honey pot
+	$ nc -l -p 80
+		then $ nmap IP -> a http(?) service detected.
+	$ nc -l -p 80 (>|>>) log.log
+	$ nc -l -p 80 < index.html
+		$ while true; do nc -l -p 80 < index.html; done
+7. transport data
+	A initiative-server method.
+		$ tar -zcv dir | nc -l -p PORT -> server
+		$ nc IP PORT > file.tgz -> retriver
+			OR directly $ nc IP PORT | tar -zxv -f - -C . -> retrive and depack.
+	A passive-server method
+		$ nc -l -p < file.tgz -> server
+		$ nc IP PORT > file.tgz -> client
+	Don't forget check md5sum (or sha*sum) if nessesary.
+8. play with dd
+	$ nc -l -p PORT | dd of=/dev/sda
+	$ dd if=/dev/sda | nc IP PORT
+9. chat each other
+	$ nc -l -p PORT
+	$ nc IP PORT
+
+ADDITIONAL
+	a useful tool : watch
