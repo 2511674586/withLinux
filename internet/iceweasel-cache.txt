@@ -1,0 +1,6 @@
+Iceweasel is the debian version of firefox.
+
+1. configure cache directory of iceweasel
+	iceweasel -> about:cache
+	iceweasel -> about:config -> add a new string 
+		-> browser.cache.disk.parent_directory=/dev/shm/
