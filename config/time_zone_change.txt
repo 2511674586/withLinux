@@ -1,0 +1,6 @@
+if you want to tweak the time zone setting
+	# dpkg-reconfigure tzdata --> on debian 7 it works
+
+more info about date and time see
+	date
+	hwclock
