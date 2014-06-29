@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+%Gummi|065|=)
+\title{\textbf{A brief vsftpd guide}}
+\author{CDLuminate}
+\date{2014/03/23}
+\begin{document}
+
+\maketitle
+
+\section{Before you start}
+
+Before you start \emph{vsftpd} server, you should first install it properly.For example on Debian/Ubuntu, just type (\# apt-get install vsftpd)then it will be ready to work.
+
+
+\section{Check its config file}
+Before launch it right away, you should check its configuration file first, to make it more usable.
+
+The [config file]\footnote{file:///etc/vsftpd.conf} contains varies of options, but there are some that may be modified frequently.
+ 
+They are listed below.\\
+listen=YES	// if vsftpd would listen via ipv4\\
+listen\_ipv6=NO  // as above, via ipv6\\
+anonymous\_enable=YES  // if anonymous user can login\\
+local\_enable=YES  // if local user can login\\
+write\_enable=NO // this is global write setting, if set to NO, then no one can write even if he is allowed to write.\\
+
+\section{Prepare the ftp service directory}
+The [default service dir]\footnote{dir:///srv/ftp} of vsftpd contains nothing. So there is 2 ways to serve:
+
+1.Copy files to /srv/ftp directly.
+
+2.mount it here.(see Appendix B).
+
+\section{Start server}
+(\# service vsftpd restart). then it would work except that something had gone wrong.
+
+\section{Access server}
+It is easy on an AtoB network.\\
+you can login via your file browser or internet browser.\\
+just navigate to (ftp://192.168.0.252)(in my example).\\
+
+Have fun play with ftp.
+
+\section{Appendix A. An example - Set up a simple AtoB network}
+
+1. connect machines via a network cable.\\
+2. stop the "network-manager" service on both side.\footnote{\# service network-manager stop}\\
+(choose one of step3)\\
+3.1 ComputerA\\
+(\# ifconfig eth0 inet 192.168.0.252 netmask 255.255.255.0)\\
+(\# ifconfig eth0 up)\\
+ComputerB\\
+Do the same as ComputerA, changing its ip\_address.\\
+3.2 ComputerA\\
+(\# ip addr add 192.168.0.252/24 brd + dev eth0)\\
+(\# ip link set dev eth0 up)\\
+Do the same on computerB.\\
+4. Run a ping test.
+
+\section{Appendix B. An mount example}
+1. Assume that you want to share this folder (/some/dir)\\
+2.(\# mount --bind /some/dir /srv/ftp)\\
+3.then you can start you vsftpd.
+
+\end{document}
