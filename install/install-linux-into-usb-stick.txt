@@ -1,0 +1,61 @@
+consider a usb stick which is /dev/sdb(GPT TABLE), part (sdb1), mounted at /mnt.
+
+0. parted.
+	maketable, makepart.
+	For more info lookup gnu's grub doc. if you are installing grub into a GPT disk while your motherboard is BIOS instead of EFI/UEFI, you need to :
+	1.A. reserve some space (less than 1MB) at the beginning of disk.
+	1.B. OR make a tiny part at the beginning, in my case 1MB is enough.
+	2. parted -> help set -> turn on the 'bios_grub' flag on that partition if you have created. it's ok to pass this step. 
+
+1. bootstrap
+	> apt install bootstrap
+	man bootstrap
+	...
+	then I packed the base system.
+	mount target disk on /mnt
+	extract jessie.stage3.tar.gz into /mnt
+		tar -zxv -f FILE.tar.gz -C /mnt
+
+2. install kernel and grub
+	(may need
+	 	mount --bind /dev /mnt/dev
+		(optional)mount --bind /sys /mnt/sys
+		(optional)mount --bind /proc /mnt/proc
+	)
+	> chroot /mnt /bin/bash
+	 apt-get install linux-image-amd64
+	> vim /etc/fstab (use blkid(8) to identify UUID)
+	/* FIXME :
+	   I only modified fstab in this case.
+	   But it boots well, runs well (even gnome3)
+	   I need to lookup the general install procedure of debian,
+	   then complete the installation.
+	   C.D.Luminate
+	 */
+
+	install grub (BIOS-GPT case): grub-common grub2-common grub-pc etc.
+
+	OUT of chroot
+	man grub-install
+	> grub-install <target_device>, [--force]
+		hint : If you haven't created a 'bios_grub' partition, --force option is needed, or failure will occur. 
+	
+	> chroot /mnt /bin/bash
+		sudo update-grub
+		passwd
+
+	> umount
+	
+	TEST
+	then you can try it with qemu, like
+	> qemu -enable-kvm -m xx -hda /dev/sdb
+	to see if it works.
+
+3. boot via this stick.
+	have fun!
+	hint : the random access performance and read latency of USB3.0 is much better than SATA2 HDD, so this is really interesting. 
+
+C.D.Luminate
+
+// FIXME
+
