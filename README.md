@@ -1,6 +1,6 @@
 # withlinux
 
-(Part of) My personal linux journal for sharing, including skills, little tricks, etc.  
+(Part of) My linux journal for sharing, including skills, little tricks, etc.  
 Some of them are amazingly useful.  
 Some of them are not so useful.  
 Some of method were given in wikis.  
@@ -15,8 +15,7 @@ This repo was started on 2014/06/28.
 [I](https://github.com/CDLuminate) will keep updating this.  
 Have fun. :-)  
   
-## Index
-[Content of this REPO]  
+## Index : content of this repo
 1. [Installing Linux](./install)  
 1.1. [USB stick ... How can I install linux into it](./install/install-linux-into-usb-stick.txt)  
 2. [Basic tools](./basic_tools)  
@@ -28,8 +27,11 @@ Have fun. :-)
 4.2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
 5. [Setup server](./server)  
 5.1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
-## Appendix
-[External links]  
+6. [programming](./lang)  
+6.1. [tex](./lang/tex)  
+6.1.1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
+  
+### Appendix : External links
 1. [Need help ? the anwser may be here](https://google.com)  
 1.1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
 1.2. [Debian wiki ... you know](https://wiki.debian.org)  

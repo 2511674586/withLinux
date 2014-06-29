@@ -1,0 +1,2 @@
+autoinst(1)
+in package texlive-font-utils
