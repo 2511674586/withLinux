@@ -1,0 +1,126 @@
+1. delete the rest part
+	$ grep fooo
+	-1
+	$ ^o
+	grep foo
+2. replace
+	$ apt-get udpate
+	unknown "udpate"
+	$ ^udp^upd
+	apt-get update
+
+	$ echo hellollollo
+	^ll^rr
+	echo herrollollo
+3. replace all
+	$ echo hellollollo
+	$ !:gs/ll/rr
+	echo herrorrorro
+4. history
+	$ history
+	see man bash
+5. search history
+	Ctrl^R
+6. run last command
+	$ !!
+
+	$ !his     # run the history headed with 'his'
+	$ !?is     # run history that contains 'is'
+	Ctrl^N : next.
+	$ !10      # run history 10
+	$ !-2      # run the 2nd latest history
+7. invoke current line
+	$ cp foo foo.old
+	$ cp foo !#:1.old
+8. !
+	last parameter
+	$ echo foo bar
+	$ echo !$
+	echo bar
+	bar
+	
+	first parameter
+	$ echo !^
+	$ echo [Ctrl + Alt + Y]
+
+	N'st parameter
+	$ echo !:n
+
+	M'st to N'st, set of parameters
+	$ echo !:M-N
+
+	set : N'st to last
+	$ echo !:N*
+
+	get all
+	$ touch a s d f g h j k l
+	$ rm !*
+
+	select path : dirname
+	$ cd /some/path/file
+	$ ls !$:h
+	ls /some/path
+
+	select tail : basename
+	$ ll /some/path/file.tar.xz
+	$ cd !$:h
+	$ ll !$:t
+
+	select filename
+	$ unzip foo.zip
+	$ cd !$:r
+	cd foo
+
+	print command line
+	$ echo *
+	$ !:p
+
+	another replace
+	$ echo hellollollo
+	$ !:s/ll/rr
+	see ^old^new
+
+	another replace all
+	$ echo hellollollo
+	$ !:gs/ll/rr
+
+	summary
+	command line    ![!|[?]string|[-]number]
+	select word     :[n|x-y|^|$|*|n*|%]
+	modify		:[h|t|r|e|p|s|g]
+
+9. make up strings
+	$ cp foo.file foo.file.back
+	$ cp foo.file{,.back}
+	$ echo cp foo.file{,.back}
+
+	$ vim {a,b,c}.bar
+	$ vim [abc].bar
+	$ vim {a..c}.bar
+
+	$ wget ftp://domain/img/{1..6}.jpg
+	$ touch {01..5}.txt
+	$ touch img{001..234}.jpg
+	$ touch {1..10..2}.txt
+		1.txt 3.txt 5 7 9
+	$ echo {1..10..2}
+
+	$ mkdir -p a/{01..12}/{music,photo}
+	$ echo {{A..Z},{a..z},{0..9}}
+	$ echo {A..Z}{a..z}
+	$ echo {A..Z},{a..z}
+	$ echo {{A..Z}{a..z}}
+
+10. usage of "`" and "$()"
+	etc.
+	for $VAR in ...
+	figlet
+11. shortcut for deletion
+	Ctrl^W , delete a word
+	Ctrl^U , delete whole line
+
+See
+	Bash manual
+	Book : Unix Powerful tools
+
+cdluminate

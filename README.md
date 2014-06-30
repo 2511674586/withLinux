@@ -6,16 +6,16 @@ Some of them are not so useful.
 Some of method were given in wikis.  
 Along with these, there are some related resource site attached.  
   
-Anyway, thanks for reading, any advice will be appreciated.  
+Anyway, thanks for reading, any advice and issue will be appreciated.  
   
 *NOTE that*   
 There may be many contents related to [Debian](https://www.debian.org).  
-The good news is, many tricks also work well on Ubuntu, Mint, etc.  
+However, many tricks also work well on Ubuntu, Mint, etc.  
   
 This repo was started on 2014/06/28.  
 [I](https://github.com/CDLuminate) will keep updating this.  
 ___Items marked with "\*" is to be uploaded.___  
-Have a nice day :-)  
+Have fun.  :-)  
   
 ## Index : content of this repo
 1. [Installing Linux](./install)  
@@ -26,7 +26,7 @@ Have a nice day :-)
 1.3.2. [\* Wireless network card]()  
 2. [Basic tools](./basic_tools)  
 2.1. [netcat ... some usages](./basic_tools/netcat.txt)  
-2.2. [\* bash ... ]()  
+2.2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
 3. [Internet](./internet)  
 3.1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
 4. [\* Graphical(Xorg)]()  
@@ -36,11 +36,13 @@ Have a nice day :-)
 5.2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
 6. [Setup server](./server)  
 6.1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
-7. [programming](./lang)  
+7. [Programming](./lang)  
 7.1. [tex](./lang/tex)  
 7.1.1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
 7.2. [\* the c]()  
 8. [\* Linux Hacks]()  
+9. [Virtualization](./virt)  
+9.1. [docker.io ... linux container](./virt/docker/)  
   
 ### Appendix A : External links
 1. [Need help ? the anwser may be here](https://google.com)  
