@@ -1,20 +1,21 @@
 # with Linux
 
 (Part of) My linux journal for sharing, including skills, little tricks, etc.  
+  
 Some of them are amazingly useful.  
 Some of them are not so useful.  
 Some of method were given in wikis.  
-Along with these, there are some related resource site attached.  
-  
-Anyway, thanks for reading, any advice and issue will be appreciated.  
+Some related resource site attached.  
   
 *NOTE that*   
 There may be many contents related to [Debian](https://www.debian.org).  
 However, many tricks also work well on Ubuntu, Mint, etc.  
+By the way, they were firstly wrote for myself, so if you encounter any problem please issue me.  
   
 This repo was started on 2014/06/28.  
 [I](https://github.com/CDLuminate) will keep updating this.  
 ___Items marked with "\*" is to be uploaded.___  
+Any advice and issue will be appreciated.  
 Have fun.  :-)  
   
 ## Index : content of this repo
@@ -43,6 +44,9 @@ Have fun.  :-)
 8. [\* Linux Hacks]()  
 9. [Virtualization](./virt)  
 9.1. [docker.io ... linux container](./virt/docker/)  
+9.1.1. [install docker.io on debian](./virt/docker/docker.install.txt)  
+9.1.2. [sample run](./virtual/docker/dockerizing.txt)  
+9.1.3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
   
 ### Appendix A : External links
 1. [Need help ? the anwser may be here](https://google.com)  

@@ -1,0 +1,9 @@
+Hello world test
+$ sudo docker run ubuntu:14.04 /bin/echo "Hello World!"
+
+Call a shell from container.
+$ sudo docker run -t -i ubuntu:14.04 /bin/bash
+
+Tips :
+	# adduser USER docker
+	then USER can invoke docker.io without 'sudo'

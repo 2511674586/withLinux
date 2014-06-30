@@ -1,0 +1,12 @@
+1. Setup a basic system via bootstrap
+	Debootstrap, see man
+	$ debootstrap jessie /home/lumin/jessie http://127.0.0.1/debian
+	(wait it until all things were set up)
+	$ cd /home/lumin/jessie
+	$ tar -zcv -f ../jessie.stage3.tar.gz .
+
+2. Load / import it into docker
+	//$ sudo docker load -i jessie.tar
+	// docker load would fail, why ?
+	$ cat jessie.stage3.tar | sudo docker import - jessie
+	then it was succeed and ready to work.
