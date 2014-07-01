@@ -1,0 +1,19 @@
+if the top bar (panel) is too wide, then
+-----------------------------------------------------------
+
+# vim /usr/share/gnome-shell/theme/gnome-shell.css
+
+And find this line:
+
+/* TOP PANEL */
+/* ... */
+#panel {/* ... */
+        height: 1.86em;
+}
+
+change the value as you want.
+'s/1.86em/1.75em/g'
+
+then restart gnome-shell ( Alt+F2, r )
+
+at least works on Gnome 3.4 (wheezy) and Gnome 3.8 (jessie 2014/06).

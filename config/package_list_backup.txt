@@ -1,0 +1,3 @@
+# dpkg --get-selections > list.list
+man dpkg
+	which works on debian.

@@ -1,21 +1,15 @@
 # with Linux
 
-(Part of) My linux journal for sharing, including skills, little tricks, etc.  
-  
-Some of them are amazingly useful.  
-Some of them are not so useful.  
-Some of method were given in wikis.  
-Some related resource site attached.  
+My Linux journal, including skills, little tricks, etc.  
   
 *NOTE that*   
-There may be many contents related to [Debian](https://www.debian.org).  
-However, many tricks also work well on Ubuntu, Mint, etc.  
-By the way, they were firstly wrote for myself, so if you encounter any problem please issue me.  
+Many contents are related to [Debian](https://www.debian.org).  
+However, many tricks also work well on Ubuntu, Mint, etc(variants of debian).  
+If you encountered any problem please issue me.  
+Any advice and issue will be appreciated.  
   
-This repo was started on 2014/06/28.  
 [I](https://github.com/CDLuminate) will keep updating this.  
 ___Items marked with "\*" is to be uploaded.___  
-Any advice and issue will be appreciated.  
 Have fun.  :-)  
   
 ## Index : content of this repo
@@ -30,8 +24,9 @@ Have fun.  :-)
 2.2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
 3. [Internet](./internet)  
 3.1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
-4. [\* Graphical(Xorg)]()  
-4.1. [\* Gnome3 (gnome-shell)]()  
+4. [Graphical(Xorg)](./x)  
+4.1. [Gnome3 (gnome-shell)](./x/gnome)  
+4.1.1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
 5. [System management](./config)  
 5.1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
 5.2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
@@ -59,7 +54,7 @@ Have fun.  :-)
 2.1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
 2.2. [Gentoo doc ...](http://www.gentoo.org/doc)  
 2.3. [FreeBSD doc ... sometimes also helps a lot](https://www.freebsd.org/docs.html)  
-3. [\* Manuals Tutorials]()  
+3. [External Manuals Tutorials]()  
 3.1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
   
 ### Appendix B : Topics
@@ -72,3 +67,4 @@ The MIT LICENSE.
 
 ---
 千里之行，始于足下。
+This repo was started on 2014/06/28 by cdluminate.  
