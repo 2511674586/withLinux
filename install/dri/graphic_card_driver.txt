@@ -1,0 +1,24 @@
+Graphic card Drivers  
+
+1. for normal use without official 3D acceleration, open source version is enough and stable.
+2. if 3D acceleration and performance are needed, recommend official one.
+
+opensource one can be downloaded via apt, while official one can't.
+
+Identify your card : 
+	# lspci
+
+card     official    opensource
+intel    i9__        i9__
+amd      fglrx(amd.com)       radeon
+nvidia   ?(nvidia.com)           nouveau
+
+to uninstall fglrx : `# sh /usr/share/ati/fglrx-uninstall.sh`  
+
+> [xserver-xorg-video-intel]() This package provides the driver for the Intel i8xx and i9xx family
+of chipsets, including i810, i815, i830, i845, i855, i865, i915, i945 and i965 series chips.  
+
+> [firmware-linux-nonfree]() This package contains the binary firmware for  various drivers in the
+Linux kernel.(Some ATI/AMD dirver here). 
+
+more packege run # apt-cache search ...
