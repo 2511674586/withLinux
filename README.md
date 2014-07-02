@@ -9,16 +9,14 @@ If you encountered any problem please issue me.
 Any advice and issue will be appreciated.  
   
 [I](https://github.com/CDLuminate) will keep updating this.  
-___Items marked with "\*" is to be uploaded.___  
 Have fun.  :-)  
   
-## Index : content of this repo
+## Index : contents
 1. [Installing Linux](./install)  
-1.1. [\* Normal install]()  
-1.2. [USB stick ... How can I install linux into it](./install/install-linux-into-usb-stick.txt)  
-1.3. [Drivers and firmware](./install/dri)  
-1.3.1. [Graphic card](/install/dri/graphic_card_driver.txt)  
-1.3.2. [\* Wireless network card]()  
+1.1. [USB stick ... How can I install linux into it](./install/install-linux-into-usb-stick.txt)  
+1.2. [Drivers and firmware](./install/dri)  
+1.2.1. [Graphic card](./install/dri/graphic_card_driver.txt)  
+1.2.2. [Wireless network card](install/dri/wireless.txt)  
 2. [Basic tools](./basic_tools)  
 2.1. [netcat ... some usages](./basic_tools/netcat.txt)  
 2.2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
@@ -37,7 +35,9 @@ Have fun.  :-)
 7.1.1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
 7.2. [the c programming language](./lang/c/)  
 7.2.1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
-8. [\* Linux Hacks]()  
+8. [Linux Hacks](./hack)  
+8.1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
+8.2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
 9. [Virtualization](./virt)  
 9.1. [docker.io ... linux container](./virt/docker/)  
 9.1.1. [install docker.io on debian](./virt/docker/docker.install.txt)  
@@ -45,20 +45,21 @@ Have fun.  :-)
 9.1.3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
   
 ### Appendix A : External links
-1. [Need help ? the anwser may be here](https://google.com)  
+1. [Need help ? the anwser may be here](https://google.com)[ or here](http://173.194.72.31)  
 1.1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
 1.2. [Debian wiki ... you know](https://wiki.debian.org)  
 1.3. [Arch wiki ... powerful](https://wiki.archlinux.org)  
 1.4. [Gentoo wiki ... you know](https://wiki.gentoo.org/wiki/Main_Page)  
+1.5. [series of stackoverflow](http://stackoverflow.com)  
 2. [Lots of docs out there](https://google.com)  
 2.1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
 2.2. [Gentoo doc ...](http://www.gentoo.org/doc)  
 2.3. [FreeBSD doc ... sometimes also helps a lot](https://www.freebsd.org/docs.html)  
-3. [External Manuals Tutorials]()  
+3. [External Manuals Tutorials](https://google.com)  
 3.1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
   
 ### Appendix B : Topics
-1. git ... content tracker  
+1. [git ... content tracker](http://www.git-scm.com/)  
 1.1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
 1.2. [a git tutor ... git immersion](http://gitimmersion.com/)  
 

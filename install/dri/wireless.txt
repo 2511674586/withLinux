@@ -1,0 +1,8 @@
+wireless network card drivers  
+
+1. identify the card
+> lspci
+
+2. for intel cards install pkg : 
+	firmware-iwlwifi  
+	which is in the "non-free" section.
