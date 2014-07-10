@@ -1,0 +1,138 @@
+## A simple sample : HEX edit a ELF file
+crack a C program you wrote.
+
+# see the experiment file : ./foo.c
+
+# Author : C.D.Luminate
+# Date   : 26/04/2014
+# modified : 09/05/2014, change words and add content.
+# modified : 09/05/2014, add info about _start
+
+<Index>
+1.Edit it.
+	2.1.Compile the original bin
+	2.2.objdump and analyze
+	2.3.hex-edit with vim plus xxd
+		2.3.1.Modify the entrance of programe.
+		2.3.2.Find a way to go over password process.
+	2.4.run
+</Index>
+
+<Text>
+1.
+2.1 Compile the original bin
+	$ gcc -Wall -o foo foo.c
+2.2 objdump and analyze
+	$ objdump -d -M intel foo | less
+2.3 hex-edit with vim plus xxd
+	to open a binary file :
+		$ vim -b foo
+	then invoke xxd under vim :
+		vim > :%!xxd
+	modify it as you want, then recover :
+		vim > :%!xxd -r
+	save and exit :
+		vim > :wq
+2.3.1.Modify the entrance of program.
+	Example foo'objdump
+	the <main>'s address:
+
+00000000004006b6 <main>:
+
+	search for "4006b6" in $(objdump foo), found 3. figure out the true entrance here.
+
+4005af:       49 c7 c0 60 08 40 00    mov    r8,0x400860
+4005b6:       48 c7 c1 f0 07 40 00    mov    rcx,0x4007f0
+4005bd:       48 c7 c7 b6 06 40 00    mov    rdi,0x4006b6
+4005c4:       e8 87 ff ff ff          call   400550 <__libc_start_main@plt>
+4005c9:       f4                      hlt    
+
+	find target function address :
+
+00000000004007c4 <show_secret>:
+// calculate the RELATIVE OFFSET
+	
+	in vim, replace "48 c7 c7 b6 06 40 00" with "48 c7 c7 c4 07 40 00", don't forget to check text above and below to ensure you are modifying at a right position.
+	P.S. Maybe influented by big-endian and little-endian, a offset such as  "f1 f2 f3 f4" would be displayed as "f4 f3 f2 f1".
+	edit and save.
+	then run it.
+	the programe will start with function:<show_secret> instead of function:<main>, Jumping password process implemented now.
+2.3.2.Find a way to go over password process.
+	Apart from changing the entrance, there is still a lot of ways.
+	see <main>
+
+4006d7:       e8 b4 fe ff ff          call   400590 <fwrite@plt>
+	
+	the "b4 fe ff ff" after "e8" is a RELATIVE offset and is a negative number.
+	P.S.how to calc a neative number:
+		int c = 0xabc;
+		c = ~c;
+		c += 1;
+	find the target function :
+
+4006dc:       e8 76 00 00 00          call   400757 <get_password_hash>
+	
+	the function <get_password_hash>'s relative offset is positive so it is easier to handle.
+	GUESS : 0xe8 instruction, after relative-offset read, the worker pointer should be at the position "0x4006dc+5".
+	0x4006dc+5 + 0x00000076 = 0x400757
+	turn to objdump
+0000000000400757 <get_password_hash>:
+	and you found the key part of it.
+	take a look at target function :
+00000000004007c4 <show_secret>:
+	the target relative offset is
+	0x4006dc + 5 = 0x4006e1 ... (1)
+	0x4007c4 - 0x4006e1 = 0xe3
+	p.s.
+		a relative offset is like a vector,
+		which equals ( addr_dest - addr_source );
+	we can replace
+e8 76 00 00 00
+	with
+e8 e3 00 00 00
+	then it works.
+
+	Another way to implement our goal :
+	
+	cover the whole instruction ( 0xe8 <offset> ) with 0x90.
+	and the machine will do nothing here. Like sliding.
+	it will work.
+
+	or, sqeeze a instrucion ( 0xe9 <offset> ) to jump over the getpassword function, as long as the destinition of jump is behind getpassword.
+
+2.4.Run it.
+
+Appendix A.
+instruction x86_64
+	0xe8 call
+	0xe9 jmp
+	0x90 nop
+
+Appendix B.
+changing
+ e8 76 00 00 00
+to 
+ 00 00 00 00 00
+would cause segmentation fault.
+
+Appendix C.
+reference : intel-64-ia-32-manual
+
+Appendix D.
+	tweaking the entrance of program really works.
+	but what about the <_start> module?
+	gcc -o foo foo.c
+	readelf -h? foo see it's elf head.
+	or od -t x1 foo
+	assume 0x4005a0 <_start> 
+$ od -t x4 foo | head
+0000000 464c457f 00010102 00000000 00000000
+0000020 003e0002 00000001 004005a0 00000000  <-- 4005a0 <_start>
+0000040 00000040 00000000 00000dc8 00000000
+0000060 00000000 00380040 00400008 001b001e
+	replace 4005a0 with 4007c3 <show_secret>
+	that would work, but with some seg fault.
+	see some other book
+
+TOOLS used : 
+	binutils gcc vim xxd od hd ...

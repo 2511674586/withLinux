@@ -1,15 +1,14 @@
 # with Linux
 
-My Linux journal, including skills, little tricks, etc.  
+Linux journal, including skills, little tricks, etc.  
+And it is int the style of keyword-expanding.  
   
-*NOTE that*   
 Many contents are related to [Debian](https://www.debian.org).  
-However, many tricks also work well on Ubuntu, Mint, etc(variants of debian).  
-If you encountered any problem please issue me.  
-Any advice and issue will be appreciated.  
+However, many of them also work well on Ubuntu, Mint, etc.  
   
-[I](https://github.com/CDLuminate) will keep updating this.  
-Have fun.  :-)  
+Issue me if encountered any problem.   
+  
+keep updating.  
   
 ## Index : contents
 1. [Installing Linux](./install)  
@@ -30,11 +29,13 @@ Have fun.  :-)
   2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
+  2. [dnsmasq ... name server](./server/dnsmasq.txt)  
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
   2. [the c programming language](./lang/c/)  
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
+    2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
@@ -58,6 +59,11 @@ Have fun.  :-)
   3. [FreeBSD doc ... sometimes also helps a lot](https://www.freebsd.org/docs.html)  
 3. [External Manuals Tutorials](https://google.com)  
   1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
+4. [Reference](http://wikipedia.org)  
+  1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
+  2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
+  
+  
   
 ### Appendix B : Topics
 1. [git ... content tracker](http://www.git-scm.com/)  
