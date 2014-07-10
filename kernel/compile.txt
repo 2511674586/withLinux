@@ -1,0 +1,23 @@
+Compiling the kernel  
+
+1. 
+	tar -Jxv -f linux**.tar.xz -C /target
+	cd /target
+	make help
+
+2. `make config || make oldconfig || make allyesconfig || make menuconfig || make xconfig`
+	then it generats a .config file.
+
+3. `make -j N`  
+	N jobs co-work.
+
+4. `# make modules_install` or `make deb-pkg`  
+
+5. `# make install` or dpkg -i xx.deb 
+
+   *note* that,  
+	   menuconfig.dependency : libncurse5, libncurse5-dev  
+	   xconfig.dependency : qt4-?  
+   _NOTE_  
+   More info see README 
+

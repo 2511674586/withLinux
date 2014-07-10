@@ -1,0 +1,7 @@
+alacarte empties gnome menu is a bug existed long ago.
+on debian wheezy, gnome 3.4
+
+`cd ~/.config/menus/`
+`rm -rf *`
+press *ALT + F2*, type "r" to restart gnome-shell.
+

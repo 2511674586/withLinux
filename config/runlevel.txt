@@ -1,0 +1,5 @@
+package sysv-rc-conf
+works with sysv-init, systemd seems fine.
+
+/etc/inittab
+/etc/init.d

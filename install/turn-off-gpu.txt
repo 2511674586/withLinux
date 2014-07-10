@@ -1,0 +1,15 @@
+Turn off individual video card via *acpi-call*  
+
+frist, install those headers of kernel and other related pkgs.  
+then clone acpi-call from github:  
+`git clone git://github.com/mkottman/acpi_call.git`  
+
+cd to its DIR, then make, make install.  
+`depmod -a`  
+`modprobe acpi-call`  
+`bash ./sample/turn_off_gpu.sh`  
+
+*note*  
+it works with a GT525M(GF108) card. And a half electricity would be saved.  
+
+Another way is to use vgaswitchroo in debugfs (?) (I have not tested)  

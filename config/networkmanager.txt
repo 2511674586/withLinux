@@ -1,0 +1,7 @@
+on debian 7 wheezy
+
+`# vim /etc/NetworkManager/NetworkManager.conf`
+search for
+	[ifupdown]
+	managed=false
+change "false" to "ture"
