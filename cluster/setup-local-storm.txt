@@ -1,0 +1,186 @@
+Setting up local strom (Apache - storm)
+	Author : C.D.Luminate
+
+# last edit : 14/05/2014
+# edition   : 2
+#
+#	changelog
+#
+#	17/05/2014 added some details and references.
+#
+# Platform : debian wheezy, fedora 20(?)
+
+http://storm.incubator.apache.org
+http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/
+http://hantec.iteye.com/blog/1783754
+
+<Index>
+1.Zookeeper
+2.Dependencies storm
+3.Setup storm and configure
+4.Launch storm
+
+A.1 JAVA configure
+</Index>
+
+0. Networking setup.
+
+1. Zookeeper
+see http://http://zookeeper.apache.org/
+	1.1 download zookeeper, choosing a proper release.
+		here I chose [Release 3.3.6(stable)]
+	1.2 set up java
+		java JDK (>= java 6)
+		# apt-cache search openjdk
+			openjdk-6-jdk, (not jre) notice $(arch).
+	1.3 setup zookeeper
+		wget zookeeper.tar.gz
+		tar
+		cp -r zookeeper-3.3.6/ /usr/local/
+		ln -s /usr/local/zookeeper-3.3.6/ /usr/local/zookeeper
+
+		vim /etc/profile
+		+ export ZOOKEEPER_HOME="/usr/local/zookeeper"
+		+ export PATH=$PATH:$ZOOKEEPER/bin
+
+		cp /usr/local/zookeeper/conf/zoo_sample.cfg /usr/local/zookeeper/conf/zoo.cfg
+		/* use the default for a test, or modify it as needed. */
+
+		mkdir /tmp/zookeeper
+		/* if not, running "zkServer.sh start" will return false 'cuz [ -e /tmp/zookeeper ] == false */
+		/* in fact, if 'zkServer.sh failed, it might have mkdir, so run again would be fine. */
+
+		mkdir /var/log/zookeeper
+		
+		then the setup of [zookeeper] is done.
+
+		* log issue of zookeeper (http://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#sc_maintenance)
+	1.4 verifying zookeeper
+		telnet/netcat
+		echo ruok | nc zkServer 2181 -> are you ok?
+		echo stat | nc zkServer 2181 -> stat
+		echo conf | nc zkServer 2181 -> ..
+		
+		should see zookeeper official docs.
+
+2. Dependency storm
+see http://storm.incubator.apache.org/documentation/Setting-up-a-Storm-cluster.html
+	2.1 storm 0.8.1 dependency
+		2.1.1 ZeroMQ 2.2.0
+			wget 
+			tar 
+			cd ./zeromq-2.2.0
+			./confugure
+			make
+			make install
+			done setup [zeromq]
+			/* may need packages like "uuid-dev", just install them as told. */
+		2.1.2 JZMQ
+			java binding of ZeroMQ
+			git clone jzmq
+			cd
+			./autogen.sh
+			./configure
+			make
+			make install
+			? I passed this.
+		2.1.3 java 6
+			as above.
+			openjdk and sun-jdk both work well.
+		2.1.4 unzip
+			apt-cache search unzip
+			install
+		2.1.5 python 2.7
+			apt-cache search python2
+			install
+		done.
+	2.2 storm 0.9 dependency
+		2.2.1 java 6
+		2.2.2 python2.6.6
+			python2.7 works too.
+3. setup storm and confugure
+	first, you may need to add a user (like storm) and add it to a group (like storm).
+	3.1 setup
+		wget storm
+		unzip
+		mv storm-0.8.1/ /usr/local/storm
+		ln -s /usr/local/storm-0.8.1/ /usr/local/storm
+		/* make symlink so that it is convenient to manage different versions */
+
+		vim /etc/profile
+		+ export STORM_HOME="/usr/local/storm"
+		+ export PATH=$PATH:$STORM_HOME/bin
+	3.2 configure
+		vim ?/storm/conf/storm.yaml
+		+ storm.zookeeper.servers:
+		+   - "127.0.0.1"
+		+ storm.zookeeper.port:
+		+   2181
+		+ nimbus.host:
+		+   "127.0.0.1"
+		+ storm.local.dir:
+		+   "/tmp/storm"
+		+ supervisor.slots.ports:
+		+   - 6700
+		+   - 6701
+		+   - 6702
+		+   - 6703
+		p.s. "storm.local.dir" is the working directory.
+	3.3 hint
+		analyzer of storm.yaml is tricky.
+		keep an eye on storm's log and screen printing.
+		first time i run storm, it said many " at XXX " and storm just corrupted. 
+		looking up ?/storm/logs/nimbus.log, search pattern "ERROR", it seems like some sort of syntax error of yaml.
+		re-write the storm.yaml with nice format, it breath again.
+
+
+4. Launch storm
+	4.1 start zookeeper
+		# /usr/local/zookeeper/bin/zkServer.sh start
+	4.2 start storm
+		# storm nimbus --> start the master node.
+		# storm supervisor --> start the slave node.
+		# storm ui --> start monitoring.
+			/* storm ui should launch at the nimbus machine */
+		to test the 'storm ui'
+			iceweasel nimbus-addr:8080
+
+	4.3 misc
+		storm 0.8.1 + openjdk-6  [ok]
+		storm 0.8.1 + jdk1.7.0_55 [ok]
+		storm 0.9.0.1 + openjdk-6 [ok]
+
+STORM local done.
+
+Appendix A. JAVA issue
+	On debian platform the packege openjdk-6-jdk seems has not done all.
+	vim /etc/profile
+	+ export JAVA_HOME="/usr/lib/jvm/java-6-openjdk-i386"
+	or something like sun-jdk
+	+ export JAVA_HOME="/usr/local/jdk1.7.0_55"
+	hint:
+		if you can't sure where the java_home is,
+		locate jdk
+		OR dpkg -L openjdk-6-jdk
+		etc.
+Appendix B. debug hint
+	1. # storm nimbus
+		then prints lots of "at xxx "
+		--> 
+		check storm.yaml
+	2. iceweasel nimbus:8080
+		"internal server error"
+		-->
+		check if zkServer started.
+		check if storm nimbus started.
+
+Appendix C. additional info
+	1.nimbus
+		the master node of cluster, like Hadoop::JobTracker.
+	2.supervisor
+		the worker node. like hadoop::TaskTraker.
+	3.storm relies on zookeeper cluster.
+		coordination.
+
+MORE INFO
+http://www.michael-noll.com/blog/2012/10/16/understanding-the-parallelism-of-a-storm-topology/

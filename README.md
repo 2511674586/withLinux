@@ -49,8 +49,10 @@ keep updating.
     1. [install docker.io on debian](./virt/docker/docker.install.txt)  
     2. [sample run](./virt/docker/dockerizing.txt)  
     3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
-10. [Kernel](./kernel)  
+10. [Linux Kernel](./kernel)  
   1. [Compile ... ](./kernel/compile.txt)  
+11. [Cluster use](./cluster)  
+  1. [storm local setup ... apache indicator, storm](./cluster/setup-local-storm.txt)  
   
 ### Appendix A : External links
 1. [Need help ? the anwser may be here](https://google.com)[ or here](http://173.194.72.31)  
