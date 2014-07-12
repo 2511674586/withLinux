@@ -1,0 +1,15 @@
+1. scheduler, cfq is designed for rotational disks.
+	/sys/block/sda/queue/scheduler
+	deadline
+
+2. tmpfs, reduce write into ssd.
+	vim fstab
+	tmpfs /tmp tmpfs rw,noatime,nosuid 0 0
+
+3. mount
+	parts that is on ssd.
+	UUID=... / ext4 defaults,discard,noatime,commit=300 0 0
+
+reference:
+	https://wiki.archlinux.org/index.php/Solid_State_Drives
+	https://wiki.debian.org/SSDOptimization

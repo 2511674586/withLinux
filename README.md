@@ -1,10 +1,10 @@
 # with Linux
 
-Linux journal, including skills, little tricks, etc.  
-And it is int the style of keyword-expanding.  
+Linux journal, including skills, little tricks, etc,  
+which is in the style of keyword-expanding.  
   
 Many contents are related to [Debian](https://www.debian.org).  
-However, many of them also work well on Ubuntu, Mint, etc.  
+Many of them also work well on Ubuntu, Mint, etc.  
   
 Issue me if encountered any problem.   
   
@@ -17,6 +17,7 @@ keep updating.
     1. [Graphic card](./install/dri/graphic_card_driver.txt)  
     2. [Wireless network card](./install/dri/wireless.txt)  
   3. [Turn off graphic card](./install/turn-off-gpu.txt)  
+  4. [Solid State Drive ... tips](./install/ssd.txt)  
 2. [Basic tools](./basic_tools)  
   1. [netcat ... some usages](./basic_tools/netcat.txt)  
   2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
@@ -77,10 +78,16 @@ keep updating.
 1. [git ... content tracker](http://www.git-scm.com/)  
   1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
   2. [a git tutor ... git immersion](http://gitimmersion.com/)  
-
+2. Ways of file sharing (via network)  
+  1. nc, as said above.  
+  2. scp, ssh.  
+  3. samba server.  
+  4. http server, like apache2.  
+  5. ftp server, like vsftpd.  
+  
 ## LICENSE
 The MIT LICENSE.  
-
+  
 ---
-千里之行，始于足下。
+千里之行，始于足下。  
 This repo was started on 2014/06/28 by cdluminate.  
