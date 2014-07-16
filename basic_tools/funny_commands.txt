@@ -1,0 +1,38 @@
+1. telnet towel.blinkenlights.nl
+	An ascii film
+
+2. cal 9 1752
+    Odd month ? No, look up for history.
+
+3. sl
+    a text train
+
+4. fortune
+    bsd game
+
+5. rev
+    revserse print
+
+6. factor
+    $ factor 12
+    12: 2 2 3
+
+8. cowsay, xcowsay, cowthink
+
+9. cmatrix
+
+10. bb
+
+11. figlet, toilet
+toilet -f mono12 -F metal message
+
+12. yes
+
+13. oneko
+
+14. fork bomb
+    :(){ :|:& }:
+
+15. aafire
+
+16. apt

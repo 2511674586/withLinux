@@ -21,6 +21,7 @@ keep updating.
 2. [Basic tools](./basic_tools)  
   1. [netcat ... some usages](./basic_tools/netcat.txt)  
   2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
+  3. [(OT) funny commands](./basic_tools/funny_commands.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  
