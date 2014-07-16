@@ -111,6 +111,10 @@
 	$ echo {A..Z},{a..z}
 	$ echo {{A..Z}{a..z}}
 
+	$ rm foo.{1,2,3,4}
+	it would remove foo.1 foo.2 foo.2 and foo.4
+	$ mkdir ./{L,l}{I,i}{N,n}{U,u}{X,x}
+	see what will happen. 32 directories will be made.
 10. usage of "`" and "$()"
 	etc.
 	for $VAR in ...
@@ -119,8 +123,10 @@
 	Ctrl^W , delete a word
 	Ctrl^U , delete whole line
 
+
 See
 	Bash manual
 	Book : Unix Powerful tools
 
 cdluminate
+	2014/07/15 add content 10, 11

@@ -1,0 +1,12 @@
+google earth depends on some i386 packages.
+
+For wheezy amd64 architecture:
+`# dpkg  --add-architecture i386`  // set up multi-arch  
+`apt-get update`  
+
+`apt-get install ia32-libs`  
+download the .deb pkg from [earth.google.com]()  
+`dpkg -i xx.deb `  
+
+P.S.
+package "ia32-libs" was removed on jessie (debian 8).

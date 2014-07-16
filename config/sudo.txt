@@ -1,0 +1,3 @@
+add user to sudo group:
+	# adduser USER sudo
+or modify /etc/group manualy

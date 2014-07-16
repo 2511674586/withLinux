@@ -1,0 +1,9 @@
+reference :
+	archwiki
+	*wiki
+
+files :
+	~/.bashrc
+	~/.profile
+	~/.bash_logout
+	~/.bash_history

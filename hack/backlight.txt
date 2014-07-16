@@ -1,0 +1,17 @@
+Adjust backlight brightness:
+
+`ls /sys/class/backlight/acpi_video?/`  
+It is the file named "brightness"
+Meanwhile, other files are good reference.
+
+To change brightness, just
+> echo BRIGHTNESS > brightness
+for those pc which has 2 video cards, 
+you need to choose one from acpi_video0 and acpi_video1 etc...
+if it doesn't work, that infers your current display is not via this card.
+
+hint
+$ sudo echo N > file
+a failure returned.
+
+dir "acpi_video?" is a symbol link to /sys/devices/...  

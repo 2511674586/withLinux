@@ -1,0 +1,12 @@
+* how to make my tty keep silent (no beep)  
+	1.silent vim  
+	append "set vb t_vb=" to .vimrc  
+	2.silent tty  
+	`setterm -blength 0`  
+	3. remove module
+	modprobe -r pcspkr
+
+P.S.
+	/etc/modprobe.d
+	man modprobe.d
+	blacklist pcspkr

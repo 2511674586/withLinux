@@ -1,0 +1,18 @@
+for amd64 debian:
+    1. download the *.deb package, via official site.
+    	OR apt install steam after step 2.
+
+    2. # dpkg --add-architecture i386
+       this step is to add a  **multi-arch** support.
+       even if you downloaded steam_amd64.deb, i386 dependencies is still needed.
+       # apt-get update
+
+    3. # dpkg -i steam.deb
+       dependencies would be fixed automaticaly.
+
+For i386 debian,
+    just :
+        1. # apt install steam
+        steam currently exists in jessie::i386 section.
+
+[1] to inspect your architecture , # arch

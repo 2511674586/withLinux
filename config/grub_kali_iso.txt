@@ -1,0 +1,19 @@
+for example how to directly boot an _kali-linux-1.0.5.iso_ via grub2 ?  
+
+add those into /etc/grub.d/customXX  
+    menuentry "Kali Linux 1.0 amd64" {  
+            iso="/kali-linux-1.0-amd64.iso" 
+            bootoptions="findiso=$iso boot=live noconfig=sudo username=root hostname=kali quiet splash"  
+            search --set -f $iso
+            loopback loop $iso
+            linux (loop)/live/vmlinuz $bootoptions
+            initrd (loop)/live/initrd.img
+    }  
+    menuentry "Kali Linux 1.0 amd64 (forensic)" {  
+            iso="/kali-linux-1.0-amd64.iso"
+            bootoptions="findiso=$iso boot=live noconfig=sudo username=root hostname=kali noswap noautomount"
+            search --set -f $iso
+            loopback loop $iso
+            linux (loop)/live/vmlinuz $bootoptions
+            initrd (loop)/live/initrd.img
+    }  

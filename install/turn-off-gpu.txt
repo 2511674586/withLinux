@@ -9,7 +9,11 @@ cd to its DIR, then make, make install.
 `modprobe acpi-call`  
 `bash ./sample/turn_off_gpu.sh`  
 
+blacklist nouveau (NVIDIA) in /etc/modprobe.d/
+see man modprobe.d
+
 *note*  
 it works with a GT525M(GF108) card. And a half electricity would be saved.  
 
 Another way is to use vgaswitchroo in debugfs (?) (I have not tested)  
+

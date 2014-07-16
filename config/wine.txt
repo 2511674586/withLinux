@@ -1,0 +1,8 @@
+wine on i386 is fine.
+
+For amd64 architecture :
+wheezy:
+# dpkg  --add-architecture i386  // set up multi-arch  
+apt-get update
+apt-get install wine:i386
+

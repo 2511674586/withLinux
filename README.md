@@ -23,6 +23,7 @@ keep updating.
   2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
+  2. [vpn ... set up on debian](./internet/vpn.txt)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
@@ -33,6 +34,15 @@ keep updating.
   3. [Config runlevels (sysvinit) ...](./config/runlevel.txt)  
   4. [Font in tty ...](./config/tty-font.txt)  
   5. [Networkmanager ... can't change network settings?](./config/networkmanager.txt)  
+  6. [bashrc ...](./config/bashrc.txt)  
+  7. [Google earth ... install on amd64](./config/gearth.txt)  
+  8. [grub ... boot with kali iso image](./config/grub_kali_iso.txt)  
+  9. [time ... hardware time](./config/hardwaretime.txt)  
+  10. [Silence ... no beep from machine](./config/silent_beep.txt)  
+  11. [Smart ... smart attributes](./config/smart.txt)  
+  12. [Steam ... install steam on amd64](./config/steam.txt)  
+  13. [Sudo ...](./config/sudo.txt)  
+  14. [Wine ... on amd64](./config/wine.txt)  
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
   2. [dnsmasq ... name server](./server/dnsmasq.txt)  
@@ -45,6 +55,7 @@ keep updating.
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
+  3. [backlight](./hack/backlight.txt)  
 9. [Virtualization](./virt)  
   1. [docker.io ... linux container](./virt/docker/)  
     1. [install docker.io on debian](./virt/docker/docker.install.txt)  
@@ -84,6 +95,10 @@ keep updating.
   3. samba server.  
   4. http server, like apache2.  
   5. ftp server, like vsftpd.  
+3. Log Analysis  
+  1. awk programming language  
+  2. apt-get search visitors  
+  3. ?  
   
 ## LICENSE
 The MIT LICENSE.  
