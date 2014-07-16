@@ -136,3 +136,7 @@ $ od -t x4 foo | head
 
 TOOLS used : 
 	binutils gcc vim xxd od hd ...
+
+HINT:
+	if you just want to look the strings(messages) in target file,
+	just $ strings FILENAME
