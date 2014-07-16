@@ -64,7 +64,7 @@ keep updating.
 10. [Linux Kernel](./kernel)  
   1. [Compile ... ](./kernel/compile.txt)  
 11. [Cluster use](./cluster)  
-  1. [storm local setup ... apache indicator, storm](./cluster/setup-local-storm.txt)  
+  1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
   
 ### Appendix A : External links
 1. [Need help ? the anwser may be here](https://google.com)[ or here](http://173.194.72.31)  

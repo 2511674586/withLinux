@@ -13,3 +13,15 @@
 reference:
 	https://wiki.archlinux.org/index.php/Solid_State_Drives
 	https://wiki.debian.org/SSDOptimization
+
+hint:
+	to identify SSDs,
+	find /sys | grep rotational
+	then
+	find /sys | grep rotational | xargs cat
+
+	if rotational = 0 then
+		it is ssd
+	else if rotational = 1 then
+		it is not ssd, but a hard disk
+	fi
