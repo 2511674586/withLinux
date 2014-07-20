@@ -25,6 +25,7 @@ keep updating.
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  
+  3. [ping ... no reply to icmp ping](./internet/ping.txt)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
@@ -44,6 +45,8 @@ keep updating.
   12. [Steam ... install steam on amd64](./config/steam.txt)  
   13. [Sudo ...](./config/sudo.txt)  
   14. [Wine ... on amd64](./config/wine.txt)  
+  15. [dpkg ... backup and restore package list](./config/pkglist.txt)  
+  16. [font ... install font](./config/font.txt)  
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
   2. [dnsmasq ... name server](./server/dnsmasq.txt)  
@@ -83,7 +86,9 @@ keep updating.
 4. [Reference](http://wikipedia.org)  
   1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
   2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
-  
+5. HTTP status code reference  
+  1. rfc2616  
+  2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
   
   
 ### Appendix B : Topics

@@ -1,0 +1,14 @@
+For global installation:
+	sudo cp FONT /usr/share/fonts/
+	sudo fc-cache --> rebuild font cache
+
+For user's installation:
+	cp FONT ~/.fonts/
+	for cp FONT ~/.local/share/fonts/
+	sudo fc-cache
+
+Lookup Fonts avaliable:
+	fc-list
+
+Another way installing fonts,
+	via graphical tools.

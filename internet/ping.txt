@@ -1,0 +1,9 @@
+stop replying icmp ping
+
+1. via sysctl
+	# sysctl -w net.ipv4.icmp_echo_ignore_all=1
+	to restore :
+	#...=0
+
+2. iptables
+	see wiki
