@@ -51,6 +51,8 @@ Issue me if encountered any problem. keep updating.
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
+    2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
+    3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
   2. [the c programming language](./lang/c/)  
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
     2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  

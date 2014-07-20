@@ -1,0 +1,75 @@
+\documentclass{article}
+% use Cantarell (Gnome) as default English font
+\usepackage[default]{cantarell}
+% CJK utf8
+\usepackage{CJKutf8}
+% CJKulem : such as uline
+\usepackage{CJKulem}
+
+\begin{titlepage}
+\title{title标题}
+\author{C.D.Luminate \and author2\\作者author3}
+\date{date日期}
+\end{titlepage}
+
+% ----start document----
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+% generate the title page
+\maketitle
+% \newpage
+\fussy
+% \bf bold font.
+Introduction to $A_x$ o to \LaTeX \LaTeXe\\
+% Generate a table of contents, namely index.
+\tableofcontents
+
+\hrulefill\\
+this is latex file.
+
+\section{Section 1}
+\noindent noindent, 无缩进\\
+\indent indent, 缩进\\
+\\
+\uline{uline 下划线}\\
+\\
+\hspace*{1cm}关于hspace：\\
+	hspace可以生成多个空格，当在行首使用时需要用\\
+	\hspace{1cm} $\backslash$ hspace*\{CONTENT\}\\
+	而不是\\
+	\hspace{1cm} $\backslash$ hspace\{CONTENT\}\\
+\\
+对于生成单个空格，可以用反斜杠+逗号生成空\,格\\
+\\
+abcdABCF English test\\
+你好 中文测试\\
+
+\subsection{Subsection in section 1}
+asdfasdf内容\footnote{this is footnote}
+
+\subsection{Another subsection in section 1}
+content of A.2\\
+\hspace{2cm}another message of A.2\\
+thanks\\
+谢谢\\
+left\hfill\ centre\hfill right
+
+% new page for appendix
+\newpage
+\appendix
+\section{Appendix A: Compiling this tex file}
+Let's assume you had a full texlive install, (on debian it is texlive-full).\\
+\indent \$ pdflatex foo.tex -> foo.pdf\\
+\indent \$ latex foo.tex -> foo.dvi\\
+HINT:\\
+Invoking pdftex will fail to compile.\\
+It is worthy have a look at these programs :\\
+\indent ps2*\\
+\indent dvi*\\
+\indent pdf*\\
+
+
+\end{CJK}
+\end{document}
+% ----end document----

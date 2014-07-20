@@ -1,2 +1,7 @@
-autoinst(1)
-in package texlive-font-utils
+Installing OpenType fonts in latex:
+	autoinst(1)
+	which is in the package texlive-font-utils
+
+See what font can be used out of box:
+	cd /usr/share/texlive-doc/fonts/
+	ls
