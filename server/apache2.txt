@@ -1,0 +1,67 @@
+Launch a simple service via apache
+C.D.Luminate
+https://github.com/cdluminate/withlinux
+
+---START---
+
+1. install apache2
+	sudo apt install apache2
+	then apache2 will autostart and set to start after boot.
+	sysv-rc-conf, or systemctl disable ... etc.
+
+2. configure
+	cd /etc/apache2
+
+```
+apache2.conf -> the main configure file.
+`--ports.conf -> conf about ports.
+```
+
+	consider to,
+	at port 8080, serve a file server rooted at /some/dir
+		-> default is /var/www for debian.
+
+	2.1 [optional] config apache2.conf
+		add this , or Include a file contained it, such as mysrvdir.conf 
+```
+<Directory /some/dir>
+	Options None
+	AllowOverride None
+	Require all granted
+</Directory>
+```
+		add ServerName such as
+		> ServerName localhost
+
+	2.2 config ports.conf
+		add 
+			Listen 8080
+		or sth like
+			Listen [IPv6_addr]:8080
+			Listen 192.168.0.1:8080 -> to bind a ip addr
+			Listen *:8080 -> wildcard is supported
+		and comment other ports.
+
+	2.3 add a file to sites-enabled/
+		file contents
+```
+<VirtualHost *:8080>
+
+	ServerAdmin root@localhost
+	DocumentRoot /some/dir
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+```
+
+3. bind mount
+	mount --bind /dir/of/files/to/serve /some/dir
+
+4. start apache
+	apachectl start	
+
+REFERENCE:
+	httpd.apache.org :: Doc
+	{debian, arch, gentoo, centos}-wiki

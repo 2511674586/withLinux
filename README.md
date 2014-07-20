@@ -1,14 +1,10 @@
-# with Linux
+# With Linux - Brief HOWTO?
 
-Linux journal, including skills, little tricks, etc,  
-which is in the style of keyword-expanding.  
+Linux tricks, hints, etc, most of which are in the style of keyword-expanding.  
   
-Many contents are related to [Debian](https://www.debian.org).  
-Many of them also work well on Ubuntu, Mint, etc.  
+They are based on [Debian](https://www.debian.org). Some may work on Ubuntu, Mint etc.  
   
-Issue me if encountered any problem.   
-  
-keep updating.  
+Issue me if encountered any problem. keep updating.  
   
 ## Index : contents
 1. [Installing Linux](./install)  
@@ -50,6 +46,7 @@ keep updating.
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
   2. [dnsmasq ... name server](./server/dnsmasq.txt)  
+  3. [apache2 ... simple setup](./server/apache2.txt)  
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
