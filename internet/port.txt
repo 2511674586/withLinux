@@ -1,6 +1,18 @@
+* scan my ports and connections
+	nmap -4 127.0.0.1
+	nmap -6 ::
+
+	netstat -nltp (iproute :: netstat)
+	ss -apt (iproute2 :: ss)
+
 * To see what is running on port 80:
 	# /sbin/fuser 80/tcp
-	OR # sudo lsof -i :80
+	# sudo lsof -i :80
+	both works.
+
+* related configuration
+	systemctl --disable
+	sysv-rc-conf
 
 SEE man fuser
     man lsof
