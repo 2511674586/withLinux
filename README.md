@@ -22,6 +22,7 @@ Issue me if encountered any problem. keep updating.
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  
   3. [ping ... no reply to icmp ping](./internet/ping.txt)  
+  4. [port ... what is running on a port](./internet/port.txt)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
@@ -96,7 +97,7 @@ Issue me if encountered any problem. keep updating.
   1. nc, as said above.  
   2. scp, ssh.  
   3. samba server.  
-  4. http server, like apache2.  
+  4. http server, like apache2. OR [python](./topic/python.txt)   
   5. ftp server, like vsftpd.  
 3. Log Analysis  
   1. awk programming language  

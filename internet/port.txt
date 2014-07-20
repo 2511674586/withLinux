@@ -1,0 +1,6 @@
+* To see what is running on port 80:
+	# /sbin/fuser 80/tcp
+	OR # sudo lsof -i :80
+
+SEE man fuser
+    man lsof

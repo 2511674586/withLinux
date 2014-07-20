@@ -1,0 +1,10 @@
+python http server:
+
+First, cd the dir to serve.
+
+Then,	
+For python 2.*
+	python2 -m SimpleHTTPServer
+
+For python 3.*
+	python3 -m http.server

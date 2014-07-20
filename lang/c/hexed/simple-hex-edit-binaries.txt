@@ -22,17 +22,20 @@ crack a C program you wrote.
 1.
 2.1 Compile the original bin
 	$ gcc -Wall -o foo foo.c
+	**NOTE** that, it is not stripped, see man strip
 2.2 objdump and analyze
 	$ objdump -d -M intel foo | less
 2.3 hex-edit with vim plus xxd
 	to open a binary file :
 		$ vim -b foo
+		where '-b' means binary mode to vim.
 	then invoke xxd under vim :
 		vim > :%!xxd
 	modify it as you want, then recover :
 		vim > :%!xxd -r
 	save and exit :
 		vim > :wq
+	see man xxd
 2.3.1.Modify the entrance of program.
 	Example foo'objdump
 	the <main>'s address:
@@ -135,7 +138,7 @@ $ od -t x4 foo | head
 	see some other book
 
 TOOLS used : 
-	binutils gcc vim xxd od hd ...
+	binutils gcc vim xxd od ...
 
 HINT:
 	if you just want to look the strings(messages) in target file,
