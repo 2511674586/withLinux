@@ -29,11 +29,12 @@ Issue me if encountered any problem. keep updating.
   2. [vpn ... set up on debian](./internet/vpn.txt)  
   3. [ping ... no reply to icmp ping](./internet/ping.txt)  
   4. [port ... what is running on a port](./internet/port.txt)  
+  5. ifup and ifdown setting ... see interfaces(5)
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
     2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
-    3. [X11 default display manager ... identify](/etc/X11/default-display-manager)  
+    3. X11 default display manager ... /etc/X11/default-display-manager  
 5. [System management](./config)  
   1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
   2. [grub2 ... location of config files](./config/grub_config_file_location.txt)  
