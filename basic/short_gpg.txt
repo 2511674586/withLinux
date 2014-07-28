@@ -1,0 +1,24 @@
+short GnuPG use
+Ref : https://www.gnupg.org, see docs
+
+1. generate the key pair
+	gpg --gen-key
+	hint :
+		if more random source is needed, you can $(du /) and etc.
+
+2. export keys
+	public key
+		gpg -o filename --export keyID
+	private key
+		gpg -o filename --export-secret-keys keyID
+	import keys
+		gpg --import filename
+
+3. encryption
+	gpg -e
+	gpg -d
+
+4. symmetric encryption
+	gpg -o filename -c
+
+For more, see GnuPG doc

@@ -1,0 +1,30 @@
+# http://www.ibm.com/developerworks/cn/linux/1311_caoyq_linuxdelete/index.html
+
+remove data safely
+
+2. inner working of safe tool
+	overwriting reduces the chance of recovering from disk.
+	more times of overwriting, less chance for recovering.
+	overwirte : bit-by-bit overwrite, jumping overwirte, random overwrite
+
+3.1 using 'shred'
+	coreutils :: shred
+	man shred.
+
+	e.g.
+		shred -u <file1> [<file2>] [<file3>] ...
+		shred /dev/hda0 
+
+3.2 using wipe
+	http://www.cs.auckland.ac.nz/~pgut001/pubs/secure_del.html 
+
+	e.g.
+	wipe file.file
+	wipe /dev/sda1
+	wipe -r /dir
+
+3.3 secure-delete
+	srm	-> rm file
+	sdmem	-> rm ram footprint
+	sfill	-> rm free space
+	sswap	-> rm swap footprint

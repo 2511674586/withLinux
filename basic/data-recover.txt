@@ -1,0 +1,13 @@
+see http://www.ibm.com/developerworks/cn/linux/1312_caoyq_linuxrestore/index.html
+
+data recovery
+
+some undelete tools under linux:
+	debugfs
+	ext3grep
+	extundelete
+		http://extundelete.sourceforce.net
+	testdisk & photorec
+		cgsecurity.org
+
+Usage see their doc
