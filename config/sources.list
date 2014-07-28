@@ -1,0 +1,26 @@
+# To add an CD-ROM, use apt-cdrom
+
+# --- LOCAL jessie.apt source ---
+deb file:///mnt/hdd/home/jessie.apt/ftp.cn.debian.org/debian jessie main contrib non-free
+
+# --- Binary ---
+# * common
+deb http://ftp.cn.debian.org/debian jessie main contrib non-free
+# deb http://ftp.us.debian.org/debian jessie main contrib non-free
+# deb http://ftp.ch.debian.org/debian jessie main contrib non-free
+# deb http://ftp.uk.debian.org/debian jessie main contrib non-free
+# * backport, newer software, none for testing
+# deb http://ftp.cn.debian.org/debian jessie-proposed-updates main non-free contrib
+
+# --- Source ---
+# * no source for non-free section
+deb-src http://ftp.cn.debian.org/debian jessie main
+# deb-src http://ftp.cn.debian.org/debian jessie-proposed-updates main
+
+# --- Security Binary & Source ---
+# * no security update for testing.
+#   * security
+# deb http://security.debian.org/ jessie/updates main
+#   * security mirror
+# deb http://ftp.cn.debian.org/debian-security jessie/updates main contrib non-free
+# deb-src http://ftp.cn.debian.org/debian-security jessie/updates main

@@ -1,0 +1,7 @@
+some packages related to efi/uefi
+	grub-efi
+	grub-efi-ia32
+	grub-efi-amd64
+	efibootmgr
+
+see GNU :: grub :: doc

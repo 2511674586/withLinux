@@ -1,0 +1,16 @@
+Control systemd via : systemctl(1)
+
+# some threads about systemd in debian lists
+https://lists.debian.org/debian-user/2014/03/threads.html
+https://lists.debian.org/debian-user/2014/07/msg00180.html
+
+# debian debate about init systems
+https://wiki.debian.org/Debate/initsystem
+https://wiki.debian.org/Debate/initsystem/systemd
+
+# wiki
+https://wiki.debian.org/systemd
+https://wiki.archlinux.org/index.php/Systemd
+
+hint:how to check kernel command line parameters/options ?
+# cat /proc/cmdline
