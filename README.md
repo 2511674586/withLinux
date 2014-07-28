@@ -14,10 +14,11 @@ Issue me if encountered any problem. keep updating.
     2. [Wireless network card](./install/dri/wireless.txt)  
   3. [Turn off graphic card](./install/turn-off-gpu.txt)  
   4. [Solid State Drive ... tips](./install/ssd.txt)  
-2. [Basic tools](./basic_tools)  
-  1. [netcat ... some usages](./basic_tools/netcat.txt)  
-  2. [bash ... some tricks](./basic_tools/bash_tricks.txt)  
-  3. [(OT) funny commands](./basic_tools/funny_commands.txt)  
+2. [Basic tools](./basic)  
+  1. [netcat ... some usages](./basic/netcat.txt)  
+  2. [bash ... some tricks](./basic/bash_tricks.txt)  
+  3. [(OT) funny commands](./basic/funny_commands.txt)  
+  4. [linux frozen ... handle with SysRq](./basic/sysrq.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  
@@ -27,9 +28,10 @@ Issue me if encountered any problem. keep updating.
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
     2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
+    3. [X11 default display manager ... identify](file:///etc/X11/default-display-manager)  
 5. [System management](./config)  
   1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
-  2. [grub ... where is its config files](./config/grub_config_file_location.txt)  
+  2. [grub2 ... location of config files](./config/grub_config_file_location.txt)  
   3. [Config runlevels (sysvinit) ...](./config/runlevel.txt)  
   4. [Font in tty ...](./config/tty-font.txt)  
   5. [Networkmanager ... can't change network settings?](./config/networkmanager.txt)  
@@ -71,45 +73,45 @@ Issue me if encountered any problem. keep updating.
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
   
-### Appendix A : External links
-1. [Need help ? the anwser may be here](https://google.com)[ or here](http://173.194.72.31)  
+### Appendix A : Topics
+1. [Need help ? do some search first](http://173.194.72.31)  
   1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
-  2. [Debian wiki ... you know](https://wiki.debian.org)  
-  3. [Arch wiki ... powerful](https://wiki.archlinux.org)  
-  4. [Gentoo wiki ... you know](https://wiki.gentoo.org/wiki/Main_Page)  
+  2. [Debian wiki ... ](https://wiki.debian.org)  
+  3. [Arch wiki ... ](https://wiki.archlinux.org)  
+  4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
   5. [series of stackoverflow](http://stackoverflow.com)  
-2. [Lots of docs out there](https://google.com)  
+2. Docs out there  
   1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
   2. [Gentoo doc ...](http://www.gentoo.org/doc)  
-  3. [FreeBSD doc ... sometimes also helps a lot](https://www.freebsd.org/docs.html)  
-3. [External Manuals Tutorials](https://google.com)  
+  3. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
+3. Manuals & Tutorials  
   1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
-4. [Reference](http://wikipedia.org)  
+4. DNS   
   1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
   2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
 5. HTTP status code reference  
   1. rfc2616  
   2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
-  
-  
-### Appendix B : Topics
-1. [git ... content tracker](http://www.git-scm.com/)  
+6. [git ... content tracker](http://www.git-scm.com/)  
   1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
   2. [a git tutor ... git immersion](http://gitimmersion.com/)  
-2. Ways of file sharing (via network)  
-  1. nc, as said above.  
+7. Ways of file sharing (via network)  
+  1. [nc](./basic/netcat.txt)  
   2. scp, ssh.  
   3. samba server.  
   4. http server, like apache2. OR [python](./topic/python.txt)   
   5. ftp server, like vsftpd.  
-3. Log Analysis  
+  6. nfs  
+8. Log Analysis  
   1. awk programming language  
-  2. apt-get search visitors  
-  3. ?  
+  2. apt-get search {visitors,awstat}  
+9. Search engine
+  1. google  
+  2. shodan  
   
 ## LICENSE
 The MIT LICENSE.  
   
 ---
 千里之行，始于足下。  
-This repo was started on 2014/06/28 by cdluminate.  
+Started on 2014/06/28 by C.D.Luminate  

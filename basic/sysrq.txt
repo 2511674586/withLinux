@@ -1,0 +1,15 @@
+see kernel document :: sysrq
+
+Look at this key combination:
+
+	Ctrl + Alt + PrntScr(SysRq) + { [A-Z] }
+
+E : Send SIGTERM to process {ALL}\{init}
+I : Send SIGKILL to process {ALL}\{init}
+S : Emergency sync all mounted file systems
+U : Remount all mounted, read-only
+B : Immediately reboot
+
+if it doesn't work, check the bit switch :
+	sudo sysctl -a | grep 'kernel.sysrq'
+tweak it to 1 to enable all sysrq functions.
