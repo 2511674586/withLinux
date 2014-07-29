@@ -1,0 +1,36 @@
+* aircrack, aircrack-ng
+	cracking WEP, WPA, WPA2 wifi.
+* dsniff -> Various tools to sniff network traffic
+	e.g. arpspoof
+* disk crypt
+	cryptmount
+	cryptsetup
+* netdiscover
+	discover other computer in local network.
+* network traffic
+	tcpflow
+	tcpdump
+	wireshark
+* trace route
+	traceroute
+	traceroute6
+	mtr
+* port scan
+	nmap/zenmap
+* sqlninja
+* john the ripper
+* guymayer
+	disk image utility
+* chkrootkit
+* metasploit
+* armitage
+* p0f
+	passively identify remote systems
+* DDMS & apktool
+	for android
+* vuln-scan
+	nessus
+* wireless connection
+	wicd
+
+# wireless DoS attack -> mdk3

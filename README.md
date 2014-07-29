@@ -61,6 +61,7 @@ Issue me if encountered any problem. keep updating.
   2. [dnsmasq ... local cache name server](./server/dnsmasq.txt)  
   3. [apache2 ... simple setup](./server/apache2.txt)  
   4. [bind9 (debian)... DNS (cache) - config file](./server/named.conf.options)  
+  5. hostapd ... [external link](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
@@ -83,6 +84,8 @@ Issue me if encountered any problem. keep updating.
   1. [Compile ... ](./kernel/compile.txt)  
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
+12. [kali](./kali)  
+  1. [some tools](./kali/tools.txt)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
