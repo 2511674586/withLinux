@@ -1,0 +1,42 @@
+Background:
+	there are 2 linux machines, 
+	one with wlan0 and eth0, witch serves as server;
+	another with eth0, witch serves as client.
+
+HINT:
+	be care of NetworkManager, witch may change network settings automatically (deletes matter set by hand).
+
+Topology:
+[home gateway :: access point]
+	|
+	v
+	[server :: wlan0]
+	  |
+	  [server :: forward]
+	    |
+	    [server :: eth0]
+	    	|
+		v
+		[client :: eth0]
+
+HOWTO share the net of server::wlan0 with the client with client::eth0 ?
+(ipv4 solution)
+* make server and client in the same subnet
+	e.g.
+		server# ip addr add 10.0.0.1/8 brd + dev eth0
+		client# ip addr add 10.0.0.2/8 brd + dev eth0
+* turn on the ip_forward of server
+	e.g.
+		server# echo "1" > /proc/sys/net/ipv4/ip_forward
+	OR
+		server# sysctl net.ipv4.ip_forward=1
+* set NAT gateway using iptables
+	e.g.
+		server# iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+		P.S. put a outside-network-accesible interface on the place of 'wlan0'.
+* set client route table
+	e.g.
+		client# ip route add to 0/0 via 10.0.0.1 (dev eth0)
+* test and find out issue
+	e.g. 
+		client# traceroute -n 8.8.4.4
