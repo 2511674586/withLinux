@@ -1,0 +1,38 @@
+encrypt a disk with cryptsetup
+
+1. prepare the empty disk (sdc)
+
+2. parted sdc
+	# parted /dev/sdc
+	  > mktable
+	  > mkpart
+
+3. format drive as luks
+	# cryptsetup luksFormat /dev/sdc1
+
+4. open luks
+	# cryptsetup luksOpen /dev/sdc1 NAME
+		(where NAME is a mapped device name,
+		 which will be seen at /dev/mapper/${NAME}
+		 here we assume NAME=luks
+		)
+	# ls /dev/mapper/
+		** luks
+
+5. format volume inside luks
+	# mkfs.ext4 /dev/mapper/luks
+	OR
+	# mkfs.ext4 /dev/dm-0
+
+6. mount this ext4 filesystem
+	# mount /dev/dm-0 /MOUNT_POINT
+
+7. umount filesystem
+	# umount /MOUNT_POINT
+
+8. close luks
+	# cryptsetup luksClose /dev/dm-0
+
+reference:
+	man cryptsetup
+	man luksformat
