@@ -25,6 +25,7 @@ Issue me if encountered any problem. keep updating.
   7. [data recovery ... tools](./basic/data-recover.txt)  
   8. [remove data safely ... tools](./basic/remove-data-safely.txt)  
   9. [encrypt disk ... luks basic use](./basic/disk-crypt.txt)  
+  10. [avconv ... basic use](./basic/avconv.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  

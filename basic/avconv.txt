@@ -1,0 +1,16 @@
+Converting Video and Audio, using 'avconv'
+
+#1 print supported codecs and formats
+	avconv -formats
+	avconv -codecs
+
+#2 print the media file's information
+	avconv -i <media.file>
+
+#3 converting videos
+	e.g. convert avi to mp4(x264):
+	avconv -i <media.file> -vcodec libx264 -acodec ac3 <output.file>
+		where 'vcodec' specifies the codec of video stream, 'acodec' specifies audio codec.
+
+avconv(1)
+
