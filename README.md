@@ -33,6 +33,7 @@ Issue me if encountered any problem. keep updating.
   4. [port ... what is running on a port](./internet/port.txt)  
   5. ifup and ifdown setting ... see interfaces(5)
   6. [share the network with other machine ... one of cases](./internet/share-network-between-linux.txt)  
+  7. [share-ipv4-with-ipv6-tunnel ...](./internet/share-ipv4-with-ipv6-tunnel.txt)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  

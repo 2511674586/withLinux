@@ -1,0 +1,71 @@
+share ipv4 network with ipv6 tunnel
+===
+
+# Case
+```
+                 <ipv6-tunnel>                <general ipv4 network>
+[My device (M)] =============== [Server (S)] ------------------------ [ ipv4, 0/0 ]
+            eth0:             :eth0        :usb0
+```
+where
+	M : (as client)
+		ipv4 not avaliable
+		ipv6 avaliable
+		ipv6 : [e::e/64] dev eth0
+
+	S : (as server)
+		both ipv4 and ipv6 avaliable
+		ipv6 : [e::1/64] dev eth0
+		ipv4 : [192.168.x.x] dev usb0
+
+purpose :
+	share Server's ipv4 access with My device, via an ipv6 tunnel between M and S.
+
+# Prepare @ M
+	* setting up tunnel at client
+		$ ip -6 tunnel add name gre1v6 mode ip6gre remote e::1 local e::e dev eth0
+	* add an IP address for dev gre1v6
+		$ ip addr add 10.0.0.2/8 brd + dev gre1v6
+	* turn on dev gre1v6
+		$ ip link set dev gre1v6 up
+	* setup route
+		$ ip route add to 0/0 via 10.0.0.1 dev gre1v6
+		(no need to touch ipv6 route in this case)
+
+	hint) to check them :
+		$ ip [-6] addr
+		$ ip [-6] route
+		$ ip [-6] tunnel
+
+# Prepare @ S
+	* setting up tunnel at server
+		$ ip -6 tunnel add name gre1v6 mode ip6gre remove e::e local e::1 dev eth0
+	* add IP addr for dev gre1v6
+		$ ip addr add 10.0.0.1/8 brd + dev gre1v6
+	* turn on gre1v6
+		$ ip link set dev gre1v6 up
+	* route (default)
+	* enable kernel :: net.ipv4.ip_forward
+		$ sysctl net.ipv4.ip_forward=1
+	* setup ipv4 NAT
+		$ iptables -t nat -I POSTROUTING -o usb0 -j MASQUERADE
+	
+# Communication Test
+1) tunnel test
+	@M :
+		* ipv6
+			ping6 e::1[%eth0]
+		* ipv4 in v6tunnel
+			ping 10.0.0.1
+	@S :
+		* ipv6
+			ping6 e::e[%eth0]
+		* ipv4 in v6tunnel
+			ping 10.0.0.2
+	if all passed, the tunnel is ready to work.
+
+2) final test
+	@M :
+		ping <some-IP-that-is-outside> [-I gre1v6]
+	@S :
+		iptables -t nat -nvL # to see if there is any packets transfered.
