@@ -1,6 +1,7 @@
 1. scheduler, cfq is designed for rotational disks.
 	/sys/block/sda/queue/scheduler
 	deadline
+	or noop
 
 2. tmpfs, reduce write into ssd.
 	vim fstab
@@ -9,6 +10,15 @@
 3. mount
 	parts that is on ssd.
 	UUID=... / ext4 defaults,discard,noatime,commit=300 0 0
+	where 'commit' is just optional,
+		'discard' is useful.
+		'noatime' reduces write activated by atime record.
+
+4. Redirect write
+	Deal with directories such as ~user/.cache
+	:
+	rm -r .cache
+	ln -s /dev/shm .cache
 
 reference:
 	https://wiki.archlinux.org/index.php/Solid_State_Drives

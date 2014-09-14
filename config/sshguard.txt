@@ -1,0 +1,21 @@
+# C.D.Luminate
+# 2014/09/14
+
+# Debian wheezy
+
+SSH log file :
+	/var/log/auth.log*
+
+1) install sshguard
+	apt-get install sshguard
+2) inspect files
+	dpkg -L sshguard
+
+	seen
+	/etc/default/sshguard
+	/etc/init.d/sshguard
+	?/sshguard.service when init=systemd
+3) sshguard does not have any configuration files
+4) tweak daemon parameters in /etc/default/sshguard
+	ARGS="-a 40 -p 420 -s 1200"
+	for more info see man: sshgurad
