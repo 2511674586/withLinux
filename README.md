@@ -28,6 +28,7 @@ Issue me if encountered any problem. keep updating.
   10. [avconv ... basic use](./basic/avconv.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
+  2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
   2. [vpn ... set up on debian](./internet/vpn.txt)  
   3. [ping ... no reply to icmp ping](./internet/ping.txt)  
   4. [port ... what is running on a port](./internet/port.txt)  

@@ -4,3 +4,6 @@ Iceweasel is the debian version of firefox.
 	iceweasel -> about:cache
 	iceweasel -> about:config -> add a new string 
 		-> browser.cache.disk.parent_directory=/dev/shm/
+
+2. configure chromium cache dir
+	/usr/bin/chromium --disk-cache-dir=/dev/shm/
