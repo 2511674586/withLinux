@@ -1,0 +1,37 @@
+OpenVPN
+===
+
+) installation
+	apt-get install openvpn
+
+) configure
+	* test vpn
+		server # openvpn --remote CLIENT --dev tun1 --ifconfig 10.9.8.1 10.9.8.2 255.255.255.0
+		client # openvpn --remote SERVER --dev tun1 --ifconfig 10.9.8.2 10.9.8.1 255.255.255.0
+		then check ifconfig
+	* static key vpn
+		Server
+			cd /etc/openvpn
+			openvpn --genkey --secret static.key
+			cat > tun0.conf << EOF
+				# remote REMOTE
+				dev tun0
+				ifconfig 10.9.8.1 10.9.8.2 255.255.255.0
+				secret /etc/openvpn/static.key
+				EOF
+			cp server:/etc/openvpn/static.key client:/etc/openvpn/static.key
+		Client
+			cd /etc/openvpn
+			cat > tun0.conf << EOF
+				remote SERVER
+				dev tun0
+				ifconfig 10.9.8.2 10.9.8.1 255.255.255.0
+				secret /etc/openvpn/static.key
+		Firewall
+			UDP:1149
+		Test on both sides
+			openvpn --config /etc/openvpn/tun0.conf --verb 6
+
+			
+ref : wiki.debian.org :: openvpn 
+      wiki.archlinux.org :: openvpn
