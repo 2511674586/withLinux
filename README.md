@@ -15,6 +15,7 @@ Issue me if encountered any problem. keep updating.
   3. [Turn off graphic card](./install/turn-off-gpu.txt)  
   4. [Solid State Drive ... tips](./install/ssd.txt)  
   5. [efi ... some pkgs related](./install/efi.txt)  
+  6. [server ... hp server install log](./install/hpserver)  
 2. [Basic tools](./basic)  
   1. [netcat ... some usages](./basic/netcat.txt)  
   2. [bash ... some tricks](./basic/bash_tricks.txt)  

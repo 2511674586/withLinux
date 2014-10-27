@@ -1,0 +1,109 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{CJKutf8}
+\usepackage{CJKulem}
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+\section*{HP服务器操作系统安装记录}
+	\today， lumin，内容补全的版本。
+
+\section{概要}
+	型号
+	\begin{verbatim}
+	HP ProLiant DL388e Gen8
+	\end{verbatim}
+	存在驱动问题的阵列卡主控型号
+	\begin{verbatim}
+	HP Dynamic Smart Array B320i Controllers
+	\end{verbatim}
+	目标操作系统
+	\begin{verbatim}
+	CentOS 7
+	\end{verbatim}
+	原操作系统
+	\begin{verbatim}
+1. Windows Server 2008
+2. Failure Install Instance
+	\end{verbatim}
+
+\section{背景}
+	根据之前的安装经历，Fedora没有阵列卡驱动因此不能安装。
+	本次安装使用的CentOS7官方源中同样没有对应驱动，
+	于是从HP官网弄了一个针对RHEL7的驱动（RHEL7只有AMD64架构）。
+	\newline
+	安装前没有改动过BIOS设置，没有更改过RAID设置。
+	原RAID设置为RAID5。
+
+\section{过程概述}
+	\subsection{引导安装介质}
+	首先用dd 一个 centos 7镜像到U盘中。
+	\begin{verbatim}
+# dd if=/iso/CentOS-7.0-1406-x86_64-DVD.iso of=/dev/sdc
+	\end{verbatim}
+	插入U盘后，在服务器的Boot menu中选择从USB设备启动。
+	\newline
+	引导起来后，内核提示
+	\begin{verbatim}
+[Firmware Bug] ??? BIOS corrupted hw-PMU
+	\end{verbatim}
+	具体可用 dmesg 观察，但暂不明其影响。
+	将驱动（以及rpm包解压出来的文件，备用）放到另一个U盘中，在live环境下mount到某个目录，然后想办法把该内核模块弄到 /lib/modules 下边，让它能够被加载。内核模块文件为\fbox{hpvsa.ko}
+	\begin{verbatim}
+# mkdir -p /tmp/hp/hpvsa
+# cp hpvsa.ko /tmp/hp/hpvsa
+# mount --bind /tmp/hp /lib/modules/3.???/extra
+# depmod -a
+# modprobe hpvsa
+	\end{verbatim}
+	至此模块hpvsa已正常加载，而且已经可以通过阵列卡来操作硬盘了。
+
+	\subsection{安装系统}
+	由于调整RAID设置需要使用服务器本身自带的程序调整RAID设置，所以这次直接将系统盖在原本Windows使用的分区上，大小为100GB，正常情况下足够使用。
+	\newline
+	驱动加载好之后图形安装程序似乎仍然不能正常识别硬盘。
+	于是到tty2手动执行红帽系的安装程序：
+	\begin{verbatim}
+# anaconda
+	\end{verbatim}
+	文字模式下的anaconda可以正常安装，后续过程略。需要注意的是，CentOS7以及RHEL7默认文件系统是XFS。
+
+	\subsection{后期处理}
+	如果不安装该模块/软件包，那么系统可以正常启动bootloader，可以正常加载linux内核以及initramfs，但是因为initramfs中没有hpvsa.ko，而不能正常挂载设备，因此导致boot过程卡在initramfs中。
+	\newline
+	安装过后，手动mount一些特殊目录（原因可见错误提示，或者Gentoo的安装手册），然后拷贝HP官方驱动到临时目录，最后chroot到目标系统中安装驱动。下边的目录仅供参考，具体路径需要取决实际情况。（lsblk）这其实就是在Live环境里给target操作系统安装软件包而已。
+	\begin{verbatim}
+LIVE:
+# mount /dev/sdc3 /target                # sdc3 is /
+# mount /dev/sdc1 /target/boot           # sdc1 is /boot
+# mount --bind /sys /target/sys
+# mount --bind /proc /target/proc
+# mount --bind /dev /target/dev
+# cp kmod-hpvsa-???.rpm /target/tmp/
+# chroot /target /bin/bash
+CHROOT:
+# cd /tmp
+# rpm -i kmod-hpvsa-???.rpm
+	\end{verbatim}
+	安装完之后控制脚本会自动depmod并更新initramfs，它会将该驱动自动添加到initramfs中，于是理论上便能正常启动。
+	如果需要移除软件包，执行 rpm -e <PKG> 即可。
+
+	\subsection{冒烟测试}
+	重启，正常启动。ssh已自带。另外，使用
+	\begin{verbatim}
+# dhclient IFACE
+	\end{verbatim}
+	可以用dhcp接入网络，其中的 IFACE 可以用命令" ip addr "查看，或者" ifconfig ".
+
+\section{其他}
+\begin{enumerate}
+	\item hpvsa驱动这个软件包，其内容不太规范，只有两个文件，一个hpvsa.ko，另一个是depmod.d的配置文件。于是只能通过modinfo来查看模块本身的信息。
+	\item 这个安装过程并不奇葩，实质上就是所谓的“在安装过程中加载缺失的固件”之类的问题，只是有点Gentoo风格罢了。
+	\item dmesg输出的错误信息值得留意，正如上文记载。不过当时没有搜索到有关hw-PMU的信息。
+	\item 不知道在 PXE+kickstart 条件下是否可以加载额外的驱动。
+\end{enumerate}
+
+\end{CJK}
+\end{document}
+
