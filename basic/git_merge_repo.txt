@@ -1,0 +1,7 @@
+How to merge 2 git repo into 1?
+-------------------------------
+
+$ cd /new-repo
+$ git remote add old-repo-alias /path/to/old-repo
+$ git fetch old-repo-alias
+$ git merge old-repo-alias

@@ -27,6 +27,7 @@ Issue me if encountered any problem. keep updating.
   8. [remove data safely ... tools](./basic/remove-data-safely.txt)  
   9. [encrypt disk ... luks basic use](./basic/disk-crypt.txt)  
   10. [avconv ... basic use](./basic/avconv.txt)  
+  11. [git ... merge 2 repos into 1](./basic/git_merge_repo.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
