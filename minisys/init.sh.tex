@@ -1,0 +1,83 @@
+\begin{framed}\begin{verbatim}
+#!/bin/sh
+# initrd.img /init # C.D.Luminate <cdluminate@gmail.com>
+printf "* [initrd] Loading, please wait...\n"
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# Check FHS
+[ -d /dev  ] || mkdir -m 0755 /dev
+[ -d /root ] || mkdir -m 0700 /root
+[ -d /sys  ] || mkdir /sys
+[ -d /proc ] || mkdir /proc
+[ -d /tmp  ] || mkdir /tmp
+[ -d /run  ] || mkdir /run
+mkdir -p /var/lock
+mount -n -t sysfs -o nodev,noexec,nosuid sysfs /sys
+mount -n -t proc -o nodev,noexec,nosuid proc /proc
+mount -n -t devtmpfs devtmpfs /dev
+mount -n -t tmpfs tmpfs /run
+/sbin/mdev -s
+
+# For switch_root
+mkdir /.root
+mknod /dev/initrd b 1 250
+
+# parameters
+init=/sbin/init
+#init=/usr/lib/systemd/systemd
+root=
+rootdelay=
+rootfstype=auto
+ro="ro"
+rootflags=
+device=
+switch="true"
+
+printf "* [initrd] Parse cmdline...\n"
+read -r cmdline < /proc/cmdline
+for param in $cmdline ; do
+    case $param in
+    init=*)         init=${param#init=}             ;;
+    root=*)         root=${param#root=}             ;;
+    rootfstype=*)   rootfstype=${param#rootfstype=} ;;
+    rootflags=*)    rootflags=${param#rootflags=}   ;;
+    ro)             ro="ro"                         ;;
+    rw)             ro="rw"                         ;;
+    switch)         switch="true"                   ;;
+    noswitch)       switch="false"                  ;;
+    esac
+done
+
+case "$root" in
+    /dev/* ) device=$root ;;
+    UUID=* ) eval $root; device="/dev/disk/by-uuid/$UUID"  ;;
+    LABEL=*) eval $root; device="/dev/disk/by-label/$LABEL" ;;
+    ""     ) echo "* [initrd] FATAL: No root device found.";
+             switch="false" ;;
+esac
+
+printf "\x1b[32m* [initrd] Mount root device...\x1b[m\n"
+if [ ! -z $root ]; then {
+  if ! mount -n -t "$rootfstype" -o "$rootflags" "$device" /.root ; then
+    printf "\x1b[31m* [initrd] Mount device $root : Failure\x1b[m\n"
+    printf "\x1b[33m\r\nAvailable Devices:\n";
+    cat /proc/partitions; printf "\x1b[m"; sleep 10;
+  else
+    printf "\x1b[32m* [initrd] Mount device $root : Success\x1b[m\n"
+  fi
+} else {
+  printf "\x1b[32m* [initrd] No mounting root device \x1b[m\n"
+} fi
+
+case "$switch" in
+"true")
+    printf "\x1b[33m* Switching root ...\x1b[m\n";
+    sleep 1;
+    exec switch_root /.root "$init" "$@" ;;
+*)
+    printf "\x1b[33m* No Switch root ...\x1b[m\n";
+    sleep 1;
+    exec /bin/busybox init;;
+esac
+# EOF init Script
+\end{verbatim}\end{framed}

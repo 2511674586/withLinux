@@ -1,0 +1,273 @@
+Let's trace the bootup process of the machine.\newline
+And, this is just a brief trace.
+\subsection{Overall Process}
+\begin{verbatim}
+* CPU Power up
+- Load BIOS from CS:IP=FFFF:0000 Entry
+- Load GRUB to 0x7c00 via int 0x19
+- Load vmlinuz
+- real mode : arch/x86/boot/header.S : _start
+- read mode : arch/x86/boot/main.c
+- protected mode (0x100000): arch/x86/boot/compressed/head_64.S
+- protected mode : arch/x86/boot/compressed/head64.c
+- arch independent : start_kernel ();
+- create init rootfs : mnt_init ();
+- kernel init : rest_init ();  kernel_init ();
+- load initramfs : init/initramfs.c : populate_rootfs ();
++ if cpio initrd
+    /init
+  else if image initrd
+    /linuxrc
+  fi
+- userspace init : /sbin/init
+\end{verbatim}
+
+\subsection{BIOS/EFI}
+BIOS/EFI reads the machine code at a fixed location on hard disk, typically sector 0, then execute it.\newline
+This piece of machine code belongs to boot loader.
+\subsection{GRUB2}
+\subsubsection{grub stage 1}
+Read then execute the first 512 Bytes, then look for file systems.
+\subsubsection{grub stage 2}
+Grub loads grub.cfg, then loads \emph{linux} and \emph{initrd.img} (or \emph{initramfs.img}) into memory, finally boot them.
+\subsection{linux}
+\subsubsection{bzImage}
+You can look up kernel doc\cite{bib:linux.doc.boot}.
+For example, \texttt{ARCH=x86\_64}, find file \texttt{arch/x86/}:
+\begin{framed}\begin{verbatim}
+boot/header.S:
+
+    293 _start:
+    294         # Explicitly enter this as bytes, or the assembler
+    295         # tries to generate a 3-byte jump here, which causes
+    296         # everything else to push off to the wrong offset.
+    297         .byte   0xeb        # short (2-byte) jump
+    298         .byte   start_of_setup-1f
+
+    456 start_of_setup:
+    457 +-- 51 lines: # Force %es = %ds---------------------------------------------
+    508 # Jump to C code (should not return)
+    509     calll   main
+
+boot/main.c:
+
+    135 void main(void)
+    136 +-- 48 lines: {-------------------------------------------------------------
+    184     go_to_protected_mode();
+    185 }   
+
+boot/pm.c:
+
+    104 void go_to_protected_mode(void)
+    105 +-- 19 lines: {-------------------------------------------------------------
+    124     protected_mode_jump(boot_params.hdr.code32_start,
+    125                 (u32)&boot_params + (ds() << 4));
+    126 }
+
+boot/pmjump.S:
+    
+    26 GLOBAL(protected_mode_jump)
+    27 +-- 18 lines: movl %edx, %esi  # Pointer to boot_params table---------------
+    45 2:  .long   in_pm32         # offset
+
+    51 GLOBAL(in_pm32)
+    52 +-- 24 lines: # Set up data segments for flat 32-bit mode-------------------
+    76     jmpl    *%eax           # Jump to the 32-bit entrypoint
+    77 ENDPROC(in_pm32)
+\end{verbatim}\end{framed}
+After executing pmjump.S, the Processor is in protected mode.
+\begin{framed}\begin{verbatim}
+boot/compressed/head_64.S:
+
+    37 ENTRY(startup_32)
+    38 +--142 lines: 32bit entry is 0 and it is ABI so immutable!------------------
+    180     pushl   $__KERNEL_CS
+    181     leal    startup_64(%ebp), %eax
+
+    225 ENTRY(startup_64)
+    226 +-- 15 lines: 64bit entry is 0x200 and it is ABI so immutable!--------------
+    241     jmp preferred_addr
+
+    293 preferred_addr:
+    294 +-- 61 lines: #endif--------------------------------------------------------
+    355 /*
+    356  * Jump to the relocated address.
+    357  */
+    358     leaq    relocated(%rbx), %rax
+    359     jmp *%rax
+
+    376 relocated:
+    377 +-- 24 lines: Clear BSS (stack is currently empty)--------------------------
+    401 /*
+    402  * Do the decompression, and jump to the new kernel..
+    403  */
+    404     pushq   %rsi            /* Save the real mode argument */
+    405     movq    $z_run_size, %r9    /* size of kernel with .bss and .brk */
+    406     pushq   %r9
+    407     movq    %rsi, %rdi      /* real mode address */
+    408     leaq    boot_heap(%rip), %rsi   /* malloc area for uncompression */
+    409     leaq    input_data(%rip), %rdx  /* input_data */
+    410     movl    $z_input_len, %ecx  /* input_len */
+    411     movq    %rbp, %r8       /* output target address */
+    412     movq    $z_output_len, %r9  /* decompressed length, end of relocs */
+    413     call    decompress_kernel   /* returns kernel location in %rax */
+    414     popq    %r9
+    415     popq    %rsi
+
+boot/compressed/misc.c:
+
+    369 asmlinkage __visible void *decompress_kernel(void *rmode, memptr heap,
+    370 +-- 53 lines: unsigned char *input_data,------------------------------------
+    423     debug_putstr("\nDecompressing Linux... ");
+    424     decompress(input_data, input_len, NULL, NULL, output, NULL, error);
+    425     parse_elf(output);
+    426     /*
+    427      * 32-bit always performs relocations. 64-bit relocations are only
+    428      * needed if kASLR has chosen a different load address.
+    429      */
+    430     if (!IS_ENABLED(CONFIG_X86_64) || output != output_orig)
+    431         handle_relocations(output, output_len);
+    432     debug_putstr("done.\nBooting the kernel.\n");
+    433     return output;
+    434 }
+
+boot/compressed/head_64.S:
+
+    376 relocated:
+    377 +-- 36 lines: Clear BSS (stack is currently empty)--------------------------
+    413     call    decompress_kernel   /* returns kernel location in %rax */
+    414     popq    %r9
+    415     popq    %rsi
+    416 
+    417 /*
+    418  * Jump to the decompressed kernel.
+    419  */
+    420     jmp *%rax
+
+kernel/head_64.S:
+
+    49 startup_64:
+    50 +--111 lines: At this point the CPU runs in 64bit mode CS.L = 1 CS.D = 0,---
+    161     jmp 1f
+
+    162 ENTRY(secondary_startup_64)
+    163 +--122 lines: At this point the CPU runs in 64bit mode CS.L = 1 CS.D = 0,---
+    285     movq    initial_code(%rip),%rax
+    286     pushq   $0      # fake return address to stop unwinder
+    287     pushq   $__KERNEL_CS    # set correct cs
+    288     pushq   %rax        # target address in negative space
+    289     lretq
+
+    310     GLOBAL(initial_code)
+    311     .quad   x86_64_start_kernel
+
+kernel/head64.c:
+
+    141 asmlinkage __visible void __init x86_64_start_kernel(char * real_mode_data)
+    142 +-- 47 lines: {-------------------------------------------------------------
+    189     x86_64_start_reservations(real_mode_data);
+    190 }
+
+    192 void __init x86_64_start_reservations(char *real_mode_data)
+    193 +--  7 lines: {-------------------------------------------------------------
+    200     start_kernel();
+    201 }
+
+../../init/main.c:
+
+    489 asmlinkage __visible void __init start_kernel(void)
+    490 {
+
+\end{verbatim}\end{framed}
+
+\subsubsection{vmlinux}
+see \texttt{linux-4.0/init/main.c}:
+\begin{framed}\begin{verbatim}
+489 asmlinkage __visible void __init start_kernel(void)
+490 +---183 lines: {-----------------------------------------------------------
+673     /* Do the rest non-__init'ed, we're now alive */
+674     rest_init();
+675 }
+\end{verbatim}\end{framed}
+trace \texttt{rest\_init()}:
+\begin{framed}\begin{verbatim}
+382 static noinline void __init_refok rest_init(void)
+383 {
+384 +--  8 lines: int pid;-----------------------------------------------------
+392     kernel_thread(kernel_init, NULL, CLONE_FS);
+\end{verbatim}\end{framed}
+trace \texttt{kernel\_init()}:
+\begin{framed}\begin{verbatim}
+924 static int __ref kernel_init(void *unused)
+925 {
+926 +-- 20 lines: int ret;-----------------------------------------------------
+946     /*
+947      * We try each of these until one succeeds.
+948      *
+949      * The Bourne shell can be used instead of init if we are
+950      * trying to recover a really broken machine.
+951      */
+952     if (execute_command) {
+953         ret = run_init_process(execute_command);
+954         if (!ret)
+955             return 0;
+956         panic("Requested init %s failed (error %d).",
+957               execute_command, ret);
+958     }
+959     if (!try_to_run_init_process("/sbin/init") ||
+960         !try_to_run_init_process("/etc/init") ||
+961         !try_to_run_init_process("/bin/init") ||
+962         !try_to_run_init_process("/bin/sh"))
+963         return 0;
+964 
+965     panic("No working init found.  Try passing init= option to kernel. "
+966           "See Linux Documentation/init.txt for guidance.");
+967 }
+\end{verbatim}\end{framed}
+It shows that, from here the kernel executes the init program as pid 1, then init program do the Operating System initialization things.
+
+\subsection{Busybox init}
+\begin{framed}\begin{verbatim}
+busybox-1.23.2/init/init.c:
+
+    1022 int init_main(int argc, char **argv) MAIN_EXTERNALLY_VISIBLE;
+    1023 int init_main(int argc UNUSED_PARAM, char **argv)
+    1024 +-- 98 lines: {------------------------------------------------------------
+    1122         parse_inittab();
+    1123     }
+
+    652 static void parse_inittab(void)
+    653 {
+    654 #if ENABLE_FEATURE_USE_INITTAB
+    655     char *token[4];
+    656     parser_t *parser = config_open2("/etc/inittab", fopen_for_read);
+    657 
+    658     if (parser == NULL)
+    659 #endif
+    660     {
+    661         /* No inittab file - set up some default behavior */
+    662         /* Sysinit */
+    663         new_init_action(SYSINIT, INIT_SCRIPT, "");
+    664         /* Askfirst shell on tty1-4 */
+    665         new_init_action(ASKFIRST, bb_default_login_shell, "");
+    666 //TODO: VC_1 instead of ""? "" is console -> ctty problems -> angry users
+    667         new_init_action(ASKFIRST, bb_default_login_shell, VC_2);
+    668         new_init_action(ASKFIRST, bb_default_login_shell, VC_3);
+    669         new_init_action(ASKFIRST, bb_default_login_shell, VC_4);
+    670         /* Reboot on Ctrl-Alt-Del */
+    671         new_init_action(CTRLALTDEL, "reboot", "");
+    672         /* Umount all filesystems on halt/reboot */
+    673         new_init_action(SHUTDOWN, "umount -a -r", "");
+    674         /* Swapoff on halt/reboot */
+    675         new_init_action(SHUTDOWN, "swapoff -a", "");
+    676         /* Restart init when a QUIT is received */
+    677         new_init_action(RESTART, "init", "");
+    678         return;
+    679     }
+
+    145 /* Default sysinit script. */
+    146 #ifndef INIT_SCRIPT
+    147 # define INIT_SCRIPT  "/etc/init.d/rcS"
+    148 #endif
+
+\end{verbatim}\end{framed}

@@ -1,0 +1,499 @@
+% MiniSys
+% Copyright (C) 2015 Lumin Zhou <cdluminate@gmail.com>
+
+\documentclass[10pt,a4paper]{article}
+% use Cantarell (Gnome) as default English font
+\usepackage[default]{cantarell}
+\usepackage{framed}
+\usepackage{geometry}
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=blue]{hyperref}
+\usepackage{fancyhdr}
+%\usepackage{ctex}
+\usepackage{listings}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+% configure
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\fancyhead[RO,LE]{Cook a Mini Bootable Linux System}
+
+% title
+\begin{titlepage}
+\title{\huge\textbf{Cook a Mini Bootable Linux System}\\ \small{--- Grub2 + Kernel + Busybox ---}}
+\author{C.D.Luminate\\ \small cdluminate@gmail.com}
+\date{\today}
+\end{titlepage}
+
+% ----start document----
+\begin{document}
+\pagestyle{fancy}
+% generate the title page
+\maketitle
+\hrulefill
+% Generate a table of contents, namely index.
+\tableofcontents
+
+\newpage
+\section{Introduction}
+\subsection{Tools in Need}
+Before you go ahead, you should check if you had these tools
+installed in your system\footnote{we assume your machine is running Debian or its variant.}
+\begin{enumerate}
+\item build-essential, Depends: \\
+	libc6-dev, gcc, g++, make, dpkg-dev
+\item grub-common, grub2-common, grub-pc, grub-pc-bin
+\item QEMU - fast processor emulator
+\end{enumerate}
+
+\section{Trace the Boot Process}
+\input{trace.tex}
+
+\section{Build Linux Kernel Image}
+\subsection{Download kernel source}
+Pick a kernel from the linux kernel archives.\cite{bib:kernel.org}\newline
+Here I use the Debian redistributed one or linux 4.0 :
+\begin{verbatim}
+linux-3.16.7-ckt7-1
+linux-4.0
+\end{verbatim}
+Then extract it to the workplace :
+\begin{framed}\begin{verbatim}
+$ tar zxvf linux-3.16.7-ckt7.tar.gz -C workplace/
+$ tar zxvf linux-4.0.tar.gz -C workplace/
+$ cd workplace
+\end{verbatim}\end{framed}
+\subsection{Configure the Kernel}
+To simplify the Procedure, I just used the default kernel config for AMD64 architecture, so type
+\begin{framed}\begin{verbatim}
+$ cd workplace/linux-?/
+$ make x86_64_defconfig
+$ make menuconfig
+\end{verbatim}\end{framed}
+Modify some configurations as you like, via menuconfig.\footnote{For detail please look up other materials.}
+\subsection{Compile kernel}
+Lets compile the kernel. Maybe you should invoke "make help" at first.
+\begin{framed}\begin{verbatim}
+$ make -j4 vmlinux
+$ make -j4 bzImage
+\end{verbatim}\end{framed}
+The process takes a long while.
+\subsection{The kernel}
+After compiling, the file \texttt{"arch/x86/boot/bzImage"} is exactly what we need.
+\begin{framed}\begin{verbatim}
+bzImage: Linux kernel x86 boot executable bzImage,
+    version 3.16.7-ckt7 (lumin@debian) #2 SMP Sat Mar 21 09:15:07 UTC 2015, 
+    RO-rootFS, swap_dev 0x5, Normal VGA
+\end{verbatim}\end{framed}
+Put this kernel file at proper place.
+
+\section{Build Static Busybox}
+\subsection{Download Busybox source}
+You can download busybox source on official site.\cite{bib:busybox.net}\newline
+Here I use Debian Redistributed one or another official one:
+\begin{verbatim}
+busybox-1.22.0-9+deb8u1
+busybox-1.23.2.tar.bz2
+\end{verbatim}
+Extract the source pack and change directory into source tree.
+\subsection{Configure Busybox}
+\begin{framed}\begin{verbatim}
+$ cd busybox-?/
+$ make defconfig
+$ make menuconfig
+\end{verbatim}\end{framed}
+Set the \texttt{"CONFIG\_STATIC=y"}, namely mark\newline
+Busybox Settings - Build Options - ... Static Binary\newline
+You can also mark the "dpkg" or something else as you like.
+
+\subsection{Compile Busybox}
+\begin{framed}\begin{verbatim}
+$ make -j4 busybox
+$ make install
+\end{verbatim}\end{framed}
+Then you will see a fine rootfs under directory \texttt{"\_install/"} .\newline
+Copy all the content of \_install/ to workplace/initrd/:
+\begin{framed}\begin{verbatim}
+# cd _install
+# mkdir -p workplace/initrd
+# cp -av . workplace/initrd/
+# chown -R root:root workplace/initrd/
+\end{verbatim}\end{framed}
+Now, Busybox preparation is completed. Lets Configure the system.
+
+\section{Build Initramfs}
+\textbf{HINT}: In Debian t/e \texttt{initramfs.img} is named \texttt{initrd.img} too.
+
+\subsection{Make FHS available}
+\begin{framed}\begin{verbatim}
+# cd workplace/initrd/
+# mkdir  boot bin dev proc sbin tmp boot etc 
+# mkdir  lib root run srv usr home mnt sys var 
+\end{verbatim}\end{framed}
+
+\subsection{Configure initramfs files}
+You can refer to the Debian package \texttt{base-files}.
+\subsubsection{etc/fstab}
+fstab stores static information about the filesystem, so let's vim etc/fstab.
+\begin{framed}\begin{verbatim}
+proc  /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
+tmpfs /run tmpfs rw,nosuid,relatime,mode=755     0 0
+\end{verbatim}\end{framed}
+Above are important items. If you would like to invoke
+\begin{verbatim}
+# mount -a
+\end{verbatim}
+in any script (like rcS or initramfs init) or manually, you should have this file.
+
+\subsubsection{/dev/*}
+\begin{framed}\begin{verbatim}
+# cd wordplace/initrd
+(# mknod -m 640 dev/initrd  b 1 250)
+# mknod -m 600 dev/console c 5 1
+# mknod -m 666 dev/null    c 1 3
+\end{verbatim}\end{framed}
+
+\subsubsection{etc/hostname}
+Anything you like, such as \texttt{debian}.
+
+\subsubsection{etc/hosts}
+This is for basic network function.
+\begin{framed}\begin{verbatim}
+127.0.0.1  localhost debian
+::1        localhost ip6-localhost ip6-loopback debian
+ff02::1    ip6-allnodes
+ff02::2    ip6-allrouters
+\end{verbatim}\end{framed}
+
+\subsubsection{/etc/inputrc}
+Add this file to enable convenient keys.
+\begin{framed}\begin{verbatim}
+# /etc/inputrc
+set input-meta on
+set output-meta on
+set bell-style none
+$if mode=emacs
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+$if term=rxvt
+"\e[8~": end-of-line
+"\eOc": forward-word
+"\eOd": backward-word
+$endif
+$endif
+\end{verbatim}\end{framed}
+
+\subsubsection{/etc/\{passwd,shadow\}}
+this is passwd
+\begin{verbatim}
+root:x:0:0:root:/root:/bin/bash
+\end{verbatim}
+and this is shadow
+\begin{verbatim}
+root:::0:99999:7:::
+\end{verbatim}
+They are to enable root login and set root password as null.
+
+\subsection{Initramfs init}
+\textbf{Warning} : If there is no \texttt{/init} in initrd.img,
+	kernel would regard the initrd.img as malformed/illegal one and then \textbf{panic}.
+\begin{itemize}
+\item If you don't want to create an \texttt{init} script, you can just link the init to busybox as following.
+\item If you want to use a true init script, following is a very simple one that works.
+\item Or even, you can write your own C init program.
+\end{itemize}
+Linking busybox init:
+\begin{framed}\begin{verbatim}
+# cd workplace/initrd/
+# ln -s linuxrc init
+\end{verbatim}\end{framed}
+Creating a simple initramfs init script:
+\begin{framed}\begin{verbatim}
+#!/bin/sh
+printf "\x1b[1;32m *\x1b[0;m [initramfs] Loading, please wait..."
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+[ -d /dev ]  || mkdir -m 0755 /dev
+[ -d /root ] || mkdir -m 0700 /root
+[ -d /sys ]  || mkdir /sys
+[ -d /proc ] || mkdir /proc
+[ -d /tmp ]  || mkdir /tmp
+mkdir -p /var/lock
+#mount -a
+mount -t sysfs -o nodev,noexec,nosuid sysfs /sys
+mount -t proc -o nodev,noexec,nosuid proc /proc
+/sbin/mdev -s
+#clear
+printf "\x1b[1;32m *\x1b[0;32m Welcome to MiniSys on Initramfs !\x1b[m\n"
+exec /sbin/init
+\end{verbatim}\end{framed}
+With this initramfs init, you can only stay in initramfs after boot.\newline
+Creating initramfs init C program:\newline
+\texttt{bsdbar.h :}
+\input{bsdbar.h.tex}
+\texttt{init.c :}
+\input{init.c.tex}
+To compile it, just type
+\begin{quote}
+    \texttt{\$ gcc -O2 -o init init.c}
+\end{quote}
+
+\subsection{Init Script}
+Use \textbf{either} inittab or rcS for busybox init here, and don't use both them.\newline
+Lookup busybox init for reason\cite{bib:busybox.net}.
+
+\subsubsection{etc/init.d/rcS}
+Example for busybox init :
+\begin{framed}\begin{verbatim}
+#!/bin/sh
+printf "\x1b[1;32m*\x1b[0;m [init] Loading, please wait..."
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+mount -a
+#clear
+printf "\x1b[32m* Welcome to MiniSys on Initramfs !\x1b[m\n"
+/bin/sh
+\end{verbatim}\end{framed}
+
+\subsubsection{/etc/inittab}
+\begin{verbatim}
+tty1::respawn:/sbin/getty 38400 tty1
+tty2::respawn:/sbin/getty 38400 tty2
+tty3::respawn:/sbin/getty 38400 tty3
+tty4::respawn:/sbin/getty 38400 tty4
+tty5::respawn:/sbin/getty 38400 tty5
+tty6::respawn:/sbin/getty 38400 tty6
+\end{verbatim}
+
+\subsection{Wrap Initrd}
+\begin{framed}\begin{verbatim}
+# cd initrd/
+# find . | cpio -o -H newc > ../initrd.img
+# gzip -k ../initrd.img
+\end{verbatim}\end{framed}
+you can also gzip the image to initrd.img.gz, kernel recogonizes it too.
+
+\section{Install the System into a USB stick}
+\subsection{Partition USB stick}
+Assume I have an 8GB USB Flash stick, detected as /dev/sdc.
+\begin{framed}\begin{verbatim}
+# parted /dev/sdc
+  > mktable  (gpt)
+  > mkpart (2MB-4MB as BIOS_GRUB)
+  > set 1 bios_grub
+  > mkpart (4MB-REST as /)
+  > quit
+# partprobe
+# lsblk || cat /proc/partitions
+\end{verbatim}\end{framed}
+\subsection{Make Filesystem}
+\begin{framed}\begin{verbatim}
+# mkfs.ext4 /dev/sdc2 || mke2fs -t ext4 /dev/sdc2
+# mount -t ext4 /dev/sdc2 /mnt
+\end{verbatim}\end{framed}
+\subsection{Copy Kernel and Initrd}
+\begin{framed}\begin{verbatim}
+# cp bzImage /mnt/boot
+# cp initrd.img /mnt/boot
+\end{verbatim}\end{framed}
+\subsection{Install Grub on USB Stick}
+\begin{framed}\begin{verbatim}
+# grub-install --boot-directory /mnt/boot /dev/sdc
+\end{verbatim}\end{framed}
+
+\section{Boot Test}
+\subsection{Boot via QEMU, without USB}
+Test bzImage + initrd.img. 
+\begin{framed}\begin{verbatim}
+# qemu-system-x86_64 -enable-kvm -m 512 -kernel bzImage -initrd initrd.img
+\end{verbatim}\end{framed}
+\subsection{Boot via QEMU, with USB}
+Test Grub2 + bzImage + initrd.img.
+\begin{framed}\begin{verbatim}
+# qemu-system-x86_64 -enable-kvm -m 512 -hda /dev/sdc
+\end{verbatim}\end{framed}
+\subsubsection{Talk with Grub2}
+\begin{framed}\begin{verbatim}
+grub> ls
+grub> insmod linux
+grub> prefix=(hd0,gpt2)/root/grub
+grub> root=(hd0,gpt2)
+grub> linux /boot/bzImage [OPTIONS]
+grub> initrd /boot/initrd.img
+grub> boot
+\end{verbatim}\end{framed}
+Where OPTIONS depends on your preference.
+\subsubsection{Put Grub2 config into boot/grub/grub.cfg}
+\begin{framed}\begin{verbatim}
+# grub.cfg
+insmod part_gpt
+insmod ext2
+set root=(hd0,gpt2)
+
+echo "* [grub] Loading linux ...\n"
+linux /boot/bzImage root=/dev/ram0 init=/sbin/init
+echo "* [grub] Loading initrd.img ...\n"
+initrd /boot/initrd.img
+echo "* [grub] Booting ...\n"
+boot
+\end{verbatim}\end{framed}
+Then the system would autostart as grub2 found grub.cfg.
+
+\section{Extend the Mini System}
+\subsection{Script /init in initrd.img}
+Imitating Debian's script from update-initramfs and the script from Linux from scratch\cite{bib:lfs}.\newline
+Note that, this script defined a new function "choose if you want to switch root", add corresponding
+kernel parameter then you can activate this function:
+\begin{itemize}
+\item \texttt{switch} is default, means that if a root filesystem is detected, then init would switch root into it.
+\item \texttt{noswitch} meas that, don't switch root even if an available root is detected.
+\end{itemize}
+\input{init.sh.tex}
+
+\subsection{Prepare Stage3 rootfs}
+\subsubsection{Make it myself}
+"debootstrap" for Debian or Ubuntu. For example,
+\begin{verbatim}
+# debootstrap ubstable ./unstable-chroot http://ftp.us.debian.org/debian
+\end{verbatim}
+
+\subsubsection{Use an already cooked one}
+Download the Stage3 tarball of Archlinux\footnote{https://www.archlinux.org/} 
+or Gentoo\footnote{http://www.gentoo.org/}.\newline
+Here we can use both of them. And this is hint:
+\begin{itemize}
+\item \textbf{Archlinux} stage3 does not symlink /usr/lib/systemd/systemd to /sbin/init,
+	so you may encounter a kernel panic if you don't modify my initramfs init script.
+	to avoid this just set the init parameter.
+\item \textbf{Gentoo} stage3 tarballs works well.
+\item \textbf{Debian} stage3 tarballs I made also works well.
+\end{itemize}
+\subsubsection{Make the disk image OR copy them into USB}
+You can extrace the Stage3 tarball into a disk image:
+\begin{framed}\begin{verbatim}
+# dd of=disk.img bs=1 seek=4G count=0
+# mkfs.ext4 disk.img
+# mount disk.img /mnt
+# tar zxvf Stage3.tar.gz -C /mnt
+# do some configurations
+# umount /mnt
+\end{verbatim}\end{framed}
+or just extract it into you USB stick.
+
+\subsection{QEMU: Boot with the new disk}
+\begin{verbatim}
+# qemu-system-x86_64 -enable-kvm -m 512 -kernel bzImage -initrd initrd.img
+    -hda disk.img -append "root=/dev/sda init=/usr/lib/systemd/systemd"
+\end{verbatim}
+
+\subsection{QEMU: Boot from the USB}
+\begin{verbatim}
+# qemu-system-x86_64 -enable-kvm -m 512
+    -hda disk.img -append "root=/dev/sda init=/usr/lib/systemd/systemd"
+\end{verbatim}
+
+\section{Compile Static Bash}
+\subsection{Download bash source}
+bash-4.3.tar.gz from GNU.
+\subsection{Compile static Bash}
+\begin{verbatim}
+$ ./configure --enable-static-link --without-bash-malloc
+\end{verbatim}
+Then you will see bash as following:
+\begin{verbatim}
+$ ldd bash
+bash: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), 
+      statically linked, for GNU/Linux 2.6.32, 
+      BuildID[sha1]=ab5bcc419a27e6c54d0fb352c28019446e68dd46, not stripped
+\end{verbatim}
+\subsection{Make bash.tar.gz tarball}
+I suggest copy those files into directory bash.pkg:
+\begin{itemize}
+\item staticly linked bash excutable
+\item examples/startup-files/Bash\_profile
+\item examples/startup-files/bashrc
+\end{itemize}
+then make dir bash.pkg as bash.tar.gz
+\subsection{Install static bash into initrd}
+Just extract the tarball into initrd/.
+
+\section{Lazy Glibc supporting Sed}
+If, say, I want to use the program GNU Sed in the freshly cooked system,
+but we lack the glibc that supporting sed. so we can use Debian's precompiled glibc,
+and a sed that customed by us (deleting .so links that we don't like.).
+\subsection{Compiling GNU Sed}
+\begin{verbatim}
+$ ./configure --without-selinux --disable-acl
+$ make -j4
+$ ldd sed/sed
+  linux-vdso.so.1 (0x00007ffcec738000)
+  libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f870f03b000)
+  /lib64/ld-linux-x86-64.so.2 (0x00007f870f410000)
+$ mkdir sed.pkg/
+\end{verbatim}
+See, it's ldd output is very clean. Now let's add the libc.\newline
+Then you should copy files you need into dir sed.pkg/
+
+\subsection{Wrap GLibc}
+Now let's grab a libc to support the sed (and other programs depending on this libc).\newline
+For convenience, I just downloaded the Debian's precompiled glibc, and re-packed the glibc together with sed.
+\begin{verbatim}
+$ apt-get download libc6 libc-bin
+$ for DEB in $(ls *.deb); do dpkg -X ${DEB} sed.pkg/; done
+$ cd sed.pkg
+$ tar zcvf ../sed.tar.gz .
+\end{verbatim}
+
+\subsection{Install libc + sed into initrd}
+Just extract the tarball into initrd/
+
+% ---------------------------------------------------------------------------------
+\appendix
+\newpage
+\section{Base64 Code of /init}
+Following is init.base64 :
+
+% insert the code file
+\input{init.base64.tex}
+
+To decode it, type :
+\begin{verbatim}
+$ base64 -d init.base64
+\end{verbatim}
+
+\newpage
+\section{Misc}
+\begin{thebibliography}{10}
+	\bibitem{bib:kernel.org} The Linux Kernel Archive\\https://kernel.org
+	\bibitem{bib:busybox.net} Busybox\\http://www.busybox.net
+	\bibitem{bib:kernel.doc} Linux kernel Doc\\https://kernel.org/doc\\You can also lookup the Documentation dir in kernel source tree.
+	\bibitem{bib:kernel.doc.boot} Linux kernel boot protocol\\linux-4.0/Documentation/./x86/boot.txt
+	\bibitem{bib:grub.doc} GNU : grub document\\http://www.gnu.org/software/grub/manual/grub.html
+	\bibitem{bib:lfs} LFS : Linux From Scratch\\http://www.linuxfromscratch.org/lfs/
+	\bibitem{bib:blfs} BLFS : Beyond Linux From Scratch\\http://www.linuxfromscratch.org/blfs/
+	\bibitem{ } A Guide on initramfs from LFS\\http://www.linuxfromscratch.org/hints/downloads/files/initramfs.txt
+	\bibitem{ } A Guide on initrd from LFS\\http://www.linuxfromscratch.org/hints/downloads/files/initrd.txt
+	\bibitem{bib:gnu.bash} Download GNU Bash\\http://ftp.gnu.org/gnu/bash/
+	\bibitem{ } The kernel module dir\\/lib/modules/\$(uname -r)/
+	\bibitem{ } An Article about Grub\\http://blog.csdn.net/guanggY/article/details/6210774
+	\bibitem{ } An Article about Initramfs\\http://blog.csdn.net/lvqqrainbow/article/details/6536422
+	\bibitem{ } An Article about Kernel Boot\\http://blog.csdn.net/zhoudaxia/article/details/6666683
+	\bibitem{ } An Article about Kernel Boot\\http://blog.sina.com.cn/s/blog\_b02f77c80101db1t.html
+\end{thebibliography}
+
+\section{LISENCE}
+\begin{verbatim}
+The MIT LISENCE.
+Copyright (C) 2015 Lumin Zhou
+\end{verbatim}
+
+\end{document}
+% ----end document----
