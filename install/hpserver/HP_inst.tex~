@@ -3,14 +3,11 @@
 \usepackage{CJKutf8}
 \usepackage{CJKulem}
 
-\title{HP服务器操作系统安装记录}
-\author{Copyright \copyright 2014-2015 Lumin Zhou}
-\date{Oct 19. 2014}
-
 \begin{document}
 \begin{CJK}{UTF8}{gbsn}
 
-\maketitle
+\section*{HP服务器操作系统安装记录}
+	\today， lumin，内容补全的版本。
 
 \section{概要}
 	型号
