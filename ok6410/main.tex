@@ -1,0 +1,378 @@
+\documentclass[11pt,a4paper]{article}
+% use Cantarell (Gnome) as default English font
+\usepackage[default]{cantarell}
+% CJK utf8
+\usepackage{CJKutf8}
+% CJKulem : such as uline
+\usepackage{CJKulem}
+\usepackage{geometry}
+
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=blue]{hyperref}
+
+\begin{titlepage}
+\title{OK6410，Emdebian Linux日志}
+\author{\texttt{Copyright (C) 2015 Zhou Mo}\\\texttt{LICENSE : MIT}}
+\date{\today}
+\end{titlepage}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+% ----start document----
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+% generate the title page
+\maketitle
+% Generate a table of contents, namely index.
+\tableofcontents
+
+\newpage
+\section{Installing base Emdebian/Debian}
+Note: no porting linux kernel in this section.\newline
+Note: the procedure is according to user manual and some web resource.
+\subsection{Prepare the rootfs}
+\subsubsection{debootstrap}
+首先在PC上完成Base system 的 bootstrap，生成 Stage 1 系统。
+\begin{verbatim}
+# sudo debootstrap --arch=armel --foreign --no-check-gpg \
+	  --include=vim,openssh-server squeeze rootfs/ \
+	  http://ftp.uk.debian.org/emdebian/grip/
+\end{verbatim}
+	此处Debootstrap参数根据需要自行调整。其中include是指额外安装到Base system中的程序，
+	推荐vim,openssh-server,busybox.\newline
+	完成之后可以对此基本系统进行初步设置。
+\begin{verbatim}
+# echo "proc /proc proc none 0 0" >> rootfs/etc/fstab
+# echo "OK6410" > rootfs/etc/hostname
+# sudo mkdir -p rootfs/usr/share/man/man1/
+# sudo mknod rootfs/dev/console c 5 1
+# sudo tar zcvf ../ok6410.tar.gz .
+\end{verbatim}
+妥善保管ok6410.tar.gz这个stage1归档。
+
+\subsubsection{squash rootfs into yaffs2}
+由于飞凌提供的手册上使用了yaffs2文件系统，所以此处跟随使用该文件系统。\newline
+本章将把制作好的stage1系统包装成可烧写到NANDFlash上的yaffs2文件，然后进行烧写。\newline
+find the yaffs2 making tool\footnote{./Linux-3.0.1/filesystem/Yaffs2文件系统制作工具/mkyaffs2image-nand2g}, then
+\begin{verbatim}
+# mkyaffs2image-nand2g rootfs/ rootfs.yaffs2
+\end{verbatim}
+	注意，资料中编译好的对应二进制程序应用i386体系结构，用户可以使用
+	Arch Linux或者Gentoo Linux的iso在i386虚拟机中运行该程序。
+	multi-arch亦可。qemu亦可。
+
+\subsection{Prepare the SD Card}
+准备一张干活的SD卡，用它来烧写rootfs（此处仅烧写rootfs）。
+\subsubsection{Format SD card as FAT32}
+\begin{verbatim}
+# parted ...
+# mkfs.vfat ...
+\end{verbatim}
+\subsubsection{Program SD card and copy files}
+\begin{enumerate}
+\item Program SD card with SD\_Writer.exe\newline
+Refer the Appendix:reference :: 1 please.
+\item Copy u-boot.bin into SD card
+\item Copy zImage into SD card\newline
+use the one included in demo/\footnote{zImage of linux-3.0.1 heavily customized}
+\item Copy rootfs.yaffs2 into SD card\newline
+use the one you created just now.
+\end{enumerate}
+
+\subsection{Switch jumper: boot from SD card}
+switch jumper 6 and 7 off:
+\begin{verbatim}
+ Num    : 1234 5678
+ShouldBe: 0001 1111
+Original: 0001 1001
+\end{verbatim}
+
+\subsection{Burn files from SD to NAND}
+these are u-boot automatic processes.\footnote{items headed with '*' is optional}
+\begin{enumerate}
+\item *Burn u-boot
+\item *Burn kernel
+\item Burn system
+\end{enumerate}
+This takes a long time.
+
+\subsection{Switch jumper: boot from NAND}
+switch jumper 6 and 7 on.
+
+\subsection{Finalize system on mtdblock2}
+\subsubsection{set u-boot arg}
+首先设置内核参数。
+\begin{verbatim}
+# setenv bootargs “root=/dev/mtdblock2 noinitrd rootfstype=yaffs2 \
+  consle=/dev/ttySAC0,115200 init=/bin/sh”
+# saveenv
+# reset
+\end{verbatim}
+\subsubsection{stage2}
+使用debootstrap来进行stage2.
+\begin{verbatim}
+# /debootstrap/debootstrap --second-stage
+\end{verbatim}
+This also takes a very long time.
+\subsubsection{finalize}
+最后的一些设置，确定系统重启之后可以正常工作。
+\begin{verbatim}
+# echo "ttySAC0" >> /etc/securetty
+# printf "T0:123:respawn:/sbin/getty 115200 ttySAC0\n" >> /etc/inittab
+# printf "auto eth0\niface eth0 inet dhcp\n" >> /etc/network/interfaces 
+(this step is optional)
+# passwd
+# reboot -f
+\end{verbatim}
+Then tweak bootargs with u-boot
+\begin{verbatim}
+# setenv bootargs “root=/dev/mtdblock2 noinitrd rootfstype=yaffs2 \
+  consle=/dev/ttySAC0,115200 init=/sbin/init”
+# saveenv
+# reset
+\end{verbatim}
+Then the system on mtdblock2 is in stage3 now, and it works.
+
+\subsection{Make system on NAND:mtdblock3}
+\subsubsection{send ok6410.tar.gz to board}
+1. nc; 2.ssh; 3. rsync;
+\subsubsection{prepare mtdblock3}
+ok\# mkfs.ext3 /dev/mtdblock3
+\subsubsection{untar}
+ok\# mount /dev/mtdblock3 /mnt
+ok\# tar zxvf ok.tar.gz -C /mnt
+\subsubsection{reboot, tweak bootargs}
+root=/dev/mtdblock3 noinitrd rootfstype=ext3 consle=/dev/ttySAC0,115200 init=/bin/sh
+\subsubsection{do stage2 as above}
+\subsubsection{do finalize as above}
+\subsubsection{tweak bootargs}
+root=/dev/mtdblock3 noinitrd rootfstype=ext3 consle=/dev/ttySAC0,115200 init=/sbin/init
+
+\subsection{Smoke test!}
+Boot, then see if the machine works.
+
+% -----------------------
+\section{Beyond base system}
+ This section is focused on applications beyond the base system.
+
+\subsection{installing more software}
+\subsubsection{tasksel}
+install touch screen programs easily, this is optional.
+\subsubsection{dpkg,apt}
+view the man page.
+
+\subsection{Calibrate the Touchscreen}
+\subsubsection{Set env}
+\begin{verbatim}
+# export TSLIB_TSDEVICE=/dev/input/event2
+\end{verbatim}
+可以参考飞凌的手册。
+\subsubsection{Calibrate}
+please start the X, then do the calibration with
+\begin{verbatim}
+# ts_calibrate
+\end{verbatim}
+if you want to run a test, type
+\begin{verbatim}
+# ts_test
+\end{verbatim}
+
+\subsection{Punch the face of X}
+\subsubsection{Sample script}
+\begin{verbatim}
+#!/bin/bash                                                                     
+#set -e                                                                         
+
+X :1 -noreset -quiet&                                                           
+export DISPLAY=:1                                                               
+echo "X start success."      
+\end{verbatim}
+\subsubsection{Note}
+X 与 Xorg 有区别。\newline
+Xorg 似乎更加底层，但区别到底在哪呢。
+
+\subsection{Kick the ass of ALSA}
+On wiki.archlinux.org, page "ALSA", there are lots of solutions to
+make alsa work.\newline
+However, nothing works, totaly.
+\subsubsection{the right way}
+The demo rootfs included in Material has a working alsa instance
+installed. So the right way is to copy the working alsa instance into
+the Endebian.\newline
+Demo's init program is /linuxrc, which is a symbol link to "/bin/busybox". Inspected
+/etc/\{init.d,rc.d\} matter, I copied some files to emdebian.
+\begin{enumerate}
+\item /etc/wm9714.conf\footnote{the alsa configuration file for the board}
+\item /usr/alsa/*
+\item ?/alsaconf (shell script)
+\end{enumerate}
+Had those files copied to the board, you invoke
+\begin{verbatim}
+# alsaconf start
+\end{verbatim}
+Then alsa works.\footnote{but still don't know why it works.}
+
+% ---------------
+\section{Maintain \& Troubleshot \& Hint}
+\subsection{Merge backup rootfs into restored FS}
+\subsubsection{Method 1: rsync + ssh}
+using "rsync". From the PC side:
+\begin{verbatim}
+# rsync -av --ignore-existing the/backup/dir root@IP_OF_BORAD:/
+\end{verbatim}
+note the '--ignore-existing' option of rsync.
+\subsubsection{Method 2: tar + nc}
+firstly the board side:
+\begin{verbatim}
+# nc -l -p PORT_BOARD | tar xvf - -C /
+\end{verbatim}
+then the PC side:
+\begin{verbatim}
+# cd /rootfs_ok/
+# tar cvf - . | nc IP_BOARD PORT_BOARD
+\end{verbatim}
+and please note the '-k' '-z' option of tar.
+
+\subsection{Dirty hint: Stage1 rootfs to Stage1.5}
+If you can't wait the slow process that dpkg bootstraping the base system,
+   you can directly extrace those files in software packages into your rootfs,
+   by invoking dpkg -X. \newline
+e.g.
+\begin{verbatim}
+# cd /var/cache/apt/archive/
+# for DEB in $(ls *.deb); do dpkg -X ${DEB} / ; done
+\end{verbatim}
+Then the system is nearly the same as stage1, but contains more
+commands for you to invoke. Maybe the bootstraping procedure
+could get painless in this way.
+
+\subsection{Hint: bootargs}
+此处可能出现低级错误。在uboot下printenv可以看见类似这样的一个bootargs：
+\begin{verbatim}
+bootargs=root=/dev/mtdblock2 rootfstype=yaffs2 init=/bin/sh ...
+\end{verbatim}
+然而可能由各种原因导致写入新值时写成如下形式：
+\begin{verbatim}
+bootargs=/dev/mtdblock2 rootfstype=yaffs2 init=/bin/sh ...
+\end{verbatim}
+此时容易漏掉“root=”几个字符，导致内核无法加载rootfs从而kernel panic。\newline
+如果犯了这种错误，内核会尝试从NFS中加载rootfs，此特征值得注意。
+
+\subsection{Manipulate broken ext3 FS}
+使用备用操作系统的e2fsck来对mtdblock3这个设备上的文件系统执行离线检查。
+\subsubsection{Boot another OS}
+In u-boot command line, change the bootargs variable
+\begin{verbatim}
+# echo $bootargs
+root=/dev/mtdblock3 noinitrd rootfstype=ext3 init=/sbin/init \
+  lcdsize=43 console=ttySAC0,115200
+\end{verbatim}
+then modify it
+\begin{verbatim}
+# setenv bootargs "root=/dev/mtdblock2 noinitrd rootfstype=yaffs2 \
+                   init=/sbin/init lcdsize=43"
+# saveenv
+# reset
+\end{verbatim}
+, then we can boot the system on mtdblock2
+\subsubsection{Check filesystem}
+don't mount /dev/mtdblock3, and just type
+\begin{verbatim}
+# fsck.ext3 /dev/mtdblock3 -y
+\end{verbatim}
+if success: goto next subsection; else
+\begin{verbatim}
+# fsck.ext3 -f /dev/mtdblock3 -y
+\end{verbatim}
+if success: goto next subsection; else
+\begin{verbatim}
+# mkfs.ext3 -n /dev/mtdblock3
+\end{verbatim}
+then find the place of backup superblock, e.g. "32768". Next, use the backup superblock
+\begin{verbatim}
+( change the following 32768 to the number you exactly see
+# fsck.ext3 -b 32768 /dev/mtdblock3 -f -y
+\end{verbatim}
+if success: goto next subsection; else
+\begin{verbatim}
+# mkfs.ext3 -S /dev/mtdblock3
+( rightly after that, type next command
+# fsck.ext3 -f /dev/mtdblock3 -y
+\end{verbatim}
+this method must success.\newline
+\subsubsection{Change bootargs and boot}
+
+\subsection{Hint: Virtualbox USB Driver}
+http://download.virtualbox.org/virtualbox\newline
+下载Extension\_Pack并安装，添加当前用户到vboxusers中即可。
+\begin{verbatim}
+http://download.virtualbox.org/virtualbox
+\end{verbatim}
+
+\subsection{Unable to load mmc:1 *fatload*}
+换SD卡。
+
+\subsection{Trsh: sshd: Connection Timeout.}
+\subsubsection{Syndrome}
+\begin{enumerate}
+\item sshd service is running, other machines have ssh access to it. However
+	even if the password is definitly correct, ssh would say 
+	"Timeout, server 1.1.1.2 not responding."
+\item Even from the machine running sshd, ssh can not login itself. It says
+	"ssh: connect to host localhost port 22: Network is unreachable"
+\end{enumerate}
+\subsubsection{Solution}
+Seems that the loopback network device "lo" is DOWN.
+And then turn on the device "lo" indeed solves this issue.
+\begin{enumerate}
+\item Edit /etc/network/interfaces (Debian)
+	\begin{verbatim}
++ auto lo
++ iface lo inet loopback
+	\end{verbatim}
+\item Start service "networking"
+\item Turn on the device manualy.
+	\begin{verbatim}
+# ip link set dev lo up
+	\end{verbatim}
+\end{enumerate}
+Now the sshd works.
+
+% -------------------------
+\section{Porting Kernel(failed)}
+This plan is aborted. (20, Mar, 2015)\newline
+https://code.google.com/p/linux-ok6410
+
+% APPENDIX
+\newpage
+\appendix
+\section{Reference}
+\begin{enumerate}
+\item OK6410-A开发板LINUX3.0.1-2014-09用户手册.pdf
+\item http://www.arm9board.net/wiki/index.php?title=Debian\_on\_OK6410
+\item Archwiki: ALSA
+\item Archwiki: ALSA/Troubleshoot
+\item virtualbox.org
+\item Man pages
+\end{enumerate}
+
+\section{Hardware}
+\begin{verbatim}
+CPU: Samsung S3C6410, armv7
+RAM: 256 MB
+NANDFlash: 1GiB
+Board Machine ID: 1626
+\end{verbatim}
+
+\section{ch341.ko}
+
+
+\section{Changelog}
+\subsection{3 Mar 2015 - 11 Mar 2015}
+安装Emdebian，记录简单日志。
+\subsection{19 Mar 2015}
+调整文档结构，添加Changelog，添加后期发现的点子和一些经验。
+\subsection{20 Mar 2015}
+板子调整和测试完成。完善文档。
+
+\end{CJK}
+\end{document}
+% ----end document----
