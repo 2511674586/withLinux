@@ -1,4 +1,5 @@
 Converting Video and Audio, using 'avconv'
+# ffmpeg
 
 #1 print supported codecs and formats
 	avconv -formats
@@ -11,6 +12,14 @@ Converting Video and Audio, using 'avconv'
 	e.g. convert avi to mp4(x264):
 	avconv -i <media.file> -vcodec libx264 -acodec ac3 <output.file>
 		where 'vcodec' specifies the codec of video stream, 'acodec' specifies audio codec.
+
+#4 convertion between video and image
+	avconv -i foo.avi -r 1 -s WxH -f image2 foo-%05d.png
+	-r 1  :  1 frame per sec.
+	WxH   : e.g. 1920x1080
+
+	ref: man avconv section << Video and Audio file format conversion >>
+	http://ffmpeg.org/ffmpeg.html#Video-and-Audio-file-format-conversion
 
 avconv(1)
 
