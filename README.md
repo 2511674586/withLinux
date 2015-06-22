@@ -95,6 +95,8 @@ Issue me if encountered any problem. keep updating.
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
 12. [kali](./kali)  
   1. [some tools](./kali/tools.txt)  
+13. [Debian](https://www.debian.org/)  
+  1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

@@ -1,0 +1,17 @@
+https://www.debian.org/doc/manuals/repository-howto/repository-howto
+
+https://scotbofh.wordpress.com/2011/04/26/creating-your-own-signed-apt-repository-and-debian-packages/
+
+http://www.hadrons.org/~guillem/debian/mini-dak/
+
+https://wiki.debian.org/SettingUpSignedAptRepositoryWithReprepro
+
+https://www.debian-administration.org/article/286/Setting_up_your_own_APT_repository_with_upload_support
+
+http://anonscm.debian.org/gitweb/?p=mirrorer/reprepro.git;a=blob_plain;f=docs/short-howto;hb=HEAD
+
+[*] https://wiki.debian.org/HowToSetupADebianRepository
+
+https://www.debian-administration.org/
+
+http://askubuntu.com/questions/71510/how-do-i-create-a-ppa
