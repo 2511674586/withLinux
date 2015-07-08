@@ -4,4 +4,5 @@ convert your highlighted code into html
 $ vim code.c
 vim> :syntax on
 vim> :source $VIMRUNTIME/syntax/2html.vim
+OR vim> :runtime! syntax/2html.vim
 vim> :write code.c.html
