@@ -1,0 +1,13 @@
+convert format of images
+
+ convert a.png a.jpg
+
+resize
+
+ convert a.jpg -resize 100x100 a_resized.jpg
+
+rotate image
+
+ convert a.jpg -rotate 90 a_rotated.jpg
+
+MORE see man convert from ImageMagick software.

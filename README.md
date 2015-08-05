@@ -30,6 +30,7 @@ Issue me if encountered any problem. keep updating.
   11. [git ... merge 2 repos into 1](./basic/git_merge_repo.txt)  
   12. [vim ... convert code into html](./basic/vim_html.txt)  
   13. [ffmpeg ... resize picture and video](./basic/ffmpeg_resize_picture.txt)  
+  14. [imagemagick ... resize, trans-format, rotate picture](./basic/imagemagick.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
