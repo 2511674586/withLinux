@@ -6,6 +6,8 @@ They are based on [Debian](https://www.debian.org). Some may work on Ubuntu, Min
   
 Issue me if encountered any problem. keep updating.  
   
+TODO: re-arrange sections.  
+  
 ## Index : contents
 1. [Installing Linux](./install)  
   1. [USB stick ... How can I install linux into it](./install/install-linux-into-usb-stick.txt)  
