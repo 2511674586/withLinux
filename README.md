@@ -84,6 +84,8 @@ TODO: re-arrange sections.
   2. [the c programming language](./lang/c/)  
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
     2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
+  3. [CPP](./lang/cpp)  
+    1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
   3. [A hello world html sample](./lang/sample.html)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
