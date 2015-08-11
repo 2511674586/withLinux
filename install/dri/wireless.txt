@@ -6,3 +6,7 @@ wireless network card drivers
 2. for intel cards install pkg : 
 	firmware-iwlwifi  
 	which is in the "non-free" section.
+
+3. rfkill
+	apt install rfkill
+	soft lock and hardware lock
