@@ -143,6 +143,7 @@ TODO: re-arrange sections.
 9. Search engine
   1. google  
   2. shodan  
+10. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
   
 ## LICENSE
 The MIT LICENSE.  
