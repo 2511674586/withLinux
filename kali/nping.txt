@@ -1,0 +1,55 @@
+-*- nping note -*-
+
+Target specification
+
+Probe modes
+
+ --tcp-connect [default]
+   -p target ports
+   -g source ports
+ --tcp
+   -p target ports
+   -g source ports
+   --flags <flags>
+ --udp
+   -p target ports
+   -g source ports
+ --icmp
+   --icmp-type ...
+ --arp
+   ...
+ --traceroute 
+
+IPv4 Options
+
+ -S source address spoofing
+ ...
+
+IPv6 Options
+
+ -6, --ipv6 use ipv6
+ -S source addreess spoofing
+
+Ethernet Options
+
+ --dest-mac
+ --source-mac
+
+Payload Options
+
+ --data
+ --data-string
+ --data-length
+
+Timing
+
+ --delay  (set delay to 0 to flood)
+ --rate
+
+Misc
+
+ -c
+ -v[level] verbose level
+ 
+Very useful reference:
+manpage: nping(1)

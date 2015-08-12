@@ -1,6 +1,7 @@
 # With Linux - Brief HOWTO?
 
-Linux tricks, hints, etc, most of which are in the style of keyword-expanding.  
+Linux tricks, hints, hacks, etc...  
+Most of which are in the style of keyword-expanding.  
   
 They are based on [Debian](https://www.debian.org). Some may work on Ubuntu, Mint etc.  
   
@@ -103,6 +104,7 @@ TODO: re-arrange sections.
 12. [kali](./kali)  
   1. [tools list](./kali/tools.txt)  
   2. [nmap note](./kali/nmap.txt)  
+  3. [nping note](./kali/nping.txt)  
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   
