@@ -1,0 +1,68 @@
+-*- Nmap note -*-
+
+Target specification
+
+ -iL input from list
+ -iR input from random
+
+Host probe
+
+ -sL scan by list
+ -sP scan by Ping
+ -P0 no ping
+ -PS tcp syn ping
+ -PA tcp ack ping
+ -PU udp ping
+ -PE; -PP, -PM
+ -PR arp ping
+ -n no domain name resolution
+ -R do reverse domain name resolution
+
+Port Scan
+
+ -sS tcp syn scan
+ -sT tcp connect() scan
+ -sU udp scan
+ -sN set flag to null
+ -sF set flag FIN
+ -sX set all flags
+ -sA tcp ack
+ -sW tcp window
+ -sM tcp maimon
+ --scanflags URGSYNACKFINRST
+ -sI zombie scan
+ -sO ip protocol scan
+ -b ftp bounce scan
+
+Port specification
+
+ -p <ports>
+ -F fast scan
+
+Service probe
+
+ -sV scan service version
+ -A : -O + -sV , operate system probe and service version probe
+
+OS probe
+
+ -O turn OS probe on
+ 
+Time of scanning
+
+ -T <0-5>
+
+IDS
+
+ -f fragmentation
+ -D 
+ -S source address cheating
+ -e interface
+ -g source port cheating
+
+Misc
+
+ -v verbose
+ --packet-trace
+ -6 IPv6
+

@@ -101,7 +101,8 @@ TODO: re-arrange sections.
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
 12. [kali](./kali)  
-  1. [some tools](./kali/tools.txt)  
+  1. [tools list](./kali/tools.txt)  
+  2. [nmap note](./kali/nmap.txt)  
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   
