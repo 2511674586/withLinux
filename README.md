@@ -89,6 +89,7 @@ TODO: re-arrange sections.
   3. [CPP](./lang/cpp)  
     1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
     2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
+    3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
   3. [A hello world html sample](./lang/sample.html)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
