@@ -1,0 +1,10 @@
+[ debootstrap ]
+Bootstrap a minimum/stage3 Debian GNU/Linux system
+
+ # apt install debootstrap
+ # debootstrap sid /mnt http://ftp.us.debian.org/debian
+
+see debootstrap(8) for detail.
+
+[ cdebootstrap ]
+is an alternative.
