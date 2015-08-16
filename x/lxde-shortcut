@@ -1,0 +1,21 @@
+In debian
+
+* cd ${HOME}
+* vim .config/openbox/lxde-rc.xml
+* find label <keyboard> then insert your settings
+  e.g.
+
+'''
+<keybind key="C-A-t">
+ <action name="Execute">
+  <command>lxterminal</command>
+ </action>
+</keybind>
+<keybind key="C-A-f">
+ <action name="Execute">
+  <command>pcmanfm</command>
+ </action>
+</keybind>
+'''
+
+* restart lxde and see if it works

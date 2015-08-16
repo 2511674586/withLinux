@@ -50,6 +50,8 @@ TODO: re-arrange sections.
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
     2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
     3. X11 default display manager ... /etc/X11/default-display-manager  
+  2. [LXDE](./x)  
+    1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
 5. [System management](./config)  
   1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
   2. [grub2 ... location of config files](./config/grub_config_file_location.txt)  
