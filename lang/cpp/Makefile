@@ -1,5 +1,5 @@
-PROJ := glog blas template
-ELF  := glog_demo blas template_demo
+PROJ := glog blas template stl
+ELF  := glog_demo blas template_demo stl_demo
 
 main: $(PROJ)
 
@@ -9,6 +9,8 @@ blas:
 	g++ blas.cpp -lglog -lblas -Wall -o blas
 template:
 	g++ template.cpp -lglog -Wall -o template_demo
+stl:
+	g++ stl.cpp -lglog -Wall -o stl_demo
 
 clean:
 	-$(RM) $(ELF)
