@@ -52,6 +52,15 @@ TODO: re-arrange sections.
     3. X11 default display manager ... /etc/X11/default-display-manager  
   2. [LXDE](./x)  
     1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
+  3. Desktop Managers ... in fact X11 login program  
+    1. gdm, gdm3 and kdm are too heavy  
+    2. sddm for plasma5 is heavy too  
+    3. lightdm and slim are light and small
+  4. jwm / cwm / twm / i3-wm  
+  5. Graphical Virtual terminals  
+    1. Gnome-terminal
+    2. guake terminal  
+    3. lilyterm is light and fast
 5. [System management](./config)  
   1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
   2. [grub2 ... location of config files](./config/grub_config_file_location.txt)  
@@ -77,19 +86,20 @@ TODO: re-arrange sections.
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
   2. [dnsmasq ... local cache name server](./server/dnsmasq.txt)  
-  3. [apache2 ... simple setup](./server/apache2.txt)  
+  3. [apache2 (2.2.22) ... simple setup](./server/apache2.txt)  
   4. [bind9 (debian)... DNS (cache) - config file](./server/named.conf.options)  
   5. hostapd ... [external link](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
+  6. [udhcpd from dropbox]
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
     2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
     3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
-  2. [the c programming language](./lang/c/)  
+  2. [c ](./lang/c/)  
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
     2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
     3. [print source file name and source line number](./lang/c/file_line_.c)  
-  3. [CPP](./lang/cpp)  
+  3. [c++](./lang/cpp)  
     1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
     2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
     3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
@@ -121,11 +131,13 @@ TODO: re-arrange sections.
   2. [Debian wiki ... ](https://wiki.debian.org)  
   3. [Arch wiki ... ](https://wiki.archlinux.org)  
   4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
-  5. [series of stackoverflow](http://stackoverflow.com)  
+  5. [stackoverflow](http://stackoverflow.com)  
+  6. [Funtoo wiki]
 2. Docs out there  
   1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
   2. [Gentoo doc ...](http://www.gentoo.org/doc)  
   3. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
+  4. [OpenBSD docs]
 3. Manuals & Tutorials  
   1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
 4. DNS   
@@ -157,4 +169,4 @@ The MIT LICENSE.
   
 ---
 千里之行，始于足下。  
-Started on 2014/06/28 by C.D.Luminate  
+Started on 2014/06/28 by Lumin Zhou
