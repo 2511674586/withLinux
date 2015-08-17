@@ -119,6 +119,7 @@ TODO: re-arrange sections.
   1. [Compile ... ](./kernel/compile.txt)  
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
+  2. [PBS - Cluster Job Management](./cluster/pbs)  
 12. [kali](./kali)  
   1. [tools list](./kali/tools.txt)  
   2. [nmap note](./kali/nmap.txt)  
