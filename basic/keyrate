@@ -1,0 +1,4 @@
+Change Keyboard input rate / delay under X
+
+ e.g.
+  xset r rate 150 32
