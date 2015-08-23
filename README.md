@@ -20,6 +20,7 @@ TODO: re-arrange sections.
   5. [efi ... some pkgs related](./install/efi.txt)  
   6. [server ... hp server installation](./install/hpserver)  
   7. [bootstrap minimal/stage3 Debian system](./install/bootstrap)    
+  8. [simple ArchLinux install note](./install/arch)  
 2. [Basic tools](./basic)  
   1. [netcat ... some usages](./basic/netcat.txt)  
   2. [bash ... some tricks](./basic/bash_tricks.txt)  
