@@ -47,6 +47,7 @@ TODO: re-arrange sections.
   6. [share the network with other machine ... one of cases](./internet/share-network-between-linux.txt)  
   7. [share-ipv4-with-ipv6-tunnel ...](./internet/share-ipv4-with-ipv6-tunnel.txt)  
   8. [openvpn ... simple utilization](./internet/openvpn.txt)  
+  9. [802.1X auth ... ref link](./internet/802auth)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
