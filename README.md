@@ -110,6 +110,8 @@ TODO: re-arrange sections.
     5. [stl demo](./lang/cpp/stl.cpp)  
   3. [A hello world html sample](./lang/sample.html)  
   4. [Octave](./lang/oct)  
+  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
+  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
@@ -169,10 +171,11 @@ TODO: re-arrange sections.
   1. google  
   2. shodan  
 10. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
+11. Open source Licenses
+  1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
   
 ## LICENSE
 The MIT LICENSE.  
   
 ---
-千里之行，始于足下。  
 Started on 2014/06/28 by Lumin Zhou
