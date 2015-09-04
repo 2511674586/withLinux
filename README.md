@@ -86,6 +86,7 @@ TODO: re-arrange sections.
   18. [source.list ... example](./config/sources.list)  
   19. [apt preference control file for APT](./config/apt_preference.txt)  
   20. [sshd security ... sshguard](./config/sshguard.txt)  
+  21. [sshd SFTP chroot ... ](./config/ssh.txt)  
 6. [Setup server](./server)  
   1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
   2. [dnsmasq ... local cache name server](./server/dnsmasq.txt)  
