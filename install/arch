@@ -99,3 +99,6 @@ References
    Wiki.archlinux.org
 
  * i3wm.org
+
+ * https://wiki.archlinux.org/index.php/VirtualBox#Launch_the_VirtualBox_guest_services
+   This tells you how to make virtualbox arch work, incl. X11.
