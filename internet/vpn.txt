@@ -1,4 +1,6 @@
-packages :
+General Way : network manager 
+=============================
+install packages
 
 pptpd  
 network-manager-openvpn  
@@ -8,3 +10,7 @@ network-manager-pptp-gnome
 network-manager-strongswan  
 network-manager-vpnc  
 network-manager-vpnc-gnome  
+
+PPTP on LINUX
+=============
+https://wiki.archlinux.org/index.php/PPTP_VPN_client_setup_with_pptpclient
