@@ -1,6 +1,8 @@
 # ArchLinux quick note : installing
 
+##########################################################
 ## install with CD
+##########################################################
 
 * download CD
   https://www.archlinux.org/download/
@@ -86,10 +88,24 @@
   http://i3wm.org/docs/refcard.html
   http://i3wm.org/docs/userguide.html
 
+################################################################
 ## Install with an existing Linux system
+##############################################################
 https://wiki.archlinux.org/index.php/Install_from_existing_Linux
 
 * download bootstrap tarball
+* extract to /tmp
+* cd /tmp/root.x86_64/
+* Setup /etc/pacman.d/mirrorlist
+* sudo ./bin/arch-chroot .
+* Init pacman keyring
+  + pacman-key --init
+  + pacman-key --populate archlinux
+* mount target filesystem
+  + mount /dev/sdb5 /mnt
+* Complete base system
+  + pacman -Syy
+  + pacstrap /mnt  base base-devel grub vim parted
 
 ==========
 References
