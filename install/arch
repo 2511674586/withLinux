@@ -65,7 +65,7 @@
 * install X
   https://wiki.archlinux.org/index.php/Xorg
 
-  + pacman -S xorg xorg-server
+  + pacman -S xorg xorg-server xorg-xinit
   + pacman -Ss xf86-video
 
 * install [DM] slim
@@ -105,7 +105,7 @@ https://wiki.archlinux.org/index.php/Install_from_existing_Linux
   + mount /dev/sdb5 /mnt
 * Complete base system
   + pacman -Syy
-  + pacstrap /mnt  base base-devel grub vim parted
+  + pacstrap /mnt busybox base base-devel grub vim parted
 
 ==========
 References
@@ -124,3 +124,13 @@ References
 /usr/bin/VBoxClient-all
 exec gnome-session
 ```
+
+ * Dependencies of wifi-menu
+   dialog wpa_supplicant
+
+ * Desktop Env : .xinitrc
+   /usr/bin/VBoxClient-all
+   exec i3
+   exec startkde
+   exec gnome-session
+
