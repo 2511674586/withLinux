@@ -1,0 +1,10 @@
+ssh-agent
+---------
+
+let it memorize your password of ssh keys.
+
+$ eval (ssh-agent)
+
+$ ssh-add ~/.ssh/id_rsa
+
+then you won't need extra password input before using that key.

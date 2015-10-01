@@ -37,6 +37,7 @@ TODO: re-arrange sections.
   13. [ffmpeg ... resize picture and video](./basic/ffmpeg_resize_picture.txt)  
   14. [imagemagick ... resize, trans-format, rotate picture](./basic/imagemagick.txt)  
   15. [xset ... change keyboard input delay/rate under X](./basic/keyrate)  
+  16. [ssh-agent ... let it memorize your password](./basic/ssh-agent.txt)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
