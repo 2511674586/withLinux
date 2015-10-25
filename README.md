@@ -95,6 +95,7 @@ TODO: re-arrange sections.
   4. [bind9 (debian)... DNS (cache) - config file](./server/named.conf.options)  
   5. hostapd ... [external link](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
   6. [udhcpd from dropbox]
+  7. [gitlab ... official deb setup](./server/gitlab.md)  
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
