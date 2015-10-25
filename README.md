@@ -1,13 +1,12 @@
-# With Linux - Brief HOWTO?
+# With Linux - Brief Hacks
 
-Linux tricks, hints, hacks, etc...  
-Most of which are in the style of keyword-expanding.  
+Linux tricks, hints, hacks, based on my personal experience with
+[Debian GNU/Linux](https://www.debian.org). It may work on Ubuntu, Mint etc.  
+Most of these hints and hacks are in the style of keyword-expanding.  
   
-They are based on [Debian](https://www.debian.org). Some may work on Ubuntu, Mint etc.  
+keep updating.  
   
-Issue me if encountered any problem. keep updating.  
-  
-TODO: re-arrange sections.  
+FIXME: re-arrange sections.  
   
 ## Index : contents
 1. [Installing Linux](./install)  
