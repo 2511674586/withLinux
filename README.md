@@ -104,6 +104,7 @@ TODO: re-arrange sections.
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
     2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
     3. [print source file name and source line number](./lang/c/file_line_.c)  
+    4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
   3. [c++](./lang/cpp)  
     1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
     2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
