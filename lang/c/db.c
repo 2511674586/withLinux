@@ -22,6 +22,10 @@
    Queue
 */
 
+/* References
+   [1] Berkeley DB source tree, {docs,examples}
+*/
+
 #include <db.h>
 #include <stdio.h>
 #include <stdlib.h>
