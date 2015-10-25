@@ -18,6 +18,9 @@ Converting Video and Audio, using 'avconv'
 	-r 1  :  1 frame per sec.
 	WxH   : e.g. 1920x1080
 
+# resize a picture
+	avconv -i fox.jpg -s 64x64 fox_resized.jpg
+
 	ref: man avconv section << Video and Audio file format conversion >>
 	http://ffmpeg.org/ffmpeg.html#Video-and-Audio-file-format-conversion
 
