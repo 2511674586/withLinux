@@ -43,7 +43,9 @@ _dbperror (u_int32_t _st,
 		exit (EXIT_FAILURE);
 	}
 }
-#define dbperror(_st) _dbperror(_st, __LINE__, __FILE__)
+#define dbperror(_st) do { \
+	_dbperror(_st, __LINE__, __FILE__); \
+} while(0)
 
 void
 DBT_memset (DBT * _key, DBT * _data)
