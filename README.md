@@ -116,6 +116,7 @@ FIXME: re-arrange sections.
   4. [Octave](./lang/oct)  
   5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
   6. [CMake](http://www.cmake.org/cmake-tutorial/)  
+  7. [java helloworld on linux](./lang/java)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
