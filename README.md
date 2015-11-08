@@ -1,5 +1,6 @@
 # With Linux - Brief Hacks
 
+
 Linux tricks, hints, hacks, based on my personal experience with
 [Debian GNU/Linux](https://www.debian.org). It may work on Ubuntu, Mint etc.  
 Most of these hints and hacks are in the style of keyword-expanding.  
@@ -183,4 +184,7 @@ FIXME: re-arrange sections.
 The MIT LICENSE.  
   
 ---
-Started on 2014/06/28 by Lumin Zhou
+Started on 2014/06/28 by Lumin Zhou  
+  
+Seek for UNIX, look into UNIX, follow the UNIX, play with UNIX, work with UNIX, learn from UNIX,
+but neither becoming an UNIX, nor marrying UNIX. -- lumin  
