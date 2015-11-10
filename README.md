@@ -121,6 +121,7 @@ FIXME: re-arrange sections.
   8. [AWK](./)  
   9. [Sed](./)  
   10. [GNU BC](./)     
+  11. [Maxima](./)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
