@@ -80,21 +80,8 @@ main (int argc, char **argv)
 	FLAGS_logtostderr = 1;
 	google::InitGoogleLogging (argv[0]);
 
-    /* this is just a test */
-	//int MM=3, NN=3, KK=1;
-	//float AA[MM*NN] = { 0,0,1, 0,1,0, 1,0,0 };
-    //dump_matrix (CblasRowMajor, AA, MM, NN, "AA");
-	//float BB[NN*KK] = { 1,2,3 };
-    //dump_matrix (CblasRowMajor, BB, MM, KK, "BB");
-	//float CC[MM*KK] = {0,0,0};
-    //dump_matrix (CblasRowMajor, CC, MM, KK, "CC");
-	//cblas_sgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, MM, KK, NN,
-	//	1.0, AA, MM, BB, KK, 0.0, CC, KK);
-    //dump_matrix<float> (CblasRowMajor, CC, MM, KK, "CC");
-    //LOG(INFO) << "test complete";
-
-
     LOG(INFO) << "Gauss-Seidel, Solving Ax=b, with CBLAS";
+
     // --[ Configuration
     int step_max = 1e+5;
     float converge_threshold = 1e-8;
@@ -120,48 +107,19 @@ main (int argc, char **argv)
         LOG(INFO) << "Step " << iter;
 
         step_gauss_seidel (CblasRowMajor, A, x, b, M, N, K); // update value for vector x
-        //LOG(INFO) << "x = step_gauss_seidel (..., x)";
-        //dump_matrix (CblasRowMajor, x, N, K, "x"); // dump x
 
-        /* test */
-        cblas_scopy (N, x, 1, test, 1); // copy x for testing the error
-
-        //LOG(INFO) << "test = copy(x, test)";
-        //dump_matrix (CblasRowMajor,test, N, K, "test"); // cory [OK]
-
-        //LOG(INFO) << "test = sgemm( 1.0, A, x, 0, test)";
         cblas_sgemv (CblasRowMajor, CblasNoTrans, M, N,
             1.0, A, M, x, 1, 0.0, test, 1); // forward current result
-        //cblas_sgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans,
-        //    M, K, N,  // m k n
-        //    1.0, A, M, // alpha, A, lda
-        //    test, K,  // B, ldb
-        //    1.0, x, K); // beta C  ldc
-        //test[0] = A[0]*x[0] + A[1]*x[1];
-        //test[1] = A[2]*x[0] + A[3]*x[1];
-        //cblas_sgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, 2, 1, 2,
-        //    1.0, A, 2, x, 1, 0.0, test, 1);
-
-
-        //dump_matrix (CblasRowMajor, A, M, N, "A");
-        //dump_matrix (CblasRowMajor, test, N, K, "test");
-        //dump_matrix (CblasRowMajor, b, M, K, "b");
-
-        //LOG(INFO) << "test = saxpy(-1, b, 1, test)";
-        //test[0] = test[0] - b[0];
-        //test[1] = test[1] - b[1];
         cblas_saxpy (N, -1.0, b, 1, test, 1); //  test = test - b
-        //dump_matrix (CblasRowMajor, test, N, K, "test");
+        asum = cblas_sasum (N, test, 1); // asum = sum(abs(test))
 
-        asum = cblas_sasum (N, test, 1);
         LOG(INFO) << "  Sasum (test) = " << asum;
-        if (asum <= converge_threshold)
-            break;
+        if (asum <= converge_threshold) break;
     }
     
-    LOG(INFO) << "Converged.";
+    LOG(INFO) << "Solution Converged.";
     LOG(INFO) << "";
-    LOG(INFO) << "Solution: ";
+    LOG(INFO) << "Solution Dump: ";
     dump_matrix (CblasRowMajor, x, N, K, "x");
 
     return 0;
@@ -169,9 +127,9 @@ main (int argc, char **argv)
 
 /*
 
-Reference:
+Reference for Gauss-Seidel
 
 1. https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method
-
+2. http://mathworld.wolfram.com/Gauss-SeidelMethod.html
 
 */
