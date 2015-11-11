@@ -150,7 +150,7 @@ FIXME: re-arrange sections.
   3. [Arch wiki ... ](https://wiki.archlinux.org)  
   4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
   5. [stackoverflow](http://stackoverflow.com)  
-  6. [Funtoo wiki]
+  6. [Funtoo wiki](https://wiki.funtoo.org)  
 2. Docs out there  
   1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
   2. [Gentoo doc ...](http://www.gentoo.org/doc)  
@@ -158,6 +158,7 @@ FIXME: re-arrange sections.
   4. [OpenBSD docs]
 3. Manuals & Tutorials  
   1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
+  2. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
 4. DNS   
   1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
   2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
