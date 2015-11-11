@@ -136,10 +136,11 @@ FIXME: re-arrange sections.
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
   2. [PBS - Cluster Job Management](./cluster/pbs)  
-12. [kali](./kali)  
+12. [kali/security](./kali)  
   1. [tools list](./kali/tools.txt)  
   2. [nmap note](./kali/nmap.txt)  
   3. [nping note](./kali/nping.txt)  
+  4. [preventing buffer overflow](http://www.ibm.com/developerworks/cn/linux/l-sp/part4/index.html)  
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   
