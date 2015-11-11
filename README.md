@@ -39,6 +39,7 @@ FIXME: re-arrange sections.
   14. [imagemagick ... resize, trans-format, rotate picture](./basic/imagemagick.txt)  
   15. [xset ... change keyboard input delay/rate under X](./basic/keyrate)  
   16. [ssh-agent ... let it memorize your password](./basic/ssh-agent.txt)  
+  17. [Busybox ... developer works](http://www.ibm.com/developerworks/cn/linux/l-busybox/index.html)  
 3. [Internet](./internet)  
   1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
   2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
