@@ -74,6 +74,7 @@ step_gauss_seidel (const CBLAS_ORDER order,
     return;
 }
 
+/////////////////////////// MAIN ////////////////////////////
 int
 main (int argc, char **argv)
 {
@@ -83,14 +84,31 @@ main (int argc, char **argv)
     LOG(INFO) << "Gauss-Seidel, Solving Ax=b, with CBLAS";
 
     // --[ Configuration
-    int step_max = 1e+5;
+    int step_max = 1e+3;
     float converge_threshold = 1e-8;
 
-    int M = 2, N = 2, K = 1;
-    float A[M*N] = { 16,3, 7,-11 };
-    float b[M*K] = { 11, 13 };
-    float x[N*K] = { 0, 0 };
-    float test[N*K] = { 0, 0 };
+    // example 1 : will converge and get the solution
+    //int M = 2, N = 2, K = 1;
+    //float A[M*N] = { 16,3, 7,-11 };
+    //float b[M*K] = { 11, 13 };
+    //float x[N*K] = { 0, 0 };
+    //float test[N*K] = { 0, 0 };
+
+    // example 2 : will diverge, only expect that 
+    // init value is the solution.
+    //int M = 2, N = 2, K = 1;
+    //float A[M*N] = { 2,3, 5,7 };
+    //float b[M*K] = { 11, 13 };
+    //float x[N*K] = { -38, 29 };
+    //float test[N*K] = { 0, 0 };
+
+    // example 3 : 
+    int M = 4, N = 4, K = 1;
+    float A[M*N] = { 10,-1,2,0,  -1,11,-1,3,  2,-1,10,-1,  0,3,-1,8 };
+    float b[M*K] = { 6,25,-11,15 };
+    float x[N*K] = { 0,0,0,0 };
+    float test[N*K] = { 0,0,0,0 };
+
 
     // --[ Echo A and b, and init value of x
     dump_matrix (CblasRowMajor, A, M, N, "A");
@@ -106,8 +124,10 @@ main (int argc, char **argv)
         /* update */
         LOG(INFO) << "Step " << iter;
 
-        step_gauss_seidel (CblasRowMajor, A, x, b, M, N, K); // update value for vector x
+        // update value for vector x
+        step_gauss_seidel (CblasRowMajor, A, x, b, M, N, K);
 
+        /* test */
         cblas_sgemv (CblasRowMajor, CblasNoTrans, M, N,
             1.0, A, M, x, 1, 0.0, test, 1); // forward current result
         cblas_saxpy (N, -1.0, b, 1, test, 1); //  test = test - b
@@ -116,8 +136,11 @@ main (int argc, char **argv)
         LOG(INFO) << "  Sasum (test) = " << asum;
         if (asum <= converge_threshold) break;
     }
-    
-    LOG(INFO) << "Solution Converged.";
+    if (iter < step_max)
+        LOG(INFO) << "Solution Converged.";
+    else
+        LOG(INFO) << "Max_step Reached.";
+
     LOG(INFO) << "";
     LOG(INFO) << "Solution Dump: ";
     dump_matrix (CblasRowMajor, x, N, K, "x");
