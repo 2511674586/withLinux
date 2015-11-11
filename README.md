@@ -154,6 +154,7 @@ FIXME: re-arrange sections.
   4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
   5. [stackoverflow](http://stackoverflow.com)  
   6. [Funtoo wiki](https://wiki.funtoo.org)  
+  7. [IBM Developer works](https://www.ibm.com/developerworks/cn/linux/)  
 2. Docs out there  
   1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
   2. [Gentoo doc ...](http://www.gentoo.org/doc)  
