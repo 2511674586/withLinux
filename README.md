@@ -102,6 +102,7 @@ FIXME: re-arrange sections.
     1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
     2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
     3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
+    4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
   2. [c ](./lang/c/)  
     1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
     2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
