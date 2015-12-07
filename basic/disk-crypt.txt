@@ -1,4 +1,5 @@
 encrypt a disk with cryptsetup
+------------------------------
 
 1. prepare the empty disk (sdc)
 
@@ -32,6 +33,32 @@ encrypt a disk with cryptsetup
 
 8. close luks
 	# cryptsetup luksClose /dev/dm-0
+
+
+
+encrypt a disk image with luks
+------------------------------
+
+0. create my symlink
+    # ln -s /sbin/cryptsetup /sbin/luks
+
+1. prepare a blank image file, by using dd or truncate
+    # truncate -s 1G luks.img
+
+2. setup the image file as loop device
+    # losetup -f luks.img
+
+3. Format this (virtual) device with luks header
+    # luks luksFormat /dev/loop0
+    P.S. input uppercase 'YES', then input your password for key slot 0
+
+4. Open device
+    # luks open /dev/loop0 luks0
+    # lsblk
+```
+loop0     7:0    0     1G  0 loop  
+└─luks0 253:0    0  1022M  0 crypt 
+```
 
 reference:
 	man cryptsetup
