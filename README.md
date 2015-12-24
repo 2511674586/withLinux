@@ -190,6 +190,8 @@ FIXME: re-arrange sections.
 10. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 11. Open source Licenses
   1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
+12. Games on Linux  
+  1. [Terraria on Wine32](./topic/terraria.md)  
   
 ## LICENSE
 The MIT LICENSE.  
