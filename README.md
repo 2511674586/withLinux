@@ -125,6 +125,8 @@ FIXME: re-arrange sections.
   9. [Sed](./)  
   10. [GNU BC](./)     
   11. [Maxima](./)  
+  12. [Python3](./lang/py3)  
+    1. [convert list into string](./lang/py3/list2str.md)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
