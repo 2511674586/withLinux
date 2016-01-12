@@ -54,7 +54,7 @@ FIXME: re-arrange sections.
   10. [iptables howto ... ubuntu help](https://help.ubuntu.com/community/IptablesHowTo)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
-    1. [the height of top bar ... modify](./x/gnome/topbar.txt)  
+    1. [the height of top bar ... modify](./x/gnome/topbar.md)  
     2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
     3. X11 default display manager ... /etc/X11/default-display-manager  
   2. [LXDE](./x)  
