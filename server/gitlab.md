@@ -6,6 +6,8 @@ Gitlab notes
 3. vim /etc/gitlab/gitlab.rb  
 4. gitlab-ctl reconfigure  
 5. gitlab-ctl restart
+6. start your browser
+7. login with the default account `root`, password `5iveL!fe`.`
 
 ### Troubleshot
 
