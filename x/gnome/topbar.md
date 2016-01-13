@@ -38,3 +38,36 @@ then subtitude `black` with a `rgba()` function.
 ```
 
 Then restart gnome-shell.
+
+
+However, one may find that there is no `gnome-shell.css` such a file
+in package `gnome-shell 3.18`, and this new file appeared:
+```
+/usr/share/gnome-shell/gnome-shell-theme.gresource
+```
+according to gresource(1) from package `libglib-bin`, this is a resource ball compiled into ELF format,
+and with `gresource list gnome-xxx.gresource` you can see a complete list of its contents.
+
+Due to the ELF format, we need to ensure its displacements not being broke if think of dirty hack.
+Let's edit it with `vim -b`, vim's binary mode, but without `xxd`.
+
+Original(about line 1230):
+```
+1235 /* TOP BAR */
+1236 #panel {
+1237   background-color: black;
+1238   font-weight: bold;
+1239   height: 1.86em; }
+```
+We need to prevent the length of this embedded css file from being changed.
+```
+1235 /* */
+1236 #panel {
+1237 background-color: rgba(0,0,0,0.5);
+1238   font-weight: bold;
+1239   height: 1.86em; }
+```
+You should haave noticed that some comments are accurately striped in order to get enough
+and precise palce for `rgba(0,0,0,0.5)`.
+
+If you got the ELF offsets into a mess, gnome-shell will must crash at starting up.
