@@ -33,10 +33,17 @@ then subtitude `black` with a `rgba()` function.
 ```
 #panel {
 /*    background-color: black; */
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.382);
 [...]
 ```
 
+You can also change the color of the corners of top bar:
+```
+625 .panel-corner {
+626     -panel-corner-radius: 6px;
+627     -panel-corner-background-color: rgba(0,0,0,0.382);
+628     -panel-corner-border-width: 2px;
+```
 Then restart gnome-shell.
 
 
@@ -61,13 +68,13 @@ Original(about line 1230):
 ```
 We need to prevent the length of this embedded css file from being changed.
 ```
-1235 /* */
+1235 /**/
 1236 #panel {
-1237 background-color: rgba(0,0,0,0.5);
-1238   font-weight: bold;
+1237 background-color: rgba(0,0,0,0.382);
+1238  font-weight: bold;
 1239   height: 1.86em; }
 ```
-You should haave noticed that some comments are accurately striped in order to get enough
-and precise palce for `rgba(0,0,0,0.5)`.
+You should haave noticed that some comments and spaces are accurately striped in order to get enough
+and precise palce for `rgba(0,0,0,0.382)`.
 
 If you got the ELF offsets into a mess, gnome-shell will must crash at starting up.
