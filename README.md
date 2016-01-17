@@ -22,7 +22,7 @@ FIXME: re-arrange sections.
   7. [bootstrap minimal/stage3 Debian system](./install/bootstrap)    
   8. [simple ArchLinux install note](./install/arch)  
   9. [mdadm ... simple note on creating software md5](./install/mdadm.md)  
-2. [Basic tools](./basic)  
+2. [Utilities](./basic)  
   1. [netcat ... some usages](./basic/netcat.txt)  
   2. [bash ... some tricks](./basic/bash_tricks.txt)  
   3. [(OT) funny commands](./basic/funny_commands.txt)  
