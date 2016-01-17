@@ -52,6 +52,8 @@ FIXME: re-arrange sections.
   8. [openvpn ... simple utilization](./internet/openvpn.txt)  
   9. [802.1X auth ... ref link](./internet/802auth)  
   10. [iptables howto ... ubuntu help](https://help.ubuntu.com/community/IptablesHowTo)  
+  11. [miredo note ... IPv6 Net with Teredo](./internet/miredo.md)
+  12. [isatap ... IPv6 with ISATAP](./internet/isatap.txt)
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.md)  
