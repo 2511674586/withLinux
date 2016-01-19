@@ -148,6 +148,7 @@ FIXME: re-arrange sections.
   2. [nmap note](./kali/nmap.txt)  
   3. [nping note](./kali/nping.txt)  
   4. [preventing buffer overflow](http://www.ibm.com/developerworks/cn/linux/l-sp/part4/index.html)  
+  5. [resource](./kali/resource.md) 
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
