@@ -40,3 +40,8 @@ HOWTO share the net of server::wlan0 with the client with client::eth0 ?
 * test and find out issue
 	e.g. 
 		client# traceroute -n 8.8.4.4
+
+Reference:
+https://wiki.archlinux.org/index.php/Internet_sharing
+https://wiki.archlinux.org/index.php/Router
+
