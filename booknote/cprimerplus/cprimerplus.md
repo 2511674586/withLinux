@@ -18,3 +18,4 @@ This is just a note of quik scan. It is noted that
 12. [file input/output](./chap13)  
 13. [structures and other data forms](./chap14)  
 14. [bit fiddling](./chap15)   
+15. [the c preprocessor and the c library](./chap16)  

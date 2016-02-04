@@ -1,0 +1,19 @@
+* preprocessor
+
+ #define #include #ifdef
+ #if #elif #line #error #pragma
+
+* function/macro
+
+ sqrt() atan() atan2()
+	exit() atexit9)
+	asser() memcpy() memmove()
+	va_start() va_arg() va_copy() va_end()
+
+---
+
+1) preprocessor glue: ## operator
+
+#define XNAME(n) x ## n
+
+then the macro `XNAME(4)` would expand to `x4`
