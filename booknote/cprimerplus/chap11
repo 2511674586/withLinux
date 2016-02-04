@@ -1,0 +1,12 @@
+* functions
+  gets() gets_s() fgets()
+	puts() fputs()
+	strcat() strncat()
+	strcmp() strncmp()
+	strcpy() strncpy()
+	sprintf()
+	strchr()
+
+---
+
+The linux manual pages, section 3 has finely documented these functions.
