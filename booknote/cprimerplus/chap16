@@ -17,3 +17,26 @@
 #define XNAME(n) x ## n
 
 then the macro `XNAME(4)` would expand to `x4`
+
+2) inline function (C99)
+
+inline static void eatline ()
+{
+	while (getchar() != '\n') continue;
+}
+
+int main ()
+{
+	...
+	eatline()
+	...
+}
+
+when compiling, the eatline() call would be replaced with that function body, i.e.
+
+int main ()
+{
+	...
+	while (getchar() != '\n') continue;
+	...
+}
