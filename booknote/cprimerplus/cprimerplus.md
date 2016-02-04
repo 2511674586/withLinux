@@ -14,3 +14,5 @@ This is just a note of quik scan. It is noted that
 8. [functions](./chap9)  
 9. [arrays adn pointers](./chap10)   
 10. [character strings and string functions](./chap11)  
+11. [storage classes, linkage, and memory management](./chap12)  
+12. [file input/output](./chap13)  

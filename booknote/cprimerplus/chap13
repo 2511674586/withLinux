@@ -1,0 +1,9 @@
+file io
+
+fopen() getc() putc() exit() fclose()
+	fprintf() fscanf() fgets() fputs()
+	rewind() fseek() ftell() fflush()
+	fgetpos() fsetpos() feof() ferror()
+	ungetc() setnvbuf() fread() fwrite()
+
+linux manuals should be enough

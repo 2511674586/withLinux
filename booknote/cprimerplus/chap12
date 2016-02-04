@@ -1,0 +1,12 @@
+* Keywords
+ auto, extern, static, register, const, volatile, restricted,
+ _Thread_local, _Atomic
+
+* rand() srand() malloc() calloc() free()
+
+---
+
+Scope   --+--- storage duration
+linkage -/
+
+continue
