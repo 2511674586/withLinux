@@ -1,0 +1,21 @@
+data and c
+===
+
+overview
+---
+
+* keywords
+ int, short, long, unsigned, char, float, double //C89 K&R
+ signed, void //C90 K&R
+ _Bool, _Complex, _Imaginary //C99
+
+* Operator
+ sizeof
+
+* Function
+ scanf()
+
+* basic C data type
+
+---
+
