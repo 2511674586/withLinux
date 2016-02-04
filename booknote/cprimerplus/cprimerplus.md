@@ -16,3 +16,5 @@ This is just a note of quik scan. It is noted that
 10. [character strings and string functions](./chap11)  
 11. [storage classes, linkage, and memory management](./chap12)  
 12. [file input/output](./chap13)  
+13. [structures and other data forms](./chap14)  
+14. [bit fiddling](./chap15)   
