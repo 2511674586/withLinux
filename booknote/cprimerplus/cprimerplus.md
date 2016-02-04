@@ -6,3 +6,4 @@ This is just a note of quik scan. It is noted that
 
 1. [introducing C](./chap2)  
 2. [data and C](./chap3)  
+3. [character strings and formatted input/output](./chap4)  
