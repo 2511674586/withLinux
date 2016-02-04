@@ -152,6 +152,8 @@ FIXME: re-arrange sections.
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
+14. Booknotes  
+  1. [C Primer Plus](./booknote/cprimerplus/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
