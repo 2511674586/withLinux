@@ -23,3 +23,14 @@ Table of Contents
 17. [input, output, and files]
 18. [visiting with the new c++ standard]
 
+---
+
+Features that C++ has added to C:
+
+* classes and objects
+* inheritance
+* polymorphism, virtual functions, runtime type indentification (RTTI)
+* function overloading
+* reference variables
+* exception mechanism for handling error conditions
+* namespaces
