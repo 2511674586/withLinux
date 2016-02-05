@@ -155,6 +155,7 @@ FIXME: re-arrange sections.
 14. Booknotes  
   1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
   2. [C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
+  3. [K&R C](./booknote/kr_c/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
