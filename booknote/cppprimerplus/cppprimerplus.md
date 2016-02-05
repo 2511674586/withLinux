@@ -4,7 +4,7 @@ C++ Primer Plus
 Table of Contents
 ---
 
-1. [getting started with C++]
+1. [getting started with C++](./chap1.md)
 2. [steeing out to C++]
 3. [dealing with data]
 4. [compound types]
