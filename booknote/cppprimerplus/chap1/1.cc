@@ -1,7 +1,18 @@
 #include <iostream>
-int main ()
+
+using namespace std; // lazy approach, all names available, but may introduce issue.
+
+
+// It is recommended :
+// using std::cout; // make cout available
+// using std::cin;
+// using std::endl;
+
+int main (void)
 {
-	using namespace std;
-	cout << "hello" << endl;
+	double x;
+	cout << "hello, type a numner:" << endl;
+	cin >> x;
+	cout << "the number is " << x << endl;
 	return 0;
 }
