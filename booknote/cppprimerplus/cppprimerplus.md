@@ -6,7 +6,7 @@ Table of Contents
 
 1. [getting started with C++](./chap1.md)  
 2. [steeing out to C++](./chap2.md)  
-3. [dealing with data]
+3. [dealing with data](./chap3.md)  
 4. [compound types]
 5. [loops and relational expressions]
 6. [branching statements and logical operators]
