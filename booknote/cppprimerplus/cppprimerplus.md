@@ -10,7 +10,7 @@ Table of Contents
 4. [compound types](./chap4.md)  
 5. [loops and relational expressions](./chap5.md)  
 6. [branching statements and logical operators](./chap6.md)  
-7. [functions: c++'s programming modules]
+7. [functions: c++'s programming modules](./chap7.md)  
 8. [adventures in functions]
 9. [memory models and namespaces]
 10. [objects and classes]
