@@ -8,7 +8,7 @@ Table of Contents
 2. [steeing out to C++](./chap2.md)  
 3. [dealing with data](./chap3.md)  
 4. [compound types](./chap4.md)  
-5. [loops and relational expressions]
+5. [loops and relational expressions](./chap5.md)  
 6. [branching statements and logical operators]
 7. [functions: c++'s programming modules]
 8. [adventures in functions]
