@@ -1,0 +1,53 @@
+Samba
+===
+
+# SAMBA
+	bridge windows and unix
+		printer sharing
+		device sharing
+		...
+
+	based on NetBIOS
+		unable to go through router
+
+	* nmbd
+		udp, 137, 138
+
+	* smbd
+		tcp, 139, 445
+
+	) Connection pattern
+		* peer/peer
+		* domain mode
+
+# Setting up SAMBA, basically
+	* samba
+	* samba-client
+	* samba-common
+
+	config
+
+	* /etc/samba/smb.conf
+	* /etc/samba/lmhosts
+	* /etc/sysconfig/samba
+	* /etc/samba/smbusers
+	* /var/lib/samba/private/{passdb.tdb,secrets.tdb}
+	* /usr/share/doc
+	
+	tools
+
+	* smbstatus
+	* smbpasswd
+	* pdbedit
+	* testparm
+		gramma check
+	* mount.cifs
+	* smbclient
+	* nmblookup
+		lookup NetBIOS
+	* smbtree
+
+# basic share
+	smb.conf
+	
+	passed

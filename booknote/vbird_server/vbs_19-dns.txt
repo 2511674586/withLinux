@@ -1,0 +1,17 @@
+# DNS
+ref:wikipedia.org
+vbird.org
+
+* /etc/hosts
+* /etc/resolv.conf
+* /etc/nsswitch.conf
+
+* host
+* nslookup
+* dig
+* whois
+
+* BIND9
+* /etc/bind/
+
+...

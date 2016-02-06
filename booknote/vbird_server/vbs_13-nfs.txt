@@ -1,0 +1,24 @@
+NFS, Network FileSystem
+===
+
+# NFS
+	NFS service listen on port 2049.
+	files are transfered on a random port lower than 1024, witch is coordinated by RPC.
+
+# RPC
+	RPC service listen on port 111.
+	
+# Setting up NFS Server
+	* RPC : rpcbind
+	* NFS : nfs-utils
+
+	main config
+		/etc/exports
+	nfs maintain
+		/usr/sbin/exportfs
+	login log
+		/var/lib/nfs/*tab
+	lookup on client
+		/usr/sbin/showmount
+
+# autofs

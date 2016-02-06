@@ -1,0 +1,23 @@
+Network Address Translation
+===
+
+# Packet through the machines
+	1. through Nat Table :: PREROUTING
+	2. judge if send to localhost
+	3. Filter Table :: FORWARD
+	4. Nat Table :: POSTROUTING
+	5. sent
+
+# Class of NAT
+	POSTROUTING is chaging source IP
+	SNAT : Source NAT
+	PREROUTING is changing dest IP
+	DNAT : Dest NAT
+
+# IP Sharing
+	NAT server
+		iptables -A INPUT -i $inner_interface -j ACCEPT
+		echo "1" > /proc/sys/net/ipv4/ip_forward
+		iptables -t nat -A POSTROUTING -s $inner_net -o $out_interface -j MASQUERADE
+	Client
+		ip route add  to 0/0 via $NAT_SERVER dev eth0

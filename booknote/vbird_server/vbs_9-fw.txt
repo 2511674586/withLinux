@@ -1,0 +1,39 @@
+$ Firewall
+----------------------------------------
+# netfilter, kernel function
+
+# iptables, order
+
+# iptables
+	* filter
+		INPUT
+		OUTPUT
+		FORWARD
+	* nat
+		PREROUTING
+		POSTROUTING
+		OUTPUT
+	* mangle (destructor)
+
+	1) Inspect current iptables
+		iptables [-t <filter|nat|...>] -n[v]L
+	2) Tweak iptables
+		iptables -P INPUT DROP
+
+		iptables [-A|I Chain_name] [-i|o Net_interface] [-p Protocol] [-s Source][--sport SourcePort] [-d Destinition][--dport DestinationPort] -j [ACCEPT|DROP|REJECT|LOG]
+		chain name := INPUT|OUTPUT|FORWARD|..
+		protocol := tcp, udp, icmp, all.
+		source : [!] a.b.c.d/prefix
+		port := 1:65535
+	3) Save and Restore iptables
+		iptables-save
+		iptables-restore
+
+# tcp wrapper
+	* hosts.allow, hosts.deny
+		<service(program_name)> : <IP, domain, hostname>
+
+# Kernel function
+	/proc/sys/net/ipv4/tcp_syncookies
+			icmp_echo_ignore_broadcasts
+	

@@ -1,0 +1,22 @@
+$ Route
+---------
+# Route table
+	* route
+	* traceroute
+
+$ Setting up Router
+--------------------
+# turn on ip forward
+	$> cat /proc/sys/net/ipv4/ip_forward
+	vim /etc/sysctl.conf
+# NAT, bridge the private IP and public IP
+	see firewall
+# routing 
+	ip-route
+	route
+
+$ Dynamic Router : quagga(zebra+ripd)
+
+$ Special Case
+
+

@@ -1,0 +1,13 @@
+# www
+ref wikipedia.org
+ref : httpd.apache.org
+ref nginx
+
+* w3c
+* url
+
+* http, https
+
+* apache, nginx, lighttpd
+
+...

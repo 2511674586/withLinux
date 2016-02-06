@@ -1,0 +1,47 @@
+Secure Shell Protocol
+===
+
+# Remote login
+	* Text base, plain : telnet, rsh
+	* Text base, encrypted : ssh
+	* Graphical : Xdmcp, VNC, RDP
+
+# keys
+	/etc/ssh/ssh_host*
+	~/.ssh/
+
+# regenerate keys on server
+	rm /etc/ssh/ssh_host*
+	restart sshd
+
+# add pub keys to login without password
+	* HOWTO
+		具体方法可以参考vbird的server篇,此处从简描述。首先在可信的Client端
+		执行
+		ssh-keygen [options]
+		然后默认会在执行者的 /.ssh/ 目录下生成两个文件, id rsa 和 id rsa.pub。
+		id rsa 即私钥,必要保护该文件的安全。如果丢失则建议生成新密钥,并
+		联系其他管理员帮忙替换公钥。
+		id rsa.pub 公钥。
+		拷贝公钥到Server端新用户的家目录中
+		scp id rsa.pub $NEW USER@xdlinux.info: /.ssh/authorized keys
+		然后chmod该文件为644。至此添加公钥完成,Client端可以无需密码登
+		录。
+
+# configure ssh
+	/etc/ssh/ssh{,d}_config
+	~/.ssh/config
+
+# access control
+	/etc/hosts.allow
+		sshd : 127.0.0.1 192.168.1.0/255.255.255.0 192.168.100.0/255.255.255.0
+	/etc/hosts.deny
+		sshd : ALL
+	iptables
+
+# Xdmcp
+	For Gnome3
+	/etc/gdm3/deamon.conf
+		[xdmcp]
+
+	xdmcp uses udp:177, client udp 1024:65534

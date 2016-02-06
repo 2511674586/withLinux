@@ -1,0 +1,26 @@
+DHCP Dynamic host configuration protocol
+===
+
+# Ports
+	client 68 , udp packets
+	server 67
+
+# the IP addr that server assigned is static or dynamic:
+	Static IP
+		DHCP can bind the MAC addr
+		run 'arp -n'
+	Dynamic IP
+		
+# Setting up DHCP Server
+	config file
+		/etc/dhcp/dhcpd.conf
+
+# logs
+	/var/log/messages
+
+# Setting up DHCP Client
+	 /etc/sysconfig/network-scripts/ifcfg-eth0
+	 add
+	 BOOTPROTO=dhcp 
+
+	 dhclient

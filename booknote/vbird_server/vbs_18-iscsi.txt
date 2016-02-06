@@ -1,0 +1,19 @@
+iSCSI server
+===
+
+1) NAS/SAN
+	* NAS, network attached storage
+	* SAN, storage area networks
+
+2) iSCSI
+	* iSCSI target
+	* iSCSI initiator
+
+	# packages
+	* scsi-target-utils
+	* iscsi-initiator-utils
+
+	# scsi-target-utils
+	* /etc/tgt/targets.conf
+
+

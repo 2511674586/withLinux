@@ -1,0 +1,50 @@
+chapter 7
+
+$ packet into host
+-----------------------
+# Firewall inspect
+	* IP Filter/ Net Filter, layer 1
+		netfilter, iptables
+	* TCP Wrapper, layer 2, next after layer1
+		/etc/hosts.allow && /etc/hosts.deny
+# daemon function
+# Security Enhanced Linux
+# Resources shiped on the host
+
+$ frequent cracking method
+------------------------------
+# brute force / exauhstive test  against password
+# using vulnerability of programs
+# Social Engineering
+# passive attack via program function
+# worm and rootkit
+	rkhunter
+# DDoS/DoS
+	such as 'SYN Flood', see tcp connection.
+# other
+	like IP cheating
+	see linux.vbird.org :: security
+
+$ Restricting Ports
+-----------------------------
+# 65536 ports in total
+# inspecting ports
+	netstat, nmap, (ss)
+	netstat -tun[l][p]
+	nmap -s[T][U][P] TARGET
+
+$ SELinux
+------------------
+* Subject, process
+* Object, resources, files
+* Policy, rules
+* Security Context
+# enabling selinux
+	getenforce, setenforce
+	chcon, restorecon
+	semanage
+	seinfo
+	sesearch
+# debug 
+	cat /var/log/messages | grep setroubleshoot
+	

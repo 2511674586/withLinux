@@ -1,0 +1,16 @@
+NIS, Network Information Service
+===
+
+# NIS Server
+	* yp-tools
+	* ypbind
+	* ypserv
+	* rpcbind
+
+	main function:
+		manage authentication info
+
+	* NIS needs rpcbind(RPC)
+
+1) debian package
+	nis

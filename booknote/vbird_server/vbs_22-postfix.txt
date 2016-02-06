@@ -1,0 +1,60 @@
+Postfix
+===
+
+) Mail Server and DNS
+	* legal hostname in need
+	* reverse lookup of DNS, or relayhost or smarthost
+	* MX flag in DNS
+	* Email address layout
+
+) MTA, MUA, MDA and related
+	* Mail User Agent
+		Apart from sending mail after logining the mail server, an agent program like thunderbird is needed.
+	* Mail Transfer Agent
+		SMTP 25, servers such as sendmail, postfix, qmail, etc.
+	* Mail Dilivery Agent
+	* Mailbox
+		/var/spool/mail/$USER/
+
+	* internal working when sending mail
+		' get right to use MTA
+		' letter edited using MUA, then sent to MTA
+		' if dest = local
+			send to mailbox
+		  else
+		  	relay
+		  fi
+		  target.MTA.deliver
+
+) protocol used when delivering mail
+	* MRA, Mail Retrieval Agent
+		POP3/IMAP
+
+	* pop3s, imaps, smtp/smtps
+	* Relay and certificate mechanicals
+		Open Relay is dangerous
+
+) Content of mail
+	man mail
+
+) MTA basic : postfix
+	* config files
+		/etc/postfix/main.cf
+			main configure
+		master.cf
+		access
+		aliases
+
+	* bin
+		/usr/sbin/postconf
+		postfix
+		postalias
+		postcat
+		postmap
+		postqueue
+
+	* firewall
+		SMTP 25
+
+) mutt
+	

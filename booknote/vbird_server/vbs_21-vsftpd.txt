@@ -1,0 +1,6 @@
+vsftpd
+===
+
+1) passive mode
+
+2) 主动模式 (default)

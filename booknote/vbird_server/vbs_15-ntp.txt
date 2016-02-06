@@ -1,0 +1,43 @@
+NTP, Network Time Protocol
+===
+
+# UTC, coordinated universal time
+
+# NTP
+	software clock started at 1970/01/01
+	hardware clock
+
+	stratum-1
+	stratum-2
+	...
+
+# ntp setting up
+	* ntp
+	* tzdata
+
+	config
+		/etc/ntp.conf
+		/usr/share/zoneinfo/
+		/etc/sysconfig/clock
+		/etc/localtime
+	related programs
+		/bin/date
+		/sbin/hwclock
+		/usr/sbin/ntpd
+		/usr/sbin/ntpdate
+
+	* ntp.conf
+		' manage access using "restrict"
+		' "server"
+		' ntp-keygen
+
+# NTP
+	port 123, udp
+
+	query :
+		ntpq -p
+
+# tweak time
+	date
+	hwclock
+
