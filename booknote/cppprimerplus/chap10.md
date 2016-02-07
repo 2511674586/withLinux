@@ -43,4 +43,29 @@ constructor should be placed at public section, and has no return type.
 // constructor prototype with some default arguments
 Stock::Stock (const std::string & co, long n = 0, double pr = .0);
 ```
+using constructors
+```
+// explicit
+Stock food = Stock ("World", 100, 1.5);
 
+// implicit
+Stock garment ("Furry", 50, 2.5);
+
+// explicit with 'new'
+Stock * pstock = new Stock ("Electron", 18, 19.0);
+
+// default constructor
+Stock stock1; // won't success unless all the parameters of contructor have default value.
+Stock first = Stock(); // explicitly call default constructor
+```
+Like contructor, destructor has no return value and no declared type, and must have no parameters.
+When to call a destructor is decided by compiler, and normally one should not call a destructor explicitly,
+```
+// prototype
+~Stock ();
+
+// Implementation, can do nothing as a Stock destructor has no vital duties.
+Stock::~Stock () {}
+```
+A destructor is not a must for classes, as compiler will implicitly declares
+a default destructor.

@@ -17,14 +17,14 @@ class point2d {
 	public:
 		point2d (const std::string _name = "anonymous", double _x = .0, double _y = .0);
 		void set (std::string, double, double);
-		void dump (void);
+		void dump (void) const; // promise not to change data
 };
 
 point2d::point2d (const std::string _name, double _x, double _y) {
 	set (_name, _x, _y);
 }
 
-void point2d::dump (void)
+void point2d::dump (void) const
 {
 	using std::cout;
 	using std::endl;
@@ -49,5 +49,9 @@ main (void)
 	p.dump ();
    	p.set ("hello", 2., 3.);
 	p.dump ();
+
+	// C++11 list initialization
+	point2d q {"target", 100., 100.};
+	q.dump();
 	return 0;
 }
