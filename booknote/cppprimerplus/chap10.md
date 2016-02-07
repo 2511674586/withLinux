@@ -36,3 +36,11 @@ using this class
 Stock sally;
 Stock solly;
 ```
+
+## Class Contructors and Destructors
+constructor should be placed at public section, and has no return type.
+```
+// constructor prototype with some default arguments
+Stock::Stock (const std::string & co, long n = 0, double pr = .0);
+```
+

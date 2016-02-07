@@ -6,10 +6,23 @@ class point2d {
 		std::string name;
 		double x;
 		double y;
+		/*
+		 * from C++ primer plus :
+		 *
+		 * common practice for private member names
+		 * 1. use prefix e.g. m_ , then m_x
+		 * 2. use postfix _ , then x_
+		 *
+		 */
 	public:
+		point2d (const std::string _name = "anonymous", double _x = .0, double _y = .0);
 		void set (std::string, double, double);
 		void dump (void);
 };
+
+point2d::point2d (const std::string _name, double _x, double _y) {
+	set (_name, _x, _y);
+}
 
 void point2d::dump (void)
 {
@@ -33,6 +46,7 @@ int
 main (void)
 {
 	point2d p;
+	p.dump ();
    	p.set ("hello", 2., 3.);
 	p.dump ();
 	return 0;
