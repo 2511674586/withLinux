@@ -11,7 +11,7 @@ Table of Contents
 5. [loops and relational expressions](./chap5.md)  
 6. [branching statements and logical operators](./chap6.md)  
 7. [functions: c++'s programming modules](./chap7.md)  
-8. [adventures in functions]
+8. [adventures in functions](./chap8.md)  
 9. [memory models and namespaces]
 10. [objects and classes]
 11. [working with classes]
