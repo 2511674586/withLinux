@@ -13,7 +13,7 @@ Table of Contents
 7. [functions: c++'s programming modules](./chap7.md)  
 8. [adventures in functions](./chap8.md)  
 9. [memory models and namespaces](./chap9.md)  
-10. [objects and classes]
+10. [objects and classes](./chap10.md)  
 11. [working with classes]
 12. [classes and dynamic memory allocation]
 13. [class inheritance]
