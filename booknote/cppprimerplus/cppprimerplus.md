@@ -12,7 +12,7 @@ Table of Contents
 6. [branching statements and logical operators](./chap6.md)  
 7. [functions: c++'s programming modules](./chap7.md)  
 8. [adventures in functions](./chap8.md)  
-9. [memory models and namespaces]
+9. [memory models and namespaces](./chap9.md)  
 10. [objects and classes]
 11. [working with classes]
 12. [classes and dynamic memory allocation]
