@@ -11,8 +11,9 @@ class my {
 		long my_;
 	public:
 		inline my (long my = 0 );
-		inline my operator + (const my & x);
+		inline my operator + (const my & x) const;
 		inline long dump (void) const;
+		//friend std::ostream & operator << (std::ostream & os, const my & x);
 };
 
 inline long
@@ -31,12 +32,19 @@ my::my (long my)
 }
 
 inline my
-my::operator + (const my & x)
+my::operator + (const my & x) const
 {
 	my ret;
 	ret.my_ = x.my_ + this->my_;
 	return ret;
 }
+
+inline static void
+operator<< (std::ostream & os, const my & x)
+{
+	os << x.dump() << std::endl;
+}
+
 
 int
 main (void)
@@ -65,6 +73,10 @@ main (void)
 	x->dump();
 	y->dump();
 	z.dump();
+	NEWLINE;
+
+	// test 3
+	cout << z;
 
 	delete x;
 	delete y;

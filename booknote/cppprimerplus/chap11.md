@@ -43,3 +43,16 @@ example prototype of a friend function
 ```
 friend Time operator* (double m, const Time & t);
 ```
+
+## conversion functions
+```
+public:
+	operator int() const;
+	operator double() const;
+
+MYCLASS y;
+double x = double (x);
+```
+
+## conversions and friends
+...
