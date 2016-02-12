@@ -6,7 +6,7 @@ Programming in Lua (2nd Edition)
 
 Part 1  
 
-1. [Introduction]
+1. [Introduction](./1.1.md)  
 2. [Type and value]
 3. [Expressions]
 4. [Statements]
