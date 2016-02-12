@@ -1,0 +1,48 @@
+Programming in Lua (2nd Edition)
+===
+
+电子工业出版社  
+`Lua 5.1`  
+
+Part 1  
+
+1. [Introduction]
+2. [Type and value]
+3. [Expressions]
+4. [Statements]
+5. [Functions]
+6. [Deep in Functions]
+7. [Iterator, Generic form FOR]
+8. [Compile, Execution and Error]
+9. [Coroutine]
+10. [Complete example]
+
+Part 2  
+
+1. [Data Structure]
+2. [Data Files and Persistance]
+3. [Metatable and Metamethod]
+4. [Environment]
+5. [Modules and Packages]
+6. [OOP]
+7. [Weak Reference to Table]
+
+Part 3  
+
+1. [Math Lib]
+2. [Table Lib]
+3. [String Lib]
+4. [IO Lib]
+5. [OS Lib]
+6. [Debug Lib]
+
+Part 4  
+
+1. [C API]
+2. [Extending Applications]
+3. [Invoke C from Lua]
+4. [C Functions]
+5. [User-defined Types]
+6. [Resource Management]
+7. [Threads and Status]
+8. [Memory Management]
