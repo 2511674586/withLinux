@@ -8,7 +8,7 @@ Part 1
 
 1. [Introduction](./1.1.md)  
 2. [Type and value](./1.2.md)  
-3. [Expressions]
+3. [Expressions](./1.3.md)  
 4. [Statements]
 5. [Functions]
 6. [Deep in Functions]
