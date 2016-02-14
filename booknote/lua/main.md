@@ -10,7 +10,7 @@ Part 1
 2. [Type and value](./1.2.md)  
 3. [Expressions](./1.3.md)  
 4. [Statements](./1.4.md)  
-5. [Functions]
+5. [Functions](./1.5.md)  
 6. [Deep in Functions]
 7. [Iterator, Generic form FOR]
 8. [Compile, Execution and Error]
