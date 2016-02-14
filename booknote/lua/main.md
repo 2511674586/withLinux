@@ -11,7 +11,7 @@ Part 1
 3. [Expressions](./1.3.md)  
 4. [Statements](./1.4.md)  
 5. [Functions](./1.5.md)  
-6. [Deep in Functions]
+6. [Deep in Functions](./1.6.md)  
 7. [Iterator, Generic form FOR]
 8. [Compile, Execution and Error]
 9. [Coroutine]
