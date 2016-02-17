@@ -1,0 +1,184 @@
+Principles of Network Countermeasure
+------------------------------------
+Hu Jianwei ... xidian pub
+
+Footprinting
+------------
+	Network information collection
+		Footprinting
+		Scanning
+		Enumeration
+	Ensure attack target
+		Web search: mirror a website, via wget(UNIX) or teleport(WINDOWS)
+		Link search: dogpile/hotbot
+		EDGAR:
+	Network Footprinting
+		WHOIS lookup, whois(UNIX)
+			Social Engineering
+		ARIN
+	DNS
+		win : nslookup, samspade
+		UNIX: nslookup, dig, host, axfr
+	Net inspect
+		Traceroute, tracert
+			ICMP tracing
+			UDP tracing, -p port 53
+
+Network Scanning
+----------------
+	Ping Scan
+		ICMP Scan
+		Broadcast ICMP
+		Non-echo ICMP
+			icmpush icmpquery
+		TCP Sweeps
+			nmap, nping
+		UDP Sweeps
+	Port Scan	
+		TCP Connection scan
+		TCP SYN scan
+		Stealth Scan
+		Explicit Mapping Tech
+			SYN/ACK scan
+			FIN scan
+			XMAS(Chrismas Tree) scan
+				Set URG ACK PST RST SYN FIN to 1
+			NULL scan
+		Inverse Mapping
+			RESET scan
+			Domain Query Answers
+		TCP inverse Ident
+		Proxy/FTP bounce scan
+
+		Scan strategy
+			Random port scan
+			Slow scan
+			Fregmentation scan
+			Decoy
+			Coordinated scan
+	Scanner
+		Strobe
+		Satan
+		Nmap
+	OS Detection
+		Banner
+			telnet service
+			ftp :: SYST
+		TCP/IP Stack fingerprint
+		Passive OS Detect
+
+Enumerate
+---------
+	windows
+		netbios
+	UNIX
+		showmount -e www.target.com
+		telnet mail.target.com 25
+		finger
+		rpcinfo
+
+Security Vulneralbility Analyze
+-------------------------------
+	Program Analyze
+		
+Buffer Overflow Attack
+----------------------
++ heap and stack
++ register
+    esp stack pointer
+    ebp base pointer
+    eip instruction pointer
+
+Formatted string attack
+-----------------------
+JMP
+
+Network Protocol Attack
+-----------------------
+```
+[application layer   ]  |
+[representation layer]  |  [application layer]
+[communication layer ]  |
+   
+[transmitting layer  ]  |  [transmit]                       TCP     UDP
+   
+[network layer       ]  |  [network]                 ICMP ->     IP    <- IGMP
+   
+[data link layer     ]  |  [link]                  ARP -> hardware interface <- RARP
+[physics layer       ]  |
+```
+
++ ARP
+    arp cheating, arp cache poisoning
+    [arptool]
+; # arptool eth0 tell IP_A MAC_A IP_B MAC_ATTACK
+; # arptool eth0 tell IP_B MAC_B IP_A MAC_ATTACK
+; open /proc/sys/net/ipv4/ip_forwarding
+; iptables -t nat -A PREROUTING -p tcp -s IP_A -d IP_B -dport 80 -j REDIRECT -to-port 80
+
+
++ Smurf
+; 1. attacker sends a malformed ICMP request (echo, type 8)
+;    source = target.ip; dest = broadcast.ip
+; 2. machines reply the echo request, contributing to the network block of target host, and even the target network.
+
++ IP Fragment Attack
+; 0.1 : see MTU : netstat -i
+  ++ Ping of Death
+; the max of length data stored in IP head is 0xffff
+; attacker sends a packet which is of a bigger size than 65535, causing host buffer overflow.
+  ++ Teardrop
+; the vulnerability of implementation.
+
++ ICMP Route cheating
+
+
++ SYN Flood Attack
+  SYN timeout
+
++ LAND Attack
+; in TCP packet
+; source.ip = dest.ip = SOME_IP; dport = sport = SOME_PORT;
+
++ Sequence number guessing
+
++ TCP Session Hijack (ISN)
+; attacker tries to sync the sequence number of communication between C/S, then redirect all communications between them.
+
++ FRAGGLE DoS
+; UDP Smurf
+
+
++ DNS Attack (DNS Cheating)
+
+
+Attacking WWW
+-------------
++ eigen of 80 port attack
+  1. "." ".." "..."
+  2. "%20" space
+  3. "%00"
+  4. "|" pipe
+  5. "cmd.exe"
+  6. "*"
+  7. "~"
+  8. "'" SQL injection
+  9. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA buffer overflow
+
+Distributed attack
+------------------
++ DoS
++ DDoS
++ distributed info gather
++ distributed coordinated attack (DCA)
+
+Windows attack
+--------------
+
+linux attack
+------------
+
+JMP
+
+process hiding
+* program can change the argv[] it self, then it looks like some other program
