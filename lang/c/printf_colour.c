@@ -35,3 +35,10 @@ main (void)
 	 */
 	return 0;
 }
+
+/*
+ * Reference:
+ *
+ * screen(1), where an amount of terminal control sequences are introduced.
+ *
+ */
