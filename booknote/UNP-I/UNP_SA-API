@@ -1,0 +1,455 @@
+Socket Networking API
+=====================
+<<UNIX Network Programming: The Sockets Networking API>>
+Reference: manpages.
+(1) Synopsis
+------------
+
+(2) Transmission layer: TCP, UDP and SCTP
+-----------------------------------------
+
+(3) Socket Programming
+----------------------
+netinet/in.h
+sys/socket.h
+
+struct in_addr
+struct in6_addr
+
+struct sockaddr
+struct sockaddr_in
+struct sockaddr_in6
+struct sockaddr_storage
+
+htons/htonl/ntohs/ntohl
+
+bzero/bcmp/memcpy/memset/memcmp/bcopy/memmove
+
+inet_aton/inet_addr/inet_ntoa
+inet_pton/inet_ntop
+	presentation/numeric
+
+read/write
+
+(4) Basic TCP Socket Programming
+--------------------------------
+server:
+	socket -> bind -> listen -> accept
+client:
+	socket -> [bind](optional) -> connect
+
+fork();
+exec*();
+
+execlp(file,arg,...,0)                        execl(path,arg,...,0)            execle(path,arg,...,0,envp)
+ | create argv                                 | create argv                    | create argv
+ v                                             v                                v
+execvp(file,argv) --(convert file to path)--> execv(path,argv) --(add envp)--> execve(path,argv,envp)
+
+concurrent server/iterative server
+close(sockfd);
+
+getsockname();
+getpeername();
+
+(5) TCP Client/Server Example
+-----------------------------
+POSIX Signal:
+	signal();
+	sigaction();
+
+wait();
+waitpid();
+
+Not wise to send binary data via socket.
+
+(6) I/O Reuse: select & poll
+----------------------------
+I/O Model:
+* blocking I/O
+* non-blocking I/O
+* I/O Reuse (select/pool)
+* Signal-driven I/O (SIGIO)
+* async I/O (POSIX: aio_*)
+
+select();
+	fd_set set_read;
+	FD_ZERO (&fdset);
+	FD_SET (1, &fdset); /* turn on bit for fd 1 */
+
+fileno(FILE *stream);
+FD_ISSET();
+
+shotdown(); /* used when batch input, while close() closes both read and write */
+pselect(); /* POSIX, enhanced select() */
+
+poll(); /* similar to select(), provides more info when handling stream devices. */
+  /* wilder support to select(), compared with poll() */
+
+(7) Socket Options
+------------------
+getsockopt();
+setsockopt();
+
+General Socket Options, idependent to Protocol.
+* SO_DEBUG
+* SO_ERROR
+* SO_KEEPALIVE
+* SO_LINGER
+* SO_RCVBUF & SO_SNDBUF
+	/* typical MSS value is 512 or 1460, so typical TCP buffer should be 8192 Byte+ */
+* SO_REUSEADDR & SO_REUSEPORT
+	/* address already in use, bind fail, then set SO_REUSEADDR before bind, it would success */
+* SO_USELOOPBACK
+	/* the only one SO_* option whose default is [on] */
+
+fcntl(); /* ioctl() */
+
+(8) Basic UDP Socket Programming
+--------------------------------
+sendto();
+recvfrom();
+
+clinet doesn't connect the server, while server doesn't accept connections from client.
+reading a TCP socket closed by remote returns 0, while it is acceptable that readding a UDP socket returns 0.
+sendto() and recvfrom() can be used in TCP socket, but not usual.
+
+UDP server is iterative.
+
+UDP connect(); Can do, but no handshake, no sendto() after that but read() and write().
+The performance of connected UDP socket is better than un-connected UDP socket.
+UDP lacks of traffic control. so UDP Flood is easy.
+
+(9) basic SCTP programming
+--------------------------
+one-to-one
+one-to-many
+
+sctp_bindx();
+sctp_connectx();
+
+sctp_getpaddrs(); /* get peer addrs */
+sctp_freepaddrs(); /* should call this after sctp_getpaddrs() */
+
+sctp_getladdrs(); /* get local addrs */
+sctp_freeladdrs();
+
+ssize_t sctp_sendmsg(int sockfd, const void *msg, size_t msgsz, const struct sockaddr *to, socklen_t tolen,
+		     uint32_t ppid, uint32_t flags, uint16_t steam, uint32_t timetolive, unit32_t context);
+sctp_recvmsg();
+
+sctp_opt_info();
+sctp_peeloff(); /* request one-to-one */
+
+shutdown(); /* SCTP's shutdown behavior differs from TCP's shutdown */
+
+SCTP_EVENTS Socket.
+
+(10) SCTP C/S Example
+---------------------
+head-of-line blocking.
+
+(11) Name-Addr Convertion
+-------------------------
++ DNS
+	FDQN
+	Resource Record
+		A, AAAA, PTR, MX, CNAME
+
+gethostbyname(); /* POSIX will (far future) delete this function */
+gethostbyaddr();
+
+getservbyname();
+getservbyport();
+
+getaddrinfo(); /* both IPv4 and IPv6 */
+gai_strerror();
+freeaddrinfo();
+
+getnameinfo();
+
+gerpeername();
+
+Ch 3. Advanced Socket Programming
+=================================
+(12) IPv4 IPv6 
+--------------
+dual stacks
+
+(13) Daemon & inetd
+-------------------
+syslogd
+syslog();
+openlog();
+closelog();
+
+daemon();
+
+inetd innerworking
+	file descriptors keep open if beyond exec();
+
+```
+#include <stdio.h>
+#include <time.h>
+int
+main (void)
+{
+	time_t tick;
+	tick = time (NULL);
+	printf ("%.24s\n", ctime(&tick));
+	return 0;
+}
+```
+
+(14) Advanced I/O Functions
+---------------------------
++ Socket timeout
+	1. alarm();
+	2. select();
+	3. socket option, SO_RCVTIMEO SO_SNDTIMEO
+	SIGALARM
+
++ recv(); and send();
+
++ readv(); and writev();
+	scatter read, gather write
+	                             
++ recvmsg(); and sendmsg();
+	most general I/O function.
+
++ fopen, fdopen
+
++T/TCP: affairness TCP
+	sendto();
+
+(15) UNIX Socket Protocol
+-------------------------
+<un.h>
+struct sockaddr_un
+AF_LOCAL / AF_UNIX
+HINT: when binding a UNIX Socket to a file, unlink() it first, it's ok if unlink() fails.
+socketpair(); /* only for UNIX sockets, similar to pipe() */
+Comparing with other sockets, UNIX shows an advancement on performance when playing locally, such as IPC.
+
+(16) Non-blocking I/O
+---------------------
++ probably blocking
+	1. input : read, readv, recv, recvfrom, recvmsg
+	2. output : write, writev, send, sendto, sendmsg
+	3. accept
+	4. connect
+
+fcntl (sockfd, F_SETFL, O_NONBLOCK);
+sometimes non-blocking is faster, but code would be more complicated.
+a more simple way is fork();
+
+void example (FILE *fp, int sockfd)
+{
+	pid_t pid;
+	char buffer...
+	if ( (pid = fork()) == 0) {
+	/*  child: server -> stdout */
+		while (read(sockfd, buffer, size) > 0)
+			fputs (buffer, size);
+		kill (getppid(), SIGTERM);
+		exit (0);
+	}
+	/* parent: server <- stdin  */
+	while (fgets(buffer, size, fp) != NULL)
+		write (sockfd, buffer, strlen(buffer));
+	shutdown (sockfd, SHUT_WR);
+	pause();
+	return;
+}
+
++ time costs
+	wait-and-stop 354
+	select+blocking 12.3
+	nonblocking 6.9
+	fork 8.7
+	thread 8.5
+non-blocking connect, web client.
+non-blocking accept.
+
+(17) ioctl()
+------------
+ioctl (int fd, int request, ...)
+	1. socket operation
+	2. file operation
+	3. interface op
+	4. arp high-speed cache  op
+	5. route table
+	6. streams system
+some functions of ioctl() are same as those of fcntl().
+
+(18) Route Socket
+-----------------
+sockaddr_dl  (data link)
+sysctl ();
+	CTL_NET
+
+(19) Key Management Socket
+--------------------------
+IPSec...
+<net/pfkeyv2.h>
+SADB
+struct sadb_msg
+struct sadb_sa
+struct sadb_address
+struct sadb_key
+
+socket (PF_KEY, SOCK_RAW, PF_KEY_V2);
+
+(20) Broadcast
+--------------
+IPv6 has no broadcast.
+multicast is optional in IPv4, while essential in IPv6.
+broadcast/multicast requires UDP or original IP, instead of TCP.
+
+socket option SO_BROADCAST.
+block signal with pselect.
+sigprocmask();
+
+(21) Multicast
+--------------
+special ipv4 multicast address
+	224.0.0.1 all-hosts
+	224.0.0.2 all-routers
+special ipv6 multicast address
+	ff02::1 all-nodes
+	ff02::2 all-routers
+socket option SO_MULTICAST*
+...
+SNTP
+
+(22) Advancecd UDP Socket Programming
+-------------------------------------
+UDP is a byte-stream protocol.
+
+(23) Advanced SCTP Socket Programming
+-------------------------------------
+SCTP is a message-oriented protocol.
+MSG_UNOERDERED
+
+(24) OOB out-of-band data
+-------------------------
++ TCP OOB
+	urgent mode
+	send (,,,MSG_OOB
+	SIGURG
+sockatmark();
+
+(25) Signal-driven I/O
+----------------------
+SIGIO
+SIGPOLL
+
+(26) Thread
+-----------
++ fork
+	1. expense of fork
+	2. parent-child IPC
+thread, sometimes lightweight process.
+POSIX thread, Pthread.
+
+pthread_create(); /* fork    */
+pthread_join();   /* waitpid */
+pthread_self();   /* getpid  */
+pthread_detach(); /*         */  pthread_detach (pthread_self());
+pthread_exit();
+
+thread-safe.
+
+pthread_mutex_lock ();		/* mutex, mutual exclusion */
+pthread_mutex_unlock ();
+
+pthread_cond_*
+
+thread is a new programming paradigm.
+
+(27) IP Options
+---------------
++ IPv4 option
+	NOP: no-operation
+	EOL: end-of-list
+	LSRR: loose source and record route
+	SSRR: strict source and record route
+	Timestamp
+	Record route
+	Basic security
+	Extended security
+	Stream identifier (obsolete)
+	Router alert [RFC2113]
+
+getsockopt();
+setsockopt();
+SO_OPTIONS
+
++ IP source path option
+
++ IPv6 Extended Head
+	hop_by_hop options
+	destination options
+	routing header
+	fragmentation header
+	authentication header
+	encapsulationg security payload
+
+<netinet/in.h>
+
+(28) Raw Socket
+---------------
+SOCK_RAW
+
+ping
+traceroute
+
+(29) Data link access
+---------------------
+SOCK_PACKET
+PF_PACKET
+DLPI
+libpcap  /* tcpdump.org */
+
+(30) Client/Server Program Paradigm
+-----------------------------------
+1. iterative server
+2. concurrent server
+3. prefork + accept
+4. prefork + accept + lock
+5. prefork + accept + mutex
+6. prefork, parent send socket fd to child
+7. concurrent, thread
+8. prethread + accept + mutex
+9. prethread + MainThread::accept
+
++ TCP client
+
+(31) STREAMS
+------------
+multiplexor
+
+getmsg(); /* unimplemented in linux 3.16 */
+putmsg(); /* unimplemented in linux 3.16 */
+
+ioctl();
+
+(Appendix A) IPv4 IPv6 ICMPv4 ICMPv6
+------------------------------------
+
+(Appendix B) Virtual Network
+----------------------------
+MBone
+6bone (obsolete)
+6to4
+
+(Appendix C) Debugging
+----------------------
+C.1 trace system call
+	truss (SVR4/Solaris)
+	ktrace (BSD)
+C.5 tcpdump
+C.6 netstat
+C.7 lsof
+
+EOF
