@@ -1,0 +1,140 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{multicol}
+\usepackage{times}
+
+\title{\hrulefill \\Artificial Neural Network in Matlab\\ \hrulefill}
+
+\begin{document}
+\maketitle
+
+\section{Back-Propagation}
+	\subsection{BP procedure}
+		\begin{enumerate}
+		\item Initialize the net.
+		\item Compute the output of hidden layers.
+		\item Compute the output of output layers.
+		\item Compute the error.
+		\item Update weights.
+		\item Update threshold.
+		\item If not finished, goto 2.
+		\end{enumerate}
+	\subsection{Core pricipal: Negative gradient descent}
+		The error adjusting direction of BPNN is the fastest descending direction.
+		\begin{multicols}{2}
+			\flushleft
+			Weight
+			\[ w_{ij} (t+1) = -\eta \frac{\partial E}{\partial w_{ij}} + w_{ij}(t) \]\\
+			Weight
+			\[ w_{jk} (t+1) = -\eta \frac{\partial E}{\partial w_{jk}} + w_{jk}(t) \]\\
+			Threshold
+			\[ B_{ij} (t+1) = -\eta \frac{\partial E}{\partial B_{ij}} + B_{ij}(t) \]\\
+			Threshold
+			\[ B_{jk} (t+1) = -\eta \frac{\partial E}{\partial B_{jk}} + B_{jk}(t) \]\\
+		\end{multicols}
+		Where $\eta$ is the \emph{learning rate}.
+
+\section{Radical Basis Function}
+	\[ \psi_i (x) = G( || x - c_i || ) \]
+	Where $G()$ can be Gaussian, i.e.
+	\[ \psi_i(x) = exp( - \frac {||x-c_i||}{2\sigma_i^2} ) \]
+
+\section{Matlab functions}
+	\subsection{Nueral Net Creation}
+		\begin{itemize}
+			\item feedforwardnet() for easy creation.
+			\item network () for customized network creation.
+		\end{itemize}
+	\subsection{Data manipulate functions}
+		mapminmax() \[ x_k = \frac{ x_k - x_{min} }{ x_{max} - x_{min}} \]
+		another way \[ x_k = \frac{ x_k - x_{mean} }{ x_{var} } \]
+	\subsection{Transfer Functions}
+		\begin{itemize}
+			\item Linear     \[ f(x) = x \]
+			\item Sigmoid    \[ f(x) = \frac{1}{1+e^{-x}} \]
+		\end{itemize}
+		In Matlab:
+		\begin{itemize}
+			\item logsig()
+			\item dlogsig()
+			\item tansig()
+			\item dtansig()
+			\item purelin()
+			\item dpurelin()
+		\end{itemize}
+	\subsection{learning functions}
+		learngd(), learngdm()
+	\subsection{Training function}
+		trainbfg()
+		traingd()
+		traingdm()
+		train()
+	\subsection{Preformance function}
+		mse(), msereg()
+
+\section{Hints}
+	\subsection{Number of neural nodes}
+		\[ l = \sqrt{m+n} + a\]
+		\[ l < n - 1 \]
+		\[ l = log_2 (n) \]
+		Where $n$ denotes the number of input nodes, $m$ denotes the number of output nodes, 
+		a is a constant within range $[1, 10]$.
+	\subsection{Monmentum}
+		\[ w(k) = w(k-1) + \Delta w(k) + \alpha [ w(k-1) - w(k-2) ] \]
+		Where $w(k)$ is weights, $\alpha$ is the momentum learning rate.
+		Then the network maybe converge faster.
+	\subsection{Dynamic learning rate}
+		\[ \eta(t) = \eta_{max} - \frac{t(\eta_{max} - \eta_{mix})}{t_{max}}  \]
+		Where the $\eta$ denotes learning rate, $t$ denotes the time of iteration.
+
+\section{Applications}
+	\begin{enumerate}
+		\item data classify
+		\item non-linear regression\\
+			with Genetic Algorithms.
+		% BP-Adaboost 强分类器
+		% PID 神经元网络解耦合控制
+		% RBF 网络回归
+		\item GRNN, generalized regression neural network. (RBF)
+		\item DHNN, Discrete Hopfield Neural Network.
+		% 联想记忆功能
+		\item CHNN, Continuous Hopfield Neural network.
+		% 连续 HNN，旅行商问题(TSP)优化
+		\item SVM, Support Vector Machine.
+		% SVM 数据分类和预测
+
+		% 自组织竞争网络
+
+		\item SOM, Self-Organizing Feature Map.
+		% 自组织特征映射网络
+
+		\item Elman NN
+		% 适应时变特性，实现记忆目的
+
+		\item PNN, Probabilistic neural net.
+		% 收敛比BP快，总收敛于Bayes优化解，稳定性高。
+		% 错误容忍。
+
+		\item LVQ, lerning vector quantization
+		% 人脸朝向识别
+
+		% 小波神经网络，时间序列预测 
+
+		% 模糊神经网络
+
+		\item FCM, Fuzzy C-mean
+		% FCM聚类
+
+		\item PSO, particle swarm optimization
+		% 粒子群优化算法
+
+		\item GM, Grey Model
+		% 灰色神经网络
+
+		\item Kohonen net
+		% 自组织竞争型网络的一种
+	\end{enumerate}
+
+\appendix
+\section{Sample Program}
+\input{ann.m}
+\end{document}
