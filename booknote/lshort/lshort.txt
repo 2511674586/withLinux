@@ -1,0 +1,276 @@
+lshort
+===
+LaTeX
+
+CTAN://info/lshort
+
+1) basic structure
+
+	\documentclass{...}
+	\usepackage{...}
+	\begin{document}
+	\end{document}
+
+2.1) document classes
+	article
+	proc
+	minimal
+	report
+	book
+	slides
+
+2.2) document class options
+	[10pt], 11pt, 12pt
+	a4paper, letterpaper, ...
+	fleqn (formulae left aligned)
+	leqno (formulae number left)
+	titlepage, notitlepage
+	onecolumn, twocolumn
+	landscape
+
+2.3) some packages distributed with latex
+	doc
+	exscale
+	fontenc (specifies the fontencoding)
+	makeidx
+
+3) pagestyle
+	\pagestyle{style}
+	[plain]
+	headings
+	empty
+	\thispagestyle{style}
+
+4) big projects
+	\include{filename}
+	\input{filename}
+
+5) breaking
+	\\ or \newline
+	\\*
+	\newpage
+
+6) Ready made strings
+	\today
+	\TeX
+	\LaTeX
+
+7) symbol
+	\slash
+	\backslash
+	30 \textcelsius{}
+	\ldots (ellipsis)
+
+8) encoding
+	\usepackage[<encoding>]{fontenc}
+
+9) number
+	\nombre{1234,56789}
+
+10) title, chapter, section
+	\section{...}
+	\subsection{}
+	\subsubsection{}
+	\paragraph{}
+	\subpragraph{}
+	
+	\part{}
+
+	\chapter{} (report, book)
+
+	\appendix
+	\tableofcontents (multiple times compiling)
+	
+	\section{Help}
+	\*section{Help}
+
+	\chapter[chapter title in the index]{a long title, shown in the text}
+
+	\maketitle
+	\title{}
+	\author{}
+	\date{}
+
+	\frontmatter
+	\mainmatter
+	\appendix
+	\backmatter
+
+11) misc
+	\footnote{foot text}
+	\underline{}
+	\emph{}
+
+12) environments
+	\begin{env} ... \end{env}
+	\begin{enumerate} ... \item ITEM
+	\begin{description} ... \item[A] foobar
+	\begin{itemize} ... \item
+	P.S. the environment can be nested.
+
+	\begin{flushleft}
+	\begin{flushright}
+	\begin{center}
+	\begin{quote}
+	\begin{verse} (short quote)
+
+	\begin{abstract}
+	\begin{verbatim}
+	\begin{verbatim*} (emphasizes the space)
+
+	\begin{tabular}[pos][{table spec}
+		l/r/c align
+		| vertical line
+		pos : t/b/c align
+
+		\begin{tabular}{|r|l|}
+		\hline
+		7C0 & hexadecimal \\
+		3700 & octal \\ \cline{2-2}
+		11111000000 & binary \\
+		\hline \hline
+		1984 & decimal \\
+		\hline
+		\end{tabular}
+	
+	\begin{figure}[..]
+	\begin{table}[..]
+		[] :
+			h here
+			t top
+			b bottom
+		\caption{caption text}
+	\listoffigures
+	\listoftables
+
+13) math
+	$a^2 + b^2 = c^2$
+	m$^{3}$
+	\begin{equation}
+		\tag{dumb}
+
+	\begin{equation*}
+		a^2 + b^2 = c^2
+	\end{equation*}
+	or
+	\[ a^2 + b^2 = c^2 \]
+
+	\lim_{n \to \infty}
+	\sum_{k=1}^n
+	\frac{1}{k^2}
+	\pi
+	\forall
+	\in
+	\mathbf{R}
+	\geq >=
+
+	$ \lambda, \xi, \pi, \theta, \mu, \Phi, \Omega, \Delta $
+	$p^3_{ij}$
+	$ \neq $ !=
+	\sqrt
+	
+	\underbrace
+	\overbrace
+
+	$f'(x) = x^2$
+	$\vec{A}$ vector
+	\overrightarrow{AB}
+	\lim_{x \rightarrow 0}
+	\sin
+	\frac
+	\tfrac (smaller than \frac)
+	\partial
+	\binom{n}{k}
+	f_n(x)
+	\int_0^2
+	\sum_{i=1}^n
+
+	\big \Big \bigg \Bigg
+	\big( \Big( ...
+	
+	\begin{multiline} (for long equations) \\ to break
+
+	\begin{align}
+	a & = b + c \\
+	& = d + e
+	\end{align}
+
+	\begin{eqnarray}
+	a & = & a = a
+	\end{eqnarray}
+
+	\begin{equation*}
+		\mathbf{X} = \left(
+		\begin{array}{ccc}
+		x_1 & x_2 & \ldots \\
+		x_3 & x_4 & \ldots \\
+		\vdots & \vdots & \ddots
+		\end{array} \right)
+	\end{equation*}
+
+	\begin{bmatrix}
+	\begin{matrix}
+	\ln
+	\mathrm{d}x
+
+	\int\int
+	\int\!\!\!\int
+	\iint
+	\text{}
+
+	\left[
+	\right]
+	\mathbf
+
+	\begin{proof}
+	\oint
+
+14) special
+	
+	\usepackage[driver]{graphicx}
+	\includegraphics[key=value...]{file.eps}
+		key:width, height, angle(coounterclockwise), scale
+	
+	\begin{figure}
+		\centering
+		\includegraphics[angle=90,
+		width=0.5\textwidth]{test}
+		\caption{This is a test.}
+	\end{figure}
+
+	
+	\usepackage{makeidx}
+	\makeindex
+
+	\usepackage{verbatim}
+	\verbatiminput{ascii_file}
+
+	\usepackage{hyperref}
+	\href{URL}{TEXT}
+
+15) font
+	\small
+	\Large
+	\text<FONT>{}
+	\math<FONT>{}
+		rm roman
+		tt typewriter
+		md medium
+		up upright
+		sl slanted
+		sf sans serif
+		bf bold face
+		it italic
+		sc small caps
+	\emph{}
+	\textnormal{}
+
+16) indent
+	\indent
+	\noindent
+	\hspace{length}
+
+17) other
+	\makebox
+	
+	
