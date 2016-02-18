@@ -164,6 +164,7 @@ FIXME: re-arrange sections.
   8. [lshort](./booknote/lshort/)  
   9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
   10. [UNP-I](./booknote/UNP-I/)  
+  11. [Beauty of math](./booknote/beautyofmath/main.md)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
