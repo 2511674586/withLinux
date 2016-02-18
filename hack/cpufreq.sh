@@ -6,10 +6,26 @@
 # works on kernel 3.14.
 # c.d.luminate
 
-# sample
-for I in $(seq 0 3)
-do
-	echo powersave > /sys/devices/system/cpu/cpu$I/cpufreq/scaling_governor
-done
+set_powersave () {
+	for I in $(seq 0 3); do
+		echo powersave > /sys/devices/system/cpu/cpu$I/cpufreq/scaling_governor
+	done
+}
 
-echo "done."
+dump_state () {
+	for I in $(seq 0 3); do
+		cat /sys/devices/system/cpu/cpu$I/cpufreq/scaling_governor
+	done
+}
+
+case $1 in
+"dump")
+	dump_state
+	;;
+"powersave")
+	set_powersave
+	;;
+*)
+	echo "unrecogonized action"
+	;;
+esac
