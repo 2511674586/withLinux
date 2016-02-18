@@ -166,6 +166,8 @@ FIXME: re-arrange sections.
   9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
   10. [UNP-I](./booknote/UNP-I/)  
   11. [Beauty of math](./booknote/beautyofmath/main.md)  
+  12. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
+  12. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

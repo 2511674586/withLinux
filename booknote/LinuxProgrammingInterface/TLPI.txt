@@ -1,0 +1,638 @@
+The Linux Programming Interface
+===============================
+Michael Kerrisk
+http://man7.org/tlpi
+
+
+Ch 1 History and Standard
+-------------------------
+1.1 Unix and C
+	JMP
+1.2 Linux
+	JMP
+1.3 Standarlize
+	...LSB
+
+Ch 2 Basic Concept
+------------------
+2.1 Kernel
+	* schedule process
+	* memory management
+	* file system
+	* create and kill process
+	* access devices
+	* network
+	* API
+2.2 Shell
+2.3 User and Group
+2.4 FHS, directory, link, file
+2.5 File I/O Model
+2.6 Program
+2.7 Process
+2.8 Memory Map
+2.9 Static Library and Shared Library
+2.10 IPC and Synchronize
+2.11 Signal
+2.12 Thread
+2.13 Process Group and Shell Job Control
+2.14 Session, Control Terminal, Control Process
+2.15 Pseudo Terminal
+2.16 Date and Time
+2.17 Server/Client Framework
+2.18 Realtime
+	(NOTE, "realtime" is not "real time")
+2.19 /proc Filesystem
+
+Ch 3 System Programming
+-----------------------
+3.1 System Call
+	a. wrapper copies the syscall number into %eax
+	b. wrapper function do int 0x80A
+		P.S. sysenter is faster than traditional int 0x80
+3.2 Library
+3.3 Standard C lib: GNU C (glibc)
+	ldd
+	gnu_ver_libc_version();
+3.4 Handling Error
+	perror();
+	strerror();
+3.5 Portability
+
+Ch 4 File I/O: General I/O Model
+--------------------------------
+4.1 Synopsis
+	open() read() write() close()
+4.2 General I/O
+4.3 open(), creat()
+4.4 read()
+4.5 write()
+4.6 close()
+4.7 lseek()
+	fallocate()
+4.8 ioctl()
+
+Ch 5 Deeper File I/O
+--------------------
+5.1 Atom Operation and Race Condition
+5.2 fcntl()
+		/* sample 1 */
+		flags = fcntl (fd, F_GETFL);
+		if (flags == -1) perror ("fcntl");
+		if (flags & O_SYNC)
+			printf ("writes are synchronized\n");
+		/* sample 2 */
+		flags = fcntl (fd, F_GETFL);
+		if (flags == -1)
+		flags |= O_APPEND;
+		if (fcntl(fd, F_SETFL, flags) == -1)
+			perror ("fcntl");
+5.3 Flags when open()
+5.4 File descriptor and opened file
+	open file handle
+5.5 dup()
+	dup2()
+		dup2 (1, 2); /* copy fd 1 to fd 2 */
+		newfd = fcntl (oldfd, F_DUPFD, startfd); /* duplicate fd oldfd */
+	dup3()
+5.6 I/O with offset
+	pread()
+	pwrite()
+		/* Atom operation, avoid race condition */
+		pread ();
+		/* better than */
+		orig = lseek (fd, 0, SEEK_CUR);
+		lseek (fd, offset, SEEK_SET);
+		s = read (fd, buf, len);
+		lseek (fd, orig, SEEK_SET);
+5.7 Scatter-Gather I/O
+	readv()
+	writev()
+	preadv()
+	pwritev()
+5.8 Truncate file
+	truncate()
+	ftruncate()
+5.9 Non-blocking I/O
+	O_NONBLOCK
+5.10 Large File I/O
+		#define _FILE_OFFSET_BITS 64
+	Transitional api: open64(), xxx64()
+5.11 /dev/fd
+		/* two lines below is equivilant */
+		fd = open ("/dev/fd/1", O_WRONLY);
+		fd = dup (1);
+	/* sample of use */
+	$ ls | diff - oldfilelist
+	$ ls | diff /dev/fd/0 oldfilelist
+5.12 Creating Temporary File
+	mkstemp()
+	tmpfile()
+
+Ch 6 Process
+------------
+6.1 Process and Program
+6.2 Process Number and Parent Process Number
+	getpid()
+	getppid()
+	/proc/PID/status
+6.3 Process Memory Structure
+6.4 Virtual Memory Management
+	brk(); sbrk();
+6.5 Stack and Stack Frame
+6.6 argc, argv
+6.7 Environment List
+	char **environ
+		/* print current env list */
+		extern char **environ;
+		main {
+			char **ep;
+			for (ep = environ; *ep != NULL; ep++) puts (*ep);
+			return 0;
+		}
+	int main (int argc, char *argv[], char *envp[]);
+
+	getenv()
+	putenv()
+	setenv()
+	unsetenv()
+	clearenv()
+6.8 Nonlocal GOTO
+	setjmp()
+	longjmp()
+
+Ch 7 Memory Allocate
+--------------------
+7.1 Allocation on Heap
+	malloc() is based on brk() and sbrk()
+	segmentation fault : access non-existing memory segment
+	malloc() and free()
+	double free()
+	call free()
+
+	debugging
+		mtrace()
+		muntrace()
+		mcheck() cc -lmcheck
+		mprobe() cc -lmcheck
+		MALLOC_CHECK_
+
+	mallopt()
+	mallinfo()
+
+	calloc()
+	realloc()
+
+	memalign()
+	posix_memalign()
+
+7.2 Allocation on Stack
+	alloca(), automaticly freed.
+
+Ch 8 Users and Groups
+---------------------
+8.1 /etc/passwd
+8.2 /etc/shadow
+8.3 /etc/group
+8.4 Get info about USER and GROUP
+	#include <pwd.h>
+	struct passwd *getwnam()
+	struct passwd *getwuid()
+	#include <grp.h>
+	struct group *getgrnam()
+	struct group *getgrgid()
+	
+	#include <shadow.h>
+	struct passwd *getspnam()
+	struct passwd *getspent()
+8.5 Encrypt password and Authentication
+	char *crypt()
+	char *getpass()
+
+Ch 9 Process Identity
+---------------------
+9.1 real user and real group
+	/etc/passwd
+9.2 valid user and valid group
+9.3 SetUID and SetGID programs
+9.4 saving SetUID and SetGID
+9.5 Filesystem UID and GID
+9.6 assistant GID
+9.7 getting or modifying ID
+	getuid()
+	geteuid()
+	getgid()
+	getegid()
+
+	setuid()
+	setgid()
+	seteuid()
+	setegid()
+
+	setreuid()
+	setregid()
+	getresuid()
+	gerresgid()
+	setresuid()
+	setresgid()
+
+	setfsuid()
+	setfsgid()
+
+	getgroups()
+
+Ch 10 Date and Time
+-------------------
+10.1 Calendar time
+	int gettimeofday(struct timeval *tv, struct timezone *tz);
+	time_t time(time_t *timep);
+10.2 Convert
+	calendar time to string:
+		char *ctime(const time_t *timep);
+	time_t to broken-down time
+		struct tm *gmtime()
+		struct tm *localtime()
+	struct tm to time_t
+		time_t mktime()
+	tm to string
+		char *asctime()
+	string to tm
+		size_t strftime()
+		char currTime()
+
+	strptime()
+10.3 Timezone
+10.4 Locale
+ 	char *setlocale()
+10.5 Update system clock
+	int settimeofday()
+	adjtime()
+10.6 software clock (jiffies)
+10.7 process time
+	times()
+	clock()
+
+Ch 11 System restrictions and options
+-------------------------------------
+11.1 system restrictions
+	<sys/limits.h>
+11.2 get limit
+	long sysconf()
+11.3 get file related limit
+	long pathconf()
+	long fpathconf()
+11.4 unsure restriction
+11.5 system options
+
+Ch 12 System and Process
+------------------------
+12.1 /proc filesystem
+	/proc/PID
+12.2 system sign
+	uname()
+
+Ch 13 File I/O Buffer
+---------------------
+13.1 kernel buffer of I/O : buffer cache
+	read()
+	write()
+	buffer size
+13.2 stdio buffer
+	int servbuf()
+	void setbuf()
+	setbuffer()
+	fflush()
+13.3 controling kernel buffer of file I/O
+	ref: synchronized I/O data integrity completion
+	int fsync(int fd)
+	int fdatasync(int fd)
+	void sync(void)
+	open() :: O_SYNC
+13.5 advise
+	posix_fadvise()
+13.6 direct I/O raw I/O
+	O_DIRECT
+13.7 mix
+	int fileno(FILE *stream);
+	FILE *fdopen(int fd, const char *mode);
+
+Ch 14 Concept of System Programming
+-----------------------------------
+14.1 device files
+	block device
+	character device
+	ls -l /dev
+14.2 disk and partition
+14.3 filesystem
+14.4 inode
+14.5 VFS
+14.6 Journal Filesystem
+14.7 mount point, single root dir
+14.8 mount and unmount filesystem
+	int mount()
+	int umount()
+	int umount2()
+14.9 advanced mount feature
+	bind
+	recursive bind
+14.10 tmpfs
+14.11 get info related to filesystem
+	int statvfs()
+	int fstatvfs()
+
+Ch 15 file property
+-------------------
+15.1 get file info
+	stat()
+	lstat()
+	fstat()
+15.2 time stamp
+	utime()
+	utimes()
+15.3 file ownership
+	chown()
+	fchown()
+	lchown()
+15.4 file mode
+	chmod()
+	check permission: access()
+	umask()
+	fchmod()
+15.5 inode sign
+	chflags()
+
+Ch 16 Extended Attributes
+-------------------------
+16.3 control EA
+	int setxattr()
+	int lsetxattr()
+	int fsetxattr()
+	
+	ssize_t getxattr()
+	ssize_t lgetxattr()
+	ssize_t fgetxattr()
+	
+	int {,l,f}removexattr()
+	sszie_t {,l,f}listxattr()
+
+Ch 17 ACL
+---------
+17.1
+	getfacl
+	setfacl
+17.8 ACL API
+	<sys/acl.h>
+
+Ch 18 Directory and link
+------------------------
+18.1 hard link
+18.2 symbol link
+18.3 create and remove hard link
+	link()
+	unlink()
+18.4 rename()
+18.5 use symlink
+	symlink()
+	readlink()
+18.6
+	mkdir()
+	rmdir()
+18.7 remove file or dir
+	remove()
+18.8 read dir
+	opendir()
+	readdir()
+	fopendir()
+	
+	scandir()
+	rewinddir()
+	closedir()
+	dirfd()
+
+	readdir_r()
+18.9 walk file tree
+	nftw()
+	ftw()
+18.10 get current working directory
+	getcwd()
+	chdir()
+	fchdir()
+18.12 chroot()
+18.13 parse path
+	realpath()
+18.14 parse path string
+	dirname()
+	basename()
+
+Ch 19 Monitor File events
+-------------------------
+19.2 inotify API
+	inotify_init()
+	inotify_add_watch()
+	inotify_rm_watch()
+	
+Ch 20 Signal
+------------
+20.1
+	software interrupt
+	man 7 signal
+20.3 change signal action
+	signal()
+20.5 send signal
+	kill()
+20.6 check existenct of process
+	send signal 0 to PID via kill()
+20.7 other ways sending signal
+	raise(sig)  -> kill(getpid, sig) || pthread_kill(pthread_self(), sig)
+	killpg()
+20.8 show signal description
+	strsignal()
+	psignal()
+20.9 signal set
+	sigemptyset()
+	sigfillset()
+
+	sigaddset()
+	sigdelset()
+
+	sigismember()
+
+	sigandset()
+	sigorset()
+	sigisemptyset()
+20.10 signal mask
+	sigprocmask()
+	sigpending()
+20.13 sigaction()
+	int sigaction (int sig, const struct sigaction *act, struct struct sigaction *oldact);
+20.14
+	pause()
+
+Ch 21 Signal: signal handler
+----------------------------
+21.1 race condition
+	reentrant/async-signal-safe
+21.2 jump
+	sigsetjmp()
+	siglongjmp()
+
+	abort()
+21.3 signalstack()
+21.4 SA_SIGINFO
+p.s. _exit()
+
+Ch 22 Signal: advanced feature
+------------------------------
+22.1 core dump
+22.2 special case
+	SIGKILL and SIGSTOP action can not be changed.
+22.8 realtime signal
+	sigqueue()
+22.9 blocking signal
+	sigsyspend()
+22.10 wait for signal in sync
+	sigwaitinfo()
+22.11 signalfd()
+22.12 signal in IPC, rare
+
+Ch 23 alarm and sleep
+---------------------
+23.1 interval timer
+	setitimer()
+	getitimer()
+
+	alarm()
+23.4 pause for some time
+	sleep()
+	nanosleep()
+23.5 POSIX clock gcc -lrt (librt)
+	clock_gettime()
+	clock_getres()
+	...
+	clock_nanosleep()
+23.6 POSIX interval timer
+	timer_create()
+	timer_settime()
+	timer_gettime()
+	timer_delete()
+23.7 timerfd API
+	timerfd_create()
+	timerfd_settime()
+	timerfd_gettime()
+
+Ch 24 Create Process
+--------------------
+24.1 fork() exit() wait() execve()
+24.2 pid_t fork()
+24.3 pid_t vfork()
+	designed for exec()
+24.4 race condition after fork()
+24.5 use sync signal to avoid race condition
+
+Ch 25 Terminate Process
+-----------------------
+25.1 exit() and _exit()
+25.3 exit handler
+	atexit()
+	on_exit()
+25.4 fork(), stdio buffer, _exit()
+
+Ch 26 Monitor Child Process
+---------------------------
+26.1 wait for child process
+	wait()
+	waitpid()
+	waitid()
+	
+	wait3()
+	wait4()
+26.3 SIGCHLD
+	
+Ch 27 Excution
+--------------
+27.1 execve()
+27.2 exec()
+	execle()
+	execlp()
+	execvp()
+	execv()
+	execl()
+	PATH
+	fexecve()
+27.3 Scripts
+27.6 system()
+
+Ch 28 Create Process & Excute
+-----------------------------
+28.1 acct()
+28.2 clone()
+		
+Ch 29 Thread: intro
+-------------------
+29.3 create thread
+	-lpthread
+	int pthread_create()
+29.4 end thread
+	int pthread_exit()
+29.5 thread ID
+	pthread_t pthread_self()
+	int pthread_equal()
+29.6 joining terminated thread
+	int pthread_join()
+29.7 detach
+	int pthread_detach()
+	; pthread_detach(pthread_self());
+29.8 pthread_attr
+
+Ch 30 Thread: thread sync
+-------------------------
+30.1 mutexe
+	pthread_mutex_t *mtx = PTHREAD_MUTEX_INITIALIZER;
+
+	int pthread_mutex_lock()
+	int pthread_mutex_unlock()
+
+	int pthread_mutex_trylock()
+	int pthread_mutex_timedlock()
+
+	ref: futex()
+
+	int pthread_mutex_init()
+	int pthread_mutex_destroy()
+
+30.2 condition variable
+	static int avail = 0;
+
+	pthread_count_t   PTHREAD_COND_INITIALIZER
+	int pthread_cond_signal()
+	int pthread_cond_broadcast()
+	int pthread_cond_wait()
+
+	int pthread_cond_init()
+	int pthread_cond_destroy()
+
+Ch 31 Thread: thread safe
+-------------------------
+31.1 thread-safety
+	pthread_once()
+31.3 thread unique key
+	pthread_key_create()
+
+Ch 32 Cancle Thread
+-------------------
+32.1 
+	int pthread_cancel()
+32.5 clean up
+	void pthread_cleanup_push()
+	void pthread_cleanup_pop()
+
+Ch 33 Thread: detail
+--------------------
+	ref: LinuxThread
+	ref: NPTL
+
+SEE ALSO
+	stdio.h :: fflush()
+
+===========================================================
+marked as done.
+15 Jan. 2015

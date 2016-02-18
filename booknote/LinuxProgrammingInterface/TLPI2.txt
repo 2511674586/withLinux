@@ -1,0 +1,307 @@
+The Linux Programming Interface  (Episode 2)
+===============================
+Michael Kerrisk
+http://man7.org/tlpi
+
+Ch 34 Process Group, Session and job control
+--------------------------------------------
+34.2 process group
+	getpgrp()
+	setpgid()
+34.3 session
+	pid_t getsid()
+	pid_t setsid()
+34.4 control terminal and control process
+	char *ctermid() /* get path of control terminal */
+34.5 foreground and background process group
+	pid_t tcgetpgrp()
+	int tcsetpgrp()
+34.6 SIGHUP
+	nohup(1)
+34.7 job control
+	SIGTSTP
+	SIGTTIN
+	SIGTTOU
+
+Ch 35 Process priority and Schedule
+-----------------------------------
+35.1 nice value
+	nice : -20, 0, +19
+	getpriority()
+	setpriority()
+		see: mlock() mlockall()
+35.3 realtime API
+	sched_get_priority_min()
+	sched_get_priority_max()
+	
+	sched_setscheduler()
+	sched_setparam()
+
+	sched_getscheduler()
+	sched_getparam()
+
+	sched_yield() /* release CPU */
+	
+	sched_rr_*
+
+	sched_setaffinity()
+	sched_getaffinity()
+	
+Ch 36 Process Resource
+----------------------
+36.1 process resource usage
+	int getrusage()
+36.2 process resource limit
+	int getrlimit()
+	int setrlimit()
+	
+Ch 37 DAEMON
+------------
+37.2 Create Daemon
+	daemon()
+37.5 syslog
+	openlog()
+	syslog()
+	closelog()
+
+	setlogmask()
+	/etc/syslog.conf
+
+Ch 38 Safe and Privileged Program
+---------------------------------
+38.1 if SetUID or SetGID needed
+38.2 Minimum privilege
+38.3 careful exec(), system(), popen()
+38.4 avoid exposing secret info
+	setrlimit() RLIMIT_CORE to 0 in order to avoid coredump
+38.5 chroot
+38.6 Signal and Race Condition
+38.7 when doing I/O
+38.8 don't believe input and environment
+	ENV list
+	PAHT
+38.9 Buffer overflow
+38.10 DoS Attack
+38.11 Check Return State and Safely Handle Error Case
+
+Ch 39 Capacity
+--------------
+39.3 Process capacity and File capacity
+	permissive
+	effective
+	inheritable
+39.7 libcap API
+	
+Ch 40 Login log
+-----------------
+40.1 utmp, wtmp
+	man utmp
+
+Ch 41 Shared Library base
+-------------------------
+41.1 target lib
+
+	cc -g -c prog.c mod1.c mod2.c mod3.c
+	cc -g -o prog_nolib prog.o mod1.o mod2.o mod3.o41.1 
+
+41.2 static lib
+
+	create and maintain static library
+		$ ar options archive object-file...
+		
+		$ cc -g -c mod1.c mod2.c
+		$ ar r (replace) libdemo.a mod1.o mod2.o
+
+		$ ar rcs libmylib.a obj1.o obj2.o ...
+		(s:make index, or S)
+		
+		$ ar tv libdemo.a
+
+		$ ar d libdemo.a mod3.o
+	utilize the static lib
+		$ cc -g -c prog.c
+		$ cc -g -o prog prog.o libdemo.a
+		OR $ cc -g -o prog prog.o -ldemo
+		OR $ cc -g -o prog prog.o -Lmylibdir -ldemo
+		./prog
+		
+41.3 create and utilize shared lib
+	
+	gcc -g -c -fPIC -Wall mlib.c
+	gcc -g -shared -o libmy.so mlib.o
+
+	OR
+
+	gcc -g -fPIC -Wall mlib.c -shared -o libmy.so
+
+	check: nm, readelf, objdump, ldd
+
+	utilize
+
+	gcc -g -c demo.c
+	gcc -g -o demo demo.o libmy.so
+
+	OR gcc -g -Wall -o prog prog.c libfoo.so
+
+$ ./demo
+./demo: error while loading shared libraries: libmy.so: cannot open shared object file: No such file or directory
+
+$ LD_LIBRARY_PATH=. ./demo
+hello, world!
+
+	embed SONAME
+	$ gcc -g -c -fPIC -Wall mod1.c mod2.c
+	$ gcc -g -shared -Wl,-soname,-libbar.so -o libfoo.so mod1.o mod2.o
+
+	ldconfig
+	ld.so
+
+42. Advanced feature of shared library
+--------------------------------------
+42.1 dynamic linking loader
+	include <dlfcn.h>
+	dlopen()
+	dlsym()
+	dlclose()
+	dlerror()
+
+43. IPC intro
+-------------
+43.1 IPC tool classification
+	Communication
+	Synchronize
+	Signal
+
+Ch 44 Pipe and FIFO
+-----------------
+44.1 intro
+	* a pipe is a byte stream, not allocatable
+	* pipe is monodirectional
+44.2 create and utilize pipe
+	pipe()
+	* when a process is trying to write data into a pipe, and the read end of the pipe
+	  belongs no process, the kernel would send SIGPIPE to the writting process.
+	popen()
+44.7 FIFO
+	mkfifo(1)
+	mkfifo(3)
+
+	example:
+		$ mkfifo fifo
+		$ wc -l < fifo &
+		$ ls -l | tee fifo | sort k5n
+
+Ch 45 Intro to System V IPC
+---------------------------
+45.1 overview
+	* message queue : sys/msg.h
+	* sem : sys/sem.h
+	* shm : sys/shm.h
+
+Ch 46 System V Message Queue
+----------------------------
+* msg.h
+	msgget()
+
+Ch 47 System V Sem
+------------------
+%pass
+
+Ch 48 System V Shared Memory
+----------------------------
+%pass
+
+Ch 49 Memory Mapping
+--------------------
+49.2 mmap()
+49.3 munmap()
+49.5 synchronize mapped region : msync()
+
+Ch 50 Virtual Memory Operations
+-------------------------------
+* mprotect()
+* mlock() mlockall()
+* mincore() madvise()
+
+Ch 51 POSIX IPC
+---------------
+* mqueue.h
+* semaphore.h
+* sys/mman.h
+
+Ch 52 POSIX Message Queue
+-------------------------
+%pass
+
+Ch 53 POSIX Semaphore
+---------------------
+%pass
+
+Ch 54 POSIX Shared Memory
+-------------------------
+%pass
+
+Ch 55 File lock
+---------------
+55.1 
+	flock() lock whole file
+	fcntl() lock region within a file
+
+Ch 56 SOCKET : INTRO
+--------------------
+* socket(2)
+	AF_UNIX, AF_INET, AF_INET6
+
+	socket()
+	bind()
+	listen()
+	accept()
+	connect()
+
+	REFERENCE: UNP
+
+Ch 57 SOCKET: UNIX DOMAIN
+-------------------------
+% UNP
+
+Ch 58 TCP/IP
+% UNP
+
+Ch 59 %pass
+Ch 60 %pass
+Ch 61 %pass
+
+Ch 62 Terminal
+--------------
+<termios.h>
+62.2 get / modify terminal attributes
+	tcgetattr()
+	tcsetattr()
+
+Ch 63 Other I/O Models
+----------------------
+* I/O Mux select() poll()
+* signal driven I/O
+* epoll()
+
+Ch 64 Pseudo Terminal
+---------------------
+% pass
+
+Appendix A: trace the system calls
+
+	$ strace command arg
+	$ strace -e trace=open,close command
+
+Appendix B: Parse command line args
+
+	getopt()
+	gnu libc : argp
+
+Appendix C: Converting type of NULL pointer
+
+Appendix D: Kernel configuration
+
+Marked as done . 
+May 14. 2015
+
