@@ -1,0 +1,230 @@
+<信息安全技术 实用教程 电子工业出版社>
+
+
+信息安全
+	系统安全
+	数据安全
+
+信息安全技术
+	物理安全技术
+		环境安全，设备安全，电源系统安全，通信线路安全
+	基础安全技术
+		密码技术，密码学
+	系统安全技术
+		操作系统的安全功能，数据库安全
+	网络安全技术（PDRR模型
+		防护
+			缺陷扫描，访问控制和防火墙，防病毒软件和个人防火墙，数据加密，鉴别技术
+		检测
+			误用检测，异常检测
+		响应
+		恢复
+			系统恢复，信息恢复
+	应用安全技术
+
+安全系统设计原则
+	木桶原则
+	整体性原则
+	有效性与实用性原则
+	安全评价与平衡原则
+	标准化与一致性原则
+	统筹规划，分步实施
+	等级性
+	动态发展
+	易操作性
+	自主和可控性原则
+	权限分割，互相制约，最小化
+
+密码技术
+	明文 plain text
+	密文 ciper text
+	加密 encryption
+	解密 de-
+
+	古典密码学
+		代替密码，易位密码
+		凯撒密码-代替密码
+		易位密码-矩阵转置
+	
+	密码破解
+	-破解windows用户密码
+		下载john，bkhive，samdump2
+		拷贝目标操作系统的C:\windows\system32\config\
+		*用samdump2从system.txt和sam文件生成一个passwdhashes文件
+		*使用john破解
+	-破解linux用户密码
+		*john
+	
+	文件加密
+		openssl
+		对称加密算法：加密和解密用同样的密钥
+			数据加密标准DES (data encryption standard)
+			IDEA国际数据加密算法
+			对称加密分为两类：序列算法或序列密码，分组算法或分组密码
+		非对称加密
+			GPG
+		非对称加密算法
+			RSA算法：基于大整数因子分解的困难性
+			DSA算法
+			DH算法
+			ECC算法
+		混合加密体制算法
+
+数字签名
+	openssl
+
+PKI技术：公钥基础设施
+	CA
+
+操作系统安全技术
+-Windows
+	帐号安全管理
+		我的电脑-计算机管理
+	网络安全管理
+		关闭不需要的端口
+		关闭不需要的服务
+		禁止NetBIOS
+		禁止远程协助
+		终端服务
+		防止IPC默认共享
+		IP安全策略
+	IE浏览器设置
+	注册表安全
+	组策略 gpedit.msc
+	权限管理
+	安全审计
+-Linux
+	帐号安全管理
+	存取访问控制
+	资源安全管理
+	网络安全管理
+		服务，系统信息，登录终端，tcpWrappers，定期检查日志
+	拒绝ping
+		在/etc/rc.d/rc.local 中添加 echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
+	防止ip欺骗
+		/etc/host.conf << nospoof on
+	使用SSH远程登录
+	禁用r字头命令
+	使用防火墙
+	检查工具
+		finger
+		history
+		last
+		netstat
+		top
+		who,w
+	自主访问控制和强制访问控制
+		SELinux
+	安全等级标准
+
+网络安全技术
+	黑客攻击
+		确定目标，收集相关信息
+		获取访问权限
+		清除痕迹
+	常用命令:windows
+		ping, ipconfig, arp, nbtstat, tracert, net, at, route, nslookup, ftp, telnet
+	黑客工具
+		信息搜集类
+			监听软件wireshark
+		漏洞扫描类
+			XScan扫描器
+			superscan扫描
+		远程控制类
+		信息炸弹类
+		密码破解类
+		伪装类
+		NetCat
+
+缓冲区溢出
+	see ./buffer_overflow.c
+	程序：程序段，数据段，堆栈
+	SP堆栈指针
+	FP帧指针
+	EBP基址寄存器
+	EIP
+	IP指令寄存器
+缓冲区溢出攻击
+DoS与DDoS攻击
+	Trinno：UDP Flood攻击工具包
+	DoS攻击
+		一般是一对一的方式。
+		常见的攻击方式：ping of death，tcp全连接，syn flood， syn/ack flood，tear drop， land，smurf， script攻击，udp
+	DDoS攻击
+		流量攻击和资源耗尽攻击。一般多对一
+		SYN flood，ACK flood，UDP flood， ICMP flood，TCP flood，connections flood，script flood，proxy flood
+ARP欺骗
+FireWall
+	包过滤型
+	NAT
+	代理型
+	监测型
+
+	windows防火墙
+	linux防火墙
+		netfilter/iptables
+入侵检测
+	IDS intrusion detection system
+	package：Snort
+入侵防御
+	IPS intrusion prevention system
+传统计算机病毒
+蠕虫病毒
+特洛伊木马
+	
+常见的网页挂马方式
+	1.框架挂马
+		<iframe src="SITE_ADDR" width=0 height=0></iframe>
+	2.body挂马
+	3.java挂马
+	4.js
+	5.css
+	6.高级欺骗
+VPN技术
+	httptunnel
+	密罐技术
+		1./root/.bash_profile添加陷阱
+		2.alias su陷阱
+
+数据库系统安全技术
+SQL注入
+	这并不是数据库本身的问题。
+	URL中出现asp?id= php?id= jsp?id=则要调用数据库的动态页面
+	?后的id是变量
+	0.发现可能有注入漏洞的目标，假设目标可注入
+	1.访问后，在地址最后加一个单引号，服务器返回错误提示
+	2.测试“and 1=1”，服务器返回正常页面
+	3.测试“and 1=2”，服务器返回错误提示
+	4.判断数据库类型。可利用“and user>0”
+	5.猜测表名
+	6.猜测字段名
+	7.猜测用户名
+	8.猜测用户密码
+	9.修改密码
+
+应用安全技术
+
+容灾和数据备份技术
+	RPO 数据恢复点目标
+	RTO 数据恢复时间目标
+	容灾备份技术
+		SAN
+		DAS
+		NAS
+		远程镜像
+		虚拟存储
+		快照
+		推技术
+		RAIT
+		并行流技术
+	数据备份技术
+		完全备份
+		差量备份
+		差量备份differential backup
+		增量备份incremental backup
+		按需备份
+
+		物理备份
+		逻辑备份
+
+END

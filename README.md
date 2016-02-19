@@ -184,6 +184,7 @@ FIXME: re-arrange sections.
   26. [Play with data structure](./booknote/Playwithdatastructure/)  
   27. [EE - from a EE open course](./booknote/EE.txt)  
   28. [Thinking Python](./booknote/ThinkingPython/)  
+  29. [Information Security Introduction](./booknote/InfoSecIntro/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
