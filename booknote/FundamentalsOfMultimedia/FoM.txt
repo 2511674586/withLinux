@@ -1,0 +1,313 @@
+Fundamentals of Multimedia
+==========================
+Ze-Nian Li / Mark S. Drew
+
+(1) Intro to multimedia
+-----------------------
+%jmp
+
+(2) Multimedia Authoring and Tools
+----------------------------------
+% jmp
+
+(3) Graphics and Image Data Representations
+-------------------------------------------
++ 1-Bit Images
+	also "binary image"
++ 8-Bit Gray-Level Images
+	0x00 ~ 0xFF, gray scale
+	* Frame buffer / Video card
+	* Dithering
++ 24-Bit Colour Images
+	RGB / RGBA, where A -> alpha channel
++ 8-Bit Colour Images
++ Colour Lookup Tables
+	* LUTs / palette
+	* Devise a Color Lookup Table
+	* human are more sensitive to R & G than to B,
+	  so we can shrink R & G range 0..255 into 0..7 (3bit), B 2bit.
+
++ GIF, Graphics Interchange Format
+	* Lempel-Ziv-Welch
+	* 8-Bit color
+	* GIF87a / GIF89a
+ _____________________
+| [GIF Signature]     |
+| [Screen Descriptor] |
+| [Global Color map]  |
+|        ...          |  __
+| [Image descriptor]  |    | Repeated
+| [Local colot map]   |    | 1 to n times.
+| [Raster Data]       |  __| 
+| ...                 |
+| [GIF Terminator]    |
+|_____________________|
+	* od -c a.gif
+
++ JPEG
++ PNG
++ PS/PDF
++ BMP(Windows)
+
+(4) Colour in Image and Video
+-----------------------------
+o Colour Science
++ Light, Spectra
++ Human Vision
++ Spectral Sensitivity of the eye
++ Image Formation
++ Camera Systems
++ Gamma Correction
++ Color-Matching Functions
++ CIE Chromaticity Diagram
++ Color Monitor Specifications
++ Out-of-Gaumut Colors
++ White-Point Correction
++ XYZ to RGB Transform
+```
+ _ _       _ _
+| X |     | R |
+| Y | = T | G |
+| Z |     | B |
+ - -       - -
+```
++ Transform with Gamma Correction
++ L*a*b*(CIELAB) Color Model
+
++ RGB/CMY Color Model
+```
+    B______________
+    /.            /|
+   / .           / |
+  /  .          /  |
+ /_____________/   |
+|    .         |   |
+|    . . . . . | . / G
+|   .          |  /
+|R.            | /
+|______________|/
+```
++ Transformation from RGB to CMY
+  where Red Green Blue, Cyan Magenta Yellow
+	[C;M;Y] = [1;1;1] - [R;G;B]
+	[R;G;B] = [1;1;1] - [C;M;Y]
++ Undercolour Removal: CMYK System
+	K = min{C,M,Y};
+	[C;M;Y] = [C-K; M-K; Y-K;];
++ Printer Gamuts
+o Color Model in Video
+%jmp
+
+(5) Fundamental Concepts in Video
+---------------------------------
++ Analog Video
+	* Interlanced scan, odd lines/ even lines
+  + NTSC Video
+  + PAL
+  + SECAM
+
++ Digital Video
+  + Chroma Subsampling
+  + CCIR Standards
+  + HDTV
+
+(6) Basics of Digital Audio
+---------------------------
++ Digitization of Sound
+  + Sampling and quantization
+  + Nyquist Theorem
+  + Signal-to-Noise Ratio (SNR)
+  + Signal-to-Quantization-Noise Ratio (SQNR)
+  + Linear and Nonlinear Quantization
+	\delta Response  oc  \delta Sitmulus / Stimulus
+  + Audio Filtering
+  + Quality versus Data Rate
+  + Synthetic Sounds
++ MIDI: Musical Instrument Digital Interface
+  + MIDI Overview
+  + Hardware Aspects of MIDI
+```
+o MIDI messagess --|-- Channel Messages --|-- Voice Messages
+                   |                      |-- Mode messages
+		   |-- System messages --|-- Common msgs
+		                         |-- Real-time messages
+					 |-- Exclusive msgs
+```
+  + General MIDI
+  + MIDI-to-WAV Conversion
++ Quantization and Transmission of Audio
+  + Pulse Code Modulation (PCM)
+	Every compression scheme has three stages:
+	1. Transformation
+	2. Loss
+	3. Coding
+```
+Input analog      | Bandlimiting |     | u-law or A-law |     | linear |
+speech signal --> |    filter    | --> | compressor     | --> | PCM    |
+                                                                |
+								| Transmission
+								V
+Output analog     | Low-pass |     | u-law or A-law |     | Digital-to-analog |
+speech signal <-- | filter   | <-- | expander       | <-- | converter         |
+  + Differential Coding of Audio
+  + Lossless Predivtive Coding
+```
+\hat{f}_n = f_n-1
+Error_n  = f_n - \hat{f}_n
+```
+	problem: increased the dynamic range by a factor of 2.
+	
+	a linear predictor function is used:
+```
+\hat{f}_n = \sigma_{k=1}^{2 to 4} a_{n-k} f_{n-k}
+```
+	
+	SU, SD, Shift-Up, Shift-Down. define SU and SD as shifts by 32.
+	e.g. SU, SU, SU, 4 -> 100
+```
+\hat{f}_n = [ \frac{1}{2} ( f_{n-1} + f_{n-2} ) ]
+e_n = f_n - \hat{f}_n
+```
+	Just send the Error, instead of f_n it self.
+  + DPCM
+	Differencial Pulse Code Modulation, same as Predictive Coding,
+	except it incorporates a quantizer step.
+	f_n original signal, \hat{f}_n the quatized, \tilde{f}_n reconstructed.
+```
+\hat{f}_n = function_of ( \tilde{f}_{n-1} , \tilde{f}_{n-2}, \tilde{f}_{n-3}, \ldots )
+e_n = f_n - \hat{f}_n
+\tilde{e}_n = Q[e_n]
+	transmit codeword (\tilde{e})
+	reconstruct: \tilde{f}_n = \hat{f}_n + \tilde{e}_n
+```
+  + DM
+	Delta Modulation.
+  + ADPCM
+  	Adaptive DPCM
+
+=====MULTIMEDIA_DATA_COMPRESSION=====
+
+(7) Lossless Compression Algorithms
+-----------------------------------
++ BASICS OF Information Theory
++ run-length coding (RLC)
++ variable-length coding (VLC)
+  + Shannon-Fano Algorithm
+  	Binary tree
+  + Huffman Coding
+  	***VERY IMPORTANT***
+  + Adaptive Huffman Coding
+  + Dictionary-based coding
+  + Arithmetic Coding
++ Lossless image compression
+  + differential coding of images
+  + lossless JPEG
+
+(8) Lossy Compression Algorithms
+--------------------------------
++ Distortion measures
++ Rate-distortion theory
++ Quantization
+  + Uniform Scalar Quantization
+```
+Q_{midrise}(x) = \lceil x \rceil - 0.5
+Q_{midtread}(x) = \lfloor x + 0.5 \rfloor
+```
+  + Nonuniform Scalar Quatization
+  + Vector Quantization
++ Transform Coding
+	from basic priciples of information theory, we know that coding vectors is more efficient than coding scalars.
+  + Discrete Cosine Transform (DCT)
+  + Karhunen-Loeve Transform
++ Wavelet-Based Coding
+  + Continuous Wavelet Transform
+  + Discrete Wavelet Transform
++ Wavelet packets
++ Embeded zerotree of wavelet coefficients
+  + Zerotree Data Structure
++ Set partitioning in hierarchical trees (SPIHT)
+
+(9) Image Compression Standards
+-------------------------------
++ JPEG standard
+  + Main steps in JPEG image compression
+```           8x8                                          
+YIQ or YUV ----------> DCT ----------> Quantization ---------- \hat{F}(u,v)
+             f(i,j)          F(u,v)         ^                |
+                                            |                |   
+            |-------------------  Quantization tables        |  
+________    |-- Coding tables                                |   
+[header]|   |         |                                      | 
+[tables]|<--|         v                    DC                |
+[data]  |<------ Entropy  <------ DPCM   <--------|          |
+...     |        Coding   <------ RLC    <--------|----------| Zigzag
+[data]  |                                  AC
+--------|
+```
+    the JPEG encoder consists of the following steps:
+    * luminance-chrominance color models (YIQ, YUV, YCbCr)
+    1. transform RGB to YIQ or YUV ans subsample color
+    2. Perform DCT on image blocks
+    3. Apply quantization
+    	JPEG does introduce more loss if the image has quikly changing details.
+    4. perform zigzag ordering and run-length encoding
+    5. perform Entropy coding
+
+  + JPEG Modes
+    1. Sequential mode [default]
+    	encoded in a single left-to-right, top-to-bottom scan
+    2. Progressive mode
+    	one of * Spectral selection / * Successive approximation
+    3. Hierarchical mode
+    4. Lossless mode
+    	JPEG-LS
+  + JPEG Bitstream
+```
+[start_of_image][Frame][end_of_image]
+________________/     \______________
+[Tables,etc][header][Scan][...][Scan]
+____________________/    \___________________________________
+[Tables,etc][Header][Segment][Restart][Segment][Restart][...]
+____________________/       \____
+[Block][block][block][block][...]
+```
+	* a scan is a pass through the pixels (e.g. the red component)
+	* segment is a group of blocks
+	* a block consists 8 x 8 pixels
++ JPEG2000 Standard
+
+(10) Basic Video Compression Techniques
+---------------------------------------
+%blocked by DCT
++ Video compression based on motion compensation
+	1. motion estimation (motion vector search)
+	2. motion-compensation-based prediction
+	3. derivation of the prediction error (the difference)
++ search for motion vectors
+  + sequential search
+  + 2D logarithmic search
+  + Hierarchical search
++ H.261
+  + Intra-frame (i-frame) coding
+  + inter-frame (p-frame) predictive coding
+  + quantization in H.261
+  + H261 encoder and decoder
+  + bitstream syntax
++ H.263
+  + motion compensation
+  + optional H.263 coding modes
+  + H.263+ and H.263++
+
+(11) MPEG Video Coding I -- MPEG-1 and 2
+----------------------------------------
+%blocked by DCT
+
+(12) MPEG Video Coding II -- MPEG-4,7, and Beyond
+-------------------------------------------------
+%blocked by DCT
+
+(13) Basic Audio Compression Techniques
+---------------------------------------
+%block
+
+

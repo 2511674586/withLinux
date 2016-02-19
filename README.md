@@ -174,6 +174,7 @@ FIXME: re-arrange sections.
   16. [Computer Vision](./booknote/ComputerVision/)  
   17. [Debug Hacks](./booknote/DebugHacks/)  
   18. [Denial Of Service Attack](./booknote/DenialOfServiceAttack/)  
+  19. [Fundamentals Of Multimedia](./booknote/FundamentalsOfMultimedia/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
