@@ -185,6 +185,7 @@ FIXME: re-arrange sections.
   27. [EE - from a EE open course](./booknote/EE.txt)  
   28. [Thinking Python](./booknote/ThinkingPython/)  
   29. [Information Security Introduction](./booknote/InfoSecIntro/)  
+  30. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

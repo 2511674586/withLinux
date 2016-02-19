@@ -1,0 +1,239 @@
+# Fundamentals of Math and Physics for Game programmers.
+# 《游戏编程-数学物理基础》机械工业出版社
+
+Chapter 1 points and lines
+
+	点的定义
+	坐标
+	坐标系
+	结构
+
++----------------> x
+|
+|  screen axis
+|
+v y
+
+^ y
+|
+|  cartesian axis
+|
++---------------> x
+
+                                       
+                     ^ Y                
+                     |   /             
+                     |  /                  
+                     | /         
+---------------------+----------------> X
+                    /|                        
+                   / |                    
+                  /  |             
+                 /   |              
+                /    |        
+            Z  v               
+
+	右手系，Y轴竖直方向，OpenGL
+
+	线的定义
+	直线的方程
+	slope，斜率
+	垂直与平行
+	3D直线
+
+	相交检测
+	线性方程组
+	线线相交检测
+	高斯消元法求解
+	带入法求点
+
+Chapter 2 几何
+	
+	2点间距公式
+	勾股定理
+	中点坐标
+	
+	抛物线
+
+	圆和球
+		圆的方程
+		球的方程
+		球心和半径
+
+	碰撞检测
+		两圆之间的碰撞检测
+		检测方法优化
+PS 开方运算占用大量CPU资源，可以在公式两边保留平方的形式来检测 以优化速度。
+		避免碰撞检测错误的一种方法就是使用其他更合适物体轮廓的图形来代替圆。只要保证所选图形能用方程描述。另一种方法是建立多层次的圆，首先检测外圆边界，看是否重叠，有则进行下一层检测。
+		大圆总是快速检测的第一步。
+
+Chapter 3 triangular functions
+	
+	角度，弧度
+
+	三角函数
+	伸缩变换，平移
+
+	性质（参考数学）
+
+Chapter 4 Vector
+	
+	向量与标量
+	向量的模
+
+	极坐标，迪卡尔坐标
+	坐标之间的转换
+
+	向量加减
+	向量单位化
+
+	点乘
+	向量之间的夹角
+
+	叉乘
+	垂直
+	平面法线
+	向量夹角
+
+Chapter 5 Matrix
+
+	相等矩阵
+
+	矩阵加减
+	与标量相乘
+
+	矩阵方程
+
+	矩阵相乘
+
+	矩阵转置
+
+Chapter 6 变换
+	
+	平移
+	比如2D平移
+		
+	[ x' y' ]^T = [ x y ]^T + [ dx dy ]^T
+
+	[ x' y' z' ]^T = [ x y z ]^T [ dx dy dz ]^T
+
+	[ x' y' 1 ]^T = [ 1 0 dx; 0 1 dy; 0 0 1 ] [ x y 1 ]^T
+		
+	3D
+
+	[ x' y' z' 1 ]^T =
+	 [ 1 0 0 dx ][ x ]
+	 | 0 1 0 dy || y |
+	 | 0 0 1 dz || z |
+	 [ 0 0 0 1  ][ 1 ]
+
+	缩放
+	2D
+
+	[ x' y' 1 ]^T = 
+		[ Sx 0 0 ][x]
+		| 0 Sy 0 ||y|
+		[ 0 0  1 ][1]
+	
+	3D类推
+
+	旋转
+		法一，四元数
+		法二，矩阵方程，欧拉旋转
+	2D
+		[ x' y' 1 ]^T = 
+			[ cos(Theta) -sin(Theta) 0 ][x]
+			[ sin         cos        0 ][y]
+			[ 1           0          0 ][1]
+
+	3D
+		around Z axis
+		[ x' y' z' 1 ]^T = 
+			[ cos -sin 0 0 ][x]
+			[ sin  cos 0 0 ][y]
+			[ 0    0   1 0 ][z]
+			[ 0    0   0 1 ][1]
+		# sin mean sin(Theta) and cos means cos(Theta)
+
+		around X axis
+		[ x' y' z' 1 ]^T =
+			[ 1 0    0   0 ][x]
+			[ 0 cos -sin 0 ][y]
+			[ 0 sin  cos 0 ][z]
+			[ 0 0    0   1 ][1]
+
+		around Y axis
+		[ x' y' z' 1 ]^T = 
+			[ cos 0 sin 0 ][x]
+			[ 0   1 0   0 ][y]
+			[-sin 0 cos 0 ][z]
+			[ 0   0 0   1 ][1]
+
+	2D 3D 组合变换矩阵
+		[ r00 r01 tx ]
+		[ r10 r11 ty ]
+		[ 0   0   1  ]
+		r存放缩放和旋转的信息，t存放平移
+		3D类推
+	
+Chapter 7 单位换算 converting unit
+
+	ref physics SI units
+	距离，时间
+
+	计算机单位
+
+Chapter 8 single-dimention movement
+
+	速度 速率
+	位移公式
+	平均速度
+	加速度
+
+	运动方程
+
+Chapter 9 一维运动导数
+
+	ref math -> calculus
+
+Chapter 10 二维 三维 运动
+
+	vector
+	ref math
+
+Chapter 11 newton theories
+
+	force
+
+	newton 123
+
+Chapter 12 energy
+
+	功和动能
+
+	GPE，能量守恒
+
+	机械能守恒
+
+Chapter 13 动量和碰撞
+
+	静止物体的碰撞
+		向量轴平行反射
+		非轴向量反射
+	vector，冲量
+	碰撞建模
+		动量守恒
+		完全弹性碰撞，线性碰撞，弹性碰撞
+	
+Chapter 14 旋转运动
+
+	圆周运动
+
+	旋转力学
+		ref 大学物理
+
+END
+
+Appendix
+数学物理公式
+	
