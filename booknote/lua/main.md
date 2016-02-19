@@ -29,7 +29,7 @@ Part 2
 
 Part 3  
 
-1. [Math Lib]
+1. [Math Lib](./3.1.md)  
 2. [Table Lib]
 3. [String Lib]
 4. [IO Lib]
