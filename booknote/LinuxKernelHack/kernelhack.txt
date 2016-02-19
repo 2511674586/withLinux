@@ -1,0 +1,1131 @@
+# dropped text from linux内核精髓 linux kernel hacks， 机械工业出版社， oreilly
+# in this text, "doc/" meas kernel.org/doc or kernel.tar.xz::/doc.
+
+# done 09/05/2014 UTC lumin
+
+Total 75 hacks
+
+# vol 1. introduction
+
+hack1 getting kernel
+kernel.org
+use git
+see doc/development-process
+
+hack2 compiling kernel
+see : linux.tar.xz -> README 
+see make -j parameter, this may save you a lot of time.
+make V=0|1|2 verbose mode
+cross_compile :make ARCH=arm ...
+see doc/kbuild
+
+hack3 write kernel module
+linux/module.h
+see doc/kbuild/modules.txt
+
+hack4 usage of git
+local
+	cd /target
+	git init #初始化
+	git config --add user.email "EMAIL"
+	git config --add user.name "NAME"
+		git config
+	git add hello.c # add this file
+	git commit 
+		git commit -a # commit all
+	git status
+		git ls-files
+	git diff
+	git log HASH/HEAD
+	git revert
+	git reset - -soft HEAD~1
+	git reset - -hard HEAD
+	git branch verlx ver1
+	git checkout verlx #switch to verlx
+	git branch
+	git rebase
+	git checkout master
+	git merge verlx #合并
+	git archive
+remote
+	git clone
+	git branch
+	git checkout -b work
+git pull
+git push
+etc.
+
+hack5 check patch format using checkpatch.pl
+see doc/CodingStyle
+
+hack6 decrease compiling time via localmodconfig
+localconfig
+localyesconfig
+
+# vol 2. resource management
+
+hack7 cgroup, namespace, linux container
+cgroup, control group : /proc/cgroups
+	most important file in it is /tasks
+	Cgroup is a structure, cgroup is a group.
+namespace
+	api :: clone
+linux container
+	LXC
+		before launching lxc, cgroup is needed.
+		mount -t cgroup ...
+		mkdir /lxc
+		cd /lxc
+		mkdir rootfs
+		cd rootfs
+		mkdir bin dev etc lib lib64 proc sbin sys usr var
+		mount --rbind
+		vim /lxc/lxc.conf
+		vim /lxc/fstab
+		lxc-create -n lxc -f /lxc/lxc.conf
+		lxc-ls
+		lxc-execute -n lxc bash
+			reset
+		lxc-destroy
+		lxc-stop
+		debootstrap
+man 2 clone
+man 2 unshare
+LXC
+debootstrap
+  docker.io
+
+hack8 linux scheduling policy 调度策略
+class : TSS(time sharing system)分时系统 实时系统
+CFS, completely fair scheduler
+chrt, change scheduling policy : see man chrt
+	SCHED_OTHER
+	       TSS
+	SCHED_FIFO
+	       实时,静态优先级
+	SCHED_RR
+	       实时，round robin（轮询）,与FIFO不同的是，它具有时间片
+	SCHED_IDLE
+	
+man sched*
+
+hack9 RT Group Scheduling and RT Throttling
+实时进程时间限制
+	sysctl -n kernel.sched_rt_period_us : unit is u-second
+		  kernel.sched_rt_runtime_us
+	RT Group Scheduling is a subsystem of Cgroup.
+see doc/scheduler/sched-rt-group.txt
+
+hack10 Fair Group Scheduling
+subsystem of Cgroup
+	分组间平分CPU资源
+cpu.shares special file
+	the default is 1024, the mean of this value is 权重。
+
+hack11 cpuset
+this is physical
+subsystem of Cgroup
+before use, kernel.conf :: CONFIG_CPUSETS=y is needed.
+
+hack12 restrict memory use via Memory Cgroup
+subsystem of Cgroup.
+memory.limit_in_bytes
+	it can be used in a layer structure.
+memory.stat
+..
+see doc/cgroup/memory.txt
+
+hack13 set i/o priority via block i/o controler
+this function was added to kernel at version 2.6.33.
+block I/O controler is a subsystem of Cgroup. and a part of CFQ. check these kernel config :
+	CONFIG_BLK_CGROUP
+	CONFIG_CFQ_GROUP_IOSCHED
+then check other supports :
+	cat /proc/cgroups
+		if "blkio emable=1", that is ok.
+	cat /sys/class/block/sdb/queue/scheduler : scheduler of sdb.
+		noop deadline [cfq]
+try use blkio
+	blkio.weight
+		a number between 100 an 1000. it is the weight.
+see hack7
+see doc/cgroups/blkio-controller.txt
+
+
+hack14 modifying virtual memory subsystem.
+via /proc
+TLB, translation lookaside buffer.
+see : man 3 ulimit
+modify the value about overcommit
+	/proc/sys/vm/overcommit_memory
+		OVERCOMMIT_GUESS 0
+		OVERCOMMIT_ALWAYS 1
+		OVERCOMMIT_NEVER 2
+	/proc/sys/vm/overcommit_ratio
+/proc/meminfo
+see malloc() mmap()
+hint : VSZ in ps : Virtualmemory  size
+**man pmap
+
+hack15 ramzswap
+pass.
+
+hack16 OOM Killer
+OOM Killer is Out Of Memory Killer.
+the method it pick out a process :
+	1.score according to ps::VSZ or /proc/PID/status::VmSize
+	2.if proc invoke swapoff, set score to max.
+	3.if is a mother proc, halve the score(sum of all sub-proc )
+	4.cpu occupation time.
+	5.if proc:::nice 1~19, double the score.
+	6.priviledged proc, *1/4.
+	7.capset(3), *1/4
+	8.Cgroup.??
+	9.proc::oom_adj.
+$(ps 1) can not be the target of OOM Killer, it would start from sub-proc.
+file system that is related to oom killer.
+	/proc/PID/oom_adj
+		range -16 to 15, -17 means block oom killer.
+	/proc/sys/vm/panic_on_oom
+		not kill process but panic
+
+
+# vol 3. filesystem
+
+hack17 use of ext4
+see doc/filesystems/ext4.txt
+ext4.wiki.kernel.org
+
+hack18 convert to ext4
+1.directly mount ext2/ext3 as ext4 : mount -t ext4.
+2.e2fsprogs::tune2fs
+see ext4 wiki.
+
+hack19 modify ext4
+/sys/fs/ext4/DEVICE
+1.lifetime_write_kbytes and session_write_kbytes
+2.mb_stream_req 块数小于该值的文件被集中写入到磁盘上的相近区域.
+e4defrag : online ext4 defragmenter.
+see ext4 wiki.
+
+hack20 benchmark using fio
+install fio.
+see fio::man.
+
+hack21 FUSE Filesystem in Userspace.
+fuse
+gvfs
+ntfs-3g
+see doc/filesystems/fuse.txt
+
+
+# vol 4. network
+
+hack22 control the bandwidth of network
+iproute, tc-cbq, iproute2(debian);
+CBQ class based queueing
+man tc-cbq.
+tc .. traffic control
+nuttcp : network performance measurement tool
+TSO TCP segmentation offload, ethtool
+吞吐量降低，因为对于千兆NIC来说，TBF(Token Bucket Filter)的缓冲区还不够大。TBF是Qdisc之一（queueing discipline）.
+	在cbq设置里调整这个缓冲区大小，推荐10Mbps的缓冲区10kb/8.  BUFFER=1000kb/8
+see apache2
+see cbq
+see linux advanced routing & traffic control HOWTO
+
+hack23 TUN/TAP devices. tunnel adn TAP
+TUN设备实现三层隧道，TAP实现二层隧道。
+TUN设备：点对点设备，处理三层数据包，在linux里tun0
+TAP设备：虚拟以太网设备，处理二层的以太网帧，在linux里tapX，如tap0
+应用程序示例：VPN， virtual private network
+虚拟机的网络连接，qemu生成虚拟网络时使用TAP。如果不这样，NIC桥接是无法实现的。
+see 附件：tunpong.c 使用tun/tap设备的示例程序。
+
+hack24 network bridge devices.
+使用网桥功能可以将多个网络接口链接到同一个网段上。br0
+install bridge-utils
+brctl
+/etc/network/interfaces
+
+hack25 VLAN : virtual LAN
+vconfig, ip
+vconfig add eth0 100 // ip link add link eth0 name eth0.100 type vlan id 100
+vconfig rem eth0.100 // ip link delete eth0.100
+MAC-VLAN
+see 802.1Q VLAN implementation for linux
+
+hack26 bonding driver
+使用bonding驱动程序将多个物理网络设备绑定。
+linux的bonding有7中模式
+	balance-rr 0
+	active-backup 1
+	balance-xor 2
+	broadcast 3
+	802.3ad 4
+	balance-tlb 5
+	balance-alb 6
+modprobe bonding
+see doc/networking/bonding.txt
+
+hack27 Network Drop Monitor
+dropwatch
+check kernel.config::NET_DROP_MONITOR=y
+see udp-stress.c
+nc -u -l 192.168.0.112 5000
+see fedora/dropwatch
+see doc/trace/tracepoints.txt
+
+# vol 5. Virtualization 虚拟化, KVM, Xen
+
+hack28 using Xen
+半虚拟化PV
+全虚拟化HVM
+Intel VT， AMD-V
+Xen
+	virt-manager #install client operating system
+	main elements of Xen
+		manager, host (Dom0), client (DomU)
+	xend
+	qemu-dm
+Xen - PV
+	1. creation of image
+	2. mount, bind or cp -ax
+	3. fstab
+	4. modprobe PVDIRVERS : xennet, xenblk
+	5. runlevel 3
+	6. securetty << tty0
+	7. generate initrd : mkinitrd
+	8. umount
+	9. config client
+	10. launch client : xm create
+Xen - HVM
+	1. create image
+		dd if=/dev/zero of=/root/rhel.img bs=1M seek=4096 count=0
+	2. configure file
+	3. launch, install os
+		xm create rhel
+		vcnviewer 127.0.0.1:7
+		xm destroy rhel
+	4. modify configure in client os
+	5. xm create rhel
+
+hack29 using KVM
+check if Intel-VT/AMD-V is enabled in BIOS.
+qemu-kvm
+virt-manager
+see KVM HOWTOs
+
+hack30 install a system without dvd.
+install a system using KVM
+virt-manager
+1. prepare image.
+2. disk to install : /dev/sdb
+   mkinitrd, blkid
+
+hack31 更改虚拟CPU分配方法，提高性能
+有的多核CPU是在核之间共享L2或L3缓存的。在将某个虚拟机的两个虚拟CPU分别配给不共享L2缓存的核时，一旦加大内存负载就有可能造成CPU的性能降低。
+要找出共享缓存的CPU，可以参照
+	/sys/devices/system/cpu/cpuN/cache/indexM/shared_cpu_list
+负载工具stress
+UnixBench
+see UnixBench
+see sysbench
+
+hack32 improve client performance via EPT
+Memory management Unit (MMU)
+EPT - Extended Page Table, virt-function of MMU
+	MMU是具有内存管理功能的硬件，主要功能之一将虚拟地址转换为物理地址。 paging, page table.
+影子页表
+EPT - intel cpu的功能 you can check it $(cat /proc/cpuinfo)
+NPT - amd cpu类似EPT的功能
+when CPU has EPT feature, then it would be in /proc/cpuinfo
+   cat /sys/module/kvm_intel/parameters/ept
+EPT+hugepage
+see intel/ia32 arch dev manual
+
+hack33 IOMMU improve client performance
+Xen or kvm 主要使用这几种方式：
+	仿真方式，半虚拟化方式，直接io方式
+intel virtualization technology for directed i/o VT-d
+amd iommu
+DMA - direct memory access
+	可以在内存和io之间直接进行数据交换的结构。
+IOMMU
+	在虚拟环境下使用，可以直接从客户端操作系统发出IO指令。
+KVM 和Xen 使用IOMMU的方法 。。。。
+VT-d的基本功能是DMA remapping，同时IRQ Remapping。
+VT-d 的优点，可以发挥和物理环境相同的性能，但同时客户端操作系统无法动态迁移。（live migration）。
+see intel/vt-d
+see linux-kvm
+see xensource.
+
+hack34 IOMMU + SR-IOV improve performance
+pass
+ip link set dev <ethN> address <MAC_ADDR>
+ip link set dev <sthN> vf 0 mac <MAC_addr>
+
+hack35 SR-IOV bandwidth control
+NIC : Intel 82576 has SR-IOV feature.  control bandwidth.
+modprobe igb max_vfs=2
+lspci
+VF virtual function.
+ip link set eth0 vf 0 rate 200 --> bandwidth 200Mbps
+ip link show
+netperf -t UDP_STREAM -1 50 -H 192.168.0.200 --> net performance.
+
+hack36 save memory via KSM
+check kernel.config :: CONFIG_KSM=y
+	sysfs
+		/sys/kernel/mm/ksm
+pass
+
+hack37 how to mount the client's disk.
+tool : guestfish (libguestfs-tools);
+tool : lomount
+tool : kpartx
+see libguestfs.org
+
+hack38 recogonize virtualized environment in client.
+CPUID : cpuid see cpuid.c
+tool : xen-detect
+/dev/kvm
+/proc/xen/capabilities
+sometimes ACPI DSDT or FADT :: OEM_ID/OEM_TSBLEID
+/proc/acpi/fadt
+System management BIOS : SMBIOS
+virt-what
+see [Xen-devel][RFC] is this process running on which machine ?
+
+hack39 调试client.
+xen
+	# xm list   --\
+	virtsh list --|--> state of log and client os.
+	xenctx --> check if client corrupted
+	xm dump-core
+kvm
+	virsh list
+	virsh edit --> sometimes you can edit conf file like this.
+
+# vol 6. save electrical power
+
+hack40 ACPI
+advanced configuration and power interface.
+ACPI 术语
+	power status in ACPI : 5 kinds
+		G D S C P
+	G and S
+		G : global system state : 用户看到的整个系统的电力状态。
+		G0 : running, power supply
+		G1 : stop, standby or hibernate
+		G2 : software is stopped, and the hardware power is on.
+		G3 : totaly off.
+		S : sleeping state.
+		S0 : running, same as G0
+		S1 : stop mod, CPU的上下文不会丢失。
+		S2 : 丢失上下文，系统唤醒时恢复
+		S3 : 在linux中S2与S3相同
+		S4 : 最省电，停止向所有设备提供电源
+		S5 : same as S4
+		stop mode
+		S0 running
+		S1 stand by
+		S2 suspend
+		S3 suspend
+		S4 hibernate，disk standby
+		S5 software halt
+	D
+		D : device power save
+		D0 : fully running
+		D1 : 丢失上下文少于D2
+		D2  更省电丢失更多
+		D3 hot 因设备而异，主电源开启
+		D3  设备电源完全断开。在pci用语中为d3cold。pci用语中d3hot & d3cold统称D3.
+	C
+		processor power state, G0 中cpu空闲时进行的省电模式。
+		C0 : running
+		C1 : halt state, hlt command stops clock.
+		C2 : serial bus? 总线的时钟也停止。
+		C3
+		C defined by intel
+		TDP, Thermal Design Power.
+	P
+		P0 : normal, performance, power
+		P1 : lower than P0
+		Pn : lower than P(n-1);
+	T
+ACPI 的结构
+	系统描述表，寄存器，BIOS
+两种编程模型
+	固定硬件编程模型，通用硬件编程模型
+ACPI Machine Language， AML
+ACPI Source Language， ASL
+SCI
+ACPI 寄存器
+	固定/通用 硬件寄存器
+ACPI 系统描述表
+	RSDP
+	system description table header
+	RSDT
+	FADT
+	FACS
+	DSDT
+	SSDT
+	MADT
+	SBST
+	XSDT
+	ECDT
+	SLIT
+	SRAT
+
+	BOOT
+	DMAR
+	HPET
+	IBFT
+	IVRS
+	MCFG
+ACPI namespace
+	rules
+	ASL
+		ObjectType
+		FixedList
+		VariableList
+tool ：pmtools, iasl (disassemble aml)
+	print ACPI table
+		# acpidump -b -t DSDT -o dsdt.dat
+	disassemble data
+		# iasl -d dsdt.dat
+see acpi.info
+see intel/acpi
+
+hack41 using ACPI::S state.
+	系统整体省电S
+	# cat /sys/power/state
+		avaliable states : standby S1, mem S3, disk S4
+	# echo "STATE" > /sys/power/state
+		e.g. # echo "mem" > /sys/power/state
+	under linux, S4 is also suspend to swap.
+	# echo "0" > /sys/power/image_size 
+		保存的内存镜像大于一定值
+	有时候休眠失败，可以在grub参数里加交换设备 "resume=<SWAP DEVICE>"
+	如果启动后运行状态不太一样，尝试强制交换区读取。
+		# swapoff -a
+		# swapon -a
+see tools::pm-utils
+see /var/log/messages
+
+hack42 usage of C and P state, CPU power saving
+	C state : power state of CPU when it is idle.
+		make C state deeper saving more electricity.
+	ACPI has 2 interfaces to control C state.
+		1. Processor :: register (P_BLK) :: P_LVL2 and P_LVL3
+		2. _CST object
+	Register : processor must read this entering into a type.
+	Type : which C state to enter, C1 C2 C3 ?
+	Latency 
+	Power : ave power when cpu in Type::C state
+	linux :: subsystem :: cpuidle
+		/sys/devices/system/cpu/cpuidle
+	the C state of each CPU can be checked at /sys/devices/system/cpu/cpuN/cpuidle/stateM
+		also /proc/acpi/prosessor/CPU0/power
+	sched_mc_power_savings
+	sched_smt_power_savings
+	linux on x86 : 
+		when idle, invoke "idle" process, invoke pm_idle function.
+	
+	P state : CPU power
+	interface that linux control cpufreq : _PCT (Performance Control)
+	PERF_CTRL
+	acpi-cpufreq
+	govenor for saving power that you can use under linux : 
+		performance : highest power anytime
+		powersave : lowest power anytime
+		ondemand : ondemand change freq right away
+		conservative : ondemand change freq slowly
+		userspace
+	linux :: subsystem :: cpufreq
+		/sys/devices/system/cpu/cpuN/cpufreq
+	tool::powertop
+	tool::turbostat
+see intel/technology/turboboost/
+
+hack43 PCI devices hot plug
+	PCI standard Hot-Plug (SHPC)
+	SHPC is a hot plug controller installed on PCI-to-PCI bridge or PCI bridge
+	hot-add
+	hot-remove
+	lspci -vvvv | grep $SHPC_capacity_ID(0x0c)
+	linux :: driver :: hotplug
+		SHPC -> shpchp
+		PCIExpress -> pciehp
+		ACPI -> acpihp
+		install :: shachp
+	echo 0 > /sys/bus/pci/slots/<slot>/power # stop device, hot remove
+	as for hot add, echo 1 into it.
+	tip : KVM/Xen :: ACPI_hotplug is supported, you can have a taste in it via virtualized machines.
+
+hack44 save power under virtualized environment
+pass
+see kvm, xen powersave
+
+hack45 manage power remotely.
+method : WOL, IPMI
+	NIC network interface card
+	IPMI (BMC)
+WOL : wake on LAN (remote power under bios)
+	ethtool eth4
+	send magic packet
+		net-tools :: ether-wake
+		/sbin/wther-wake <MAC>
+IPMI :
+	pkg : openIPMI
+see intel.com/design/servers/ipmi/
+
+hack46 USB power management
+	via sysfs
+	usb device autosuspend, autoresume
+	check kernel.config
+		CONFIG_PM_RUNTIME=Y
+		CONFIG_USB_SUSPEND=Y
+	how to
+		/sys/bus/usb/devices/<USB_DEV_ID>/power/
+		autosuspend :: default 2
+			if idle time > 2 seconds then auto suspend.
+			set -1 to turn off this function.
+			also kernel parameter usbcore.autosuspend=<value>
+		USB_ID
+			ls /sys/bus/usb/devices
+			dmesg
+			cat /sys/bus/usb/devices/<USB>/product
+			lsusb
+	enable autosuspend
+		echo auto > /sys/bus/usb/devices/<USB>/power/level
+		echo suspend, then device::LED off, system doesn't recogonize this device.
+		echo on >..., etc.
+see doc/usb/power-management.txt
+ADD : kernel 3.12 says that , ../power/level is deprecated, use power/control instead.
+
+hack47 saving power , monitor
+	VESA, video electronics standards assosiation
+	DPMS, display power management signaling
+	DPMS : LCD :
+		on : D0 : etc..
+		standby : D1
+		suspend : D2 : monotor totaly off.
+		off     : D3 : totaly off.
+	DPMS : Video controller :
+		D0 : on
+		D1 : standby
+		D2 : suspend
+		D3 : off
+	tool : xset
+monitor backlight control
+	ACPI :: _BCL (query list of brightness control levels supported)
+	ACPI :: _BCM (set the brightness level)
+	ACPI :: _BQC (brightness query current level)
+	/sys
+	/sys/devices/virtual/backlight/acpi_videoN/
+	also tool::xbacklight
+	also tool::gnome-power-preference
+hint:
+	1. in order to decrease load of video device, is would work that change wallpaper to single colour.
+	2. 使用抑制背光效果的颜色，一般白色背光白色省电，黑色反之。
+	3. for server directly drop monitor away.
+see Advanced configuration and power interface specification revision 4.0
+
+hack48 save power controlling network devices.
+Disable WOL
+see hack45, WOL (wake on LAN)
+	it would eats bit of electricity, even if power is off.
+	disable it : ethtool -s eth0 wol d
+Lower speed
+	gigabit ethernet/ fast ethernet
+	auto negotiation.
+	# ethtool -s eth0 autoneg off speed 100
+	controling communicating speed, save power.
+modify driver.
+see IEEE 802.3 www.ieee802.org/3/...
+
+hack49 turn off LED on keyboard.
+PS/2 keyboard.
+	可以使用in和out命令，经过0x60,0x64的I/O端口从CPU访问控制器。
+	in读出i/o端口0x64
+	0x60 键盘微控制器
+	0x64 板载控制器
+
+	0x60
+		0xED control LED light
+			8 bits
+			0 : Scroll Lock LED : 1=on 0=off
+			1 : Numlock LED
+			2 : Capslock LED
+			3 to 7 : must be 0
+		0xEE echo
+			return 0xEE to 0x60
+see ps2key.c
+USB keyboard.
+	linux::(subsystem)input
+	/dev/input/eventN
+	# cat /proc/bus/input/devices ,handlers
+	EV 可操作事件bitmap
+see IBM/ personal system/2  hardware interface tachnical reference
+
+hack50 PowerTop
+show 应用程序的电能消耗指标
+	WPS, wakeups per second
+	PowerTOP refers /proc/interrupts and /proc/timer_stats.
+		PowerTOP can metre(测量) on Tickless kernel correctly.
+		check kernel.config::CONFIG_NO_HZ=y, enable tickless.
+P.S. mount -o remount,noatime / # reduce disk I/O, disabling access_time record.
+	iwpriv <wl-device> set_power 5 --> enter power saving mode.
+	echo 1 > /sys/bus/pci/devices/<wl-device>/power_level --> enter wireless power saving mode.
+	hciconfig hci0 down; rmmod hci_usb --> bluetooth eats much power, make usb 'busy'
+	echo 0 > /proc/sys/kernel/nmi_watchdog --> disable NMI monitoring.
+	mount -o remount,noatime / --> reduce disk I/O
+	echo 1 > /sys/devices/system/cpu/sched_mc_power_savings --> enter cpu::sched::power-save-mode.
+	echo 1500 > /proc/sys/vm/dirty_writeback_centisecs --> delay page writeback.
+	echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor --> cpu freq control
+	echo min_power > /sys/class/scsi_host/host0/link_power_management_policy --> enable SATA link - power management.
+	xrandr - -output TV - -off --> disable TV output.
+	ethtool -s eth0 wol d --> disable wake-on-LAN
+	echo auto > /sys/bus/{usb,pci,spi,i2c}/devices/%s/power/control --> auto mode of xxx.
+	echo 1 > /sys/bus/pci/devices/<wl-device>/rfkill/rfkill0/state --> disable wifi
+	ifconfig <network-device> down --> .
+	iwconfig <wl-device> power timeout 500ms --> power saving mode, would reduce performance.
+see PowerTOP
+see doc/hrtimer/timer_stats.txt
+
+hack51 saving power hard disk
+SATA, LPM (link power management, kernel>2.6.24), hdparm, AHCI SATA controller ALPM (aggressive link power management).
+LPM
+	SATA::LPM --> DIPM (device initiated linkpm) && HIPM (host initiated pm).
+	DIPM, controlled by device.
+	HIPM, AHCI SATA - ALPM control, so AHCI must be enabled in BIOS.
+	LPM::link --> states : ACTIVE, PARTIAL, SLUMBER.
+	their relationship:
+		Partial (midium_power) <---> Active (max_performance) <---> Slumber (min_power)
+	LPM setting via sysfs.
+	.# echo min_power > /sys/class/scsi_host/host0/link_power_management_policy
+	hdparm (SATA/PATA/SAS/IDE)
+hdparm
+	inspect hard disk information:
+		hdparm -I /dev/sda
+	saving power
+	APM (advanced power management)  disable=255
+	standby/sleep
+	hdparm -y /dev/sda, hdparm -C /dev/sda --> disk standby
+	hdparm -Y /dev/sda, hdparm -C /dev/sda --> disk sleep
+	spindown
+	hdparm -S (see man) --> spindown timeout.
+	I/O
+	pre-read 预读
+	hdparm -a/A
+	32 bit i/o , -c
+	-d, IDE::DMA
+	sync, -f
+	-F, light cache.
+	multi-sector i/o, -m
+	silence
+	-M, Automatic Acoustic Management, AAM
+		254 performance 128 silence
+	NCQ (native command queuing)
+		Serial ATA II
+	-W, light cache.
+see doc/scsi/link_power_management_policy.txt
+see intel/technology/serialata/ahci.htm
+
+## vol. 7 debugging. 调试
+
+hack52 SysRq
+check kernel.config::CONFIG_MAGIC_SYSRQ
+	enable sysrq
+		sysctl -w kernel.sysrq=1
+		echo 1 > /proc/sys/kernel/sysrq
+	bit mask
+		1 1<<0 allow ALL
+		2 1<<1 console log level (0~9)
+		4 1<<2 control kerboard (kr).
+		8 1<<3 shwo process (lptwmcz).
+		16 1<<4 sync (s).
+		32 1<<5 remount (u).
+		64 1<<6 signal (ei).
+		128 1<<7 reboot (b).
+		256 1<<8 control realtime process (q).
+	boot> linux sysrq_always_enabled
+	
+	to input sysrq
+	1. ctrl + alt + sysrq(prntscr) + A
+	2. serial console, input within 5 sec after signal break.
+	3. echo [cmd] > /proc/sysrq-trigger
+
+	/proc/sys/kernel/printk . log level
+see doc/sysrq.txt
+
+hack53 diskdump 提取内核崩溃转储
+segmentation fault.
+需要some驱动支持轮询I/O.
+cannot write to LVM
+	enable diskdump
+		/dev/sdaX for diskdump specialize. swap also.
+		/etc/sysconfig/diskdump --> DEVICE=/dev/sdaX
+		.# service diskdump initialformat
+		.# chkconfig diskdump on
+		.# service diskdump start
+		.# cat /proc/diskdump
+	set kernel.panic=10 /etc/sysctl.conf
+		10sec after 转储 reboot.
+		.# sysctl -p
+		.# echo c > /proc/sysrq-trigger.
+	the dump file /var/crash/127.0.0.1-<DATE>/vmcore
+	see tools::crash
+mail admin when crash
+	diskdump can run a script after saving file to /var/crash/...
+	An exsample : /usr/share/doc/diskdumputils-<version>/example_scrpts
+Needs partition, needs support of drivers.
+see new generation #hack 54 Kdump, Kdump don't need above 2.
+see diskdump::shared doc.
+
+hack54 Kdump 提取内核崩溃转储
+kernel > 2.6.13
+Enable Kdump
+	boot> linux crashkernel=128M --> 128M memory for Kdump.
+	crashkernel=<range1>:<size1>[,<range2>:<size2>,...]
+		e.g. crashkernel=512M-2G:64M,2G-:128M
+	dmesg will prompt if successfully allocated.
+	.# chkconfig kdump on
+	.# service kdump start
+	when kexec_crash_loaded is 1 -> enabled kdump
+	.# cat /sys/kernel/kexec_crash_loaded   : 1
+	if ready, try dump
+	sysrq(c).
+	kexec-tools :: makefumpfile -> it can compress the dump file
+Sent core dump to a remote server.
+	Kdump supports transfer core dump to remote server via NFS or SSH.
+	at /etc/kdump.conf add 'net'
+	/* NFS */
+	net <serverIP_or_HOST>:<output_path>
+	/* SSH */
+	net <login>@<serverIP_or_HOST>
+see .
+
+hack55 crash test
+lkdtm : linux kernel dump test module
+check kernel.config :: CONFIG_LKDTM <M>
+debugfs
+parametres
+	cpoint_name : crash point name
+	cpoint_type
+		PANIC : call panic();
+		BUG : call BUG macro
+		EXCEPTION : write value to NULL POINTER
+		LOOP : Inf loop
+		OVERFLOW : call reversely
+		CORRUPT_STACK
+		UNALLIGNED_LOAD_STORE_WRITE
+		OVERWRITE_ALLOCATION
+		WRITE_AFTER_FREE
+		SOFTLOCKUP : interruptable, Inf loop
+		HARDLOCKUP : non-interruptable, Inf loop
+		HUNG_TASK
+this is useful when testing cluster system and Kdump.
+
+hack56 IPMI watchdog counter.
+IPMI watchdog checks if system is dead.
+IPMI , inteligent platform management interface.
+It is different form NMI watchdog counter.
+	IPMI can do hard reset.
+	it is dependent from hardware.
+HINT : often, run "shutdown" or "reboot", when screen says "Power down." or "Restarting system.", the machine is still running.
+	at this moment CPU had run shutdown or reboot, but for some reason the process failed.
+	non-formal hardware/product often do like that.
+	set parametre 'nowayout', let IPMI hard reset.
+Usage of IPMI
+check kernel.config :: CONFIG_IPMI_WATCHDOG = y
+	.# cat /etc/sysconfig/ipmi
+	modify.
+	.# service ipmi start
+	lsmod
+	.# service watchdog start
+	check timeout
+	ipmitools
+other watchdogs
+	Intel TCO, a function of ICH (I/O controller Hub).
+	kernel module : iTCO_wdt
+see doc/IPMI.txt
+
+hack57 NMI watchdog conter.
+NMI, Non Maskable Interrupt.
+interrrupt is signal from hardware.
+可以检测系统死机，或者通知内存奇偶校验错误等FATAL ERROR。
+	check kernel.parameter :: nmi_watchdog=N
+		N = 0-disable, 1-IO-APIC, 2-APIC-local
+	file:///proc/sys/kernel/unknown_nmi_panic
+		set to 0, incur unkown nmi panic
+	/proc/sys/kernel/panic_on_unrecovered_nmi
+		set to 0, incur panic when ...
+	/proc/sys/kernel/panic_on_io_nmi
+
+hack58 soft lockup.
+watchdog, realtime FIFO.
+ps aux | grep watch --> to ensure they are here.
+Watchdogs would be waken by timers, then it will record the time it wakes. if from then on, the freeze time go above some value, watchdog judges that a lock up occured.
+config
+	config via sysctl
+		softlockup_thresh  (threshold) -> unit sec, default 60 sec.
+		softlockup_panic -> panic if figured out a softlockup. deafult 0(off), set to 1 to turn on.
+	sysctl -w kernel.xxx=nnn
+	ensure softlockup
+e.g.
+# cat Makefile
+obj-m := lockup.o
+
+# cat lockup.c
+#include <linux/module.h>
+static int lockup_init (void)
+{
+	for (;;)
+		;
+
+	return 0;
+}
+
+static void lockup_exit (void)
+{
+}
+
+module_init (lockup_init);
+module_exit (lockup_exit);
+
+# make -C /lib/modules/2.6.35.11-83.fc14.x86_64/build M='pwd' modules
+# insmod
+	sched_rt_runtime_us=-1  :  loosen restriction to CPU towards realtime proc.
+# cat lockup.c
+#include <sched.h>
+int main (int argc, char **argv)
+{
+	struct sched_param p = { .sched_priority = 99 };
+
+	sched_setscheduler (0, SCHED_FIFO, &p);
+
+	for (;;)
+		;
+
+	return 0;
+}
+# gcc -g -O2 -o lockup lockup.c
+# sysctl -w kernel.sched_rt_runtime_us=-1
+# ./lockup
+# cat hardlockup.c
+#include <linux/module.h>
+#include <linux/irqflags.h>
+static int lockup_init (void)
+{
+	local_irq_disable ();
+
+	for (;;)
+		;
+	return 0;
+}
+static void lockup_exit (void)
+{
+}
+module_init (lockup_init);
+module_exit (lockup_exit);
+	other
+	kernel.para :: nosoftlockup --> to disable it.
+	function _touch_watchdog().
+
+hack59 utility command crash
+based on gdb.
+passed this part.
+
+hack60 coredump filter
+应用程序中一旦发生分段错误(segment fault)等，就会生成该进程的核心转储文件(core file)。core文件包含发生崩溃并强制结束的进程的内存区域。core文件可以用gdb调试。
+	can restrict the size of core file via ulimit, and the rest info would be cut if mem-data is larger than that size.
+usage
+	/proc/<pid>/coredump_filter
+		bit mask meaning
+			0 process mem
+			1 shared mem
+			2 进程固有内存，映射到文件
+			3 进程共享内存，映射到文件
+			4 
+			5 hugetlb进程内存
+			6 hugetlb共享内存
+	sysctl, /proc/sys/kernel/core_pattern
+		./core_pipe_limit
+		./core_uses_pid
+see doc/sysctl/kernel.txt
+see doc/filesystems/proc.txt
+
+hack61 生成用户模式进程的coredump
+crash :: gcore
+pass
+see crash utility
+
+hack62 find soft lockup using lockdep
+检查系统中是否可能发生死锁。
+内核中存在自旋锁(spinlock), mutex, semaphore等lock.
+e.g. recursive lock
+	int foo1 (struct object *a) {
+		mutex_lock (&a->lock);
+		...;
+		ret = foo (a);
+		lll;
+		mutex_unlock (&a->lock);
+	}
+e.g. AB-BA lock
+	foo1 () {
+		mutex_lock (&lockA);
+		mutex_lock (&lockB);
+		..;
+	}
+	foo2 () {
+		mutex_lock (&lockB);
+		mutex_lock (&lockA);
+		..;
+	}
+lockdep : runtime locking correctness validator.
+hardirq, softirq.
+check kernel.config :: DEBUG_LOCKDEP=y
+see doc/lockup-design.txt
+
+hack63 check memory leak.
+tool, kmemleak (kernel memory leak detector)
+mount -t debugfs nodev /sys/kernel/debug/
+echo scan > /sys/kernel/debug/kmemleak
+dmesg | grep kmemleak
+see doc/kmemleak.txt
+
+VOL 8. Analyze and trace.
+
+hack64 perf tools
+perf tools : see tools/perf/Documents
+check kernel.config :: CONFIG_PERF_EVENTS
+# perf list
+# perf top
+# perf top -e cache-misses
+see tools/perf/Documentation/perf.txt &
+
+hack65 perf tools (2)
+概要分析
+# perf record -e cache-misses --all
+# perf record -e cache-misses:k --all
+	:k ring0, only catch kernel events
+	:u ring3, only userspace
+	:p LBR, at least PEBS.
+	:pp
+缓存未命中
+# perf record -e cache-misses stress -c 8 -i 2 -m 2 --timeout 10s
+# perf report
+perf record, perf report.
+
+hack66 perf analyze proc/kernel
+# perf stat ls /
+IPC instructios per cycle
+# perf list
+# perf record -e sched:'*' -a ls /
+# perf script
+# perf script --list
+# perf script sctop   , (rwtop/sctop)
+# perf script record syscall-counts ls /
+# perf script report syscall-counts
+see tools/perf
+
+hack67 ftrace : trace call of kernel to functions.
+check kernel.config :: kernel hacking -> Tracers.
+plugin tracer, uprobes
+ftrace interface : debugfs.
+# mount -t debugfs debugfs /sys/kernel/debug
+	the dir of ftrace is /sys/kernel/debug/tracing
+		available_tracers
+		set_ftrace_filter set name of tracer, only one wildcard is allowed.
+	use
+		cat available_tracers
+		echo schedule > set_ftrace_filter
+		echo function > current_tracer
+		head trace
+		e.g.
+		echo '*irq' > set_ftrace_filter --> trace all *irq
+		echo :mod:btrfs > set_ftrace_filter ---> trace only functions in kernel module
+		echo 0 > trace
+		head trace
+see doc/trace/ftrace.txt
+
+hack68 ftrace, plugin tracer
+function invoking relationship
+e.g. trace ext4 driver
+	cd /sys/kernel/dubug/tracing
+	echo :mod:ext4 > set_tracer_filter
+	echo function_graph > current_tracer
+	head trace
+echo 1 > options/func_stack_trace
+
+e.g.
+	echo nop > current_tracer
+	echo 1 > function_profile_enabled
+	head trace_stat/function0
+	tweak the sleep time
+	echo 0 > options/sleep_time
+	echo 0 > function_profile enabled
+	echo 1 > function_...
+	head trace_stat/function0
+	tweak the invoking time
+	echo 0 > options/graph-time
+	echo 0 > function_profile_enabled
+	echo 1 > func............
+	head trace_stat/function0
+e.g.
+	调查占用内核栈最大的位置
+	echo 1 > /proc/sys/kernel/stack_tracer_enabled
+	cat stack_trace
+e.g.
+	测量中断延迟
+	echo irqoff > current_tracer
+	echo 1 > tracing_on
+	echo 0 > tracing_on
+	cat trace
+Ftrace.
+
+hack69 record kernel events
+try inspect irq program
+	cd /sys/kernel/debug/tracing
+	echo irq:irq_handler_entry > set_event
+	echo irq:irq_handler_exit >> set_event
+	cat trace
+	inspect irq 21
+	echo "irq==21" > events/irq/irq_handler_entry/filter
+	echo "       " > ev                    _exit/filter
+	cat trace
+inspect events available
+	less available_events
+pass
+see doc/trace/ftrace.txt
+see doc/trace/events.txt
+
+hack70 trace-cmd kernel trace
+pass.
+see github
+
+hack71 将动态追踪事件加入内核
+interface : 
+	/sys/kernel/debug/tracing/kprobe_events
+ftrace
+perf probe
+see doc/trace/kprobetrace.txt
+see tools/perf/doc/perf-probe.txt
+
+hack72 SystemTap trace
+pass
+
+hack73 SystemTap interactive program
+pass
+see StapGames , github
+
+hack74 SystemTap 脚本重用
+pass
+
+hack75 Using systemtap
+pass
+search SystemTap
+
