@@ -1,0 +1,210 @@
+Hacker Debugging Uncovered
+==========================
+黑客调试技术， 电子工业出版社
+
+Reference: Intel Architecture Software Developer's Manual
+
+Ch 1 Debugging tools
+--------------------
+1. debugger: softice
+2. disassembler: ida
+3. hexedit: hiew
+4. sdk/ddk
+5. os: windows
+6. compiler: any
+
+debugger.class
+	1. use processor debugger
+	2. emulate processor
+
+exception handle
+
+Ch 2 UNIX Environment feature
+-----------------------------
+A bad example:
+	#ifdef __DEBUG__
+		fprintf (...)
+	#endif
+A good example:
+	if (__DEBUG__)
+		fpritnf (...)
+
+;; 在UNIX环境中，只有在非常严重的情形下，当其他工具都证明没有用处时，才会使用单步来执行程序和断点。
+;; windows爱好者们认为这种方法太陈旧和使用不方便。
+;; 但这主要是因为windows调试器有效解决的那些问题根本不会在UNIX中出现。
+;; windows和UNIX的编程文化之间的差异是很大的。
+;; 因此，在指责任何一方之前，先检讨一下自己。
+;; “不寻常”并不意味着“不正确”。当UNIX爱好者需要在windows下工作时，他们也同样会觉得不舒服。
+
+GDB, ptrace
+multithread, parallel -> TotalView
+
+gcc [-g]
+ddd, GUI of gdb
++ GDB
+; gdb filename
+; break(b)
+:  b main
+;  b _start
+;  b *0x8048424
+; b *$eax
+; watch <addr>
+; rwatch <addr>
+; info break
+; clear (clear break)
+; clear <addr>
+; N/n  (next)
+; step (go into func)
+; jump <addr>
+; call <addr/fname>
+; until <addr>
+; print <expression>
+; info register (i r)
+; set $eax = 0
+; set var my_var = $ecx
+; disassemble
+; info frame (print stack / heap frame)
+; info args
+; info local (local/private var)
+; x/i $pc
+
+truss, ktrace, strace
+objdump
+ald
+Dude
+linice
+pice
+
+ida pro
+
+vim+xxd
+
+protect
+	shiva
+	burneye
+	624
+
+Ch 3 Emulator
+-------------
+DOSBox
+Bochs
+vmware
+virtualbox
+
+processor emulator
+
+Ch 4 BoundsChecker Analyze
+--------------------------
+
+Ch 5 Protect Machanism
+----------------------
++ Encrypt(Kirchhoff) protect
++ Logical Protect
+
++ Based on keys
+1. break the key machanism
+2. copy key media
+3. key emulator
+
+\begin{example}
+#define PASSWD "pass"
+main()
+{
+	char buffer[16];
+	fgets ();
+	if (strcmp() != 0)
+		/* wrong */
+	else
+		/* true */
+	return 0;
+}
+
+The compiler will not change that static PASSWD string.
+tool:strings
+\end{example}
+\begin{crack}
+1. strings
+2. jne <-> je <-> jmp
+3. nop 0x90 /* notice stack balance */
+\end{crack}
+
+Ch 6 Closer to Debugger
+-----------------------
+
+Ch 7 IDA
+--------
+
+Ch 8 Registration Protect
+-------------------------
+寻找生成注册码的过程。
+找注册码比较部分下手，或者分析出注册号生成算法，然后创建注册号生成器。
+测试运行，断点跟踪。
+1. JZ <-> JNZ
+2. push edx -> push ecx then compare with itself
+3. stuff with nonsence instructions
+
+Ch 9 Hash
+---------
+Vernam crypt
+; secret[p++] = secret[p] ^ password[p++];
+
+Ch 10 Normal mechanism in trial version
+---------------------------------------
+; mov REG 00000
+to
+; mov REG 00001
+
+Ch 11 Introduction to Anti-Debugging
+------------------------------------
+
+Ch 12 Anti-Debugging technique
+------------------------------
+Compress/Encrypt
+
+Study the Debugging procedure,
+      when CPU encountered the instruction 0xCC, it would generate a exception (INT 0x3).
+
+Ch 13 UNIX Specific Anti-Debugging Technique
+--------------------------------------------
+main() {
+	__asm__ ("int3");
+}
+
+Ch 14 Self-changable Code
+-------------------------
+FE 05 ... inc byte ptr DS:[fack_me]  ; Replace jz (0x74) with jnz (0x75)
+; 只有在 Von Neuman 体系结构的计算机上才能实现自我修改。
+; 典型的奔腾家族处理器是根据 Harvard 体系结构建造的（代码和数据分开处理），他们只是仿真 Von Neuman 体系结构。
+
+Ch 15 Invisible Self-protection
+-------------------------------
+JMP
+
+Ch 16 Intelligence test
+-----------------------
+operation code format of intel
+
+Erase disk
+; mov ax, 00301 ; Read one sector
+; mov cx, 00001 ; Sector - 1, cylinder - 0
+; mov dx, 00080 ; head - 0, first HDD
+; int 013       ; Call disk service
+; retn          ; Exit
+
+Ch 17 Software protection
+
+Ch 18 Enhance code
+------------------
+溢出错误， 边界检查
+
+Ch 19 Software test
+-------------------
+
+Section 4 Fault in App and OS
+=============================
+Doctor Waston
+Visual Studio Debug
+
+JMPJMP
+
+done. 05 Dec 2014.

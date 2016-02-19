@@ -154,7 +154,7 @@ FIXME: re-arrange sections.
 13. [Debian](https://www.debian.org/)  
   1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
   2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
-14. Booknotes  
+14. My Personal Booknotes  
   1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
   2. [C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
   3. [K&R C](./booknote/kr_c/)  
@@ -168,6 +168,7 @@ FIXME: re-arrange sections.
   11. [Beauty of math](./booknote/beautyofmath/main.md)  
   12. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
   12. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
+  13. [Hacker Debugging Uncovered](./booknote/HackerDebuggingUncovered/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
