@@ -142,6 +142,7 @@ FIXME: re-arrange sections.
     4. X86 dosbox emulator, (dosbox)  
 10. [Linux Kernel](./kernel)  
   1. [Compile ... ](./kernel/compile.txt)  
+  2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
   2. [PBS - Cluster Job Management](./cluster/pbs)  
