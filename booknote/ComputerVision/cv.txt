@@ -1,0 +1,234 @@
+Computer Vision
+---------------
+Linda G Shapiro
+
+ISBN 7-111-15972-1
+
+-*- Introduction -*-
+
+CV Definition:
+ Make judgement that makes sense against sensored images.
+
+Related:
+ Image processing, Image understanding
+
+-*- Image Generation and Image Representation -*- 
+
+ 2.1 Ray sensoring
+ 2.2 Image catching devices
+ 2.3 Digital images . issue
+ 2.4 Image functions and digital images
+  analog images, digital images
+ 2.5 digital image formats
+  run-coding 游程编码
+ 2.6 imaging issue
+ 2.7 2-D to 3-D
+ 2.8 5 axis systems
+ 2.9 other ray sensors
+
+-*- boolean image analysis -*-
+
+ 3.1 pixel and adjacent area
+ 3.2 image mask(模板) operation/calculation
+ 3.3 objects statistics/count
+ 3.4 connected components labeling (连通成分标记)
+ 3.5 boolean image morphology (二值图像形态学)
+  basic operations: 膨胀，腐蚀，闭合，开启
+ 3.6 area feature
+ 3.7 region adjacency map (区域邻接图)
+ 3.8 Grayscale image threshold
+  histogram
+
+-*- pattern recogonition -*-
+
+ 4.1 Pattern Recogonition Problem
+ 4.2 classification model
+  * class (类别)
+    类别：具有重要共同属性的目标的集合。类别标号标识。
+	分类：根据目标的属性赋予目标类别标号。
+	分类器：设备或算法，输入目标的表示，输出类别标号。
+    拒绝类别：无法归入任何已知类别的通用类别。
+  * sensor/transformer 
+  * feature extraction operator (特征提取算子)
+  * classifier
+    C1,C2,...,Cm-1,Cm=Cr. Cr is rejection class.
+	a. 最近均值分类 b. 最大后验概率分类 c.feedforward neural network classification
+```
+feature vector [x], judge function f_i calc probability or distance.
+
+[x] -> f_1([x],K) -> Compare&Judge --> output class: C([x])
+ | \-> f_2([x],K) --^ ^
+  \--> f_3([x],K) ---/
+```
+ 4.3 precision,recall (查准率，查全率)
+ 4.4 feature representation
+ 4.5 feature vector representation
+  Euclidean distance.
+ 4.6 implementation of classifier
+  最近均值分类，最近邻分类
+ 4.7 Hiearachical method(结构方法)
+  useful with complex pattern
+ 4.8 混淆矩阵
+ 4.9 Decision tree (决策树)
+  entropy
+ 4.10 Bayes Judgement
+  bayes classifier
+ 4.11 multi dimension data judgement
+ 4.12 machine learning*
+ 4.13 ANN
+
+-*- Image filtering, enhancement -*-
+
+ 5.1 Image processing
+  图像增强，图像恢复
+ 5.2 灰度级映射
+  点算子，对比度扩展，直方图均衡化
+ 5.3 去除小图像区域
+  椒盐噪声，去除小成分
+ 5.4 图像平滑 smoothing
+  box filter(盒形滤波) ： 在像素的一个矩形邻域内进行等量加权，实现对图像的平滑处理。
+  Gaussian filter : 高斯滤波
+ 5.5 中值滤波
+ 5.6 差分模板边缘检测
+  1-D diff
+   s'[i] = s[i] - s[i-1]   -> mask = [ 1 -1 ]
+  2-D diff
+   masks : prewitt, sobel, roberts.
+ 5.7 Gaussian filter and Edge detection
+  Gauss function : \[ g(x) = ce^{-\frac{x^2}{2\omega^2}} \]
+  LOG edge detect
+  ANN edge detect
+ 5.8 Canny 边缘检测
+ 5.9 匹配滤波模板
+ 5.10 卷积和交叉相关
+ 5.11 正弦波空间频率分析
+  fourier base
+  1-d / 2-d fourier transform
+  fourier transform . property
+
+-*- colour and brightness -*-
+
+ 6.1 颜色物理学
+ 6.2 RGB 3 base colour
+  强度规范化处理
+   I=(R+G+B)/3
+   r=R/(R+G+B)
+   g=G/(R+G+B)
+   b=B/(R+G+B)
+ 6.3 其他基色系统
+  CMY HSI YIQ YUV
+  基于颜色的分类
+ 6.4 颜色直方图 colour histogram
+ 6.5 颜色分割
+ 6.6 阴暗分析
+
+-*- Texture Analyze -*-
+
+ 7.1 纹理，纹理素及统计
+  A 结构方法：纹理是具有某种规则或重复关系的基本纹理素（texel）的集合
+  B 统计方法：纹理是区域中亮度值分布的一种定量度量方法
+ 7.2 基于纹理素的描述
+ 7.3 定量纹理测度
+ 7.4 纹理分割
+
+-*- 基于内容的图像检索 -*-
+
+ 8.1 图像数据库实例
+ 8.2 图像数据库查询
+ 8.3 示例查询
+ 8.4 图像距离测量
+  颜色相似性，颜色直方图匹配
+   e.g. QBIC
+   \[ d_hist(I,Q) = (h(I) - h(Q))^T A (h(I) - h(Q)) \]
+   where A:k*k相似度矩阵 
+  纹理相似性度量
+   e.g. Laws 纹理能量
+  形状相似性度量
+   形状直方图，边界匹配
+  目标检测及空间关系度量
+   人脸检测
+   人体检测
+   空间关系
+ 8.5 数据库组织
+  标准索引
+   散列索引
+   B+tree索引
+  空间索引
+  基于内容的多距离测度图像索引
+
+-*- 二维运动分析 -*-
+
+ 9.1 运动现象及应用
+ 9.2 图像相减
+ 9.3 计算运动向量
+  运动场 图像流
+ 9.4 计算运动点路径
+  如果目标点周围的亮度领域具有独特的纹理，那就可以用 规范化 交叉相关技术 随时跟踪目标点。
+ 9.5 检测视频中的显著变化
+  场景变化，镜头切换，摄像机扫视，摄像机变焦，特效处理
+
+-*- 图像分割 -*-
+
+ 10.1 区域分割
+  聚类方法
+   经典聚类
+    k-means
+    isodata聚类
+    简单直方图聚类
+    ohlander递归直方图聚类
+    shi的图分割
+   区域增长
+  区域表示
+   覆盖图
+   标记图像
+   边界编码
+   四叉树 quadtree
+   特征表
+  轮廓分割
+   区域边界跟踪
+   Canny边缘检测和连接
+   相邻连贯的边缘生成曲线
+   霍夫变换检测直线和圆弧
+  线段拟合模型
+  识别更高层的结构
+   条带检测
+   角点检测
+  运动一致性分割
+   时空边界
+   运动轨迹聚类
+
+-*- 2D 匹配 -*-
+
+ 2D数据配准
+  2D坐标空间M映射到2D坐标平面空间I
+ 点的表示
+ 仿射映射函数
+  利用旋转，缩放和平移把模型特征变换成图像特征，通过匹配进行的目标识别的方法：比对识别。
+ 相关匹配法2D目标识别
+  部件（part），标记（label），分配（assignment），关系（relation）。
+  径向畸变矫正,桶形，枕形
+
+-*- 3D information restored in 2D imaages -*-
+
+ 本征图像
+ 线条图标记
+ Necker现象
+
+-*- 3D sensoring and pose detection -*-
+
+pass
+
+-*- 3D model and matching -*-
+
+ 3D气球模型，开始时小气球完全位于3D数据点云内；气球膨胀使某些三角形接触到数据。
+
+-*- Virtual Realitityy -*-
+
+pass
+
+-*- Instances -*-
+
+ Veggie Vision
+
+
+Marked as done. 01 Aug 2015
