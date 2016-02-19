@@ -1,0 +1,130 @@
+Thinking in Python like a Computer Scientist
+--------------------------------------------
+O'Reilly Allen B Downey
+
+GFDL
+\url{http://Thinkpython.com}
+
+
+Discrete
+========
+
+ keywords : in the interactive interpreter type 2 times of 'tab'
+
+Type transform
+==============
+
+ type('1') : see what type it is
+ int(21.1)
+ str(1)
+
+Math functions
+==============
+
+ import math
+
+New function
+============
+
+ def func():
+	 print ('asdf')
+
+Stack Diagram
+=============
+
+ traceback
+
+
+File readline
+=============
+
+ f = open(
+ for line in f:
+ 	print (line.strip())
+
+Importing
+=========
+
+ import math
+ print (pi); failure
+ from math import pi
+ print (pi); success
+ from math import *
+
+If
+==
+
+ if ():
+   pass
+ elif:
+   pass
+ else:
+   pass
+
+input for interactive
+=====================
+
+ raw_input() / py2
+ input() / py3
+
+Incremental Development
+=======================
+
+Walkthrough
+===========
+
+ for item in [list]:
+
+Slice
+=====
+
+ st[1:]
+
+Invocation
+==========
+
+ st.upper()
+
+in
+==
+ keyword in
+ for cheese in cheeses:
+ for i in range(len(numbers)):
+ 'key' in dict
+
+tuple
+=====
+ t1 = (1,2)
+ for key,val in dict.items():
+
+zip(
+
+module os
+
+pipe
+====
+
+ cmd = 'ls -l'
+ fp = os.popen (cmd)
+ res = fp.read()
+ status = fp.close()
+
+if __name__ = '__main__':
+
+Class and Object
+================
+
+class point (object):
+
+class Time (object):
+ def __init__(self, hour=0, minute=0, second=0):
+  self.second = second
+  ...
+ def __str__(self):
+  return '%d' % self.hour
+
+
+Tkinter, simple Gui
+
+Radix sort
+Marked as done. 05 Aug 2015
