@@ -1,0 +1,143 @@
+Play with Data Structure
+========================
+Cheng Jie, TsingHua pub.
+
+intro
+-----
+
+Program Design == DataStructure + Algorithm
+
+Logical Structure:
+	Set
+	Linear
+	Tree
+	Graph
+
+Physical Structure:
+	Sequencial
+	Chain
+
+Abstract Data Type (ADT)
+
+Algorithm
+---------
+
+Time complexity : O()
+Spacial complexity: S()
+
+List
+----
+
+struct {
+	int data[MAXSIZE];
+	int length;
+};
+
+ListInsert (list L, index i, element e)
+{
+	full, error
+	index out of range, error
+	if the insert location is not tail of list
+		shift elements
+	insert
+}
+
+ListDelete ()
+
+Chain list
+Cycling chain list
+two-direction chain list
+
+Stack and Queue
+---------------
+
+Stack:
+	LIFO list (last in First out)
+	top, bottom
+
+Sharing Space between 2 stacks.
+Chain structure of Stack.
+
+Utilization of Stack:
+	Recursive
+		Fibonacci
+	calc
+		Reverse Polish Notation
+
+Queue:
+	FIFO list (first in first out)
+Cycling queue.
+Chain structure of queue.
+
+String
+------
+
+Simple Match
+
+KMP Patterm Match
+
+Tree
+----
+
+Root Node
+SubTree
+
+Binary tree
+
+Traverse binary tree.
+
+Tree convert.
+
+Huffman Tree
+
+Graph
+-----
+
+Adjacency Matrix:
+	Vertex array;
+	Connection array;
+
+Dijkstra
+Floyd
+
+Topology
+
+Searching
+---------
+
+Sequencial search
+Binary Search
+insert search
+fibonacci search
+
+Binary Sort Tree
+
+AVL tree (balance binary tree)
+
+B tree (multi-way search tree)
+	2-3 tree
+		Each node is followed by 2 or 3 children.
+	2-3-4 tree
+		Each node is followed by 2 or 3 or 4 children.
+	B tree
+	B+ tree
+
+Hash table
+	Storage location == function ( key words )
+
+Sorting
+-------
+
+Bubble Sort
+Simple Selection Sort
+Straight Insertion Sort
+Shell Sort
+Heap Sort
+Merging Sort
+Quick Sort *(important)
+
+===
+EOF
+
+start 2014/12/12
+end 2014/12/12

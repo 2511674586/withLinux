@@ -181,6 +181,7 @@ FIXME: re-arrange sections.
   23. [RHEL](./booknote/rhel/)  
   24. [Linux Kernel Hack](./booknote/LinuxKernelHack/)  
   25. [Linux Networking Cookbook](./booknote/LinuxNetworkingCookbook/)  
+  26. [Play with data structure](./booknote/Playwithdatastructure/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
