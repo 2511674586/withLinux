@@ -172,6 +172,7 @@ FIXME: re-arrange sections.
   14. [(in progress) Linux System Programming (Rober Love)](./booknote/LinuxSysProg/)   
   15. [Computer Security (index only)](./booknote/ComputerSecurity/)  
   16. [Computer Vision](./booknote/ComputerVision/)  
+  17. [Debug Hacks](./booknote/DebugHacks/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

@@ -1,0 +1,135 @@
+DEBUG HACKS
+===========
+O'REILLY
+
+ 
+program exit with error:
+  if kernel_panic:
+    if core_dump available:
+	  classification:
+	    * BUG()
+		* WDT
+		* illegal memory access
+    else:
+	  if core_dump_set:
+	    * analyze kernel info
+	  else:
+	    * set core_dump
+  else:
+    if SIGSEGV:
+	  * illegal memory access
+	else:
+	  * other
+
+#4 get core dump
+
+  $ ulimit -c
+  0
+
+  this shows core dump is disabled. unlimit it with
+
+  $ ulimit -c unlimited
+  $ ulimit -c 1048576
+
+
+  #include <stdlib.h>
+  int
+  main (void)
+  {
+  	int *p = NULL;
+	*p = 0x1;
+	return 0;
+  }
+
+  $ a.out
+  segmentation fault (core dumped)
+
+  $ gdb -c core ./a.out
+  $ list 5
+
+  see sysconfig :: kernel.core_pattern
+  see core(5) proc(5)
+
+#5 gdb - 1
+
+  $ gcc -Wall -g -O2 source.c
+
+  $ gdb executable
+  (gdb) break(b) main
+  """
+  break FUNC
+  b lineNumber
+  b file:line
+  b file:func
+  b +offset
+  b -offset
+  b *addr
+
+  info break
+  """
+
+  (gdb) run(r) -a
+  (gdb) backtrace(bt)
+  # show stack frame
+  """
+  bt N
+  bt full
+  bt full N
+  bt full -N
+  """
+
+  (gdb) print(p)
+  """
+  print variable
+  """
+
+  (gdb) info register
+  info reg
+  (gdb) p $eax
+  (gdb) p/x $eax #hex
+
+  (gdb) x $pc
+  (gdb) x/i $eip
+  # show instruction
+
+  (gdb) continue
+
+  (gdb) watch <expr>
+
+  (gdb) info b
+  (gdb) delete 2
+  (gdb) info b
+
+  (gdb) p var
+  $7 = 1
+  (gdb) set variable var = 0
+  $8 = 0
+
+  (gdb) generate-core-file
+
+  $ gcore `pidof emacs`
+
+#6 gdb 2
+
+  (gdb) attach pid
+
+#7 gdb 3 
+
+  PASS
+
+#8 Intel architecture
+
+[...]
+
+#18 SysRq
+
+#43 strace
+#44 objdump
+#45 valgrind (memory,cache,heap,thread conflict)
+#47 kprobes
+
+#54 /proc/meminfo
+
+#55 /proc/<PID>/mem faster than ptrace()
+
+Marked as done. May 31 2015
