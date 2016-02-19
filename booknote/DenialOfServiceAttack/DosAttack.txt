@@ -1,0 +1,141 @@
+Denial Of Service Attack
+========================
+phei.com.cn
+
+Intro
+-----
+
+	DoS
+		1. easy to launch
+		2. diversity
+		3. huge network flow
+		4. distributed
+		5. resources
+		6. fake IP
+		7. damage
+		8. infrastructure
+
+TCP/IP
+------
+
+	ISO/OSI model
+		1. physical
+		2. data link
+		3. network
+		4. transport
+		5. session
+		6. presentation
+		7. application
+
+	IP vuln
+		access control, band width control
+		broadcast and multicast
+		routing and protocol options
+		MTU, max transmission unit
+		data tampering, middle-man attack
+
+	TCP
+		serial number is predictable, session hijack
+
+DoS Principle
+-------------
+
+	classes of DoS
+		1. partner
+		2. storm
+		3. trap
+		4. involve
+
+	gathering info
+		0. dns lookup
+		1. whois
+		2. public info / search engine
+	
+	inspecting network
+		1. traceroute
+		2. scan
+			icmp echo
+			tcp connect
+			tcp-fin
+			tcp-syn (tcp-ping)
+			udp
+		3. vul scan
+
+Typical DoS
+-----------
+
+	killer packet
+		WinNuke
+		Teardrop
+		Land
+		Ping of Death
+		Deadlock/Oscillate Attack
+
+	Storm/Brute force
+		(flash crowd)
+		ping storm
+		SYN storm
+		exhausting TCP connection
+		UDP storm
+		mail bomb/spam
+		HTTP stormA
+
+	Reflect (storm)
+		smurf
+		Fraggle
+
+DoS tools and Zombie network
+----------------------------
+
+	trinoo
+	shaft
+
+Worm
+----
+
+	Simple Epidemic
+	...mathematical models...JMP
+
+DoS defend
+----------
+
+	enhance tolerance
+		1. randomly release half-opened connection
+		2. SYN cookie
+		3. SYN cache
+		4. TCP proxy
+
+	network/host security
+		1. traffic control
+		2. backup/redundancy
+		3. clear unneeded service
+		4. patch
+		5. port scan
+		6. pen-test
+
+	entrance filtering
+		iptables
+
+	filter based on trace
+
+	honeypot
+	IDS
+
+Detecting DoS
+-------------
+
+	Statistic Method
+		
+Tracing DoS
+-----------
+	
+	Packet marking
+	Log
+	Connection test
+		Back flooding
+		input debugging
+	icmp trace
+	centertrack
+
+===
+DONE 27 Dec 2014
