@@ -156,11 +156,11 @@ FIXME: re-arrange sections.
   2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
 14. My Personal Booknotes  
   1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
-  2. [C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
+  2. [(in progress) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
   3. [K&R C](./booknote/kr_c/)  
   4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
   5. [Vbird Server](./booknote/vbird_server/main.md)  
-  6. [Programming in Lua](./booknote/lua/main.md)  
+  6. [(in progress) Programming in Lua](./booknote/lua/main.md)  
   7. [ANN in Matlab](./booknote/ann_matlab/)  
   8. [lshort](./booknote/lshort/)  
   9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
@@ -169,6 +169,7 @@ FIXME: re-arrange sections.
   12. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
   12. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
   13. [Hacker Debugging Uncovered](./booknote/HackerDebuggingUncovered/)  
+  14. [(in progress) Linux System Programming (Rober Love)](./booknote/LinuxSysProg/)   
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

@@ -1,0 +1,68 @@
+# drop from linux system programing , o'reilly
+
+1. introduction to basic conceptions
+
+API
+ABI
+namespace
+process
+signal
+ipc
+handle fault
+	the special variable "errno" discripts the error number. glibc
+	it is defined in <errno.h>
+		extern int errno;
+	you can translate errno to relative error message via lib.
+		#include <stdio.h>
+		void perror(const char *str);
+	strerror()(no secure on thread), strerror_r()
+	etc.
+
+2. file input/output
+
+file table, file descriptor(fd) -- int from 0 to 1048576 and no negative, so -1 generally means fault.
+generally, per process would open 3 fd0(stdin), fd1(stdout), fd2(stderr). STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO.
+
+2.1 open file
+
+open(), man 2 open.
+file owner.
+new file permittions.
+creat(), man 2 open, man 2 creat.
+	int creat (const char *name, int mode)
+	{
+		return open (name, O_RWONLY | O_CREAT | O_TRUNC, mode);
+	}
+creat() is a history but still supported.
+read(), man 2 read. POSIX.1
+ssize_t, size_t
+write(), man 2 write, POSIX.1
+maximum buffer age, /proc/sys/vm/dirty_expire_centiseconds
+
+2.2 synchronized i/o
+
+include unistd.h
+int fsync (int fd); -> write all dirty data back. see man
+int fdatasync (int fd); -> flush data back. faster than fsync. see man
+void sync (void); -> globally sync buffer and disk. see man
+you can send the flag O_SYNC to open(). but it would influence the efficiency. highly pay. O_DSYNC, O_RSYNC
+directly i/o -> O_DIRECT
+
+2.3 close file
+
+include unistd.h
+int close (int fd);
+  NOTE if the file had been already flushed to disk, the action of closing file would make no difference.
+  NOTE invoke close() may cause that a file be removed from disk.
+lseek() -> seek for file
+off_t lseek(int fd, off_t pos, int origin) -> seek for file heads, file ends, or judge fd's current location.
+pread()
+pwrite()
+include sys/types.h
+int ftruncate (int fd, off_t len);
+int truncate (int fd, *path, off_t len);
+	-> cut file to len.
+
+2.4 multiplexed i/o
+
+linux offered 3 solutions of multiplexed i/o -> select, poll, epoll
