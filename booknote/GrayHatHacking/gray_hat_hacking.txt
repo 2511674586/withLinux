@@ -1,0 +1,168 @@
+<< Gray Hat Hacking : The Ethical Hacker's Hankbook >>
+-------------------------------------------------------
+
+Ch 1. 泄密的道德
+
+）正义黑客的道德规范
+
+）正义黑客与法制
+
+）完全而道德的揭秘
+
+Ch 2. 渗透测试与工具
+	
+）渗透测试的过程
+	
+）高级黑客工具
+	基础：nmap, netcat, snort, tcpdump, ethereal ...
+	发现与踩点
+		Paketto Keiretsu(scanrand, paratrace)
+			scanrand
+			minewt
+			linkcat
+			paratrace
+			phentropy
+		xprobe2
+		p0f
+		amap
+			快速，高准确识别服务
+		winfingerprint
+	嗅探
+	libpcap, WinPcap
+		ARP Cache Poisoning, MAC flooding, DNS poisoning
+		ettercap
+		dsniff
+			arpspoof
+		SMB/LANMAN credential sniffing
+			NTLM
+		kerbsniff/kerbcrack
+	other
+		THC, the hacker's choice
+		thc-ipc6
+
+）自动化渗透测试
+	python
+	自动化渗透
+		Core IMPACT
+		Immunity CANVAS
+		Metasploit
+		
+Ch 3. 攻击101
+）编程
+	程序员与黑客
+		秩序/混乱
+	C语言
+		strcpy 缓冲区溢出，strncpy
+	计算机内存
+		大小尾端
+		内存中的程序
+			.text section	
+				该节只读，写会发生segfault，固定，加载到内存中开始的位置
+			.data section	
+				store initialized variables, like 'int a = 0;'
+			.bss
+				below stack section
+				store variables that are not initialized, like 'int a;'
+				the section size is static
+			heap section
+				malloc(), free()
+			stack section
+			environment/arguments section
+		buffer
+	Intel Processor
+		Register
+			EAX EBX ECX EDX  operating data
+			AX BX CX DX      operating data
+			AH, AL ahigh alow
+			..
+			EBP extended base pointer
+			ESI extended source index
+			EDI extended destination index
+			ESP extended stack pointer, points to top of stack
+			..
+			EFLAGS,ZF,IF,SF
+			EIP extended instruction pointer, points to the next instruction
+		ALU
+			算数逻辑部件
+）汇编基础
+	AT&T, GNU Assembler, gas
+	Intel, NASM
+
+	NASM : CMD <dest>, <source> <;comment>
+	AT&T : CMD <source>, <dest> <#comment>
+
+）gdb调试
+	b	set break point
+	b *mem	set break point according to absolute memory location
+	info b	show info about break point
+	delete b	delete a break point
+	run <args>	start program with args
+	info reg	show current register info
+	stepi/si	run a machine instruction
+	next/n		run a function
+	bt	backtrace
+	up/down	move up/down in call stack
+	print var	print the value of var
+	print /x $<reg>	print specified register value
+	x/NT A check memory
+	quit
+
+	Disassemble with GDB
+	set disassembly-flavor <intel/att>
+	disassemble
+
+CH 8 基本linux攻击
+)栈操作
+	stack, first in last out, FILO
+	push/pop
+
+	low addr      <--- stack grow   high addr
+	0x11111111       ESP   EBP      0xfffffff0
+
+)buffer overflow
+	# 1
+	char str[10];
+	strcpy (str, "AAAAAAAAAAAAAAAAAAAAAAAA");
+	then what will happen?
+
+	echo "0" > /proc/sys/kernel/exec-shield{,-randomize}
+
+
+)local buffer overflow
+	NOP sled
+		0x90
+		优化编译程序使用，填充代码块，对其字边界。
+	Shell Code
+	。。。
+）堆溢出攻击
+	。。。
+
+）内存保护方案
+	libsafe
+	GRSecurity
+	。。。
+
+CH ？编写shellcode
+
+) shell ...
+
+)linux socket
+
+CH 11, basic windows attack
+
+
+CH 12, passive analyze
+	source code audit
+		RATS, ITS4, FlawFinder
+		Splint
+	binary analyze
+		BugScam
+		BugScan
+
+CH 13, Reverce Engineering
+		debugger
+		memory monitor tool
+			valgrind
+
+...
+DONE 2014/10/03

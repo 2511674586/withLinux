@@ -175,6 +175,7 @@ FIXME: re-arrange sections.
   17. [Debug Hacks](./booknote/DebugHacks/)  
   18. [Denial Of Service Attack](./booknote/DenialOfServiceAttack/)  
   19. [Fundamentals Of Multimedia](./booknote/FundamentalsOfMultimedia/)  
+  20. [Gray Hat Hacking](./booknote/GrayHatHacking/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

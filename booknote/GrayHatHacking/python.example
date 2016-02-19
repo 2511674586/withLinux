@@ -1,0 +1,291 @@
+Python 3.4.1 (default, Sep 10 2014, 19:15:49) 
+[GCC 4.9.1] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> string1 = 'Debian'
+>>> string2 = 'Arch'
+>>> string1
+'Debian'
+>>> string1 + string 2
+  File "<stdin>", line 1
+    string1 + string 2
+                     ^
+SyntaxError: invalid syntax
+>>> string1 + string2
+'DebianArch'
+>>> string1 + string2 + 'hello'
+'DebianArchhello'
+>>> string1 + string2 + "hello"
+'DebianArchhello'
+>>> string1 + string2 + " hello"
+'DebianArch hello'
+>>> string1[2:4]
+'bi'
+>>> string1[3:4]
+'i'
+>>> string1[4:4]
+''
+>>> string1[3:4]
+'i'
+>>> string1(4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object is not callable
+>>> string1[4]
+'a'
+>>> string1[3]
+'i'
+>>> string1[0]
+'D'
+>>> string1[0]
+'D'
+>>> len(string1)
+6
+>>> string1[0:len(string1)]
+'Debian'
+>>> string1.fin
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'str' object has no attribute 'fin'
+>>> string1.find
+<built-in method find of str object at 0x7ff6057b88b8>
+>>> string1.find('he')
+-1
+>>> string1.find('ia')
+3
+>>> string1.find('ian')
+3
+>>> string1.replace('ian', 'IAN')
+'DebIAN'
+>>> print 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  File "<stdin>", line 1
+    print 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+                                                   ^
+SyntaxError: Missing parentheses in call to 'print'
+>>> printf 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  File "<stdin>", line 1
+    printf 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+                                                    ^
+SyntaxError: invalid syntax
+>>> print 'AA'
+  File "<stdin>", line 1
+    print 'AA'
+             ^
+SyntaxError: Missing parentheses in call to 'print'
+>>> print ('AAAAAAAAAAAAAAA')
+AAAAAAAAAAAAAAA
+>>> 'A'*20
+'AAAAAAAAAAAAAAAAAAAA'
+>>> 'A'*999
+'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+>>> print ('E'*10)
+EEEEEEEEEE
+>>> string3 = string1
+>>> string3
+'Debian'
+>>> string1 = 'debian'
+>>> string3
+'Debian'
+>>> n1 = 5
+>>> n2 = 4
+>>> n1 ** n2
+625
+>>> string1 + n1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: Can't convert 'int' object to str implicitly
+>>> string1 + str(n1)
+'debian5'
+>>> string1.replace('d', str(n2))
+'4ebian'
+>>> string1*n1
+'debiandebiandebiandebiandebian'
+>>> mylist = [4, 5, 6]
+>>> mylist
+[4, 5, 6]
+>>> len(mylist)
+3
+>>> mylist*3
+[4, 5, 6, 4, 5, 6, 4, 5, 6]
+>>> 1 in mylist
+False
+>>> 6 in mylist
+True
+>>> mylist[1:]
+[5, 6]
+>>> biglist = [[1, 0], [0, 1]]
+>>> biglist
+[[1, 0], [0, 1]]
+>>> gitlist[1,1]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'gitlist' is not defined
+>>> gitlist[1][1]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'gitlist' is not defined
+>>> biglist[1][1]
+1
+>>> biglist[0][0]
+1
+>>> stacklist = biglist
+>>> stacklist
+[[1, 0], [0, 1]]
+>>> stacklist += [4,5]
+>>> stacklist
+[[1, 0], [0, 1], 4, 5]
+>>> stacklist.pop
+<built-in method pop of list object at 0x7ff6057be388>
+>>> stacklist.pop()
+5
+>>> stacklist.pop()
+4
+>>> stacklist.pop()
+[0, 1]
+>>> stacklist.pop()
+[1, 0]
+>>> stacklist.pop()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: pop from empty list
+>>> stacklist
+[]
+>>> stacklist.extend('a', 'b')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: extend() takes exactly one argument (2 given)
+>>> stacklist.extend(['a', 'b'])
+>>> stacklist
+['a', 'b']
+>>> stacklist.reverse
+<built-in method reverse of list object at 0x7ff6057be388>
+>>> stacklist.reverse()
+>>> stacklist
+['b', 'a']
+>>> del stacklist[1]
+>>> stacklist
+['b']
+>>> d = { 'hero' : 'dilbert' }
+>>> d['hero'
+... ]
+'dilbert'
+>>> 'hero' in d
+True
+>>> 'he' in d
+False
+>>> d.keys()
+dict_keys(['hero'])
+>>> d.values()
+dict_values(['dilbert'])
+>>> d['hero'] = 'xxx'
+>>> d
+{'hero': 'xxx'}
+>>> d['salary'] = asdf
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'asdf' is not defined
+>>> d['salary'] = 12
+>>> d
+{'hero': 'xxx', 'salary': 12}
+>>> d
+{'hero': 'xxx', 'salary': 12}
+>>> file
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'file' is not defined
+>>> file = open('/tmp/a', 'r')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/a'
+>>> file = open('/tmp/a', 'r')
+>>> file
+<_io.TextIOWrapper name='/tmp/a' mode='r' encoding='UTF-8'>
+>>> lines = file.readlines()
+>>> lines
+['hello hi\n', 'debian arch\n']
+>>> lines_dict = {}
+>>> for line in lines:
+... one_line = line.split()
+  File "<stdin>", line 2
+    one_line = line.split()
+           ^
+IndentationError: expected an indented block
+>>> line
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'line' is not defined
+>>> for line in lines:
+... print (line)
+  File "<stdin>", line 2
+    print (line)
+        ^
+IndentationError: expected an indented block
+>>> for line in lines:
+... 
+Display all 191 possibilities? (y or n)
+ArithmeticError(            RuntimeWarning(             continue                    locals(
+AssertionError(             StopIteration(              copyright(                  map(
+AttributeError(             SyntaxError(                credits(                    max(
+BaseException(              SyntaxWarning(              d                           memoryview(
+BlockingIOError(            SystemError(                def                         min(
+BrokenPipeError(            SystemExit(                 del                         mylist
+BufferError(                TabError(                   delattr(                    n1
+BytesWarning(               TimeoutError(               dict(                       n2
+ChildProcessError(          True                        dir(                        next(
+ConnectionAbortedError(     TypeError(                  divmod(                     nonlocal
+ConnectionError(            UnboundLocalError(          elif                        not
+ConnectionRefusedError(     UnicodeDecodeError(         else                        object(
+ConnectionResetError(       UnicodeEncodeError(         enumerate(                  oct(
+DeprecationWarning(         UnicodeError(               eval(                       open(
+EOFError(                   UnicodeTranslateError(      except                      or
+Ellipsis                    UnicodeWarning(             exec(                       ord(
+EnvironmentError(           UserWarning(                exit(                       pass
+Exception(                  ValueError(                 file                        pow(
+False                       Warning(                    filter(                     print(
+FileExistsError(            ZeroDivisionError(          finally                     property(
+FileNotFoundError(          _                           float(                      quit(
+FloatingPointError(         __build_class__(            for                         raise
+FutureWarning(              __debug__                   format(                     range(
+GeneratorExit(              __doc__                     from                        repr(
+IOError(                    __import__(                 frozenset(                  return
+ImportError(                __loader__(                 getattr(                    reversed(
+ImportWarning(              __name__                    global                      round(
+IndentationError(           __package__                 globals(                    set(
+IndexError(                 __spec__                    hasattr(                    setattr(
+InterruptedError(           abs(                        hash(                       slice(
+IsADirectoryError(          all(                        help(                       sorted(
+KeyError(                   and                         hex(                        stacklist
+KeyboardInterrupt(          any(                        id(                         staticmethod(
+LookupError(                as                          if                          str(
+MemoryError(                ascii(                      import                      string1
+NameError(                  assert                      in                          string2
+None                        biglist                     input(                      string3
+NotADirectoryError(         bin(                        int(                        sum(
+NotImplemented              bool(                       is                          super(
+NotImplementedError(        break                       isinstance(                 try
+OSError(                    bytearray(                  issubclass(                 tuple(
+OverflowError(              bytes(                      iter(                       type(
+PendingDeprecationWarning(  callable(                   lambda                      vars(
+PermissionError(            chr(                        len(                        while
+ProcessLookupError(         class                       license(                    with
+ReferenceError(             classmethod(                lines                       yield
+ResourceWarning(            compile(                    lines_dict                  zip(
+RuntimeError(               complex(                    list(                       
+...  
+... 
+  File "<stdin>", line 3
+    
+    ^
+IndentationError: expected an indented block
+>>> 
+>>> for i in string1
+  File "<stdin>", line 1
+    for i in string1
+                   ^
+SyntaxError: invalid syntax
+>>> for i in string1:
+... print (i)
+  File "<stdin>", line 2
+    print (i)
+        ^
+IndentationError: expected an indented block
+
