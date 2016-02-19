@@ -1,0 +1,274 @@
+LINUX Networking Cookbook
+O'REILLY
+===
+CARLA SCHRODER
+
+)1 Linux Network in the Nutshell
+	
+)2 Setting up a Linux Gateway based on Single-board Computer(SBC)
+	Pyramid Linux (striped Ubuntu)
+	Soekris 4521
+		setserial
+		minicom
+	
+)3 Setting up Linux Firewall
+	netfilter/iptables
+	Tables
+		filter
+		nat
+		mangle
+	package
+		net-tools
+		nmap
+	/etc/network/interfaces
+	
+	iptables -t nat -A POSTROUTING -o IFACE -j MASQUERADE
+	iptables -t nat -A POSTROUTING -o IFACE -j SNAT --to-source 1.2.3.4
+	iptables [-t table] -nvL
+
+	iptables-restore iptables-save
+	iptables -t nat -A POSTROUTING -p tcp -i IFACE -d 1.2.3.4 --dport 80 -j DNAT --to-destination 192.168.x.x
+	-m multiport --dport 80,443,8080 ...
+
+)4 Setting up Wireless Access Point
+	Security
+		WEP
+		WPA/WPA2
+	wpa_supplicant
+	(binary blob)
+
+	iwconfig iw
+	dnsmasq -> dhcp + dns
+	dhclient
+	hostapd
+	radius
+
+	wlanconfig
+
+	(windows) ipconfig
+
+)5 Asterisk VoIP Server
+	Requirement not low
+
+)6 Using Linux Router
+	net-tools
+	iproute2
+	
+	1. calc subnet with ipcalc
+	2. ip (route) / route
+	3. Dynamic route
+		quagga
+		zebra
+
+)7 SSH
+	sshd
+	ssh
+	scp
+	sftp
+	ssh-copy-id
+	ssh-keyscan
+	ssh-keygen
+	ssh-add
+	ssh-agent
+
+	1. genkey
+	2. sshguard/DenyHosts/fail2ban
+	3. sshfs
+
+)8 Remote Desktop
+	rdesktop
+	freeNX
+	VNC
+	
+	1. ssh, x11vnc
+
+)9 OpenVPN
+	1. IPSec & IPv6
+		IPv4 & IPSec bad.
+	2. TUN/TAP
+		route, tun; bridge, tap;
+	3. Static Key
+		openvpn --genkey --secret static.key
+		scp it to the other side.
+
+		** server **
+		dev tun0
+		ifconfig 10.0.0.1 10.0.0.2 255.255.255.0
+		secret /etc/openvpn/static.key
+		local 192.168.3.10
+
+		** client **
+		remote 192.168.3.10
+		dev tun0
+		ifconfig 10.0.0.2 10.0.0.1 255.255.255.0
+		secret /etc/openvpn/static.key
+
+		openvpn --config /etc/openvpn/tun0.conf
+
+		BUT this is not enough for producting machines.
+	4. Communicate with remote machine with Static Key
+		dev <name>
+		proto <udp|tcp-server|tcp-client>
+		ifconfig <tun_local> <tun_remote> [<mask>]
+		local <localip>
+		secret <sec_file>
+		keepalive <bounce> <max_timeout>
+		comp-lzo
+		daemon
+	5. iptables
+		default, udp 1194
+		tun+ : + means wildcard
+		iptables -A INPUT -p udp --dport 1194 -j ACCEPT
+		iptables -A INPUT -i tun+ -j ACCEPT
+		iptables -A FORWARD -i tun+ -j ACCEPT
+	6. OpenVPN PKI
+		find /usr/share/ -name 'easy-rsa'
+		
+		vim vars
+		source ./vars
+		./clean-all
+		./build-ca
+
+		./build-key-server server
+
+		./build-key client
+		./build-key-pass client_withpass
+
+		./build-dh -> generate diffie hellman
+
+		cd keys
+		openvpn --genkey --secret ta.key -> TLS-AUTH key
+
+		*.key is private
+		*.crt is public
+		ca.key is private root certification key
+
+		you can use 'openssl x509 -in <crt_file> -text' to see X509 cert.
+	7. Multi-client OpenVPN Server
+		** server **
+		local <local>
+		port <port>
+		proto <proto>
+		dev <dev>
+		daemon
+		server 10.0.0.0 255.255.255.0
+		push "route 192.168.1.0 255.255.255.0" //push route to ..
+		push "dhcp-option DNS 192.168.1.50" //push the DNS, nessesary
+		max-clients 25
+
+		ca /ca.crt
+		cert /server.crt
+		key /server.key
+		dh /dh2048.pem
+		tls-auth /ta.key 0
+
+		cipher BF-CBC
+		comp-lzo
+		keepalive 5 60
+		log-append /ovpn.log
+		status /ovpn-status.log
+		ifconfig-pool-persist /etc/openvpn/ipp.txt
+		mute 20
+		verb 4
+
+		** client **
+		client
+		pull
+		dev tun0
+		proto udp
+		remote 192.168.3.10 1194
+
+		ca /ca.crt
+		cert /client.crt
+		key /client.key
+		tls-auth /ta.key 1
+		
+		cipher BF-CBC
+		comp-lzo
+		verb 4
+		mute 20
+		ns-cert-type server //enhance security
+	8. remote cert
+		. ./vars
+		./revoke-full target_name
+		then a crl.pem file generated.
+		add this line to server.conf
+			crl-verify /crl.pem
+		restart openvpn
+	9. Bridge mode
+		%pass
+	10. Non-root openvpn
+		%pass
+
+)10 PPTP
+	install ppp pptpd
+	kernel MPPE patch
+	%pass
+
+)11 Linux/Windows Samba
+	%pass
+
+	smbtree
+	smbclient
+	smbmount/smbumount
+
+)12 OpenLDAP
+	lightweight directory access protocol
+	%pass
+
+)13 Nagios
+	monitor service
+
+)14 MRTG
+	monitor network
+	CPU,Physical Memory, Swap, TCP Connections ...
+
+)15 IPv6
+	Ref RFC
+	%pass
+
+)16 Auto Net Install
+	PXE
+	Kickstart
+
+	mirror debian
+		apt-mirror
+		apt-proxy
+
+	Debian PXE
+		dhcp
+		tftp
+
+	Debian Autoinst
+		preseed
+		debconf-get-selections
+
+		tasksel
+		linux preseed/file=/dev/sdb/preseed.cfg debconf/proirity=critical
+		linux preseed/usr=http://server/flie
+
+17) Serial Console
+	BIOS support
+	setserial
+
+)18 Linux Dial Server
+	WvDial, pppd
+
+)19 Troubleshooting
+	ping
+	fping
+	nmap
+	nping
+	arping, duplicated ip addr
+	httping
+	traceroute
+	mtr
+	tcpdump
+	wireshark
+	iperf
+	ngrep, grep in packet
+	ntop
+	dig
+	nc
+
+

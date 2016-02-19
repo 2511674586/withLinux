@@ -1,0 +1,43 @@
+client
+===========================
+
+client
+dev tun1
+proto udp
+tls-client
+
+remote 10.0.0.1 1194
+local 10.0.0.2
+ifconfig 10.1.1.2 10.1.1.1
+
+ca /etc/openvpn/keys/ca.crt
+cert /etc/openvpn/keys/client.crt
+key /etc/openvpn/keys/client.key
+tls-auth /etc/openvpn/keys/ta.key 1
+
+cipher BF-CBC
+
+keepalive 5 60
+verb 1
+
+server
+=======================
+local 10.0.0.1
+remote 10.0.0.2
+port 1194
+proto udp
+dev tun1
+tls-server
+#server 10.1.0.0 255.255.255.0
+ifconfig 10.1.1.1 10.1.1.2
+
+ca /tmp/keys/ca.crt
+cert /tmp/keys/server.crt
+key /tmp/keys/server.key
+dh /tmp/keys/dh2048.pem
+tls-auth /tmp/keys/ta.key 0
+cipher BF-CBC
+
+keepalive 5 60
+verb 1
+

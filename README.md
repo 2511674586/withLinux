@@ -180,6 +180,7 @@ FIXME: re-arrange sections.
   22. [Metasploit](./booknote/Metasploit/)  
   23. [RHEL](./booknote/rhel/)  
   24. [Linux Kernel Hack](./booknote/LinuxKernelHack/)  
+  25. [Linux Networking Cookbook](./booknote/LinuxNetworkingCookbook/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

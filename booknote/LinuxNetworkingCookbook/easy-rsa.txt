@@ -1,0 +1,10 @@
+vim vars
+. vars
+./clean-all
+
+./build-ca
+./build-dh
+
+./build-key-server
+
+./build-key
