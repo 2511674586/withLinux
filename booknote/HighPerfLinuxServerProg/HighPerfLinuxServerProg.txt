@@ -1,0 +1,155 @@
+High Performance Linux Server Programming
+=========================================
+China Machine Press
+
+Ch 1 TCP/IP Family
+------------------
+JMP
+
+Ch 2 IP
+-------
+JMP
+
+Ch 3 TCP
+--------
+JMP
+
+Ch 4 Example
+------------
+JMP
+
+Ch 5 UNIX Network API
+---------------------
+JMP
+Reference: UNP
+
+Ch 6 Advanced I/O Functions
+---------------------------
+	pipe()
+		write to pipefd[1], then read from pipefd[0].
+		cannot be inversed.
+	socketpair()
+
+	dup()
+	dup2()
+
+	readv()
+	writev()
+
+	sendfile()
+
+	mmap()
+	munmap()
+	
+	splice()
+
+	tee()
+
+	fcntl()
+
+Ch 7 Linux Server Overview
+--------------------------
+Log
+	syslog()
+User Identification
+	uid_t gid_t ...
+Relationship between process
+System Resource limit
+Change Dir
+Daemon
+
+* Ch 8 High Peroformance Server Framework
+-----------------------------------------
+1. Model
+	1.1 C/S
+	1.2 P2P
+		tracker
+2. Programming Framework
+3. I/O Framework
+4. Event handling Mode : Reactor and Proactor
+	4.1 Reactor
+		epoll
+		epoll_wait
+		read, put into request queue
+		worker waken, process, write
+		epoll_wait
+	4.2 Proactor
+		aio_read()
+5. Concurrent
+	5.1 Half Sync/Half Async
+	5.2 Leader/Follower
+6. Finite State Machine
+7. Other Advise
+	7.1 pool
+	7.2 data copy
+	7.3 context switch and lock
+
+Ch 9 I/O Reuse
+--------------
+1. select
+2. poll
+3. epoll
+
+APP
+	non-blocking connect
+
+Ch 10 Signal
+------------
+JMP
+
+Ch 11 Timer
+-----------
+JMP
+
+Ch 12 High Performance I/O Framework Library: Libevent
+------------------------------------------------------
+JMP
+
+Ch 13 Multi-Process Programming
+-------------------------------
+1. semop()
+2. shared memory
+	shmget()
+	shmat()
+	shmdt()
+	shmctl()
+
+	POSIX shared memory
+	shm_open()
+	shm_unlink()
+3. message queue
+	msgget()
+	msgsnd()
+	msgctl()
+	
+4. IPC command
+	ipcs
+
+Ch 14 Multi-Thread Programming
+------------------------------
+JMP
+
+Ch 15 Process Pool and Thread Pool
+----------------------------------
+JMP
+
+Ch 16 Debug and Test
+--------------------
+1. ulimit
+2. kernel param
+3. gdb
+4. stress test
+
+Ch 17 Monitoring
+----------------
+1. tcpdump
+2. lsof
+3. nc
+4. strace
+5. netstat
+6. vmstat
+7. ifstat
+8. mpstat
+
+===============================================
+marked as done, 16 Jan. 2015

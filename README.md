@@ -186,6 +186,7 @@ FIXME: re-arrange sections.
   28. [Thinking Python](./booknote/ThinkingPython/)  
   29. [Information Security Introduction](./booknote/InfoSecIntro/)  
   30. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
+  31. [High Performance Linux Server Programming](./booknote/HighPerfLinuxServerProg/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
