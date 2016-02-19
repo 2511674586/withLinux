@@ -178,6 +178,7 @@ FIXME: re-arrange sections.
   20. [Gray Hat Hacking](./booknote/GrayHatHacking/)  
   21. [Game Theory non-technical](./booknote/GameTheory_non-technical/)  
   22. [Metasploit](./booknote/Metasploit/)  
+  23. [RHEL](./booknote/rhel/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

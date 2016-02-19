@@ -1,0 +1,378 @@
+RED HAT SYSTEM
+ADMINISTRATION II
+===
+RH135
+
+hint : use im-* to configure input method
+
+---
+
+1) Automatically Install RHEL
+	a. Create Kickstart file using system-config-kickstart
+	b. Offer installer Kickstart file
+		i. FTP/Web/NFS
+		ii. via DHCP & TFTP & PXE is more conmplicated
+	c. Make boot media
+	d. Make installer point to Kickstart file
+		i. set URL
+			ks=[http|ftp]://server/file
+			ks=nfs:server:/dir/file
+			ks=hd:device:/dir/file
+			ks=cdrom:/dir/file
+		ii. PXE
+			> vmlinuz initrd=initrd.img ks=[...]/ks.cfg
+		iii. ksvalidator, check ks file
+	e. system-config-kickstart
+
+---
+
+2) Access Terminal
+	a. access command line on localhost
+		ref : bash, su, Xorg, pts, console, init, inittab
+	b. access command line via ssh
+		ref : w
+
+---
+
+3) Middle Command Line Tools
+	a. Create Hard Link
+		i. Hard link and symbol link
+		ii. ln
+			ref : ln, ls, symlink
+	b. Archive and Compress
+		i. tar
+			ref : tar, gzip, bzip2
+	c. vim
+		ref : vim, vimtutor
+
+---
+
+4) RE, Pipe, I/O Redirection
+	a. RE, regular expression
+		i. Special Char
+			* wild card
+			. single wild card
+			[ ] wild card from set
+			[^ ] wild card, reversely
+			^ head of line
+			$ tail of line
+			.* any char + any
+			\ escape
+			ref : regex
+	b. grep
+	c. pipe and redirection
+		i. 
+			STDIN 0
+			STDOUT 1
+			STDERR 2
+		ref : bash, cat, sort, grep, lpr, less, mail, find
+
+---
+
+5) Setup Network and Troubleshot
+	a. iproute2 :: ip
+	b. hostname
+		i. hostname
+		ii. /etc/hosts
+	c. /etc/resolv.conf
+	d. NetworkManager
+	e. /etc/sysconfig/network-scripts/route-<name>
+	f. /etc/sysconfig/network
+	g. ifup and ifdown
+	h. troubleshot
+		i. test
+			replay the trouble
+			monitor
+			collect info
+			determine severe level
+		ii. check
+			config error
+			the anticipate and target
+			physical device link
+		iii. repaire
+			modify configure
+			run again
+		iv. record
+
+---
+
+6) Manage Simple Partition and Filesystem
+	a. Partition
+		i. Wrong partition table will decrease disk performance.
+		ii. fdisk, blkid
+		iii. mount, fstab
+		iv. mkfs, umount
+	b. encrypt partition
+		i. cryptsetup
+		P.S. You'd better fill the disk with random number, before initializing the luks device,
+		     this can be safer for your data.
+	c. aotumount crypt part
+		i. /etc/crypttab
+			NAME /dev/DEV /path/to/passwd/file
+			P.S. if password file section is null, system will prompt a password requirement while boot.
+		ii. /etc/fstab
+			/dev/mapper/NAME /secret ext4 defaults 1 2
+		iii. chmod 600 /password/file
+	d. Manage Swap Space
+		i. fdisk, mkswap
+		ii. swapon, swapoff
+		P.S. Swap Size Recommend
+			RAM(GB)		Swap(GB)
+			4-		2+
+			4-16		4+
+			16-64		8+
+			64-256		16+
+
+---
+
+7) Using Logical Volume Manager
+	a. prepare physical volume
+		i. fdisk
+			create part 0x8e
+		ii. pvcreate /dev/vdaN
+			init part
+	b. create volume group
+		i. vgcreate vgname /dev/vdaN
+			vgextend
+	c. create and use new logical volume
+		i. lvcreate -n lvname -L 2G vgname
+	d. inspect lvm status
+		i. pvdisplay /dev/vdaN
+		ii. vgdisplay vgname
+		iii. lvdisplay /dev/vgname/lvname
+	ref : lvm(8)
+	e. extend logical volume and filesystem
+		i. df -h /data
+		ii. vgdisplay vgname
+		iii. lvextend -l 128 /dev/vgname/lvname
+		iv. resize2fs -p /dev/vgname/lvname
+			where -p tells resize2fs to print the process of resizing.
+	f. resize2fs/lvreduce
+	g. extend and reduce volume group
+		i. vgextend
+		ii. vgdisplay
+		iii. pvmove
+		iv. vgreduce
+	h. snapshot
+		i. lvcreate -s -n snaplv -L 20M /dev/vgname/lvname
+		ii. mkdir /snapmount; mount -o ro /dev/vgname/snaplv /snapmount
+		iii. lvs /dev/vgname/snaplv
+		iv. umount /snapmount; lvremove /dev/vgname/snaplv
+
+---
+
+8) Access NFS
+	a. class
+		i. NFS for UNIX, Linux. Network File system
+		ii. CIFS for windows, Common Internet File System
+	b. NFS
+		i. Identify
+			showmount -e nfsserver.domain
+		ii. Make mountpoint\
+			mkdir /remote
+		iii. Mount
+			mount nfsserver.domain:/export/path /remote
+	c. CIFS
+		i. Identify
+			smbclient -L cifsserver.domain
+		ii. mk mountpoint
+			mkdir /remote2
+		iii. mount
+			mount //cifsserver.domain/share /remote2
+			P.S. if use a different username, add option -o username=USER
+	d. Automount Network Storage
+		i. /etc/sysconfig/autofs
+		ii. special map /net
+
+---
+
+9) Manage Users Accounts
+	a. user
+		i. ps aux
+		ii. ls -l
+	b. manage users
+		i. useradd & userdel
+		ii. id(1)
+		iii. passwd
+		iv. UID range
+			0 : root
+			1-499 : system account
+			500+ : general
+	ref : useradd, userdel, usermod, groupadd, groupdel
+	c. manage password
+		i. e.g.
+			$1$gCjLa2/Z$6PuOEKOAzfCjxjV2hoLOB/
+			1. 1 - md5 hash type
+			2. gCjLa2/Z - salt of hash
+			3. 6PuOEKOAzfCjxjV2hoLOB/ - hash code
+		ii. /etc/passwd
+		iii. /etc/shadow
+			ref : man shadow
+
+---
+
+10) LDAP Network User Accounts
+	a. Authentication on Network
+		i. elements of LDAP client
+			1. hostname
+			2. basic Distinguish Name
+			3. CA certification, LDAP SSL certification
+		ii. packages in need
+			1. directory-client
+				sssd, authconfig-gtk, oddjob-mkhomedir
+		iii. system-config-authentication
+		iv. run it to confirm account information
+			getent passwd USERNAME
+		ref : sssd, sssd.conf
+	b. Mount Home Directory on Network
+		i. showmount -e example.com
+		ii. getent passwd USERNAME
+		iii. modify /etc/sssd/sssd.conf if you want to list all the ldap users
+			[domain/default]
+			enumerate = True
+		iv. autofs
+			/etc/auto.master
+				/home/guests /etc/auto.guests
+			/etc/auto.guests
+				ldapuser1 -rw example.com:/home/guests/ldapuser1
+
+---
+
+11) Access Control for Files
+	a. Manage Groups
+		i. GID
+			/etc/group
+	b. Manage Access Control List (ACL)
+		i. in Red Hat linux, if 'ls -l' shows a '+' at the end of file attribute,
+		   then the file/dir was set with ACL.
+		ii. getfacl/setfacl
+		iii. acl mask
+		iv. default acl
+	c. ACL mount options
+		i. dump2fs /dev/DEV | grep 'Default'
+		ii. tune2fs -o acl,user_xattr /dev/DEV
+
+---
+
+12) Manage SELinux
+	a. Basic SELinux Conception
+		ref : SELinux
+	b. SELinux Modes
+		i. enforce mode
+		ii. permissive mode
+		iii. disable
+	c. Show and Modify SELinux Mode
+		i. /etc/sysconfig/selinux
+			change selinux mode when booting
+		ii. show current selinux mode
+			getenforce
+			setenforce
+	d. Show and Modify SELinux Context
+		i. '-Z' options
+			ps -auxZ
+			ls -Z
+			cp -Z
+			...
+		ii. policycoreutil-python :: semanage
+		iii. policycoreutil :: restorecon
+	e. Manage SELinux Bool Value
+		i. setsebool
+		ref : booleans, getsebool, sersebool, semanage
+	f. Monitor SELinux Confliction
+		i. install 'setroubleshoot-server' package, in order to send SELinux
+		   messages to /var/log/messages.
+		ii. sealert
+
+---
+
+13) Install and Manage Packages
+	a. Use of yum
+		i. basic use
+			yum help
+			yum install
+			yum remove
+			yum update
+			yum list
+			yum search
+			yum info
+			yum provides
+		ref : yum, yum.conf
+	b. Manage YUM module group
+		i. man yum, search for group
+	c. Handle Third-party Packages
+		i. rpm
+		ii. rpm ~ dpkg, yum ~ apt
+	d. Use of Third-party Repo
+		i. /etc/yum.repos.d/*.repo
+
+---
+
+14) Manage Installed Services
+	a. Manage Service
+		i. /etc/rc.d/init.d/
+		ii. chkconfig
+		iii. service
+	b. Check Service Avalability
+		i. nc, lsof
+
+---
+
+15) Analyze and Store Logs
+	a. Target Directory of Log
+		i. /etc/rsyslog.conf
+		ii. logrotate
+	b. logwatch
+
+---
+
+16) Manage Process
+	a. ps, top, htop
+		i. ps aux
+	b. kill/modify process
+		i. kill
+		ii. nice, renice
+	ref : kill, signal, nice, renice, top
+	c. cron jobs
+		ref : cron, anacron, crontab ...
+	d. Planed Job
+		i. at
+			ref : at, atq, atrm
+
+---
+
+17) Calibrate and Maintain Kernel
+	a. identify kernel
+		1. cat /etc/redhat-release
+		2. uname -r
+		3. yum list installed kernel\*
+		4. uname -m, arch
+	b. specify kernel patameters
+		i. check at /proc/cmdline
+		ii. ref : bootparams
+		iii. /boot/grub/grub.cfg
+	c. Upgrade Kernel
+		ref : lsmod, modprobe
+
+---
+
+18) System Recovering Skill
+	a. Boot Procedure
+		BIOS -> GRUB (/boot/grub/grub.conf) ->
+		kernel -> init =
+			-> (startup) rcS.conf
+			-> (runlevel) rc.conf
+			-> (on "rc") start-ttys.conf, prefdm.conf
+	b. recover
+		i. recover fs
+			fsck
+		ii. fatab
+		iii. sulogin
+
+---
+
+DONE. 2014/09/23
+
+			
+
+
+			

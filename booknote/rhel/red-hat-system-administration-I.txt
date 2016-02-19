@@ -1,0 +1,330 @@
+RED HAT SYSTEM
+ADMINISTRATION I
+===
+RH124
+
+---
+
+1) Introduction to Gnome
+	a. Using Gnome Desktop
+	b. Change Password
+	c. Editor 'gedit'
+
+---
+
+2) Manage files via Nautilus
+	a. Using Nautilus
+	b. Accessing Remote Filesystem
+		FTP/ FTP(account)/ Samba
+
+---
+
+3) Get Help under Graphical Environment
+	a. Study local Documents
+		man/ GNU info
+	b. Study online Documents
+	c. Get more help from Red Hat Global Service
+
+---
+
+4) Configure local Services
+	a. Recogonize user 'root'
+	b. Manage System Clock
+		i. Configuring NTP Service
+			Graphical Settings
+			system-config-date
+	c. Configuring Printer
+		i. Graphical Settings
+			ref: CPUS
+		ii. Manage printing tasks
+			Graphical Settings
+			system-config-printer
+
+---
+
+5) Introduction to Bash
+	a. Breif Description
+		i. using command lines
+	b. Using Bash
+	c. Launch Graphical Tools in bash
+		
+---
+
+6) Manage Phisical Storage
+	a. MBR Partition, Primary Partition, Extended Partition, Logical Partition.
+	b. Overview on avaliable Disk drives
+		Gnome Disk Utility
+	c. Make a new Partition, then make a new Filesystem
+		i. /etc/fstab
+
+---
+
+7) Managing Logic Volumes
+	a. General LVM Conception and Terminology
+		i. Defination
+			Physical volume : (MBR) 0x8e
+			Volume Set      : A set of Physical volumes
+			Logical Volume  : Virtual part on Volume set
+			Physical Range  : ?
+	b. Inspact Current LVM Settings
+		i. system-config-lvm
+	c. Starting Deployment of LVM
+		i. make a new part
+		ii. initialize the new part as LVM Physical Volume
+		iii. Setup Volume Set using the new physical volume
+		iv. Setup Logical Volume on Volume Set
+	d. Extend Volume Set
+	e. Extend Logical Volume
+		i. extend logical volume and filesystem
+	f. Delete Physical Volumes
+
+---
+
+8) Monitoring System Resources
+	a. Concept of Process, Priority, Signal
+		i. Signal
+			SIGTERM, SIGKILL
+		ii. Process
+			niceness
+	b. Monitoring Process on CPU/RAM usage
+		i. Gnome System Monitor
+		ii. Manage Running Processes
+	c. Monitoring Disk Usage
+		i. Gnome Disk Usage Analyzer
+
+---
+
+9) Manage System Tools
+	a. Recogonize Packages that were already Installed
+		i. RPM Package Manager
+		ii. PackageKit
+	b. Register to Red Hat Network (RHN)
+		i. rhn_register
+	c. Install, Remove, and Upgrade packages
+		
+---
+
+10) Get Help under Text Environment
+	a. Read Doc Manpages 'man'
+		man(1)
+		i. Search in man
+			man -k [pattern]
+	b. Read Doc Info
+		'pinfo'
+	c. Docs in /usr/share/doc
+
+---
+
+11) Make Network Connections
+	a. Basic Network Conception
+		i. IPv4
+			JMP: IP/TCP Illustrate
+		ii. IPv6
+			JMP: ?
+			There is no broadcast in IPv6 protocol.
+		iii. Route and DNS
+	b. Network Configure
+		i. NetworkManager
+		ii. Confirm Network Function
+			ip route
+			ping
+			host # test DNS
+
+---
+
+12) Users and Groups
+	a. Managing Users and Groups
+		system-config-users
+
+---
+
+13) Manage Files via command line
+	a. Linux Filesystem Hiearachy
+		ref: FHS, Filesystem Hiearachy Standard
+		ref: hier(7)
+	b. Absolute/Related Path
+	c. command line file managing
+	b. Wild card
+
+---
+
+14) Secure LINUX file access
+	a. UGO, user/group/other
+		rwx
+	b. Using GUI tools
+		i. Nautilus:
+			* a advanced usage:
+			gconftool-2 -t boot --set /apps/nautilus/preference/show_advanced_permissions true
+	c. Using command line tools
+		i. ls -l
+		ii. chmod
+		iii. chown
+		iv. setuid && setgid
+
+---
+
+15) Manage Remote System
+	a. SSH
+		ssh [-X]
+	b. Remote File Transfer
+		scp
+		rsync
+	c. Archive and Compress
+		Gnome Archive Manager
+	d. Using SSH Key
+		ssh-keygen
+		private key : 600
+		public key  : 644
+		ssh-copy-id
+		ssh-add
+		ssh-agent
+
+---
+
+16) Configure General Service
+	a. Enhance SSH Security
+		lab-setup-server
+	b. Setting up VNC Server
+		i. Install 'tigervnc-server' package
+		ii. Edit /etc/sysconfig/vncservers
+			+ VNCSERVERS="1:visitor 2:student"
+		iii. Set VNC Server
+			vncpasswd
+			vncviewer
+		iv. View Remote GNOME Desktop
+			vnc is plain, not secure, use -via to enhance security
+			demo:
+				edit /etc/sysconfig/vncservers
+				+ VNCSERVERARGS[2]="-localhost"
+				connect to server via ssh
+				+ vncviewer -via visitor@demo localhost:2
+
+---
+
+17) Manage Physical Storage
+	a. Check Filesystem Parameteres
+		* tune2fs 
+			Label : -L
+			UUID  : -U
+			Journal: -J
+			Default mount option : -o
+		* fstab
+			acl
+			user_xattr
+				gerfattr, serfattr, attr
+		* filesystem parameteres
+			tune2fs -l device_node
+		* change parameter
+			P.S. (tune2fs -o ^option) cancels the 'option' option.
+	b. Delete Partition
+		i. fstab
+		ii. Disk Utility
+	c. Swap Partition
+		i. swapon
+		ii. Register swap in fstab
+		P.S. Someway, swap partition is for peak condition.
+		ref: mkswap, swapon
+
+---
+
+18) Install Linux in the Graphical Way
+	a. Via Anaconda
+		i. Red Hat Enterprise Linux Installer : Anaconda
+		
+---
+
+19) Manage Virtual Machine
+	a. KVM Virtualization
+		i. VirtIO
+		ii. Intel VT-x
+			grep flags /proc/cpuinfo
+				lm : long mode, 64bit
+				svm : secure virtual machine, AMD
+				vmx : viatual machine x86?, Intel
+	b. Virtual Guest Install
+		i. anaconda
+		ii. virt-manager
+			P.S. 泛虚拟化硬盘 /dev/vd*
+			/etc/sysconfig/libvirt-guests
+
+---
+
+20) Control the Bootup Process
+	a. boot
+		P.S.
+		--
+		linux | NT
+		GRUB | NTLDR / winload.exe & Windows Boot Manager (windows7/windows Server 2008)
+		/boot/vmlinuz-* | ntkrpamp.exe / ntoskrnl.exe
+	b. boot into another runlevel
+		i. # init RLNUM
+		ii. change root passwd when it is unknown
+	c. Troubleshot on GRUB
+		/boot/grub/grub.conf
+			root : filesystem location
+			kernel : kernel path related to root, and parameter
+			initrd : initrd / initramfs
+	d. Make everlasting change on GRUB
+		/boot/grub/grub.conf
+	e. Passing Kernel Parameteres
+		ref: kernel-doc
+			console
+
+			enforcing
+			selinux
+
+			init
+
+			root
+			ro
+			rw
+
+		ref: bootparams(7)
+	f. Change Default Runlevel
+		i. use 'who -r' to inspect current runlevel
+		ii. /etc/inittab
+
+---
+
+21) Deploy File Sharing Service
+	a. Deploy File Transfer Service
+		ref : vsftpd
+		i. /etc/vsftpd/vsftpd.conf
+			anonymous_enable=YES
+			local_enable=NO
+			write_enable=NO
+		ii. document root /var/ftp
+	b. Deploy Web Server
+		i. Apache httpd
+		ref: lab-setup-server
+
+---
+
+22) Firewall/SELinux
+	a. firewall
+		system-config-firewall
+		the default firewall config enables all OUTPUT, but not all for INPUT
+		(both ipv6 and ipv4)
+			lo interface
+			icmp
+			local startup network communication
+			ssh
+		the desktop is more open
+			CUPS
+			SMB
+			Zeroconf / mDNS
+			IPSec
+		P.S. iptables / ip6tables
+		ref : netfilter/iptables
+	b. SELinux
+		i. Basic Concept
+		ii. selinux mode
+		iii. lab-setup-secure-web
+
+---
+
+23) Final Summary
+	
+---
+
+DONE. 2014/09/21

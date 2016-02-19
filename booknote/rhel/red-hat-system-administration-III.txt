@@ -1,0 +1,329 @@
+RED HAT SYSTEM
+ADMINISTRATION III
+===
+RH255
+
+---
+
+1) The Classroom
+	a. Virtualization Review
+		i. virt-manager (GUI)
+		ii. virsh
+	b. LDAP User Authentication
+		i. system-config=authentication
+		ii. automount
+		iii. autofs
+	c. SSH Authentication
+		i. SSH keypair
+		ii. ssh-keygen
+		iii. ssh-copy-id .ssh/id_rsa.pub root@REMOTE
+		iv. /etc/ssh/
+
+---
+
+2) Enhance User Security
+	a. sudo/wheel
+	b. Kerberos Configure
+		i. Auth via Kerberos, Info provided by LDAP.
+	c. Troubleshooting SSSD
+		i. sssd.conf
+		ii. sssd-krb5
+		iii. sssd-ldap
+
+---
+
+3) BASH Shell Programming and Tools
+	a. Bash Programming
+		i. head of shell script
+			+ #!/bin/bash
+		ii. make script executable
+			chmod
+		iii. Variables
+			+ TREE = Oak
+			+ $TREE
+			+ ${TREE}
+		iv. Command Substitution
+			+ $( COMMAND )
+		v. Quote and Escape
+			1. weak quote : ""
+			2. strong quote : ''
+			3. escape : \
+		vi. Control
+			1. for
+				+ for var in ${ITEMS}; do
+				+ ${SOMETHING};
+				+ done
+			2. Test
+				+ test EXPRESSION
+				OR
+				+ [ EXPRESSION ]
+			3. if
+				+ if COMMAND; then
+				+ COMMAND_1;
+				+ else
+				+ COMMAND_2;
+				+ fi
+		vii. read from input / parameters
+			1. interactive : read
+				+ read -p 'Enter VAR' VAR_NAME
+			2. parameters
+				$1 $2 $3 : para1, para2, para3
+				$@ : para_all
+	b. Text Processing Tools
+		i. diff
+			diff FILE1 FILE2
+			-c show lines surounded
+			-u universal format output
+			-r recursive
+		ii. patch
+			patch FILE PATCH
+		iii. grep
+			-i ignore case
+			-n show line number
+			-r recursive
+			-c count lines that match
+			-v reverse
+			-l list filename
+		iv. cut
+			-d devide symbol (Tab is default)
+			-f field to extract
+			-c column to extract
+		v. head
+		vi. tail
+		vii. wc
+		viii. sort
+		ix. uniq
+		x. tr
+		xi. sed
+			1. sed 's/old/new/g' : where 'g' means global
+			2. sed 's/old/new/ig' : where 'i' means ignore case
+			3. sed 's/old/new/' : only replace one word that matches
+			4. use -e option to pass multiple expression
+		xii. regex
+	c. Password Deadline
+		i. /etc/login.defs
+			PASS_MIN_DAYS
+			PASS_MAX_DAYS
+			PASS_WARN_AGE
+		ii. /etc/default/useradd
+			i. command 'change' changes the expire date of account
+
+---
+
+4) Protect Files with GNUPG
+	a. Encrypt Files with GnuPG
+		i. Generate Key Pairs
+			gpg --gen-key
+		ii. List Public Keys
+			gpg --list-keys
+		iii. Export Public keys
+			gpg --export --armor key-id -o file.key
+		iv. Import Public Key
+			gpg --import file.key
+		v. Encrypt File
+			gpg --encrypt --armor -r key-id file
+		vi. Decrypt File
+			gpg --decrypt file
+		P.S. For 'key-id' refered above, see 'gpg --fingerprint'
+
+---
+
+5) Package Management
+	a. yum Plug-in
+		package : yum-plugin-*
+	b. RPM Package Design
+		i. RPM Design
+			Meta Data, Files(+attr), Scripts
+		ii. cpio archive
+	c. RPM Package rules
+	d. RPM Packaging
+	%pass%
+	e. Release RPM Package
+
+---
+
+6) Network Monitoring
+	a. Detect Opened Ports
+		i. detect local service
+			netstat -tulnp
+		ii. scan remote ports
+			nmap
+		iii. Avahi
+			avahi ~ zeroconf ~ compatible to Apple Bonjour
+	b. Capture and Analyze Network Traffic
+		i. Capture Packets with tcpdump
+			1. List interfaces
+				tcpdump -D
+			2. Cap ssh
+				tcpdump -nn -l -s 2000 -w packets -i eth0 'port 22'
+				where
+				-nn show number
+				-l buffered
+				-s max bytes of packets
+				-w write to file
+				-i interface to capture
+				filter
+		ii. Analyze Packets with wireshark
+			
+
+---
+
+7) Advanced Network Configuration
+	a. interface - IP alias
+		i. Disable Networkmanager
+			service NetworkManager stop; chkconfig NetworkManager off
+		ii. ip addr add 10.1.1.250/24 dev eth0 label eth0:0
+		iii. service network restart
+		P.S. ifconfig is outdated
+	b. interface - bond
+		i. NIC find
+			ethtool -p eth0 30
+			let the LED flash for 30 seconds
+		ii. Choose linux bond mode
+			0 : balanced recycle
+			1 : initiative backup
+			2 : broadcast
+		%bond - pass%
+	c. Tweak Kernel Network Parameter
+		i. sysctl
+	d. Static Route Configure
+		i. ip route
+		ii. net.ipv4.ip_forward
+
+---
+
+8) Protect Network Traffic
+	a. SSH Port Forwarding
+		i. ssh -L <localport>:<remotehost>:<remoteport> sshhost
+		ii. ssh -D <localport> sshhost
+	b. Netfilter/Iptables
+		i. iptables
+			-nvL
+			-A append
+			-I insert
+			-D delete
+			-F flush
+			-s source
+			-d destination
+			-p protocol
+				if protocol udp/tcp
+				--sport source port
+				--dport destination port
+				if protocol icmp
+				--icmp-type
+			-i in-interface
+			-o out-interface
+			-m module
+				--state
+		ref : man iptables
+		ii. NAT
+			SNAT (ip share)
+				--to-source
+			DNAT
+				--to-destination
+
+---
+
+9) NTP Server Configuration
+	a. ref : ntp.conf
+
+---
+
+10) Monitor System and Logs
+	a. Overview Report
+		i. df
+		ii. iostat
+		iii. vmstat
+	b. AIDE and sar Monitoring System
+		i. setup aide
+		ii. aide --check to check difference
+		iii. sar, system activity reporter
+			aide, advanced intrusion detection environment
+	c. Calibrate tmpwatch and logrotate
+		i. tmpwatch 
+			clears files that are not touched for long time in /tmp
+		ii. logrotate
+	d. Configure remote log service
+		i. rsyslog
+
+---
+
+11) Assemble and Secure Storage
+	a. access iSCSI storage
+		%passed%
+	b. encrypted storage
+		LUKS
+
+---
+
+12) SSL Encapsuled WEB Service
+	a. SSL
+	b. X.509 Cert
+		i. check cert
+			openssl x509 -in serverX.crt -text
+		ii. x509
+		iii. apache httpd :: doc :: ssl
+	c. Self-signed Certification
+		i. install crypto-utils and mod_ssl
+		ii. invoke gen-utils
+			genkey --days 365 serverX.example.com
+		iii. openssl, x509, verify information
+
+	%ssl-confused%
+	%pass%
+
+---
+
+13) WEB Other
+	a. virtualhost...
+		JMP apache :: doc
+	b. auth
+		htpasswd
+	c. ldap
+		apache module , mod_authz_ldap
+	d. selinux & apache
+
+---
+
+14) Basic SMTP
+	a. postconf, postfix
+		%pass%
+
+---
+
+15) Cache-Only DNS Server
+	a. BIND
+	%pass%
+	p.s. set dnssec-validation to 'no'
+		to disables DNSSEC validate.
+
+---
+
+16) Share File via NFS
+	NFSv4
+	UFS
+	%pass%
+
+---
+
+17) Share Files via CIFS
+	SAMBA
+	%pass%
+---
+
+18) FTP
+	vsftpd
+	%pass%
+
+---
+
+19) Bootup Troubleshoot
+	grub
+	agetty
+	mingetty
+	grub, serial
+
+
+---
+
+DONE. 2014/10/01
