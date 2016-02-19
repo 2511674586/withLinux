@@ -1,0 +1,80 @@
+COMPUTER SECURITY
+Principles and Practise
+-----------------------
+William Stallings & Lawrie Brown
+
+ISBN 978-7-111-29247-0
+
+////////////////////////////////////////////////////
+
+ ch 1 Overview
+
+-*- Part 1 : Security technology and principles -*-
+
+ ch2 Cryptographic Tools
+ 
+ ch3 User Authentication
+ 
+ ch4 Access Control
+ 
+ Ch5 Database Security
+ 
+ ch6 Intrusion Detection
+ 
+ ch7 Malicious Software
+ 
+ ch8 Denial of Service
+
+ ch9 Firewalls and Intrusion Prevention Systems
+
+ ch10 Trusted Computing and Multilevel Security
+
+-*- Part 2 : Software Security -*-
+ 
+ ch11 Buffer Overflow
+ 
+ ch12 Other Software Security Issues
+ 
+-*- Part 3 : Management Issues -*-
+ 
+ ch13 Physical and Infrastructure Security
+ 
+ ch14 Human Factors
+ 
+ ch15 Security Auditing
+ 
+ ch16 IT Security Management and Risk Assessment
+ 
+ ch17 IT Security Controls, Plans and Procedures
+ 
+ ch18 Legal and Ethical Aspects
+
+-*- Part 4 : Cryptographic Algorithms -*-
+
+ ch19 Symmetric Encryption and Message Confidentiality
+
+ ch20 Public-key Cryptography and Message Authentication
+
+-*- Part 5 : Internet Security -*-
+
+ ch21 Internet Security Protocols and Standards
+
+ ch22 Internet Authentication Application
+
+-*- Part 6 : Operating System Security -*-
+
+ ch23 Linux Security
+
+ ch24 Windows and Windows Vista Security
+
+-*- Appendices -*-
+
+ A Some Aspects of Number Theory
+
+ B Random and Pseudorandom Number Generation
+
+ C Projects for Teaching Computer Security
+
+
+
+Index done, June 05 2015
