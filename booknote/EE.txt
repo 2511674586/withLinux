@@ -1,0 +1,43 @@
+Simplify (from stanford??'s Electronic Engineering introduction open course video)
+---------------------------------
+
+Nature
+
+	U, I
+
+->
+
+play laws
+
+	U = IR
+	Maxwell equations
+
+->
+
+lumped abstract circuits
+
+->
+
+amplifier
+
+->
+
+digit abstraction
+
+ -> combinational logic abstraction
+
+  -> clocked digital abstraction
+
+   -> instruction set abstraction (x86 ...)
+
+	 -> language abstractions
+
+	  -> software abstractions (system)
+
+	   -> apps : video games 
+
+operational amplifier i(analog)
+
+ -> analog system components
+ 
+  -> toasters

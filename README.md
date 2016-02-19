@@ -182,6 +182,7 @@ FIXME: re-arrange sections.
   24. [Linux Kernel Hack](./booknote/LinuxKernelHack/)  
   25. [Linux Networking Cookbook](./booknote/LinuxNetworkingCookbook/)  
   26. [Play with data structure](./booknote/Playwithdatastructure/)  
+  27. [EE - from a EE open course](./booknote/EE.txt)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
