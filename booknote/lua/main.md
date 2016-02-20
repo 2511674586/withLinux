@@ -14,8 +14,10 @@ Part 1
 6. [Deep in Functions](./1.6.md)  
 7. [Iterator, Generic form FOR](./1.7.md)  
 8. [Compile, Execution and Error](./1.8.md)  
-9. [Coroutine]
-10. [Complete example]
+9. [Coroutine]  
+10. Complete example  
+  1. html  
+  2. [markov chain](./codes/markov.lua)  
 
 Part 2  
 
