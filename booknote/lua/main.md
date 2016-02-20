@@ -1,8 +1,8 @@
 Programming in Lua (2nd Edition)
 ===
+[br] Roberto Ierusalimschy
 
-电子工业出版社  
-`Lua 5.1`  
+电子工业出版社 `Lua 5.1`  
 
 Part 1  
 
@@ -47,4 +47,4 @@ Part 4
 5. [User-defined Types]
 6. [Resource Management]
 7. [Threads and Status]
-8. [Memory Management]
+8. [Memory Management](./4.8.md)  
