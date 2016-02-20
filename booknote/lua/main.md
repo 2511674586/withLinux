@@ -33,7 +33,7 @@ Part 3
 
 1. [Math Lib](./3.1.md)  
 2. [Table Lib]
-3. [String Lib]
+3. [String Lib](./3.3.md)  
 4. [IO Lib](./3.4.md)  
 5. [OS Lib](./3.5.md)  
 6. [Debug Lib](./3.6.md)  
