@@ -40,7 +40,7 @@ Part 3
 
 Part 4  
 
-1. [C API]
+1. [C API](./4.1.md)  
 2. [Extending Applications]
 3. [Invoke C from Lua]
 4. [C Functions]
