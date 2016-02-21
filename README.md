@@ -192,6 +192,7 @@ FIXME: re-arrange sections.
   32. [Building High Availability Linux Servers](./booknote/BuildHighAvailabilityLinuxServers/)  
   33. [Image Processing](./booknote/ImageProcessing/)  
   34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
+  35. [Intel Micro Processor](./booknote/IntelMicroProc/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

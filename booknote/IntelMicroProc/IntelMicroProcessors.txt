@@ -1,0 +1,103 @@
+The Intel Microprocessors:
+Architecture Programming, and Interfacing
+=========================================
+China Machine Press
+
+Ch 2 Microprocessor and its architecture
+----------------------------------------
+* 64bit * 32bit * 16bit * 8bit
+*******************************
+* RAX	* EAX	* AX AH	* AL
+* RBX	* EBX	* BX BH * BL
+* RCX	* ECX	* CX CH	* CL
+* RDX	* EDX	* DX DH * DL
+* RBP	* EBP	* BP
+* RSI	* ESI	* SI
+* RDI	* EDI	* DI
+* RSP	* ESP	* SP	
+* R8
+* R9
+* R10
+* R11
+* R12
+* R13
+* R14
+* R15
+* RFLAGS * EFLAGS * FLAGS
+* RIP	* EIP	* IP
+
+* CS
+* DS
+* ES
+* SS
+* FS
+* GS
+*******************************
+
+Ch 3 Addressing
+---------------
+1. mov
+2. jmp & call
+3. push & pop
+
+Ch 4 Data Transfering
+---------------------
+1. mov
+2. push & pop
+	load effective address: lea, lds ...
+3. moves
+...
+
+Ch 5 Calculate and Logic
+------------------------
+1. add, dec
+2. cmp
+3. mul, div
+
+4. and, or, xor
+
+Ch 6 Program Controling
+-----------------------
+1. jmp
+	EB; short jump
+	E9; near jump
+	EA; far jump
+2. loop
+3. call
+	short call
+	far call
+4. ret
+5. Interrupt
+	int
+	into
+	int3
+	iret
+
+Ch 7 insert ASM in C/C++
+------------------------
+__asm__ {"
+	int3"
+}
+
+Ch 8 Microprocessor Programming
+
+Ch 9 8086/8088 Hardware feature
+
+Ch 10 Memory Interface
+
+Ch 11 Basic I/O Interface
+
+Ch 12 Interruption
+
+Ch 13 DMA & DMA Control
+-----------------------
+ref: Winchester drive
+
+Ch 14 MMX, SIMD
+
+Ch 15 Bus Interface
+
+Ch 16 80186, 80188, 80286
+
+Ch 17 80386, 80486
+
