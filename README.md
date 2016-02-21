@@ -131,6 +131,7 @@ FIXME: re-arrange sections.
   12. [Python3](./lang/py3)  
     1. [convert list into string](./lang/py3/list2str.md)  
   13. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
+  14. [Go](./lang/go)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
