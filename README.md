@@ -189,6 +189,7 @@ FIXME: re-arrange sections.
   29. [Information Security Introduction](./booknote/InfoSecIntro/)  
   30. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
   31. [High Performance Linux Server Programming](./booknote/HighPerfLinuxServerProg/)  
+  32. [Building High Availability Linux Servers](./booknote/BuildHighAvailabilityLinuxServers/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  

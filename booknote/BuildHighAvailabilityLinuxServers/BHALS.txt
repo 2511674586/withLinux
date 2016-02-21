@@ -1,0 +1,116 @@
+Build Hight Availability Linux Servers
+======================================
+Revision 1
+
+* kickstart
+
+* info scratch
+
+	/proc/cpuinfo
+	free
+	fdisk -l
+	df
+	iostat (sysstat)
+	powertop
+	vmstat
+	dig +trace
+	who finger
+	lsof -i:22
+	uptime
+	dmesg
+	top
+	netstat
+	ss
+	sar
+	pmap
+	strace
+	mpstat
+
+* resist SYN flood & net optimize
+
+	net.ipv4.tcp_syncookies = 1
+	
+	net.ipv4.tcp_fin_timeout = 30
+			    _keepalive_time = 1200
+				_tw_reuse = 1 # reuse the TIME-WAIT socket
+				_tw_recycle = 1 # fast recycle of TIME-WAIT socket
+				_max_syn_backlog = 8192 # connection waiting queue
+				_max_tw_buckets = 5000
+			.ip_local_port_range = 1024 65000
+
+
+* ulimit
+
+* FreeBSD
+
+	- /etc/portsnap.conf
+		SERVERNAME = portsnap.freebsd.org
+	- $ portsnap fetch extract # initial use
+	- $ portsnap fetch update  # then
+
+* sync
+	
+	inotify + rsync
+
+* sed [-nefr] [n1,n2] action
+
+	-n quiet
+	-e expr
+	-f sed script
+	-r extended regular expr
+
+	action
+		
+		a add/append
+		c change
+		d delete
+		i insert
+		p print
+		s search/replace
+
+	cat sth | sed -e '2,5d' # delete line 2-5
+		sed '2a hello xxx'  # append string after line 2
+		sed '2,5c hello'    # change line 2-5 into hello
+		sed -n '5,7p'       # print only line 5-7
+	cat sth |
+		sed 's/^ * //g'     # delete heading spaces
+		sed 's/^[[:space:]]* //g' # save as above
+		
+		sed 's/pattern/& \n/g' add newline after pattern
+		sed 's/pattern/\n &/g' add newline before pattern
+		# where & denotes the pattern
+		sed "s/$var1/$var2/g"
+		sed '1 i \string' insert before line 1
+		sed '$a \string' insert after line last
+		sed '/pattern/ i "string"' insert before pattern once matched
+		sed '/pattern/ a "string"' insert after pattern once matched
+
+* HA, high availability
+	
+	- F5 BIG-IP 负载均衡
+	- LVS
+	- HA Keepalived
+	- HA HeartBeat
+	- HA block device : DRBD
+
+* VPN
+	
+	- openvpn : penetration
+
+* firewall
+	
+	- iptables
+	- tcpdump
+	- wireshark
+	- nmap
+	- hping / nping
+
+	# nping --tcp -p 80 --flag syn,ack,rst -c 5 --rate 10 scanme.nmap.org
+
+* tripwire
+
+	system integrity
+
+* portsentry
+
+* postfix + dovecot
