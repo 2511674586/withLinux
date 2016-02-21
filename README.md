@@ -193,6 +193,7 @@ FIXME: re-arrange sections.
   33. [Image Processing](./booknote/ImageProcessing/)  
   34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
   35. [Intel Micro Processor](./booknote/IntelMicroProc/)  
+  36. [Math.describing.nature](./booknote/Math.describing.nature/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
