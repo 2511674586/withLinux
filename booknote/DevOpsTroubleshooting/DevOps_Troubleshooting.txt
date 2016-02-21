@@ -1,0 +1,65 @@
+DevOps Troubleshooting
+Linux Server Best Practices
+===========================
+Kyle Rankin, China Machine Press
+
+Chapter 1, Best practice
+------------------------
+* Bisection method
+* Avoid reboot
+
+Chapter 2, Why is the machine so slow?
+--------------------------------------
+* uptime, load average
+* top
+* iostat/iotop
+* sysstat
+
+Chapter 3, System not booting?
+------------------------------
+* Linux Boot procedure.
+
+Chapter 4, Cannot write the disk?
+---------------------------------
+* df -i (inode info)
+* remount rw
+* mke2fs -C -y -n
+
+Chapter 5, Server down?
+-----------------------
+* ethtool
+* ip
+* dig
+* iptables
+* iftop
+* tcpdump
+
+Chapter 6, Hostname not resolved?
+---------------------------------
+* dig
+* dig +trace
+* dig @ip
+
+Chapter 7, Not sending mail?
+----------------------------
+-
+
+Chapter 8, Web server down?
+---------------------------
+* nmap
+* telnet
+* HTTP Status code (reference: RFC)
+
+Chapter 9, Database Slow?
+-------------------------
+-
+
+Chapter 10, Hardware Issue?
+---------------------------
+* smartctl
+* memtest
+* iproute2
+* lm-sensors
+
+==========================
+Marked as done, 21 Mar 2015

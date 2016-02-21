@@ -191,6 +191,7 @@ FIXME: re-arrange sections.
   31. [High Performance Linux Server Programming](./booknote/HighPerfLinuxServerProg/)  
   32. [Building High Availability Linux Servers](./booknote/BuildHighAvailabilityLinuxServers/)  
   33. [Image Processing](./booknote/ImageProcessing/)  
+  34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
