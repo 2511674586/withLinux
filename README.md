@@ -124,7 +124,7 @@ FIXME: re-arrange sections.
   5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
   6. [CMake](http://www.cmake.org/cmake-tutorial/)  
   7. [java helloworld on linux](./lang/java)  
-  8. [AWK](./)  
+  8. [AWK](./lang/awk/)  
   9. [Sed](./)  
   10. [GNU BC](./)     
   11. [Maxima](./)  
