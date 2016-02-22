@@ -21,7 +21,7 @@ Part 1
 
 Part 2  
 
-1. [Data Structure]
+1. [Data Structure](./2.1.md)  
 2. [Data Files and Persistance]
 3. [Metatable and Metamethod]
 4. [Environment]
