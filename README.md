@@ -240,6 +240,7 @@ FIXME: re-arrange sections.
   1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
 12. Games on Linux  
   1. [Terraria on Wine32](./topic/terraria.md)  
+13. [JPEG integrity check](./topic/jpeg-int.md)  
   
 ## LICENSE
 The MIT LICENSE.  
