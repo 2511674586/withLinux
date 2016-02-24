@@ -42,7 +42,7 @@ Part 4
 
 1. [C API](./4.1.md)  
 2. [Extending Applications](./4.2.md)  
-3. [Invoke C from Lua]
+3. [Invoke C from Lua](./4.3.md)  
 4. [C Functions]
 5. [User-defined Types]
 6. [Resource Management]
