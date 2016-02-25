@@ -1,13 +1,10 @@
 # With Linux - Brief Hacks
 
 
-Linux tricks, hints, hacks, based on my personal experience with
+Linux tricks, hints, hacks and many others, based on my personal experience with
 [Debian GNU/Linux](https://www.debian.org). It may work on Ubuntu, Mint etc.  
 Most of these hints and hacks are in the style of keyword-expanding.  
   
-keep updating.  
-  
-FIXME: re-arrange sections.  
   
 ## Index : contents
 1. [Installing Linux](./install)  
@@ -100,7 +97,7 @@ FIXME: re-arrange sections.
   3. [apache2 (2.2.22) ... simple setup](./server/apache2.txt)  
   4. [bind9 (debian)... DNS (cache) - config file](./server/named.conf.options)  
   5. [hostapd ... dev work](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
-  6. [udhcpd from dropbox]
+  6. [udhcpd from busybox]
   7. [gitlab ... official deb setup](./server/gitlab.md)  
 7. [Programming](./lang)  
   1. [tex](./lang/tex)  
