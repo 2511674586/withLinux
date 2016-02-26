@@ -25,7 +25,7 @@ Part 2
 2. [Data Files and Persistance](./2.2.md)  
 3. [Metatable and Metamethod]
 4. [Environment]
-5. [Modules and Packages]
+5. [Modules and Packages](./2.5.md)  
 6. [OOP]
 7. [Weak Reference to Table]
 
