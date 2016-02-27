@@ -26,7 +26,7 @@ Part 2
 3. [Metatable and Metamethod]
 4. [Environment]
 5. [Modules and Packages](./2.5.md)  
-6. [OOP]
+6. [OOP](./2.6.md)  
 7. [Weak Reference to Table]
 
 Part 3  
