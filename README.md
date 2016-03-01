@@ -192,6 +192,7 @@ Most of these hints and hacks are in the style of keyword-expanding.
   34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
   35. [Intel Micro Processor](./booknote/IntelMicroProc/)  
   36. [Math.describing.nature](./booknote/Math.describing.nature/)  
+  37. [TAOCP Knuth](./booknote/taocp/main.md)  
   
 ### Appendix A : Topics
 1. [Need help ? do some search first](http://173.194.72.31)  
