@@ -1,0 +1,3 @@
+main:
+	@echo I: Origin [Sep 5 23:39 2011 xv6-rev6.pdf]
+	@echo I: Starting to compile xv6 kernel ...
