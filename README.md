@@ -52,6 +52,7 @@ Most of these hints and hacks are in the style of keyword-expanding.
   10. [iptables howto ... ubuntu help](https://help.ubuntu.com/community/IptablesHowTo)  
   11. [miredo note ... IPv6 Net with Teredo](./internet/miredo.md)
   12. [isatap ... IPv6 with ISATAP](./internet/isatap.txt)
+  13. [script for listing available wifi SSIDs](./internet/wifilist)  
 4. [Graphical(Xorg)](./x)  
   1. [Gnome3 (gnome-shell)](./x/gnome)  
     1. [the height of top bar ... modify](./x/gnome/topbar.md)  
