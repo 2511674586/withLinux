@@ -246,6 +246,12 @@ Most of these hints and hacks are in the style of keyword-expanding.
 12. Games on Linux  
   1. [Terraria on Wine32](./topic/terraria.md)  
 13. [JPEG integrity check](./topic/jpeg-int.md)  
+14. [Ext2/Ext3/Ext4 on Windows](http://blog.csdn.net/hansel/article/details/7557033)  
+  1. [ext2Fsd](http://www.ext2fsd.com/)  
+  2. [Ext2Read](http://sourceforge.net/projects/ext2read/)  
+  3. [Ext2IFS](http://www.fs-driver.org/)  
+  4. [DiskInternals Linux Reader for Windows](http://www.diskinternals.com/linux-reader)  
+
   
 ## LICENSE
 The MIT LICENSE.  
