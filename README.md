@@ -117,6 +117,7 @@ Most of these hints and hacks are in the style of keyword-expanding.
     3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
     4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
     5. [stl demo](./lang/cpp/stl.cpp)  
+    6. [Qt helloworld](./lang/cpp_qt/)  
   3. [A hello world html sample](./lang/sample.html)  
   4. [Octave](./lang/oct)  
   5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
