@@ -182,5 +182,6 @@ This is a brief note of torch7 documentations.
   results of updateGradInput(input, gradOutput) will be put here  
 3. [{weights}, {gradWeights}] parameters()  
 4. [flatParameters, flatGradParameters] getParameters()  
+
 --- 
 
