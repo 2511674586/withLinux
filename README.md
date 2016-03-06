@@ -130,6 +130,7 @@ Most of these hints and hacks are in the style of keyword-expanding.
     1. [convert list into string](./lang/py3/list2str.md)  
   13. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   14. [Go](./lang/go)  
+  15. [Torch7 interface note](./lang/lua/torch/main.md)  
 8. [Linux Hacks](./hack)  
   1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
   2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
