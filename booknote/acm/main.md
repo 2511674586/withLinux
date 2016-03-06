@@ -8,6 +8,7 @@ ACM reference books
     * forward  
 	* reverse  
   * greedy  
+    1. [delete number](code/delete_number.cc)  
   * recursion  
   * divide and conquer  
   * enumeration  
