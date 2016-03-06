@@ -1,6 +1,6 @@
 Torch reference
 ===
->Lumin Zhou
+>Lumin Zhou, Mar 2016
 
 This is a brief note of torch7 documentations.
 
@@ -133,6 +133,145 @@ This is a brief note of torch7 documentations.
 1. retain()  
 2. free()  
 
+---
+
+## [torch Math operations](./https://github.com/torch/torch7/blob/master/doc/maths.md)  
+
+#### construction and extraction
+1. [res] torch.cat([res,] x1, x2, [dimension])  
+2. [res] torch.cat([res,] {x1, x2, ...}, [dimension])  
+3. [res] torch.diag([res,] x [,k])  
+4. [res] torch.eye([res,], n [, m])  
+5. [res] torch.histc([res,] x [,nbins, min_value, max_value])  
+6. [res] torch.linspace([res,] x1, x2, [,n])  
+7. [res] torch.logspace([res,] x1, x2, [,n])  
+8. [res] torch.multinomial([res,], p, n, [,replacement])  
+9. [res] torch.ones([res,] m [,n...])  
+10. [res] torch.rand([res,] m [,n...])  
+11. [res] torch.randn([res,] m [,n...])  
+12. [res] torch.range([res,] x, y [,step])
+13. [res] torch.randperm([res,] n)  
+14. [res] torch.reshape([res,] x, m [,n...])  
+15. [res] torch.tril([res,] x [,k])  
+16. [res] torch.triu([res,] x, [,k])  
+17. [res] torch.zeros([res,] x)  
+
+#### Element-wise Mathematical Operations
+1. [res] torch.abs([res,] x)  
+2. [res] torch.sign([res,] x)  
+3. [res] torch.acos([res,] x)  
+4. [res] torch.asin([res,] x)  
+5. [res] torch.atan([res,] x)  
+6. [res] torch.ceil([res,] x)  
+7. [res] torch.cos([res,] x)  
+8. [res] torch.cosh([res,] x)  
+9. [res] torch.exp([res,] x)  
+10. [res] torch.floor([res,] x)  
+11. [res] torch.log([res,] x)  
+12. [res] torch.log1p([res,] x)  
+13. x:neg()  
+14. x:cinv()  
+15. [res] torch.pow([res,] x, n)  
+16. [res] torch.round([res,] x)  
+17. [res] torch.sin([res,] x)  
+18. [res] torch.sinh([res,] x)  
+19. [res] torch.sqrt([res,] x)  
+20. [res] torch.tan([res,] x)  
+21. [res] torch.tanh([res,] x)  
+22. [res] torch.sigmoid([res,] x)  
+
+#### Basic Operations
+1. [res] torch.add([res,] tensor, value)  
+2. [res] torch.add([res,] tensor1, tensor2)  
+3. [res] torch.add([res,] tensor1, value, tensor2)  
+4. tensor:csub(value)  
+5. tensor1:csub(tensor2)  
+6. [res] torch.mul([res,] tensor1, value)  
+7. [res] torch.clamp([res,] tensor, min_value, max_value)  
+	Clamp all elements in the Tensor into the range [min_value, max_value]  
+8. [res] torch.cmul([res,] tensor1, tensor2)  
+9. [res] torch.cpow([res,] tensor1, tensor2)  
+10. [res] torch.addcmul([res,] x [,value], tensor1, tensor2)  
+11. [res] torch.div([res,] tensor, value)  
+12. [res] torch.cdiv([res,] tensor1, tensor2)  
+13. [res] torch.addcdiv([res,] x [,value], tensor1, tensor2)  
+14. [res] torch.mod([res,] tensor, value)  
+15. [res] torch.cmod([res,] tensor1, tensor2)  
+16. [number] torch.dot(tensor1, tensor2)  
+17. [res] torch.addmv([res,] [beta,] [v1,] vec1, [v2,] mat, vec2)  
+18. [res] torch.addr([res,] [v1,] mat, [v2,] vec1, vec2)  
+19. [res] torch.addmm([res,] [beta,] [v1,] M [v2,] mat1, mat2)  
+20. [res] torch.addbmm([res,] [v1,] M [v2,] batch1, batch2)  
+21. [res] torch.baddbmm([res,] [v1,] M [v2,] batch1, batch2)  
+22. [res] torch.mv([res,] mat, vec)  
+23. [res] torch.mm([res,] mat1, mat2)  
+24. [res] torch.bmm([res,] batch1, batch2)  
+25. [res] torch.ger([res,] vec1, vec2)  
+
+#### Overloaded operators
++placeholder
+
+#### Column or row-wise operations (dimension-wise operations)
+1. [res] torch.cross([res,] a, b [,n])  
+2. [res] torch.cumprod([res,] x [,dim])  
+3. [res] torch.cumsum([res,] x [,dim])  
+4. torch.max([resval, resind,] x [,dim])  
+5. [res] torch.mean([res,] x [,dim])  
+6. torch.min([resval, resind,] x [,dim])  
+7. [res] torch.cmax([res,] tensor1, tensor2)  
+8. [res] torch.cmax([res,] tensor, value)  
+9. [res] torch.cmin([res,] tensor1, tensor2)  
+10. [res] torch.cmin([res,] tensor, value)  
+11. torch.median([resval, resind,] x [,dim])  
+12. torch.mode([resval, resind,] x [,dim])  
+13. torch.kthvalue([resval, resind,] x, k [,dim])  
+14. [res] torch.prod([res,] x [,n])  
+15. torch.sort([resval, resind,] x [,d] [,flag])  
+16. torch.topk([resval, resind,] x, k, [,dim] [,dir] [,sort])  
+17. [res] torch.std([res,] x, [,dim] [,flag])  
+18. [res] torch.sum([res,] x)  
+19. [res] torch.var([res,] x [,dim] [,flag])  
+
+#### Matrix-wide operations (Tensor-wide operations)
+1. torch.norm(x [,p] [,dim])  
+2. torch.renorm([res], x, p, dim, maxnorm)  
+3. torch.dist(x, y)  
+4. torch.numel(x)  
+5. torch.trace(x)  
+
+#### Convolution Operations
+1. [res] torch.conv2([res,] x, k, [, 'F' or 'V'])  
+2. [res] torch.xcorr2([res,] x, k, [, 'F' or 'V'])  
+3. [res] torch.conv3([res,] x, k, [, 'F' or 'V'])
+4. [res] torch.xcorr3([res,] x, k, [, 'F' or 'V'])  
+
+#### Eigenvalues, SVD, Linear System Solution
+1. [x, lu] torch.gesv([resb, resa,] B, A)  
+2. [x] torch.trtrs([resb, resa,] b, a [, 'U' or 'L'] [, 'N' or 'T'] [, 'N' or 'U'])  
+3. torch.potrf([res,] A [, 'U' or 'L'] )  
+4. torch.pstrf([res, piv, ] A [, 'U' or 'L'] )  
+5. torch.potrs([res,] B, chol [, 'U' or 'L'] )  
+6. torch.potri([res,] chol [, 'U' or 'L'] )  
+7. torch.gels([resb, resa,] b, a)  
+8. torch.symeig([rese, resv,] a [, 'N' or 'V'] [, 'U' or 'L'])  
+9. torch.eig([rese, resv,] a [, 'N' or 'V'])  
+10. torch.svd([resu, ress, resv,] a [, 'S' or 'A'])  
+11. torch.inverse([res,] x)  
+12. torch.qr([q, r], x)  
+13. torch.geqrf([m, tau], a)  
+14. torch.orgqr([q], m, tau)  
+15. torch.ormqr([res], m, tau, mat [, 'L' or 'R'] [, 'N' or 'T'])  
+
+#### Logical Operations on Tensors
+1. torch.lt(a, b)  
+2. torch.le(a, b)  
+3. torch.gt(a, b)  
+4. torch.ge(a, b)  
+5. torch.eq(a, b)  
+6. torch.ne(a, b)  
+7. torch.all(a)  
+8. torch.any(a)  
+
 ---  
 ## [nn.Module](https://github.com/torch/nn/blob/master/doc/module.md)  
 
@@ -182,6 +321,3 @@ This is a brief note of torch7 documentations.
   results of updateGradInput(input, gradOutput) will be put here  
 3. [{weights}, {gradWeights}] parameters()  
 4. [flatParameters, flatGradParameters] getParameters()  
-
---- 
-
