@@ -147,6 +147,7 @@ Most of these hints and hacks are in the style of keyword-expanding.
 11. [Cluster use](./cluster)  
   1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
   2. [PBS - Cluster Job Management](./cluster/pbs)  
+  3. [parallel computing note](./cluster/parallel.intro.txt)  
 12. [kali/security](./kali)  
   1. [tools list](./kali/tools.txt)  
   2. [nmap note](./kali/nmap.txt)  

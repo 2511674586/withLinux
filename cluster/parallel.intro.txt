@@ -1,0 +1,56 @@
+Parallel computing
+===
+
+0) Related topics
+	MPI
+	Pthreads
+	PVM
+	OpenMP
+
+* linpack, benchmark for high-performance computer (float)
+* HPL, high performance linpack
+	netlib.org/benchmark/hpl
+
+2) Parallel computer structure
+	* Flynn
+		SISD, SIMD, MIMD, MISD
+		D : Data
+		S : Single
+		M : Multi
+		I : Instruction
+	* Structure model
+		PVP, SMP, MPP, DSM, COW
+		SMP : symmetric shared storage
+		DSM : distributed shared memory
+		MPP : massive parallel p?
+		Cluster : every node is a complete computer, which has its own operating system.
+	* access model
+		UMA, NUMA, COMA, CC-MUMA, MORMA
+		UMA : Uniform Memory Access
+		NUMA : Nonuniform Memory Access
+		NORMA : No-Remote Memory Access
+
+3) Parallel Programming
+	* Design model
+		* Implicit Parallel
+		* Data parallel
+		* Shared Variable
+		* Message passing
+	* language standard
+		* data parallel
+			Fortran90
+		* thread lib
+			Win32 API
+			POSIX threads
+		* compiler directives
+			OpenMP
+		* message passing lib
+			MPI message passing interface
+			PVM parallel virtual machine
+
+4) Basic Parallization Method
+	* Phase Parallel
+	* Pipeline Parallel
+	* Master-Slave Parallel
+	* Divide and Conquer Parallel
+	* Work Pool Parallel
