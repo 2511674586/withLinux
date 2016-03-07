@@ -4,7 +4,6 @@ Linux tricks, hints, hacks and many others based on my personal experience with
 [Debian GNU/Linux](https://www.debian.org). This project is a personal knowledge
 base, and some of the hints and hacks there are just recored by keywords.  
   
----
   
 [Installing Linux](./install)  
 ---
@@ -21,7 +20,7 @@ base, and some of the hints and hacks there are just recored by keywords.
 9. [mdadm ... simple note on creating software md5](./install/mdadm.md)  
 10. [Gentoo placeholder](./install/gentoo)  
 
-[Utilities](./basic)  
+[Utilities and Misc](./basic)  
 ---
 1. [netcat ... some usages](./basic/netcat.txt)  
 2. [bash ... some tricks](./basic/bash_tricks.txt)  
@@ -40,6 +39,7 @@ base, and some of the hints and hacks there are just recored by keywords.
 15. [xset ... change keyboard input delay/rate under X](./basic/keyrate)  
 16. [ssh-agent ... let it memorize your password](./basic/ssh-agent.txt)  
 17. [Busybox ... developer works](http://www.ibm.com/developerworks/cn/linux/l-busybox/index.html)  
+18. [JPEG integrity check](./topic/jpeg-int.md)  
 
 [Internet](./internet)  
 ---
@@ -57,6 +57,9 @@ base, and some of the hints and hacks there are just recored by keywords.
 11. [miredo note ... IPv6 Net with Teredo](./internet/miredo.md)
 12. [isatap ... IPv6 with ISATAP](./internet/isatap.txt)
 13. [script for listing available wifi SSIDs](./internet/wifilist)  
+14. HTTP status code reference  
+  1. rfc2616  
+  2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
 
 [Graphical(Xorg)](./x)  
 ---
@@ -100,6 +103,14 @@ base, and some of the hints and hacks there are just recored by keywords.
 19. [apt preference control file for APT](./config/apt_preference.txt)  
 20. [sshd security ... sshguard](./config/sshguard.txt)  
 21. [sshd SFTP chroot ... ](./config/ssh.txt)  
+22. [Ext2/Ext3/Ext4 on Windows](http://blog.csdn.net/hansel/article/details/7557033)  
+  1. [ext2Fsd](http://www.ext2fsd.com/)  
+  2. [Ext2Read](http://sourceforge.net/projects/ext2read/)  
+  3. [Ext2IFS](http://www.fs-driver.org/)  
+  4. [DiskInternals Linux Reader for Windows](http://www.diskinternals.com/linux-reader)  
+23. Log Analysis  
+  1. awk programming language  
+  2. apt-get search {visitors,awstat}  
 
 [Setup server](./server)  
 ---
@@ -160,19 +171,19 @@ base, and some of the hints and hacks there are just recored by keywords.
   3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
   4. X86 dosbox emulator, (dosbox)  
 
-[Linux Kernel](./kernel)  
+[Linux Kernel/Operating System](./kernel)  
 ---
 1. [Compile ... ](./kernel/compile.txt)  
 2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
 3. [xv6-rev6](./kernel/xv6-rev6/)  
 
-[Cluster use](./cluster)  
+[Cluster/HighPerf](./cluster)  
 ---
 1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
 2. [PBS - Cluster Job Management](./cluster/pbs)  
 3. [parallel computing note](./cluster/parallel.intro.txt)  
 
-[kali/security](./kali)  
+[Kali/Security/Penetration](./kali)  
 ---
 1. [tools list](./kali/tools.txt)  
 2. [nmap note](./kali/nmap.txt)  
@@ -258,11 +269,6 @@ DNS
 1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
 2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
 
-HTTP status code reference  
----
-1. rfc2616  
-2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
-
 [git ... content tracker](http://www.git-scm.com/)  
 ---
 1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
@@ -276,11 +282,6 @@ Ways of file sharing (via network)
 4. http server, like apache2. OR [python](./topic/python.txt)   
 5. ftp server, like vsftpd.  
 6. nfs  
-
-Log Analysis  
----
-1. awk programming language  
-2. apt-get search {visitors,awstat}  
 
 Search engine
 ---
@@ -297,15 +298,6 @@ Games on Linux
 ---
 1. [Terraria on Wine32](./topic/terraria.md)  
 
-[JPEG integrity check](./topic/jpeg-int.md)  
----
-
-[Ext2/Ext3/Ext4 on Windows](http://blog.csdn.net/hansel/article/details/7557033)  
----
-1. [ext2Fsd](http://www.ext2fsd.com/)  
-2. [Ext2Read](http://sourceforge.net/projects/ext2read/)  
-3. [Ext2IFS](http://www.fs-driver.org/)  
-4. [DiskInternals Linux Reader for Windows](http://www.diskinternals.com/linux-reader)  
 
   
 ## LICENSE
