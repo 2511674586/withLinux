@@ -18,14 +18,13 @@ base, and some of the hints and hacks there are just recored by keywords.
 7. [bootstrap minimal/stage3 Debian system](./install/bootstrap)    
 8. [simple ArchLinux install note](./install/arch)  
 9. [mdadm ... simple note on creating software md5](./install/mdadm.md)  
-10. [Gentoo placeholder](./install/gentoo)  
+10. [Trying Gentoo is worthwhile](./install/gentoo)  
 
-[Utilities and Misc](./basic)  
+[Utilities / Miscellaneous](./basic)  
 ---
 1. [netcat ... some usages](./basic/netcat.txt)  
-2. [bash ... some tricks](./basic/bash_tricks.txt)  
+2. [bash ... tricks](./basic/bash_tricks.txt)  
 3. [(OT) funny commands](./basic/funny_commands.txt)  
-4. [linux frozen ... handle with SysRq](./basic/sysrq.txt)  
 5. [conky ... system monitor, sample rc file](./basic/conkyrc.txt)  
 6. [gpg ... short use](./basic/short_gpg.txt)  
 7. [data recovery ... tools](./basic/data-recover.txt)  
@@ -45,6 +44,24 @@ base, and some of the hints and hacks there are just recored by keywords.
 20. [Git ... content tracker](http://www.git-scm.com/)  
   1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
   2. [a git tutor ... git immersion](http://gitimmersion.com/)  
+
+[Graphical Interface Stuff (Xorg)](./x)  
+---
+1. [Gnome3 (gnome-shell)](./x/gnome)  
+  1. [the height of top bar ... modify](./x/gnome/topbar.md)  
+  2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
+  3. X11 default display manager ... /etc/X11/default-display-manager  
+2. [LXDE](./x)  
+  1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
+3. Desktop Managers ... in fact X11 login program  
+  1. gdm, gdm3 and kdm are too heavy  
+  2. sddm for plasma5 is heavy too  
+  3. lightdm and slim are light and small
+4. jwm / cwm / twm / i3-wm  
+5. Graphical Virtual terminals  
+  1. Gnome-terminal
+  2. guake terminal  
+  3. lilyterm is light and fast
 
 [Internet](./internet)  
 ---
@@ -76,25 +93,7 @@ base, and some of the hints and hacks there are just recored by keywords.
   1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
   2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
 
-[Graphical(Xorg)](./x)  
----
-1. [Gnome3 (gnome-shell)](./x/gnome)  
-  1. [the height of top bar ... modify](./x/gnome/topbar.md)  
-  2. [alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
-  3. X11 default display manager ... /etc/X11/default-display-manager  
-2. [LXDE](./x)  
-  1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
-3. Desktop Managers ... in fact X11 login program  
-  1. gdm, gdm3 and kdm are too heavy  
-  2. sddm for plasma5 is heavy too  
-  3. lightdm and slim are light and small
-4. jwm / cwm / twm / i3-wm  
-5. Graphical Virtual terminals  
-  1. Gnome-terminal
-  2. guake terminal  
-  3. lilyterm is light and fast
-
-[System management](./config)  
+[System Management / Server](./config)  
 ---
 1. [tzdata ... change the system time zone](./config/time_zone_change.txt)  
 2. [grub2 ... location of config files](./config/grub_config_file_location.txt)  
@@ -126,9 +125,7 @@ base, and some of the hints and hacks there are just recored by keywords.
 23. Log Analysis  
   1. awk programming language  
   2. apt-get search {visitors,awstat}  
-
-[Setup server](./server)  
----
+4. [linux frozen ... handle with SysRq](./basic/sysrq.txt)  
 1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
 2. [dnsmasq ... local cache name server](./server/dnsmasq.txt)  
 3. [apache2 (2.2.22) ... simple setup](./server/apache2.txt)  
@@ -172,8 +169,12 @@ base, and some of the hints and hacks there are just recored by keywords.
 15. [Torch7 interface note](./lang/lua/torch/main.md)  
 16. [C# hello world](lang/csharp/hello.cs)  
 
-[Linux Hacks](./hack)  
+[Linux Kernel Hacks / Operating System](./kernel)  
 ---
+1. [Compile linux kernel... ](./kernel/compile.txt)  
+2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
+3. [xv6-rev6](./kernel/xv6-rev6/)  
+4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
 2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
 3. [backlight](./hack/backlight.txt)  
@@ -186,20 +187,13 @@ base, and some of the hints and hacks there are just recored by keywords.
   3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
   4. X86 dosbox emulator, (dosbox)  
 
-[Linux Kernel/Operating System](./kernel)  
----
-1. [Compile linux kernel... ](./kernel/compile.txt)  
-2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
-3. [xv6-rev6](./kernel/xv6-rev6/)  
-4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
-
-[Cluster/HighPerf](./cluster)  
+[Cluster / HighPerf](./cluster)  
 ---
 1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
 2. [PBS - Cluster Job Management](./cluster/pbs)  
 3. [parallel computing note](./cluster/parallel.intro.txt)  
 
-[Kali/Security/Penetration](./kali)  
+[Kali / Security / Penetration](./kali)  
 ---
 1. [tools list](./kali/tools.txt)  
 2. [nmap note](./kali/nmap.txt)  
@@ -207,7 +201,7 @@ base, and some of the hints and hacks there are just recored by keywords.
 4. [preventing buffer overflow](http://www.ibm.com/developerworks/cn/linux/l-sp/part4/index.html)  
 5. [resource](./kali/resource.md) 
 
-[Debian](https://www.debian.org/)  
+[Debian GNU/Linux Specific](https://www.debian.org/)  
 ---
 1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
 2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
