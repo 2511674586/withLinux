@@ -60,6 +60,13 @@ base, and some of the hints and hacks there are just recored by keywords.
 14. HTTP status code reference  
   1. rfc2616  
   2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
+15. Sharing files through network  
+  1. [nc](./basic/netcat.txt)  
+  2. scp, ssh.  
+  3. samba server.  
+  4. http server, like apache2. OR [python](./topic/python.txt)   
+  5. ftp server, like vsftpd.  
+  6. nfs  
 
 [Graphical(Xorg)](./x)  
 ---
@@ -273,15 +280,6 @@ DNS
 ---
 1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
 2. [a git tutor ... git immersion](http://gitimmersion.com/)  
-
-Ways of file sharing (via network)  
----
-1. [nc](./basic/netcat.txt)  
-2. scp, ssh.  
-3. samba server.  
-4. http server, like apache2. OR [python](./topic/python.txt)   
-5. ftp server, like vsftpd.  
-6. nfs  
 
 Search engine
 ---
