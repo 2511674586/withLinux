@@ -42,6 +42,9 @@ base, and some of the hints and hacks there are just recored by keywords.
 18. [JPEG integrity check](./topic/jpeg-int.md)  
 19. Games on Linux  
   1. [Terraria with Wine32, on Linux](./topic/terraria.md)  
+20. [Git ... content tracker](http://www.git-scm.com/)  
+  1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
+  2. [a git tutor ... git immersion](http://gitimmersion.com/)  
 
 [Internet](./internet)  
 ---
@@ -69,6 +72,9 @@ base, and some of the hints and hacks there are just recored by keywords.
   4. http server, like apache2. OR [python](./topic/python.txt)   
   5. ftp server, like vsftpd.  
   6. nfs  
+16. DNS   
+  1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
+  2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
 
 [Graphical(Xorg)](./x)  
 ---
@@ -248,11 +254,10 @@ base, and some of the hints and hacks there are just recored by keywords.
 38. [(in progress) BOP](./booknote/bop/main.md)  
 39. [(in progress) ACM Reference](./booknote/acm/main.md)  
 
-
-## MISC
-
 [looking for help?](http://173.194.72.31)  
 ---
+wiki, doc, tutorial
+
 1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
 2. [Debian wiki ... ](https://wiki.debian.org)  
 3. [Arch wiki ... ](https://wiki.archlinux.org)  
@@ -260,41 +265,24 @@ base, and some of the hints and hacks there are just recored by keywords.
 5. [stackoverflow](http://stackoverflow.com)  
 6. [Funtoo wiki](https://wiki.funtoo.org)  
 7. [IBM Developer works](https://www.ibm.com/developerworks/cn/linux/)  
-
-Docs  
----
-1. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
-2. [Gentoo doc ...](http://www.gentoo.org/doc)  
-3. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
-4. [OpenBSD docs]
-
-Manuals & Tutorials  
----
-1. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
-2. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
-
-DNS   
----
-1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
-2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
-
-[git ... content tracker](http://www.git-scm.com/)  
----
-1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
-2. [a git tutor ... git immersion](http://gitimmersion.com/)  
+8. [kernel doc ... OR kernel.tar.xz:/doc](https://www.kernel.org/doc)  
+9. [Gentoo doc ...](http://www.gentoo.org/doc)  
+10. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
+11. [OpenBSD docs]
+12. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
+13. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
 
 Search engine
 ---
 1. google  
 2. shodan  
+3. wangpansousuo
 
 [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 
 Open source Licenses
 ---
 1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
-
-
   
 ## LICENSE
 ```
