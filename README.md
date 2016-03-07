@@ -40,6 +40,8 @@ base, and some of the hints and hacks there are just recored by keywords.
 16. [ssh-agent ... let it memorize your password](./basic/ssh-agent.txt)  
 17. [Busybox ... developer works](http://www.ibm.com/developerworks/cn/linux/l-busybox/index.html)  
 18. [JPEG integrity check](./topic/jpeg-int.md)  
+19. Games on Linux  
+  1. [Terraria with Wine32, on Linux](./topic/terraria.md)  
 
 [Internet](./internet)  
 ---
@@ -291,10 +293,6 @@ Search engine
 Open source Licenses
 ---
 1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
-
-Games on Linux  
----
-1. [Terraria on Wine32](./topic/terraria.md)  
 
 
   
