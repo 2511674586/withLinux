@@ -188,9 +188,10 @@ base, and some of the hints and hacks there are just recored by keywords.
 
 [Linux Kernel/Operating System](./kernel)  
 ---
-1. [Compile ... ](./kernel/compile.txt)  
+1. [Compile linux kernel... ](./kernel/compile.txt)  
 2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
 3. [xv6-rev6](./kernel/xv6-rev6/)  
+4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 
 [Cluster/HighPerf](./cluster)  
 ---
@@ -271,16 +272,12 @@ wiki, doc, tutorial
 11. [OpenBSD docs]
 12. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
 13. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
+14. Search Engines
+  1. google  
+  2. shodan  
+  3. wangpansousuo
 
-Search engine
----
-1. google  
-2. shodan  
-3. wangpansousuo
-
-[Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
-
-Open source Licenses
+Open Source Licenses
 ---
 1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
   
@@ -289,7 +286,6 @@ Open source Licenses
 MIT LICENSE.
 COPYRIGHT (C) 2014,2015,2016 Lumin
 ```  
-
 ---
 Started on 2014/06/28 by Lumin Zhou  
   
