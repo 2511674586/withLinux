@@ -1,9 +1,9 @@
-# With Linux - Brief Hacks
+With Linux - Brief Hacks
+---
 
-
-Linux tricks, hints, hacks and many others, based on my personal experience with
-[Debian GNU/Linux](https://www.debian.org). It may work on Ubuntu, Mint etc.  
-Most of these hints and hacks are in the style of keyword-expanding.  
+Linux tricks, hints, hacks and many others based on my personal experience with
+[Debian GNU/Linux](https://www.debian.org). This project is a personal knowledge
+base, and some of the hints and hacks there are just recored by keywords.  
   
   
 ## Index : contents
