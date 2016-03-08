@@ -56,9 +56,9 @@ Items marked with `(-)` are still in progress.
 
 [Graphical Interface Stuff (Xorg)](./x)  
 ---
-1. [Gnome3 (gnome-shell)](./x/gnome)  
-  1. [change the height of top bar ... modify](./x/gnome/topbar.md)  
-  2. [against BUG: alacarte empties gnome menu ... wheezy](./x/gnome/alacarte.txt)  
+1. Gnome3 (gnome-shell)  
+  1. [change the height of top bar ... modify](./x/topbar.md)  
+  2. [against BUG: alacarte empties gnome menu ... wheezy](./x/alacarte.txt)  
   3. X11 default display manager ... /etc/X11/default-display-manager  
 2. [LXDE](./x)  
   1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
