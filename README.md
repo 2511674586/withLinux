@@ -167,6 +167,7 @@ Items marked with `(-)` are still in progress.
 11. [Maxima](./)  
 12. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
+  2. [my logging example in py3](lang/py3/logging_example.py)  
 13. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
 14. [Go](./lang/go)  
 15. [Torch7 interface note](./lang/lua/torch/main.md)  
