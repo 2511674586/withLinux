@@ -3,3 +3,5 @@ Backup package list:
 Restore:
 	# dpkg --set-selections < pkg.list
 	# apt-get -u dselect-upgrade   <-- install them
+
+reference: dpkg(1)
