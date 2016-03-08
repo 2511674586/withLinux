@@ -187,9 +187,10 @@ Items marked with `(-)` are still in progress.
 1. [Compile linux kernel... ](./kernel/compile.txt)  
 2. [MIT Xv6 Original](https://pdos.csail.mit.edu/6.828/2011/xv6.html)[| xv6-rev6](./kernel/xv6-rev6/)  
 4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
-1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
-2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
-3. [backlight](./hack/backlight.txt)  
+1. [hard disk link power manage ... sample hack](./kernel/hddpower.sh)  
+2. [cpu freqency tweak ... sample hack](./kernel/cpufreq.sh)  
+3. [backlight](./kernel/backlight.txt)  
+1. [my OK6410 installation log](kernel/ok6410/main.pdf)  
 
 [Virtualization](./virt)  
 ---

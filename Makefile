@@ -17,7 +17,7 @@ all-binary:
 	$(MAKE) -C booknote/prog.math.mind/code/
 all-doc:
 	$(MAKE) -C minisys/
-	$(MAKE) -C ok6410/
+	$(MAKE) -C kernel/ok6410/
 	$(MAKE) -C booknote/ann_matlab/
 
 clean:
@@ -30,5 +30,5 @@ clean:
 	-$(MAKE) -C lang/c/ clean purge
 	-$(MAKE) -C booknote/prog.math.mind/code/ clean purge
 	-$(MAKE) -C minisys/ clean purge
-	-$(MAKE) -C ok6410/ clean purge
+	-$(MAKE) -C kernel/ok6410/ clean purge
 	-$(MAKE) -C booknote/ann_matlab/ clean purge
