@@ -3,6 +3,9 @@
 Linux tricks, hints, hacks and many others based on my personal experience with
 [Debian GNU/Linux](https://www.debian.org). This project is a personal knowledge
 base, and some of the hints and hacks there are just recored by keywords.  
+
+One way to use this project is to clone it to your machine,
+and lookup keywords within it with the perl utility `ack`.  
   
 Items marked with `(-)` are still in progress.  
   
