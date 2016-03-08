@@ -26,34 +26,33 @@ Items marked with `(-)` are still in progress.
 
 [Utilities / Miscellaneous](./basic)  
 ---
-1. [Example usage of netcat](./basic/netcat.txt)  
-2. [bash tricks](./basic/bash_tricks.txt)  
-3. [Commands for fun](./basic/funny_commands.txt)  
-5. [conky, a system monitor, example rc file](./basic/conkyrc.txt)  
-6. [GPG short note](./basic/short_gpg.txt)  
-7. [Data recovery tools](./basic/data-recover.txt)  
-8. [Remove data safely](./basic/remove-data-safely.txt)  
-9. [Encrypting disk with LUKS](./basic/disk-crypt.txt)  
-10. [Example usage of avconv, an alternative to ffmpeg](./basic/avconv.txt)  
-12. [Using vim, convert code into html](./basic/vim_html.txt)  
-13. [ffmpeg, resize picture and video](./basic/ffmpeg_resize_picture.txt)  
-14. [imagemagick, resize, trans-format, rotate picture](./basic/imagemagick.txt)  
-15. [xset, change keyboard input delay/rate under X](./basic/keyrate)  
-16. [ssh-agent, let it memorize your ssh password](./basic/ssh-agent.txt)  
+1. [Example usage of netcat](./util/netcat.txt)  
+2. [bash tricks](./util/bash_tricks.txt)  
+3. [Commands for fun](./util/funny_commands.txt)  
+5. [conky, a system monitor, example rc file](./util/conkyrc.txt)[ another one](./util/conkyrc2.txt)    
+6. [GPG short note](./util/short_gpg.txt)  
+7. [Data recovery tools](./util/data-recover.txt)  
+8. [Remove data safely](./util/remove-data-safely.txt)  
+9. [Encrypting disk with LUKS](./util/disk-crypt.txt)  
+10. [Example usage of avconv, an alternative to ffmpeg](./util/avconv.txt)  
+12. [Using vim, convert code into html](./util/vim_html.txt)  
+13. [ffmpeg, resize picture and video](./util/ffmpeg_resize_picture.txt)  
+14. [imagemagick, resize, trans-format, rotate picture](./util/imagemagick.txt)  
+15. [xset, change keyboard input delay/rate under X](./util/keyrate)  
+16. [ssh-agent, let it memorize your ssh password](./util/ssh-agent.txt)  
 17. [Busybox, all-in-one software, developer works](http://www.ibm.com/developerworks/cn/linux/l-busybox/index.html)  
-18. [JPEG integrity check](./topic/jpeg-int.md)  
+18. [JPEG integrity check](./util/jpeg-int.md)  
 19. Games on Linux  
-  1. [Terraria with Wine32, on Linux](./topic/terraria.md)  
+  1. [Terraria with Wine32, on Linux](./util/terraria.md)  
 20. [Git ... content tracker](http://www.git-scm.com/)  
   1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
   2. [a git tutor ... git immersion](http://gitimmersion.com/)  
-  3. [git ... merge 2 repos into 1](./basic/git_merge_repo.txt)  
-1. [iceweasel ... cache config, of iceweasel (firefox)](./internet/iceweasel-cache.txt)  
-2. [chromium ... cache directory config](./internet/iceweasel-cache.txt)  
+  3. [git ... merge 2 repos into 1](./util/git_merge_repo.txt)  
+1. [iceweasel and chromium ... cache config, of iceweasel (firefox)](./util/iceweasel-cache.txt)  
 23. Log Analysis  
   1. awk programming language  
   2. apt-get search {visitors,awstat}  
-24. [A long list of Linux utilities](basic/util_list.md)  
+24. [A long list of Linux utilities](util/util_list.md)  
 
 [Graphical Interface Stuff (Xorg)](./x)  
 ---
@@ -177,7 +176,7 @@ Items marked with `(-)` are still in progress.
 
 [Linux Kernel Hacks / Operating System](./kernel)  
 ---
-4. [linux frozen ... handle with SysRq](./basic/sysrq.txt)  
+4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
 1. [Compile linux kernel... ](./kernel/compile.txt)  
 2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
 3. [xv6-rev6](./kernel/xv6-rev6/)  
