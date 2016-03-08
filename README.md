@@ -172,6 +172,8 @@ Items marked with `(-)` are still in progress.
 14. [Go](./lang/go)  
 15. [Torch7 interface note](./lang/lua/torch/main.md)  
 16. [C# hello world](lang/csharp/hello.cs)  
+17. [Lua]
+  1. [My lua logging module](lang/lua/logging/lumin_log.lua)  
 
 [Linux Kernel Hacks / Operating System](./kernel)  
 ---
