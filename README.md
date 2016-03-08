@@ -172,7 +172,7 @@ Items marked with `(-)` are still in progress.
 1. [Torch7 interface note](./lang/lua/torch/main.md)  
 1. [Lua]
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
-  1. [My lua logging module](lang/lua/logging/lumin_log.lua)  
+  1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
 1. [Go](./lang/go)  
 1. [RUST]  
 1. [Julia]  

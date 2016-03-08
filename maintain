@@ -24,7 +24,7 @@ scan_missing () {
   for ITEM in ${FILES}; do
     if [ -f ${ITEM} ]; then
       if ! grep "${ITEM})" ${SCAN} 2>&1 1>/dev/null; then
-        printf "[%s] is missing in [%s].\n" ${ITEM} ${SCAN}
+        printf "[%s] is not referenced in [%s].\n" ${ITEM} ${SCAN}
       fi
     else
       #printf "%s is not a regular file, skip...\n" ${ITEM}
