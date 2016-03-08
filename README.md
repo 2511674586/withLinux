@@ -134,6 +134,7 @@ Items marked with `(-)` are still in progress.
 5. [hostapd ... dev work](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
 6. [udhcpd from busybox]
 7. [gitlab ... official deb setup](./server/gitlab.md)  
+1. [multiple ssh connection at the same time](admin/multiple-ssh.txt)  
 
 [Programming under Linux](./lang)  
 ---
