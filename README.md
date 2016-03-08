@@ -202,6 +202,7 @@ Items marked with `(-)` are still in progress.
 5. [External resources](./kali/resource.md) 
 6. [ARP spoof](kali/arpspoof.txt)  
 7. [AirCrack](kali/aircrack.txt)  
+8. [aircrack-ng](kali/aircrack-ng.txt)  
 
 [Debian GNU/Linux Specific](https://www.debian.org/)  
 ---

