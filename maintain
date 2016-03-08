@@ -1,0 +1,30 @@
+#!/bin/sh
+# Maintainer script for withlinux
+
+Usage () {
+cat << EOF
+usage: $0 <action>
+actions:
+ scan  scan for files missing in README.md
+ stat  statistic lines in all plain files
+EOF
+}
+
+# detect arg
+if [ -z $1 ]; then
+  Usage
+  exit 1
+fi
+
+# invoke sub scripts
+case $1 in
+scan)
+  exec _bin/scan_missing.sh
+  ;;
+stat)
+  exec _bin/stat_lines.sh
+  ;;
+*)
+  echo "E: invalid action"
+  ;;
+esac
