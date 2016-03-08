@@ -10,13 +10,12 @@ function LOG.__CORE (level, dt, di, message)
 		di.short_src, di.currentline, message))
 end
 function LOG._CORE (level, message, ending)
-	ending = ending or '\n'
+	local ending = ending or '\n'
 	local di = debug.getinfo(3, 'Sl')
 	if di == nil then return end
 	local dt = os.date('*t', os.time())
 	if dt == nil then return end
 	LOG.__CORE (level, dt, di, message .. ending)
-	return
 end
 function LOG.DEBUG (message)
 	io.write ('\x1b[36;1m')
