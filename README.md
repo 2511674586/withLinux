@@ -181,7 +181,7 @@ Items marked with `(-)` are still in progress.
 1. [HTML/CSS/JS]
   1. [hello world html sample](./lang/sample.html)  
 
-[Linux Kernel Hacks / Operating System](./kernel)  
+[Linux Kernel Hacks / Operating System / Embedding](./kernel)  
 ---
 4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
 1. [Compile linux kernel... ](./kernel/compile.txt)  
