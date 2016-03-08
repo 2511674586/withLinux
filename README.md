@@ -201,6 +201,7 @@ Items marked with `(-)` are still in progress.
 4. [preventing buffer overflow](http://www.ibm.com/developerworks/cn/linux/l-sp/part4/index.html)  
 5. [External resources](./kali/resource.md) 
 6. [ARP spoof](kali/arpspoof.txt)  
+7. [AirCrack](kali/aircrack.txt)  
 
 [Debian GNU/Linux Specific](https://www.debian.org/)  
 ---
