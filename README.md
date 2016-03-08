@@ -127,13 +127,13 @@ Items marked with `(-)` are still in progress.
   2. [Ext2Read](http://sourceforge.net/projects/ext2read/)  
   3. [Ext2IFS](http://www.fs-driver.org/)  
   4. [DiskInternals Linux Reader for Windows](http://www.diskinternals.com/linux-reader)  
-1. [vsftpd ... a simple setup](./server/BriefVsftpd.tex)  
-2. [dnsmasq ... local cache name server](./server/dnsmasq.txt)  
-3. [apache2 (2.2.22) ... simple setup](./server/apache2.txt)  
-4. [bind9 (debian)... DNS (cache) - config file](./server/named.conf.options)  
+1. [vsftpd ... a simple setup](./admin/BriefVsftpd.tex)  
+2. [dnsmasq ... local cache name server](./admin/dnsmasq.txt)  
+3. [apache2 (2.2.22) ... simple setup](./admin/apache2.txt)  
+4. [bind9 (debian)... DNS (cache) - config file](./admin/named.conf.options)  
 5. [hostapd ... dev work](http://www.ibm.com/developerworks/cn/linux/l-wifiencrypthostapd/index.html)  
 6. [udhcpd from busybox]
-7. [gitlab ... official deb setup](./server/gitlab.md)  
+7. [gitlab ... official deb setup](./admin/gitlab.md)  
 1. [multiple ssh connection at the same time](admin/multiple-ssh.txt)  
 
 [Programming under Linux](./lang)  
