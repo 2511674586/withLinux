@@ -143,6 +143,7 @@ Items marked with `(-)` are still in progress.
   2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
   3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
   4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
+  5. [insert svg picture in latex](lang/tex/tex_svg.md)  
 2. [C ](./lang/c/)  
   1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
