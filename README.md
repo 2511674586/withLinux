@@ -138,13 +138,13 @@ Items marked with `(-)` are still in progress.
 
 [Programming under Linux](./lang)  
 ---
-1. [tex](./lang/tex)  
+1. [tex/LaTeX](./lang/tex)  
   1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
   2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
   3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
   4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
   5. [insert svg picture in latex](lang/tex/tex_svg.md)  
-2. [C ](./lang/c/)  
+2. [C Programming Language](./lang/c/)  
   1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
   3. [print source file name and source line number](./lang/c/file_line_.c)  
@@ -156,31 +156,36 @@ Items marked with `(-)` are still in progress.
   4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
   5. [stl demo](./lang/cpp/stl.cpp)  
   6. [Qt helloworld](./lang/cpp_qt/)  
-3. [HTML: hello world html sample](./lang/sample.html)  
-4. [Octave](./lang/oct)  
-5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
-6. [CMake](http://www.cmake.org/cmake-tutorial/)  
-7. [java helloworld on linux](./lang/java)  
+1. [Compilation Tool Chain]
+  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
+  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
+1. [Java]
+  7. [java helloworld on linux](./lang/java)  
 8. [AWK](./lang/awk/)  
-9. [Sed](./)  
-10. [GNU BC](./)     
-11. [Maxima](./)  
-12. [Python3](./lang/py3)  
+9. [Sed/Ed](./)  
+1. [GNU BC/DC](./)     
+1. [Maxima](./)  
+4. [Octave/Matlab](./lang/oct)  
+1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
-  2. [my logging example in py3](lang/py3/logging_example.py)  
-13. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
-14. [Go](./lang/go)  
-15. [Torch7 interface note](./lang/lua/torch/main.md)  
-16. [C# hello world](lang/csharp/hello.cs)  
-17. [Lua]
+  1. [my logging example in py3](lang/py3/logging_example.py)  
+1. [Torch7 interface note](./lang/lua/torch/main.md)  
+1. [Lua]
+  1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   1. [My lua logging module](lang/lua/logging/lumin_log.lua)  
+1. [Go](./lang/go)  
+1. [RUST]  
+1. [Julia]  
+1. [C#/Mono]  
+  1. [C# hello world](lang/csharp/hello.cs)  
+1. [HTML/CSS/JS]
+  1. [hello world html sample](./lang/sample.html)  
 
 [Linux Kernel Hacks / Operating System](./kernel)  
 ---
 4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
 1. [Compile linux kernel... ](./kernel/compile.txt)  
-2. [MIT Xv6](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
-3. [xv6-rev6](./kernel/xv6-rev6/)  
+2. [MIT Xv6 Original](https://pdos.csail.mit.edu/6.828/2011/xv6.html)[| xv6-rev6](./kernel/xv6-rev6/)  
 4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 1. [hard disk link power manage ... sample hack](./hack/hddpower.sh)  
 2. [cpu freqency tweak ... sample hack](./hack/cpufreq.sh)  
@@ -193,6 +198,7 @@ Items marked with `(-)` are still in progress.
   2. [sample run](./virt/docker/dockerizing.txt)  
   3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
 4. X86 dosbox emulator, (dosbox)  
+1. QEMU/KVM  
 
 [Cluster / HighPerf](./cluster)  
 ---
@@ -202,7 +208,7 @@ Items marked with `(-)` are still in progress.
 
 [Kali / Security / Penetration](./kali)  
 ---
-1. [tools list](./kali/tools.txt)  
+1. [kali tools short list](./kali/tools.txt)  
 2. [nmap note](./kali/nmap.txt)  
 3. [nping note](./kali/nping.txt)  
 4. [preventing buffer overflow](http://www.ibm.com/developerworks/cn/linux/l-sp/part4/index.html)  
@@ -264,14 +270,14 @@ Items marked with `(-)` are still in progress.
 wiki, doc, tutorial
 
 1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
+8. [Linux kernel document](https://www.kernel.org/doc), also shiped within kernel.tar.xz:/doc  
 2. [Debian wiki ... ](https://wiki.debian.org)  
 3. [Arch wiki ... ](https://wiki.archlinux.org)  
 4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
+9. [Gentoo doc ...](http://www.gentoo.org/doc)  
 5. [stackoverflow](http://stackoverflow.com)  
 6. [Funtoo wiki](https://wiki.funtoo.org)  
 7. [IBM Developer works](https://www.ibm.com/developerworks/cn/linux/)  
-8. [Linux kernel document](https://www.kernel.org/doc), also shiped within kernel.tar.xz:/doc  
-9. [Gentoo doc ...](http://www.gentoo.org/doc)  
 10. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
 11. [OpenBSD docs]
 12. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
