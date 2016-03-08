@@ -50,6 +50,7 @@ Items marked with `(-)` are still in progress.
 23. Log Analysis  
   1. awk programming language  
   2. apt-get search {visitors,awstat}  
+24. [A long list of Linux utilities](basic/util_list.md)  
 
 [Graphical Interface Stuff (Xorg)](./x)  
 ---
