@@ -88,10 +88,10 @@ Items marked with `(-)` are still in progress.
   1. RFC2616  
   2. [list of http status codes ... wikipedia](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)  
 15. Sharing files through network  
-  1. [nc](./basic/netcat.txt)  
+  1. [nc](./util/netcat.txt)  
   2. scp, ssh, rsync.  
   3. samba server.  
-  4. http server, like apache2. OR [python](./topic/python.txt)   
+  4. http server, like apache2. OR [python](internet/python.txt)   
   5. ftp server, like vsftpd.  
   6. NFS  
 16. Dynamic Name Service   
