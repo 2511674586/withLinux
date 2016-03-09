@@ -8,6 +8,7 @@ One way to use this project is to clone it to your machine,
 and lookup keywords within it with the perl utility `ack`.  
   
 Items marked with `(-)` are still in progress.  
+Items marked with `(el)` means external link.  
   
 Installing Linux  
 ---
@@ -17,12 +18,14 @@ Installing Linux
   2. [Wireless network card](./install/dri/wireless.txt)  
 3. [Turning off graphic card](./install/turn-off-gpu.txt)  
 4. [Tips about Solid State Drive (SSD)](./install/ssd.txt)  
+  1. [(el) Gentoo wiki/SSD](https://wiki.gentoo.org/wiki/SSD)  
 5. [Some packages related to EFI/UEFI](./install/efi.txt)  
 6. [My old installation log for a HP server](./install/hpserver)  
 7. [Bootstrap minimal/stage3 Debian system](./install/bootstrap)    
 8. [Simple ArchLinux install note](./install/arch)  
 9. [mdadm note for creating software md5](./install/mdadm.md)  
 10. [(-) Trying Gentoo is worthwhile](./install/gentoo)  
+1. [(el) Gentoo: Sakaki's EFI Install Guide](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide)  
 
 Utilities / Miscellaneous  
 ---
@@ -42,8 +45,11 @@ Utilities / Miscellaneous
 16. [ssh-agent, let it memorize your ssh password](./util/ssh-agent.txt)  
 17. [Busybox, all-in-one software, developer works](http://www.ibm.com/developerworks/cn/linux/l-busybox/index.html)  
 18. [JPEG integrity check](./util/jpeg-int.md)  
-19. Games on Linux  
+19. Wine  
+  1. [(el) Arch: wine](https://wiki.archlinux.org/index.php/Wine)  
   1. [Terraria with Wine32, on Linux](./util/terraria.md)  
+  1. [(el) Deepin's wined cajviewer](http://packages.linuxdeepin.com/deepin/pool/main/d/deepinwine-cajviewer/)  
+  1. [(el) Deepin: wine QQ](http://wiki.deepin.org/index.php?title=QQ)  
 20. [Git ... content tracker](http://www.git-scm.com/)  
   1. [set up git ... github help](https://help.github.com/articles/set-up-git)  
   2. [a git tutor ... git immersion](http://gitimmersion.com/)  
@@ -81,8 +87,10 @@ Internet Specific
 8. [openvpn ... simple utilization](./internet/openvpn.txt)  
 9. [802.1X auth ... ref link](./internet/802auth)  
 10. [iptables howto ... ubuntu help](https://help.ubuntu.com/community/IptablesHowTo)  
-11. [miredo note ... IPv6 Net with Teredo](./internet/miredo.md)
-12. [isatap ... IPv6 with ISATAP](./internet/isatap.txt)
+1. IPv6
+  1. [miredo note ... IPv6 Net with Teredo](./internet/miredo.md)
+  1. [isatap ... IPv6 with ISATAP](./internet/isatap.txt)
+  1. [(el) microsoft: teredo](https://technet.microsoft.com/en-us/library/bb457042.aspx)  
 13. [script for listing available wifi SSIDs](./internet/wifilist)  
 14. HTTP status code reference  
   1. RFC2616  
@@ -135,6 +143,7 @@ System Management / Server
 6. [udhcpd from busybox]
 7. [gitlab ... official deb setup](./admin/gitlab.md)  
 1. [multiple ssh connection at the same time](admin/multiple-ssh.txt)  
+1. [(el) WorldPress in Debian](https://wiki.debian.org/WordPress)  
 
 Programming under Linux  
 ---
@@ -149,6 +158,7 @@ Programming under Linux
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
   3. [print source file name and source line number](./lang/c/file_line_.c)  
   4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
+  1. [(el) libarchive example](https://github.com/libarchive/libarchive/wiki/Examples)  
 3. C++  
   1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
   2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
@@ -156,6 +166,7 @@ Programming under Linux
   4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
   5. [stl demo](./lang/cpp/stl.cpp)  
   6. [Qt helloworld](./lang/cpp_qt/)  
+    1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
 1. [Compilation Tool Chain]
   5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
   6. [CMake](http://www.cmake.org/cmake-tutorial/)  
@@ -169,12 +180,12 @@ Programming under Linux
 1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
   1. [my logging example in py3](lang/py3/logging_example.py)  
-1. [Torch7 interface note](./lang/lua/torch/main.md)  
 1. [Lua]
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
+  1. [Torch7 interface note](./lang/lua/torch/main.md)  
 1. [Go](./lang/go)  
-1. [RUST]  
+1. [Learn RUST by example](http://rustbyexample.com/)  
 1. [Julia]  
 1. [C#/Mono]  
   1. [C# hello world](lang/csharp/hello.cs)  
@@ -191,6 +202,7 @@ Linux Kernel Hacks / Operating System / Embedding
 2. [cpu freqency tweak ... sample hack](./kernel/cpufreq.sh)  
 3. [backlight](./kernel/backlight.txt)  
 1. [my OK6410 installation log](kernel/ok6410/main.pdf)  
+1. [OpenPOWER fundation](http://openpowerfoundation.org/)  
 
 Virtualization  
 ---
@@ -217,18 +229,25 @@ Kali / Security / Penetration
 6. [ARP spoof](kali/arpspoof.txt)  
 7. [AirCrack](kali/aircrack.txt)  
 8. [aircrack-ng](kali/aircrack-ng.txt)  
+1. Disk Encryption  
+  1. [(el) Gentoo: dm-crypt](https://wiki.gentoo.org/wiki/Dm-crypt)  
+  1. [(el) Gentoo: dm-crypt LUKS](https://wiki.gentoo.org/wiki/DM-Crypt_LUKS)  
+  1. [(el) Arch: dm-crypt](https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration)  
+  1. [(el) Debian: encrypt setup](http://madduck.net/docs/cryptdisk/)  
+1. http://wooyun.org/
 
 [Debian GNU/Linux Specific](https://www.debian.org/)  
 ---
 1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
-2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
-1. [Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
-1. [Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
+2. [(el) setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
+1. [(el) Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
+1. [(el) Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
+1. [(el) Computer language benchmark Game](http://benchmarksgame.alioth.debian.org/)[ its conclusion](http://benchmarksgame.alioth.debian.org/dont-jump-to-conclusions.html)    
 
 My Personal Booknotes  
 ---
 1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
-2. [(in progress) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
+2. [(-) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
 3. [K&R C](./booknote/kr_c/)  
 4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
 5. [Vbird Server](./booknote/vbird_server/main.md)  
@@ -241,7 +260,7 @@ My Personal Booknotes
 12. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
 12. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
 13. [Hacker Debugging Uncovered](./booknote/HackerDebuggingUncovered/)  
-14. [(in progress) Linux System Programming (Rober Love)](./booknote/LinuxSysProg/)   
+14. [(-) Linux System Programming (Rober Love)](./booknote/LinuxSysProg/)   
 15. [Computer Security (index only)](./booknote/ComputerSecurity/)  
 16. [Computer Vision](./booknote/ComputerVision/)  
 17. [Debug Hacks](./booknote/DebugHacks/)  
@@ -264,9 +283,9 @@ My Personal Booknotes
 34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
 35. [Intel Micro Processor](./booknote/IntelMicroProc/)  
 36. [Math.describing.nature](./booknote/Math.describing.nature/)  
-37. [TAOCP Knuth](./booknote/taocp/main.md)  
-38. [(in progress) BOP](./booknote/bop/main.md)  
-39. [(in progress) ACM Reference](./booknote/acm/main.md)  
+37. [(-) TAOCP Knuth](./booknote/taocp/main.md)  
+38. [(-) BOP](./booknote/bop/main.md)  
+39. [(-) ACM Reference](./booknote/acm/main.md)  
 
 [looking for help?](http://google.com)  
 ---
@@ -300,9 +319,12 @@ Artificial Intelegence
   1. [theano (python)](http://deeplearning.net/software/theano/)  
   1. [caffe (cxx, python, matlab)](https://github.com/BVLC/caffe)  
   1. [torch7 (lua)](https://github.com/torch/distro)  
+    1. [torch cheatsheet](https://github.com/torch/torch7/wiki/Cheatsheet)  
   1. [mxnet (cxx, julia)](https://github.com/dmlc/mxnet)  
   1. [tensorflow (python)](https://github.com/tensorflow/tensorflow)  
   1. [leaf (rust)](https://github.com/autumnai/leaf)  
+1. [Deep learning benchmark by leaf](http://autumnai.com/deep-learning-benchmarks)  
+1. http://www.wikicfp.com/cfp/
   
 ## LICENSE
 ```
