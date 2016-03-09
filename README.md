@@ -223,6 +223,7 @@ Items marked with `(-)` are still in progress.
 1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
 2. [setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
 1. [Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
+1. [Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
 
 [My Personal Booknotes](booknote/)    
 ---
