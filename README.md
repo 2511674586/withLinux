@@ -26,6 +26,7 @@ Installing Linux
 9. [mdadm note for creating software md5](./install/mdadm.md)  
 10. [(-) Trying Gentoo is worthwhile](./install/gentoo)  
 1. [(el) Gentoo: Sakaki's EFI Install Guide](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide)  
+1. [(el) Gentoo Prefix](https://wiki.gentoo.org/wiki/Project:Prefix)  
 
 Utilities / Miscellaneous  
 ---
@@ -212,6 +213,7 @@ Virtualization
   3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
 4. X86 dosbox emulator, (dosbox)  
 1. QEMU/KVM  
+1. schroot (not virtualizaition at all)
 
 Cluster / HighPerf  
 ---
