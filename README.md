@@ -293,6 +293,10 @@ wiki, doc, tutorial
 Open Source Licenses
 ---
 1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
+
+Artificial Intelegence
+---
+TODO
   
 ## LICENSE
 ```
