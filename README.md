@@ -9,7 +9,7 @@ and lookup keywords within it with the perl utility `ack`.
   
 Items marked with `(-)` are still in progress.  
   
-[Installing Linux](./install)  
+Installing Linux  
 ---
 1. [Install linux into an USB drive](./install/install-linux-into-usb-stick.txt)  
 2. [Tips about Drivers and firmware](./install/dri)  
@@ -24,7 +24,7 @@ Items marked with `(-)` are still in progress.
 9. [mdadm note for creating software md5](./install/mdadm.md)  
 10. [(-) Trying Gentoo is worthwhile](./install/gentoo)  
 
-[Utilities / Miscellaneous](./basic)  
+Utilities / Miscellaneous  
 ---
 1. [Example usage of netcat](./util/netcat.txt)  
 2. [bash tricks](./util/bash_tricks.txt)  
@@ -54,13 +54,13 @@ Items marked with `(-)` are still in progress.
   2. apt-get search {visitors,awstat}  
 24. [A long list of Linux utilities](util/util_list.md)  
 
-[Graphical Interface Stuff (Xorg)](./x)  
+Graphical Interface Stuff (Xorg)  
 ---
 1. Gnome3 (gnome-shell)  
   1. [change the height of top bar ... modify](./x/topbar.md)  
   2. [against BUG: alacarte empties gnome menu ... wheezy](./x/alacarte.txt)  
   3. X11 default display manager ... /etc/X11/default-display-manager  
-2. [LXDE](./x)  
+2. LXDE  
   1. [set shortcut keys under LXDE](./x/lxde-shortcut)  
 3. Desktop Managers, X11 login program  
   1. [gdm3] and [kdm], too heavy  
@@ -70,7 +70,7 @@ Items marked with `(-)` are still in progress.
 5. Graphical Virtual terminals  
   1. [gnome-terminal], [guake], [uxterm], [lilyterm]  
 
-[Internet Specific](./internet)  
+Internet Specific  
 ---
 5. ifup and ifdown setting ... see interfaces(5)
 2. [vpn ... set up on debian](./internet/vpn.txt)  
@@ -98,7 +98,7 @@ Items marked with `(-)` are still in progress.
   1. [list of DNS record types ... useful with dig(1)](http://en.wikipedia.org/wiki/List_of_DNS_record_types)  
   2. [comparison of DNS server software](http://http://en.wikipedia.org/wiki/Comparison_of_DNS_server_software)  
 
-[System Management / Server](./admin)  
+System Management / Server  
 ---
 1. [tzdata ... change the system time zone](./admin/time_zone_change.txt)  
 2. [grub2 ... location of config files](./admin/grub_config_file_location.txt)  
@@ -136,20 +136,20 @@ Items marked with `(-)` are still in progress.
 7. [gitlab ... official deb setup](./admin/gitlab.md)  
 1. [multiple ssh connection at the same time](admin/multiple-ssh.txt)  
 
-[Programming under Linux](./lang)  
+Programming under Linux  
 ---
-1. [tex/LaTeX](./lang/tex)  
+1. tex/LaTeX  
   1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
   2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
   3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
   4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
   5. [insert svg picture in latex](lang/tex/tex_svg.md)  
-2. [C Programming Language](./lang/c/)  
+2. C Programming Language  
   1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
   3. [print source file name and source line number](./lang/c/file_line_.c)  
   4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
-3. [C++](./lang/cpp)  
+3. C++  
   1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
   2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
   3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
@@ -162,9 +162,9 @@ Items marked with `(-)` are still in progress.
 1. [Java]
   7. [java helloworld on linux](./lang/java)  
 8. [AWK](./lang/awk/)  
-9. [Sed/Ed](./)  
-1. [GNU BC/DC](./)     
-1. [Maxima](./)  
+9. [Sed/Ed]  
+1. [GNU BC/DC]     
+1. [Maxima]  
 4. [Octave/Matlab](./lang/oct)  
 1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
@@ -181,7 +181,7 @@ Items marked with `(-)` are still in progress.
 1. [HTML/CSS/JS]
   1. [hello world html sample](./lang/sample.html)  
 
-[Linux Kernel Hacks / Operating System / Embedding](./kernel)  
+Linux Kernel Hacks / Operating System / Embedding  
 ---
 4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
 1. [Compile linux kernel... ](./kernel/compile.txt)  
@@ -192,7 +192,7 @@ Items marked with `(-)` are still in progress.
 3. [backlight](./kernel/backlight.txt)  
 1. [my OK6410 installation log](kernel/ok6410/main.pdf)  
 
-[Virtualization](./virt)  
+Virtualization  
 ---
 1. [docker.io ... linux container](./virt/docker/)  
   1. [install docker.io on debian](./virt/docker/docker.install.txt)  
@@ -201,13 +201,13 @@ Items marked with `(-)` are still in progress.
 4. X86 dosbox emulator, (dosbox)  
 1. QEMU/KVM  
 
-[Cluster / HighPerf](./cluster)  
+Cluster / HighPerf  
 ---
 1. [storm local setup ... apache inqubator, storm](./cluster/setup-local-storm.txt)  
 2. [PBS - Cluster Job Management](./cluster/pbs)  
 3. [parallel computing note](./cluster/parallel.intro.txt)  
 
-[Kali / Security / Penetration](./kali)  
+Kali / Security / Penetration  
 ---
 1. [kali tools short list](./kali/tools.txt)  
 2. [nmap note](./kali/nmap.txt)  
@@ -225,7 +225,7 @@ Items marked with `(-)` are still in progress.
 1. [Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
 1. [Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
 
-[My Personal Booknotes](booknote/)    
+My Personal Booknotes  
 ---
 1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
 2. [(in progress) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
@@ -268,7 +268,7 @@ Items marked with `(-)` are still in progress.
 38. [(in progress) BOP](./booknote/bop/main.md)  
 39. [(in progress) ACM Reference](./booknote/acm/main.md)  
 
-[looking for help?](http://173.194.72.31)  
+[looking for help?](http://google.com)  
 ---
 wiki, doc, tutorial
 
@@ -296,7 +296,13 @@ Open Source Licenses
 
 Artificial Intelegence
 ---
-TODO
+1. Deep Learning Frameworks  
+  1. [theano (python)](http://deeplearning.net/software/theano/)  
+  1. [caffe (cxx, python, matlab)](https://github.com/BVLC/caffe)  
+  1. [torch7 (lua)](https://github.com/torch/distro)  
+  1. [mxnet (cxx, julia)](https://github.com/dmlc/mxnet)  
+  1. [tensorflow (python)](https://github.com/tensorflow/tensorflow)  
+  1. [leaf (rust)](https://github.com/autumnai/leaf)  
   
 ## LICENSE
 ```
