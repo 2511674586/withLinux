@@ -1,6 +1,8 @@
 Terraria on Linux with WINE
 ---
 
+https://www.reddit.com/r/Terraria/comments/3cgzxj/how_to_terraria_on_linux_using_wine/
+
 Tested on Debian Sid (Nov. 2015).  
 
 1. download GOG version of terraria.  

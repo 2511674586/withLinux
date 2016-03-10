@@ -27,6 +27,7 @@ Installing Linux
 10. [(-) Trying Gentoo is worthwhile](./install/gentoo)  
 1. [(el) Gentoo: Sakaki's EFI Install Guide](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide)  
 1. [(el) Gentoo Prefix](https://wiki.gentoo.org/wiki/Project:Prefix)  
+1. [(el) ArchLinux's application list](https://wiki.archlinux.org/index.php/List_of_applications)  
 
 Utilities / Miscellaneous  
 ---
@@ -154,6 +155,8 @@ Programming under Linux
   3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
   4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
   5. [insert svg picture in latex](lang/tex/tex_svg.md)  
+  1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
+  1. [(el) CTAN: texbook](http://www.ctan.org/pkg/texbook)  
 2. C Programming Language  
   1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
@@ -181,10 +184,11 @@ Programming under Linux
 1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
   1. [my logging example in py3](lang/py3/logging_example.py)  
-1. [Lua]
+1. [Lua](http://www.lua.org/)  
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
   1. [Torch7 interface note](./lang/lua/torch/main.md)  
+  1. [(el) lua embedding](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
 1. [Go](./lang/go)  
 1. [Learn RUST by example](http://rustbyexample.com/)  
 1. [Julia]  
@@ -192,6 +196,11 @@ Programming under Linux
   1. [C# hello world](lang/csharp/hello.cs)  
 1. [HTML/CSS/JS]
   1. [hello world html sample](./lang/sample.html)  
+1. [GNU Plot]
+  1. [(el) visualizing data with gnu plot](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
+1. Online judges
+  1. http://poj.org/  
+  1. https://leetcode.com  
 
 Linux Kernel Hacks / Operating System / Embedding  
 ---
@@ -325,6 +334,9 @@ Artificial Intelegence
   1. [mxnet (cxx, julia)](https://github.com/dmlc/mxnet)  
   1. [tensorflow (python)](https://github.com/tensorflow/tensorflow)  
   1. [leaf (rust)](https://github.com/autumnai/leaf)  
+1. Datasets  
+  1. [MS COCO](https://github.com/CDLuminate/cocofetch)  
+  1. [Imagenet](http://image-net.org/index)  
 1. [Deep learning benchmark by leaf](http://autumnai.com/deep-learning-benchmarks)  
 1. http://www.wikicfp.com/cfp/
   
