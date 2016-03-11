@@ -1,6 +1,7 @@
 SRC=$(ls *.cc)
 CXX=g++
 main: compile_all_parallel
+	$(MAKE) -Cprog.math.mind
 compile_all_serial:
 	@for X in $(shell ls *.cc); do \
 		printf " CC %s\n" $$X; \
@@ -11,3 +12,4 @@ compile_all_parallel:
 	@parallel 'printf " CC %s\n" {} ; $(CXX) -g -Wall -std=c++11 {} -o {.}.elf' ::: *.cc
 clean:
 	-$(RM) *.elf
+	$(MAKE) -Cprog.math.mind clean

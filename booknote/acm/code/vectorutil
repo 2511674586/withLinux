@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+template <typename DType>
+void
+vector_dump (std::vector<DType> buf)
+{
+	using namespace std;
+	cout << endl;
+	for (unsigned int i = 0; i < buf.size(); i++)
+		cout << buf[i] << " ";
+	cout << endl;
+	return;
+}
+
+template <typename DType>
+DType
+vector_asum (std::vector<DType> bottom)
+{
+	DType ret = (DType)0;
+	for (unsigned int i = 0; i < bottom.size(); i++) {
+		int j = bottom[i];
+		ret += (j>0) ? j : -j;
+	}
+	return ret;
+}
