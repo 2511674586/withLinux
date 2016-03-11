@@ -24,3 +24,4 @@ chap 3. number theory
 ---
 * gcd
   1. [gcd wolf](code/gcd_wolf.cc)  
+  1. [gcd wolf2](code/gcd_wolf2.cc)  
