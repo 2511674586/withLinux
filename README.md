@@ -326,6 +326,8 @@ Open Source Licenses
 
 Artificial Intelegence
 ---
+1. Machine Learning  
+  1. [(eL) stanford:Ng's opencourse](openclassroom.stanford.edu/MainFolder/CoursePage.php?course=MachineLearning)  
 1. Deep Learning Frameworks  
   1. [theano (python)](http://deeplearning.net/software/theano/)  
   1. [caffe (cxx, python, matlab)](https://github.com/BVLC/caffe)  
