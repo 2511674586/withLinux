@@ -48,7 +48,6 @@ cost = xent.mean() + 0.01 * (w**2).sum()
 # compute gradient of cost w.r.t w and b
 gw, gb = tn.tensor.grad(cost, [w, b])
 print (gw, gb)
-exit(0)
 
 '''
 compile
