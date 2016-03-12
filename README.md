@@ -222,7 +222,9 @@ Virtualization
   3. [make a docker image via bootstrap](./virt/docker/docker.make.image.txt)  
 4. X86 dosbox emulator, (dosbox)  
 1. QEMU/KVM  
-1. schroot (not virtualizaition at all)
+1. Fake Virtualizations  
+  1. traditional chroots  
+  1. schroot  
 
 Cluster / HighPerf  
 ---
