@@ -342,6 +342,8 @@ Artificial Intelegence
   1. [Imagenet](http://image-net.org/index)  
 1. [Deep learning benchmark by leaf](http://autumnai.com/deep-learning-benchmarks)  
 1. http://www.wikicfp.com/cfp/
+1. Mathematic Stuff  
+  1. [(el) Wikipedia: Embedding](https://en.wikipedia.org/wiki/Embedding)  
   
 ## LICENSE
 ```
