@@ -299,6 +299,7 @@ My Personal Booknotes
 37. [(-) TAOCP Knuth](./booknote/taocp/main.md)  
 38. [(-) BOP](./booknote/bop/main.md)  
 39. [(-) ACM Reference](./booknote/acm/main.md)  
+40. [(-) Stanford opencourse: CS229, Machine learning](./booknote/stanford_cs229_ml/main.md)  
 
 [looking for help?](http://google.com)  
 ---
