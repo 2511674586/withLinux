@@ -224,7 +224,7 @@ Virtualization
 1. QEMU/KVM  
 1. Fake Virtualizations  
   1. traditional chroots  
-  1. schroot  
+  1. schroot: [Archwiki:schroot](https://wiki.archlinux.org/index.php/Install_bundled_32-bit_system_in_64-bit_system)[ Debianwiki:Schroot](https://wiki.debian.org/Schroot)    
 
 Cluster / HighPerf  
 ---
