@@ -1,4 +1,5 @@
 ## With Linux - Brief Hacks
+> KISS: Keep It Simple, Stupid  
 
 Linux tricks, hints, hacks and many others based on my personal experience with
 [Debian GNU/Linux](https://www.debian.org). This project is a personal knowledge
