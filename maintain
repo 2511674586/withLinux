@@ -10,6 +10,8 @@ usage: $0 <action>
 actions:
   scan  scan for files missing in README.md
   stat  statistic lines in all plain files, also dumps all plain files
+  make  run the main target of Makefile, compile all sources
+  clean run the clean target of Makefile, clean all unnecessary files
 EOF
 echo
 printf "Project withlinux has %s%d%s files currently.\n" "[34;1m" $files "[;0m"
@@ -51,18 +53,12 @@ main () {
   
   # invoke sub scripts
   case $1 in
-  scan)
-    scan_missing
-    ;;
-  stat)
-    stat_lines
-    ;;
-  help)
-    Usage
-    ;;
-  *)
-    echo "E: invalid action"
-    ;;
+    scan   ) scan_missing ;;
+    stat   ) stat_lines | tail ;;
+    make   ) make ;;
+	clean  ) make clean ;;
+    help   ) Usage ;;
+       *   ) echo "E: invalid action" ;;
   esac
 }
 main $@
