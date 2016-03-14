@@ -269,56 +269,58 @@ Kali / Security / Penetration
 
 My Personal Booknotes  
 ---
+In alphabet order.
+
+3. [ACM Reference (-) ](./booknote/acm/main.md)  
+7. [ANN in Matlab](./booknote/ann_matlab/)  
+4. [APUE (placeholder) ]
+1. [Beauty of math](./booknote/beautyofmath/main.md)  
+3. [BOP (-) ](./booknote/bop/main.md)  
+4. [Byte of Python (placeholder) ]
+3. [Building High Availability Linux Servers](./booknote/BuildHighAvailabilityLinuxServers/)  
 1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
-2. [(-) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
-3. [(placeholder) K&R C](./booknote/kr_c/)  
+4. [Computer Organization and Design (placeholder) ]
+2. [C++ Primer Plus (-)](./booknote/cppprimerplus/cppprimerplus.md)  
+1. [Computer Security (index only)](./booknote/ComputerSecurity/)  
+4. [CSAPP (placeholder) ]
+8. [CTAN: lshort](./booknote/lshort/)  
+1. [Computer Vision](./booknote/ComputerVision/)  
+1. [Debug Hacks](./booknote/DebugHacks/)  
+4. [Deep Learning Book, bengio (placeholder) ]
+1. [Denial Of Service Attack](./booknote/DenialOfServiceAttack/)  
+3. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
+2. [EE - from a EE open course](./booknote/EE.txt)  
+1. [Fundamentals Of Multimedia](./booknote/FundamentalsOfMultimedia/)  
+2. [Gray Hat Hacking](./booknote/GrayHatHacking/)  
+2. [Game Theory non-technical](./booknote/GameTheory_non-technical/)  
+4. [Game Theory (in progress) ]
+1. [Hacker Debugging Uncovered](./booknote/HackerDebuggingUncovered/)  
+3. [High Performance Linux Server Programming](./booknote/HighPerfLinuxServerProg/)  
+3. [Intel Micro Processor (x) ](./booknote/IntelMicroProc/)  
+3. [Image Processing](./booknote/ImageProcessing/)  
+2. [Information Security Introduction](./booknote/InfoSecIntro/)  
+4. [Intel64-ia-32-architectures-software-developer-manual (placeholder) ]
+3. [K&R C (placeholder) ](./booknote/kr_c/)  
+4. [LFS: Linux From Scratch (placeholder) ]
+2. [Linux Kernel Hack](./booknote/LinuxKernelHack/)  
+2. [Linux Networking Cookbook](./booknote/LinuxNetworkingCookbook/)  
+1. [Linux System Programming (Rober Love) (-) ](./booknote/LinuxSysProg/)   
+2. [Metasploit](./booknote/Metasploit/)  
+3. [Math.describing.nature](./booknote/Math.describing.nature/)  
+3. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
+9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
+6. [Programming in Lua (in progress) ](./booknote/lua/main.md)  
+2. [Play with data structure](./booknote/Playwithdatastructure/)  
+2. [RHEL](./booknote/rhel/)  
+4. [Scientific Computing with Python (placeholder) ]
+4. [Stanford opencourse: CS229, Machine learning (-) ](./booknote/stanford_cs229_ml/main.md)  
+3. [TAOCP Knuth (-) ](./booknote/taocp/main.md)  
+2. [Thinking Python](./booknote/ThinkingPython/)  
+1. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
+1. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
+1. [UNP-I](./booknote/UNP-I/)  
 4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
 5. [Vbird Server](./booknote/vbird_server/main.md)  
-6. [(in progress) Programming in Lua](./booknote/lua/main.md)  
-7. [ANN in Matlab](./booknote/ann_matlab/)  
-8. [CTAN: lshort](./booknote/lshort/)  
-9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
-10. [UNP-I](./booknote/UNP-I/)  
-11. [Beauty of math](./booknote/beautyofmath/main.md)  
-12. [TLPI - Volume 1](./booknote/LinuxProgrammingInterface/TLPI.txt)  
-12. [TLPI - Volume 2](./booknote/LinuxProgrammingInterface/TLPI2.txt)  
-13. [Hacker Debugging Uncovered](./booknote/HackerDebuggingUncovered/)  
-14. [(-) Linux System Programming (Rober Love)](./booknote/LinuxSysProg/)   
-15. [Computer Security (index only)](./booknote/ComputerSecurity/)  
-16. [Computer Vision](./booknote/ComputerVision/)  
-17. [Debug Hacks](./booknote/DebugHacks/)  
-18. [Denial Of Service Attack](./booknote/DenialOfServiceAttack/)  
-19. [Fundamentals Of Multimedia](./booknote/FundamentalsOfMultimedia/)  
-20. [Gray Hat Hacking](./booknote/GrayHatHacking/)  
-21. [Game Theory non-technical](./booknote/GameTheory_non-technical/)  
-22. [Metasploit](./booknote/Metasploit/)  
-23. [RHEL](./booknote/rhel/)  
-24. [Linux Kernel Hack](./booknote/LinuxKernelHack/)  
-25. [Linux Networking Cookbook](./booknote/LinuxNetworkingCookbook/)  
-26. [Play with data structure](./booknote/Playwithdatastructure/)  
-27. [EE - from a EE open course](./booknote/EE.txt)  
-28. [Thinking Python](./booknote/ThinkingPython/)  
-29. [Information Security Introduction](./booknote/InfoSecIntro/)  
-30. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
-31. [High Performance Linux Server Programming](./booknote/HighPerfLinuxServerProg/)  
-32. [Building High Availability Linux Servers](./booknote/BuildHighAvailabilityLinuxServers/)  
-33. [Image Processing](./booknote/ImageProcessing/)  
-34. [DevOps Troubleshooting](./booknote/DevOpsTroubleshooting/)  
-35. [Intel Micro Processor](./booknote/IntelMicroProc/)  
-36. [Math.describing.nature](./booknote/Math.describing.nature/)  
-37. [(-) TAOCP Knuth](./booknote/taocp/main.md)  
-38. [(-) BOP](./booknote/bop/main.md)  
-39. [(-) ACM Reference](./booknote/acm/main.md)  
-40. [(-) Stanford opencourse: CS229, Machine learning](./booknote/stanford_cs229_ml/main.md)  
-41. [(placeholder) APUE]
-42. [(placeholder) CSAPP]
-43. [(placeholder) Computer Organization and Design, Fourth Edition]
-44. [(in progress) Game Theory]
-45. [(placeholder) Intel64-ia-32-architectures-software-developer-manual]
-46. [(placeholder) LFS: Linux From Scratch]
-47. [(placeholder) Deep Learning Book, bengio]
-48. [(placeholder) Scientific Computing with Python]
-49. [(placeholder) Byte of Python]
 
 [looking for help?](http://google.com)  
 ---
