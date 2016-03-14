@@ -1,6 +1,9 @@
 ACM reference books
 ===
 
+[gcd](code/gcd.cc)  
+[factorial](code/factorial.cc)  
+
 > 实用算法的分析与程序设计,吴,王
 
 chap 1. fundamental algorithms  
