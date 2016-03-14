@@ -149,6 +149,8 @@ System Management / Server
 
 Programming under Linux  
 ---
+1. Overview  
+  1. [Osamu Aoki's Fun to Program](https://people.debian.org/~osamu/fun2prog.html)  
 1. Compilation Tool Chain, GCC, Make, CMake, etc
   5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
   6. [CMake](http://www.cmake.org/cmake-tutorial/)  
