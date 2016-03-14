@@ -213,7 +213,7 @@ Linux Kernel Hacks / Operating System / Embedding
 ---
 4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
 1. [Compile linux kernel... ](./kernel/compile.txt)  
-2. [MIT Xv6 Original](https://pdos.csail.mit.edu/6.828/2011/xv6.html)[| xv6-rev6](./kernel/xv6-rev6/)  
+2. [MIT Xv6 Original](https://pdos.csail.mit.edu/6.828/2011/xv6.html)  
 4. [Cook a minimum bootable linux / initramfs ](./minisys/main.pdf)  
 1. [hard disk link power manage ... sample hack](./kernel/hddpower.sh)  
 2. [cpu freqency tweak ... sample hack](./kernel/cpufreq.sh)  
