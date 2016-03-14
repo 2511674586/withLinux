@@ -149,14 +149,9 @@ System Management / Server
 
 Programming under Linux  
 ---
-1. tex/LaTeX  
-  1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
-  2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
-  3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
-  4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
-  5. [insert svg picture in latex](lang/tex/tex_svg.md)  
-  1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
-  1. [(el) CTAN: texbook](http://www.ctan.org/pkg/texbook)  
+1. Compilation Tool Chain, GCC, Make, CMake, etc
+  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
+  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
 2. C Programming Language  
   1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
@@ -171,27 +166,34 @@ Programming under Linux
   5. [stl demo](./lang/cpp/stl.cpp)  
   6. [Qt helloworld](./lang/cpp_qt/)  
     1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
-1. [Compilation Tool Chain]
-  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
-  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
-1. [Java]
-  7. [java helloworld on linux](./lang/java)  
-8. [AWK](./lang/awk/)  
-9. [Sed/Ed]  
-1. [GNU BC/DC]     
-1. [Maxima]  
-4. [Octave/Matlab](./lang/oct)  
+1. tex/LaTeX  
+  1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
+  2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
+  3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
+  4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
+  5. [insert svg picture in latex](lang/tex/tex_svg.md)  
+  1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
+  1. [(el) CTAN: texbook](http://www.ctan.org/pkg/texbook)  
 1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
   1. [my logging example in py3](lang/py3/logging_example.py)  
   1. [HDF5 in python3: h5py demo](lang/py3/hdf5.py)  
+1. [Octave/Matlab](./lang/oct)  
 1. [Lua](http://www.lua.org/)  
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
   1. [Torch7 interface note](./lang/lua/torch/main.md)  
   1. [(el) lua embedding](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
+1. Light weigt languages
+  1. [Sed/Ed]  
+  1. [AWK](./lang/awk/)  
+  1. [GNU BC/DC]     
+1. [Java]
+  7. [java helloworld on linux](./lang/java)  
+1. [Maxima]  
 1. [Go](./lang/go)  
-1. [Learn RUST by example](http://rustbyexample.com/)  
+1. Rust  
+  1. [Learn RUST by example](http://rustbyexample.com/)  
 1. [Julia]  
 1. [C#/Mono]  
   1. [C# hello world](lang/csharp/hello.cs)  
