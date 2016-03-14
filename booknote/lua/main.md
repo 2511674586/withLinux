@@ -23,7 +23,7 @@ Part 2
 
 1. [Data Structure](./2.1.md)  
 2. [Data Files and Persistance](./2.2.md)  
-3. [Metatable and Metamethod]
+3. [Metatable and Metamethod](./2.3.md)  
 4. [Environment]
 5. [Modules and Packages](./2.5.md)  
 6. [OOP](./2.6.md)  
