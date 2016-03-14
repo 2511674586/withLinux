@@ -266,6 +266,10 @@ Kali / Security / Penetration
 1. [Debian New Maintainer's Guide]
 1. [Debian Policy Manual]
 1. [Debian Developer Reference]
+1. [library packaging guide](https://www.netfort.gr.jp/~dancer/column/libpkg-guide/libpkg-guide.html)  
+1. [rpath issue](https://wiki.debian.org/RpathIssue)  
+1. [python library style guide](https://wiki.debian.org/Python/LibraryStyleGuide)  
+1. [Mentors FAQ](https://wiki.debian.org/DebianMentorsFaq)  
 
 My Personal Booknotes  
 ---
