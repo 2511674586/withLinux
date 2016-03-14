@@ -48,6 +48,7 @@ main () {
   # detect arg
   if [ -z $1 ]; then
     Usage
+    git status
     exit 1
   fi
   
