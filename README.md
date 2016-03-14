@@ -204,6 +204,7 @@ Programming under Linux
   1. [hello world html sample](./lang/sample.html)  
 1. [GNU Plot]
   1. [(el) visualizing data with gnu plot](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
+1. [IBM CPlex]
 1. Online judges
   1. http://poj.org/  
   1. https://leetcode.com  
@@ -262,17 +263,20 @@ Kali / Security / Penetration
 1. [(el) Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
 1. [(el) Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
 1. [(el) Computer language benchmark Game](http://benchmarksgame.alioth.debian.org/)[ its conclusion](http://benchmarksgame.alioth.debian.org/dont-jump-to-conclusions.html)    
+1. [Debian New Maintainer's Guide]
+1. [Debian Policy Manual]
+1. [Debian Developer Reference]
 
 My Personal Booknotes  
 ---
 1. [C Primer Plus](./booknote/cprimerplus/cprimerplus.md)  
 2. [(-) C++ Primer Plus](./booknote/cppprimerplus/cppprimerplus.md)  
-3. [K&R C](./booknote/kr_c/)  
+3. [(placeholder) K&R C](./booknote/kr_c/)  
 4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
 5. [Vbird Server](./booknote/vbird_server/main.md)  
 6. [(in progress) Programming in Lua](./booknote/lua/main.md)  
 7. [ANN in Matlab](./booknote/ann_matlab/)  
-8. [lshort](./booknote/lshort/)  
+8. [CTAN: lshort](./booknote/lshort/)  
 9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
 10. [UNP-I](./booknote/UNP-I/)  
 11. [Beauty of math](./booknote/beautyofmath/main.md)  
@@ -306,6 +310,15 @@ My Personal Booknotes
 38. [(-) BOP](./booknote/bop/main.md)  
 39. [(-) ACM Reference](./booknote/acm/main.md)  
 40. [(-) Stanford opencourse: CS229, Machine learning](./booknote/stanford_cs229_ml/main.md)  
+41. [(placeholder) APUE]
+42. [(placeholder) CSAPP]
+43. [(placeholder) Computer Organization and Design, Fourth Edition]
+44. [(in progress) Game Theory]
+45. [(placeholder) Intel64-ia-32-architectures-software-developer-manual]
+46. [(placeholder) LFS: Linux From Scratch]
+47. [(placeholder) Deep Learning Book, bengio]
+48. [(placeholder) Scientific Computing with Python]
+49. [(placeholder) Byte of Python]
 
 [looking for help?](http://google.com)  
 ---
