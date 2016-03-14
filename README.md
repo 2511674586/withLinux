@@ -176,7 +176,6 @@ Programming under Linux
   4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
   5. [insert svg picture in latex](lang/tex/tex_svg.md)  
   1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
-  1. [(el) CTAN: texbook](http://www.ctan.org/pkg/texbook)  
 1. [Python3](./lang/py3)  
   1. [convert list into string](./lang/py3/list2str.md)  
   1. [my logging example in py3](lang/py3/logging_example.py)  
@@ -284,6 +283,7 @@ In alphabet order.
 1. [Computer Security (index only)](./booknote/ComputerSecurity/)  
 4. [CSAPP (placeholder) ]
 8. [CTAN: lshort](./booknote/lshort/)  
+1. [CTAN: texbook (el) (-) ](http://www.ctan.org/pkg/texbook)  
 1. [Computer Vision](./booknote/ComputerVision/)  
 1. [Debug Hacks](./booknote/DebugHacks/)  
 4. [Deep Learning Book, bengio (placeholder) ]
