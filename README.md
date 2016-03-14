@@ -146,6 +146,7 @@ System Management / Server
 7. [gitlab ... official deb setup](./admin/gitlab.md)  
 1. [multiple ssh connection at the same time](admin/multiple-ssh.txt)  
 1. [(el) WorldPress in Debian](https://wiki.debian.org/WordPress)  
+1. [prevent `resolv.conf` from being changed](admin/static_resolv_conf.md)  
 
 Programming under Linux  
 ---
