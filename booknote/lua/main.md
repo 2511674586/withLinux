@@ -14,9 +14,9 @@ Part 1
 6. [Deep in Functions](./1.6.md)  
 7. [Iterator, Generic form FOR](./1.7.md)  
 8. [Compile, Execution and Error](./1.8.md)  
-9. [Coroutine]  
+9. [Coroutine](./1.9.md)    
 10. Complete example  
-  1. html  
+  1. html+placeholder  
   2. [markov chain](./codes/markov.lua)  
 
 Part 2  
@@ -27,7 +27,7 @@ Part 2
 4. [Environment](./2.4.md)  
 5. [Modules and Packages](./2.5.md)  
 6. [OOP](./2.6.md)  
-7. [Weak Reference to Table]
+7. [Weak Reference to Table]  
 
 Part 3  
 
