@@ -171,6 +171,7 @@ Programming under Linux
   5. [stl demo](./lang/cpp/stl.cpp)  
   6. [Qt helloworld](./lang/cpp_qt/)  
     1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
+  1. [Very brilliant reference site (el)](http://www.cplusplus.com/)  
 1. tex/LaTeX  
   1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
   2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
