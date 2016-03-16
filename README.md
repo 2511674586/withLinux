@@ -192,6 +192,7 @@ Programming under Linux
   1. [Sed/Ed]  
   1. [AWK](./lang/awk/)  
   1. [GNU BC/DC]     
+1. [Doxygen ... Automatic document generation for C++ code](./lang/doxygen/)  
 1. [Java]
   7. [java helloworld on linux](./lang/java)  
 1. [Maxima]  
