@@ -40,3 +40,38 @@ chap 3. number theory
 # book 3
 > Anany Levitin，Introduction to the design and analysis of algorighms
 > (算法设计与分析基础)，清华出版社
+
+several important types of problems  
+1. sorting problem  
+1. searching problem  
+1. string  
+1. graph and network  
+1. combination  
+1. geonetric algorithm  
+1. numerical problem  
+
+fundamental data structures  
+1. linear data structures  
+  1. array  
+  1. string  
+  1. linked list  
+  1. doubly linked list  
+  1. stack  
+  1. queue  
+1. graph  
+  1. undirected graph  
+  1. directed graph  
+  1. weighted graph  
+1. tree  
+  1. rooted tree  
+  1. ordered tree  
+1. set and dictionary  
+
+`O()` notation  
+chapter 2 +placeholder
+
+#### brute force method
+1. [selective sort](code/selective_sort.cc)  
+1. bubble sort  
+
+
