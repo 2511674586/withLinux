@@ -75,3 +75,4 @@ chapter 2 +placeholder
 1. [bubble sort](code/bubble_sort.cc)  
 1. [sequential search](code/seq_search.cc)  
 1. [brute force string matching](code/str_match.cc)  
+1. [nearest pair](code/nearest_pair.cc)  
