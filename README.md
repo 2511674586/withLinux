@@ -277,7 +277,7 @@ My Personal Booknotes
 ---
 In alphabet order.
 
-3. [ACM Reference (-) ](./booknote/acm/main.md)  
+3. [ACM Reference: several books in one (-) ](./booknote/acm/main.md)  
 7. [ANN in Matlab](./booknote/ann_matlab/)  
 4. [APUE (placeholder) ]
 1. [Beauty of math](./booknote/beautyofmath/main.md)  
