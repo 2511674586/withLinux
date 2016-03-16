@@ -12,7 +12,10 @@ struct coordinate2d {
 };
 
 /**
- * @breif calculate the euclidean distance between two points
+ * @brief calculate the euclidean distance between two points
+ * @param [struct coordinate2d] the first point
+ * @param [struct coordinate2d] the second point
+ * @return the euclidean distance between the two points
  */
 float
 euclidean_distance (struct coordinate2d a, struct coordinate2d b)
