@@ -62,6 +62,7 @@ Utilities / Miscellaneous
   1. awk programming language  
   2. apt-get search {visitors,awstat}  
 24. [A long list of Linux utilities](util/util_list.md)  
+1. [GPG best practices (el) ](https://help.riseup.net/en/security/message-security/openpgp/best-practices#self-signatures-should-not-use-sha1)  
 
 Graphical Interface Stuff (Xorg)  
 ---
