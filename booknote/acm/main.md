@@ -96,3 +96,6 @@ chapter 2 +placeholder
 > 对于平面上一个点集合（有限或无限的），如果以集合中任意两点p和q为端点的线段都属于该集合，
 > 我们说这个集合是凸的。
 > 一个点集合S的凸包（convex hull）是包含S的最小凸集合（“最小”指S的凸包一定是所有包含S的凸集合的子集）
+
+1. [Traveler Sales Problem, TSP by brute force](./code/tsp.cc)  
+  1. [TSP's matlab verification program](./extra/tsp.m)  
