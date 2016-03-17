@@ -7,7 +7,8 @@ compile_all_serial:
 	   	$(CXX) -g -Wall -std=c++11 "$$X" -o "$$X.elf"; \
    	done
 compile_all_parallel:
-	# using GNU parallel, to compile sources in parallel
+	# Compiling sources in parallel using GNU parallel
 	@parallel 'printf " CC %s\n" {} ; $(CXX) -g -Wall -std=c++11 {} -o {.}.elf' ::: *.cc
+	# Done
 clean:
 	-$(RM) *.elf

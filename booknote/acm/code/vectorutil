@@ -24,3 +24,17 @@ vector_asum (std::vector<DType> bottom)
 	}
 	return ret;
 }
+
+template <typename DType>
+DType
+vector_dot (std::vector<DType> x, std::vector<DType> y)
+{
+	DType ret = (DType) 0.;
+	if (x.size() != y.size()) {
+		std::cout << "E: vector_dot: vector size mismatch!" << std::endl;
+	} else {
+		for (unsigned int i = 0; i < x.size(); i++)
+			ret += x[i] * y[i];
+	}
+	return ret;
+}
