@@ -18,6 +18,7 @@ ACM reference books
 1. [recursive permutation](./code/permutation.cc)  
 1. [gcd](./code/gcd.cc)  
 1. [factorial](./code/factorial.cc)  
+1. [binary combinations](./code/bicomb.cc)  
 
 # Book 1
 > 实用算法的分析与程序设计,吴文虎
