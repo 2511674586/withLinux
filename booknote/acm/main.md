@@ -1,6 +1,12 @@
 ACM reference books
 ===
 
+# Book -1: NO BOOK
+> My Utilities
+
+1. [vectorutil](/code/vectorutil)  
+1. [recursive permutation](code/permutation.cc)  
+
 # book 0
 > ？？
 
