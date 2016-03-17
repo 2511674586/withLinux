@@ -100,3 +100,6 @@ chapter 2 +placeholder
 
 1. [Traveler Sales Problem, TSP by brute force](./code/tsp.cc)  
   1. [TSP's matlab verification program](./extra/tsp.m)  
+  1. TSP is NP-hard problem  
+1. [Knapsack problem, KP by brute force](./code/knapsack.cc)  
+  1. KP is also NP-hard problem  
