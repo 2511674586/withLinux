@@ -14,10 +14,10 @@ ACM reference books
 # Book -1: NO BOOK
 > My Utilities
 
-1. [vectorutil](/code/vectorutil)  
-1. [recursive permutation](code/permutation.cc)  
-1. [gcd](code/gcd.cc)  
-1. [factorial](code/factorial.cc)  
+1. [vectorutil](./code/vectorutil)  
+1. [recursive permutation](./code/permutation.cc)  
+1. [gcd](./code/gcd.cc)  
+1. [factorial](./code/factorial.cc)  
 
 # Book 1
 > 实用算法的分析与程序设计,吴文虎
@@ -28,7 +28,7 @@ chap 1. fundamental algorithms
   1. forward  
   1. reverse  
 * greedy  
-  1. [delete number](code/delete_number.cc)  
+  1. [delete number](./code/delete_number.cc)  
 * recursion  
 * divide and conquer  
 * enumeration  
@@ -42,8 +42,8 @@ chap 2. sequence statistics
 chap 3. number theory
 ---
 * gcd
-  1. [gcd wolf](code/gcd_wolf.cc)  
-  1. [gcd wolf2](code/gcd_wolf2.cc)  
+  1. [gcd wolf](./code/gcd_wolf.cc)  
+  1. [gcd wolf2](./code/gcd_wolf2.cc)  
 
 
 # book 2
@@ -86,12 +86,12 @@ chapter 2 +placeholder
 
 #### brute force method
 
-1. [selective sort](code/selective_sort.cc)  
-1. [bubble sort](code/bubble_sort.cc)  
-1. [sequential search](code/seq_search.cc)  
-1. [brute force string matching](code/str_match.cc)  
-1. [nearest pair](code/nearest_pair.cc)  
-1. [convex hull search](code/convex.cc)  
+1. [selective sort](./code/selective_sort.cc)  
+1. [bubble sort](./code/bubble_sort.cc)  
+1. [sequential search](./code/seq_search.cc)  
+1. [brute force string matching](./code/str_match.cc)  
+1. [nearest pair](./code/nearest_pair.cc)  
+1. [convex hull search](./code/convex.cc)  
 
 > 对于平面上一个点集合（有限或无限的），如果以集合中任意两点p和q为端点的线段都属于该集合，
 > 我们说这个集合是凸的。
