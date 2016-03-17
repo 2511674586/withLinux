@@ -103,3 +103,4 @@ chapter 2 +placeholder
   1. TSP is NP-hard problem  
 1. [Knapsack problem, KP by brute force](./code/knapsack.cc)  
   1. KP is also NP-hard problem  
+1. [task assign problem](./code/assign.cc)  
