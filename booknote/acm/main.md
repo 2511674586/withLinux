@@ -48,6 +48,7 @@ chap 3. number theory
 > (算法设计与分析基础)，清华出版社
 
 several important types of problems  
+
 1. sorting problem  
 1. searching problem  
 1. string  
@@ -57,6 +58,7 @@ several important types of problems
 1. numerical problem  
 
 fundamental data structures  
+
 1. linear data structures  
   1. array  
   1. string  
@@ -77,12 +79,14 @@ fundamental data structures
 chapter 2 +placeholder
 
 #### brute force method
+
 1. [selective sort](code/selective_sort.cc)  
 1. [bubble sort](code/bubble_sort.cc)  
 1. [sequential search](code/seq_search.cc)  
 1. [brute force string matching](code/str_match.cc)  
 1. [nearest pair](code/nearest_pair.cc)  
 1. [convex hull search](code/convex.cc)  
+
 > 对于平面上一个点集合（有限或无限的），如果以集合中任意两点p和q为端点的线段都属于该集合，
 > 我们说这个集合是凸的。
 > 一个点集合S的凸包（convex hull）是包含S的最小凸集合（“最小”指S的凸包一定是所有包含S的凸集合的子集）
