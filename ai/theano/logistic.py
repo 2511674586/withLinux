@@ -5,8 +5,13 @@ import numpy as np
 import theano as tn
 import logging
 
-logging.basicConfig(format='%(levelno)s %(asctime)s %(process)d %(filename)s:%(lineno)d] %(message)s', level=logging.DEBUG)
-
+import logging as log
+log.basicConfig(
+  format='\x1b[36;1mL%(asctime)s %(process)d %(filename)s:%(lineno)d]'
+    +' %(message)s\x1b[m',
+  datefmt='%m%d %I:%M:%S',
+  level=log.DEBUG
+ )
 
 rng = np.random
 N = 400
@@ -16,7 +21,7 @@ feats = 784
 Generate dataset
 '''
 D = (rng.randn(N, feats), rng.randint(size=N, low=0, high=2))
-training_steps = 10000
+training_steps = 5000
 
 '''
 theano symbolic variables
@@ -76,7 +81,9 @@ for i in range(training_steps):
 print ("Final model: ")
 for i in [w.get_value(), b.get_value()]:
     print (i)
-print ("target values for D:")
+log.info ("target values for D:")
 print (D[1])
-print ("prediction on D:")
+log.info ("prediction on D:")
 print (predict(D[0]))
+log.info ("error")
+print (D[1] - predict(D[0]))
