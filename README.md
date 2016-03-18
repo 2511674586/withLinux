@@ -274,6 +274,34 @@ Kali / Security / Penetration
 1. [python library style guide](https://wiki.debian.org/Python/LibraryStyleGuide)  
 1. [Mentors FAQ](https://wiki.debian.org/DebianMentorsFaq)  
 
+[Looking For Help](http://google.com)  
+---
+wiki, doc, tutorial.
+
+1. [Wikipedia](http://wikipedia.org)  
+8. [Linux kernel document](https://www.kernel.org/doc), also shiped within kernel.tar.xz:/doc  
+3. [Arch wiki](https://wiki.archlinux.org)  
+2. [Debian wiki](https://wiki.debian.org)  
+4. [Gentoo wiki](https://wiki.gentoo.org/wiki/Main_Page)  
+9. [Gentoo doc](http://www.gentoo.org/doc)  
+6. [Funtoo wiki](https://wiki.funtoo.org)  
+5. [stackoverflow](http://stackoverflow.com)  
+7. [IBM Developer works](https://www.ibm.com/developerworks/cn/linux/)  
+10. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
+11. [OpenBSD docs]
+12. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
+13. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
+14. Search Engines  
+  1. google  
+  2. shodan  
+  3. [Baidu Yun Search](http://www.zhihu.com/question/24263185#answer-7880704)  
+1. [Awesome List](https://github.com/sindresorhus/awesome)  
+
+Open Source Licenses
+---
+1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
+
+
 My Personal Booknotes  
 ---
 In alphabet order.
@@ -331,32 +359,6 @@ In alphabet order.
 1. [UNP-I](./booknote/UNP-I/)  
 4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
 5. [Vbird Server](./booknote/vbird_server/main.md)  
-
-[looking for help?](http://google.com)  
----
-wiki, doc, tutorial
-
-1. [Wikipedia ... looking up basic concept](http://wikipedia.org)  
-8. [Linux kernel document](https://www.kernel.org/doc), also shiped within kernel.tar.xz:/doc  
-2. [Debian wiki ... ](https://wiki.debian.org)  
-3. [Arch wiki ... ](https://wiki.archlinux.org)  
-4. [Gentoo wiki ... ](https://wiki.gentoo.org/wiki/Main_Page)  
-9. [Gentoo doc ...](http://www.gentoo.org/doc)  
-5. [stackoverflow](http://stackoverflow.com)  
-6. [Funtoo wiki](https://wiki.funtoo.org)  
-7. [IBM Developer works](https://www.ibm.com/developerworks/cn/linux/)  
-10. [FreeBSD doc ... sometimes helps](https://www.freebsd.org/docs.html)  
-11. [OpenBSD docs]
-12. [vbird.org ... detailed, complete linux guide](http://linux.vbird.org)  
-13. [from windows to Linux, beginner ... IBM developer works](http://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html)  
-14. Search Engines  
-  1. google  
-  2. shodan  
-  3. [Baidu Yun](http://www.zhihu.com/question/24263185#answer-7880704)  
-
-Open Source Licenses
----
-1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
 
 Artificial Intelegence
 ---
