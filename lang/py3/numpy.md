@@ -5,3 +5,4 @@ Scipy/Numpy note
 > http://scipy.org/getting-started.html
 
 [example taken from scipy getting started](./scipy1.py)  
+[numpy save and load, in npz and txt](./numpy-load-read.py)  
