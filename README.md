@@ -112,6 +112,7 @@ Internet Specific
 
 System Management / Server  
 ---
+1. [APT/DPKG](./admin/apt-dpkg.md)    
 1. [tzdata ... change the system time zone](./admin/time_zone_change.txt)  
 2. [grub2 ... location of config files](./admin/grub_config_file_location.txt)  
 3. [Config runlevels (sysvinit) ...](./admin/runlevel.txt)  
@@ -126,12 +127,9 @@ System Management / Server
 12. [Steam ... install steam on amd64](./admin/steam.txt)  
 13. [Sudo ...](./admin/sudo.txt)  
 14. [Wine ... on amd64](./admin/wine.txt)  
-15. [dpkg ... backup and restore package list](./admin/pkglist.txt)  
 16. [font ... install font](./admin/font.txt)  
   1. [some open source fonts](./admin/font_list.txt)  
 17. [systemd ... some reference link](./admin/systemd_link.txt)  
-18. [source.list ... example](./admin/sources.list)  
-19. [apt preference control file for APT](./admin/apt_preference.txt)  
 20. [sshd security ... sshguard](./admin/sshguard.txt)  
 21. [sshd SFTP chroot ... ](./admin/ssh.txt)  
 22. [Ext2/Ext3/Ext4 on Windows](http://blog.csdn.net/hansel/article/details/7557033)  
