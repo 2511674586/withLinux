@@ -10,9 +10,9 @@ usage: $0 <action>
 actions:
   scan  scan for files missing in README.md
   stat  statistic lines in all plain files, also dumps all plain files
-  make  run the main target of Makefile, compile all sources
   clean run the clean target of Makefile, clean all unnecessary files
   undel undelete "deleted" files
+  help  print this help message
 EOF
 echo
 printf "Project withlinux has %s%d%s files currently.\n" "[34;1m" $files "[;0m"
@@ -48,6 +48,16 @@ undelete () {
   done
 }
 
+clean () {
+  local directories="$(find . -type d | sed -e 's/\n/ /g')"
+  for ITEM in $directories; do
+    if [ -r $ITEM/Makefile ]; then
+      printf "I: cleaning %s ...\n" $ITEM
+      make -s -i --no-print-directory -C$ITEM clean || true
+    fi
+  done
+}
+
 # get some data first 
 lines=$(stat_lines | tail -n1 | awk '{print $1}' | sed -e 's/\n//g')
 files=$(find . -path ./.git -prune -o -name '*.pdf' -prune -o -type f -print | nl | tail -n1 | awk '{print $1}' | sed -e 's/\n//g')
@@ -57,6 +67,7 @@ main () {
   # detect arg
   if [ -z $1 ]; then
     Usage
+	printf "\nGit status:\n"
     git status --short
     exit 1
   fi
@@ -65,8 +76,7 @@ main () {
   case $1 in
     scan   ) scan_missing ;;
     stat   ) stat_lines | tail ;;
-    make   ) make ;;
-	clean  ) make clean ;;
+    clean  ) clean ;;
     undel  ) undelete ;;
     help   ) Usage ;;
        *   ) echo "E: invalid action" ;;
