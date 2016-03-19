@@ -270,6 +270,7 @@ Programming under Linux
   1. [convert list into string](./lang/py3/list2str.md)  
   1. [my logging example in py3](lang/py3/logging_example.py)  
   1. [HDF5 in python3: h5py demo](lang/py3/hdf5.py)  
+  1. [Numpy](./lang/py3/numpy.md)  
 1. [Octave/Matlab](./lang/oct)  
 1. [Lua](http://www.lua.org/)  
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
