@@ -148,68 +148,6 @@ System Management / Server
 1. [(el) WorldPress in Debian](https://wiki.debian.org/WordPress)  
 1. [prevent `resolv.conf` from being changed](admin/static_resolv_conf.md)  
 
-Programming under Linux  
----
-1. Overview  
-  1. [Osamu Aoki's Fun to Program](https://people.debian.org/~osamu/fun2prog.html)  
-1. Compilation Tool Chain, GCC, Make, CMake, etc
-  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
-  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
-2. C Programming Language  
-  1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
-  2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
-  3. [print source file name and source line number](./lang/c/file_line_.c)  
-  4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
-  1. [(el) libarchive example](https://github.com/libarchive/libarchive/wiki/Examples)  
-3. C++  
-  1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
-  2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
-  3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
-  4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
-  5. [stl demo](./lang/cpp/stl.cpp)  
-  6. [Qt helloworld](./lang/cpp_qt/)  
-    1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
-  1. [Very brilliant reference site (el)](http://www.cplusplus.com/)  
-1. tex/LaTeX  
-  1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
-  2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
-  3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
-  4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
-  5. [insert svg picture in latex](lang/tex/tex_svg.md)  
-  1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
-1. [Python3](./lang/py3)  
-  1. [convert list into string](./lang/py3/list2str.md)  
-  1. [my logging example in py3](lang/py3/logging_example.py)  
-  1. [HDF5 in python3: h5py demo](lang/py3/hdf5.py)  
-1. [Octave/Matlab](./lang/oct)  
-1. [Lua](http://www.lua.org/)  
-  1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
-  1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
-  1. [Torch7 interface note](./lang/lua/torch/main.md)  
-  1. [(el) lua embedding](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
-1. Light weigt languages
-  1. [Sed/Ed]  
-  1. [AWK](./lang/awk/)  
-  1. [GNU BC/DC]     
-1. [Doxygen ... Automatic document generation for C++ code](./lang/doxygen/)  
-1. [Java]
-  7. [java helloworld on linux](./lang/java)  
-1. [Maxima]  
-1. [Go](./lang/go)  
-1. Rust  
-  1. [Learn RUST by example](http://rustbyexample.com/)  
-1. [Julia]  
-1. [C#/Mono]  
-  1. [C# hello world](lang/csharp/hello.cs)  
-1. [HTML/CSS/JS]
-  1. [hello world html sample](./lang/sample.html)  
-1. [GNU Plot]
-  1. [(el) visualizing data with gnu plot](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
-1. [IBM CPlex]
-1. Online judges
-  1. http://poj.org/  
-  1. https://leetcode.com  
-
 Linux Kernel Hacks / Operating System / Embedding  
 ---
 4. [linux frozen ... handle with SysRq](./kernel/sysrq.txt)  
@@ -299,6 +237,67 @@ Open Source Licenses
 ---
 1. [gpl-faq](http://www.gnu.org/licenses/gpl-faq.html#NoticeInSourceFile)  
 
+Programming under Linux  
+---
+1. Overview  
+  1. [Osamu Aoki's Fun to Program](https://people.debian.org/~osamu/fun2prog.html)  
+1. Compilation Tool Chain, GCC, Make, CMake, etc
+  5. [GNU Make](http://www.gnu.org/software/make/manual/make.html)  
+  6. [CMake](http://www.cmake.org/cmake-tutorial/)  
+2. C Programming Language  
+  1. [printf ... colourful text in terminal](./lang/c/printf_colour.c)  
+  2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
+  3. [print source file name and source line number](./lang/c/file_line_.c)  
+  4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
+  1. [(el) libarchive example](https://github.com/libarchive/libarchive/wiki/Examples)  
+3. C++  
+  1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
+  2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
+  3. [a BLAS demo in cpp](./lang/cpp/blas.cpp) and [its makefile](./lang/cpp/Makefile)  
+  4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
+  5. [stl demo](./lang/cpp/stl.cpp)  
+  6. [Qt helloworld](./lang/cpp_qt/)  
+    1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
+  1. [Very brilliant reference site (el)](http://www.cplusplus.com/)  
+1. tex/LaTeX  
+  1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
+  2. [xelatex ... chinese support, xeCJK](./lang/tex/xelatex.cjk.tex)  
+  3. [pdflatex ... eng chs mixed sample tex](./lang/tex/eng_chs_mixed_sample.tex)  
+  4. [finding the right font](http://www.tug.dk/FontCatalogue/)  
+  5. [insert svg picture in latex](lang/tex/tex_svg.md)  
+  1. [(el) NASA: latex help](http://www.giss.nasa.gov/tools/latex/)  
+1. [Python3](./lang/py3)  
+  1. [convert list into string](./lang/py3/list2str.md)  
+  1. [my logging example in py3](lang/py3/logging_example.py)  
+  1. [HDF5 in python3: h5py demo](lang/py3/hdf5.py)  
+1. [Octave/Matlab](./lang/oct)  
+1. [Lua](http://www.lua.org/)  
+  1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
+  1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
+  1. [Torch7 interface note](./lang/lua/torch/main.md)  
+  1. [(el) lua embedding](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
+1. Light weigt languages
+  1. [Sed/Ed]  
+  1. [AWK](./lang/awk/)  
+  1. [GNU BC/DC]     
+1. [Doxygen ... Automatic document generation for C++ code](./lang/doxygen/)  
+1. [Java]
+  7. [java helloworld on linux](./lang/java)  
+1. [Maxima]  
+1. [Go](./lang/go)  
+1. Rust  
+  1. [Learn RUST by example](http://rustbyexample.com/)  
+1. [Julia]  
+1. [C#/Mono]  
+  1. [C# hello world](lang/csharp/hello.cs)  
+1. [HTML/CSS/JS]
+  1. [hello world html sample](./lang/sample.html)  
+1. [GNU Plot]
+  1. [(el) visualizing data with gnu plot](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
+1. [IBM CPlex]
+1. Online judges
+  1. http://poj.org/  
+  1. https://leetcode.com  
 
 My Personal Booknotes  
 ---
