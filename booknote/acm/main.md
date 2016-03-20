@@ -19,6 +19,7 @@ ACM reference books
 1. [gcd](./code/gcd.cc)  
 1. [factorial](./code/factorial.cc)  
 1. [binary combinations](./code/bicomb.cc)  
+1. [my simple stack implementation in c](./code/stack.c)  
 
 # Book 1
 > 实用算法的分析与程序设计,吴文虎

@@ -1,0 +1,79 @@
+/**
+ * @file stack.c
+ * @brief libstack main source file
+ * @author Lumin <cdluminate@gmail.com>
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct StackNode {
+	int value;                 // value shiped in this node
+	struct StackNode * bottom; // next node
+};
+
+struct Stack {
+	size_t size;               // stack size
+	struct StackNode * top;    // top of stack
+};
+
+typedef struct Stack Stack;
+typedef struct StackNode StackNode;
+
+struct Stack *
+StackCreate (void)
+{
+	struct Stack * s = (struct Stack *) malloc(sizeof(struct Stack));
+	if (NULL == s) {
+		fprintf(stderr, "E: malloc() failed.\n");
+		exit(EXIT_FAILURE);
+	}
+	s->size = (size_t) 0;
+	s->top = (struct StackNode *) NULL;
+	return s;
+}
+
+struct Stack *
+StackPush (struct Stack * s, int i)
+{
+	/* TODO: when reached MAX_INT */
+	struct StackNode * n = (struct StackNode *) malloc(sizeof(struct StackNode));
+	if (NULL == s) {
+		fprintf(stderr, "E: malloc() failed.\n");
+		exit(EXIT_FAILURE);
+	}
+	n->value = i;
+	n->bottom = s->top;
+	s->top = n;
+	s->size += 1;
+	return s;
+}
+
+int
+StackPop (struct Stack * s)
+{
+	if (0 == s->size) {
+		fprintf(stderr, "E: pop() from empty stack.\n");
+		exit(EXIT_FAILURE);
+	}
+	struct StackNode * p = s->top;
+	int value = p->value;
+	s->top = p->bottom;
+	s->size -= 1;
+	free(p);
+	return value;
+}
+
+int
+main (void)
+{
+	Stack * s = StackCreate();
+
+	int i;
+	for (i = 0; i < 10; i++)
+		StackPush(s, i);
+	for (i = 0; i < 10; i++)
+		printf("%d\n", StackPop(s));
+
+	return 0;
+}
