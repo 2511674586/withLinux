@@ -106,3 +106,7 @@ chapter 2 +placeholder
 1. [task assign problem](./code/assign.cc)  
 1. [Depth-First Search](./code/dfs.cc)  
 1. [Breadth-First Search](./code/bfs.cc)  
+
+#### decrease-and-conquer method  
+
+
