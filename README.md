@@ -19,16 +19,16 @@ Installing Linux
   2. [Wireless network card](./install/dri/wireless.txt)  
 3. [Turning off graphic card](./install/turn-off-gpu.txt)  
 4. [Tips about Solid State Drive (SSD)](./install/ssd.txt)  
-  1. [(el) Gentoo wiki/SSD](https://wiki.gentoo.org/wiki/SSD)  
+  1. [Gentoo wiki/SSD (el) ](https://wiki.gentoo.org/wiki/SSD)  
 5. [Some packages related to EFI/UEFI](./install/efi.txt)  
 6. [My old installation log for a HP server](./install/hpserver)  
 7. [Bootstrap minimal/stage3 Debian system](./install/bootstrap)    
 8. [Simple ArchLinux install note](./install/arch)  
 9. [mdadm note for creating software md5](./install/mdadm.md)  
-10. [(-) Trying Gentoo is worthwhile](./install/gentoo)  
-1. [(el) Gentoo: Sakaki's EFI Install Guide](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide)  
-1. [(el) Gentoo Prefix](https://wiki.gentoo.org/wiki/Project:Prefix)  
-1. [(el) ArchLinux's application list](https://wiki.archlinux.org/index.php/List_of_applications)  
+10. [Trying Gentoo is worthwhile (-) ](./install/gentoo)  
+1. [Gentoo: Sakaki's EFI Install Guide (el) ](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide)  
+1. [Gentoo Prefix (el) ](https://wiki.gentoo.org/wiki/Project:Prefix)  
+1. [ArchLinux's application list (el) ](https://wiki.archlinux.org/index.php/List_of_applications)  
 
 Utilities / Miscellaneous  
 ---
