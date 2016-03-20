@@ -7,11 +7,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @struct StackNode
+ * @brief node used in a stack
+ */
 struct StackNode {
 	int value;                 // value shiped in this node
 	struct StackNode * bottom; // next node
 };
 
+/**
+ * @struct Stack
+ * @brief Stack wrapper, holds no actual data.
+ */
 struct Stack {
 	size_t size;               // stack size
 	struct StackNode * top;    // top of stack
@@ -20,6 +28,11 @@ struct Stack {
 typedef struct Stack Stack;
 typedef struct StackNode StackNode;
 
+/**
+ * @brief create stack instance, with size 0 and NULL top
+ * @param void
+ * @return the stack pointer to the new stack.
+ */
 struct Stack *
 StackCreate (void)
 {
@@ -33,6 +46,12 @@ StackCreate (void)
 	return s;
 }
 
+/**
+ * @brief push a new value into stack
+ * @param s is the pointer to the target stack
+ * @param i is the number to be pushed into stack
+ * @return the pointer to the updated stack
+ */
 struct Stack *
 StackPush (struct Stack * s, int i)
 {
@@ -49,6 +68,11 @@ StackPush (struct Stack * s, int i)
 	return s;
 }
 
+/**
+ * @brief pop the top value from stack
+ * @param s is the pointer to the target stack
+ * @return the value holded by the top node of stack
+ */
 int
 StackPop (struct Stack * s)
 {
@@ -64,6 +88,9 @@ StackPop (struct Stack * s)
 	return value;
 }
 
+/**
+ * @brief simple program to test the stack implementation
+ */
 int
 main (void)
 {
