@@ -1,6 +1,5 @@
 #include <iostream>
-#include <vector>
-#include "vectorutil"
+#include <stack>
 
 /** 
  * @brief Core function of DFS, depth first search
@@ -10,11 +9,11 @@
  * @return void
  */
 void
-_dfs (int adjacent[7][7], int visit[7], int cur, std::vector<int> * path)
+_dfs (int adjacent[7][7], int visit[7], int cur, std::stack<int> * s)
 {
 	using namespace std;
 	visit[cur] = 1; // set visited bit at cursor
-	path->push_back(cur);
+	s->push(cur);
 	cout << "cur -> " << cur << endl;
 	int if_bound = 0;
 	for (unsigned int i = 0; i < 7; i++)
@@ -29,8 +28,8 @@ _dfs (int adjacent[7][7], int visit[7], int cur, std::vector<int> * path)
 			else if (! adjacent[cur][i]) continue;
 			// not visited, go ahead
 			else {
-				_dfs (adjacent, visit, i, path);
-				(void) path->pop_back();
+				_dfs (adjacent, visit, i, s);
+				(void) s->pop();
 			}
 		}
 	}
@@ -47,9 +46,9 @@ void
 dfs (int adjacent[7][7], int start_from)
 {
 	std::cout << "Traversal starting from " << start_from << std::endl;
-	std::vector<int> path;
+	std::stack<int> s;
 	int visit[7] = {0};
-	_dfs (adjacent, visit, start_from, &path);
+	_dfs (adjacent, visit, start_from, &s);
 	return;
 }
 
@@ -76,7 +75,7 @@ main (void)
 {
 	int adj[7][7] = {0};
 	int visit[7] = {0};
-	std::vector<int> path;
+	std::stack<int> s;
 
 	// prepare map
 	adj[0][1] = 1;
@@ -88,7 +87,7 @@ main (void)
 	make_symmetric(adj);
 
 	// test, starting from node 0
-	_dfs (adj, visit, 0, &path); 
+	_dfs (adj, visit, 0, &s); 
 
 	// test, we can start from any point actually
 	for (int i = 0; i < 7; i++)
