@@ -54,3 +54,9 @@ $ apt-cache rdepends pkg
 # aptitude can resolve some tough dependency situation
 $ aptitude install pkg-with-dependency-trouble
 ```
+
+Purge packages that are not completely removed  
+---
+```
+$ dpkg -l | grep ^rc | awk '{print $2}' | sudo xargs dpkg --purge
+```
