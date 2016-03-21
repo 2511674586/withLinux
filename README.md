@@ -344,6 +344,7 @@ In alphabet order.
 3. [Math.describing.nature](./booknote/Math.describing.nature/)  
 3. [MATH PHYS GAME PROGRAMMING](./booknote/MATH-PHYS-GAME-PROGRAMMING/)  
 9. [Network Countermeasure](./booknote/NetworkCountermeasure/)  
+1. [Parallel Computing and Implementation](./booknote/parallel/main.md)  
 6. [Programming in Lua](./booknote/lua/main.md)  
 2. [Play with data structure](./booknote/Playwithdatastructure/)  
 2. [RHEL](./booknote/rhel/)  
