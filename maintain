@@ -10,6 +10,7 @@ usage: $0 <action>
 actions:
   scan  scan for files missing in README.md
   stat  statistic lines in all plain files, also dumps all plain files
+  make  compile all programs
   clean run the clean target of Makefile, clean all unnecessary files
   undel undelete "deleted" files
   help  print this help message
@@ -60,6 +61,16 @@ clean () {
   find . -type f -name 'junk.*' -exec rm {} +
 }
 
+compile_all () {
+  local directories="$(find . -type d | sed -e 's/\n/ /g')"
+  for ITEM in $directories; do
+    if [ -r $ITEM/Makefile ]; then
+      printf "I: make -C %s ...\n" $ITEM
+      make -s -i --no-print-directory -C$ITEM || true
+    fi
+  done
+}
+
 # get some data first 
 lines=$(stat_lines | tail -n1 | awk '{print $1}' | sed -e 's/\n//g')
 files=$(find . -path ./.git -prune -o -name '*.pdf' -prune -o -type f -print | nl | tail -n1 | awk '{print $1}' | sed -e 's/\n//g')
@@ -78,6 +89,7 @@ main () {
   case $1 in
     scan   ) scan_missing ;;
     stat   ) stat_lines | tail ;;
+    make   ) compile_all ;;
     clean  ) clean ;;
     undel  ) undelete ;;
     help   ) Usage ;;
