@@ -359,8 +359,10 @@ In alphabet order.
 4. [Vbird Basic](./booknote/vbird_basic/vbird_basic.md)  
 5. [Vbird Server](./booknote/vbird_server/main.md)  
 
-Artificial Intelegence
+Artificial Intelegence / Mathematics  
 ---
+1. Mathematics  
+  1. [(el) Wikipedia: Embedding](https://en.wikipedia.org/wiki/Embedding)  
 1. Machine Learning  
   1. [(eL) stanford:Ng's opencourse](http://openclassroom.stanford.edu/MainFolder/CoursePage.php?course=MachineLearning)  
 1. Deep Learning Frameworks  
@@ -372,13 +374,11 @@ Artificial Intelegence
   1. [mxnet (cxx, julia)](https://github.com/dmlc/mxnet)  
   1. [tensorflow (python)](https://github.com/tensorflow/tensorflow)  
   1. [leaf (rust)](https://github.com/autumnai/leaf)  
+    1. [Deep learning frameworks benchmark by leaf](http://autumnai.com/deep-learning-benchmarks)  
 1. Datasets  
   1. [MS COCO](https://github.com/CDLuminate/cocofetch)  
   1. [Imagenet](http://image-net.org/index)  
-1. [Deep learning benchmark by leaf](http://autumnai.com/deep-learning-benchmarks)  
-1. http://www.wikicfp.com/cfp/
-1. Mathematic Stuff  
-  1. [(el) Wikipedia: Embedding](https://en.wikipedia.org/wiki/Embedding)  
+1. [WikiCFP](http://www.wikicfp.com/cfp/)  
   
 ## LICENSE
 ```
