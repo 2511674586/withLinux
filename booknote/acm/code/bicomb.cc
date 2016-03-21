@@ -1,3 +1,7 @@
+/**
+ * @file bicomb.cc
+ * @brief show all binary combinations
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"

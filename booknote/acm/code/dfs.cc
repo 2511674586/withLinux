@@ -1,3 +1,7 @@
+/**
+ * @file dfs.cc
+ * @brief implement depth-first searching
+ */
 #include <iostream>
 #include <stack>
 

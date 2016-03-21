@@ -1,6 +1,6 @@
 /**
  * @file stack.c
- * @brief libstack main source file
+ * @brief libstack, implements simple stack model for integer type.
  * @author Lumin <cdluminate@gmail.com>
  */
 

@@ -1,3 +1,8 @@
+/**
+ * @file delete_number.cc
+ * @brief delete N number characters within a number, and the resulting number
+ * becomes the mininum among all possibilities.
+ */
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>

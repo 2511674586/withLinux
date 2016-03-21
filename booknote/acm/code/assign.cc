@@ -1,3 +1,7 @@
+/**
+ * @file assign.cc
+ * @brief solve task assigning problem
+ */
 #include <vector>
 #include <iostream>
 #include "vectorutil"

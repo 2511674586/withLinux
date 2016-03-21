@@ -1,3 +1,7 @@
+/**
+ * @file str_match.cc
+ * @brief string matching
+ */
 #include <iostream>
 #include <string>
 

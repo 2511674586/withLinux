@@ -1,3 +1,7 @@
+/**
+ * @file seq_search.cc
+ * @brief implement sequencial searching
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"

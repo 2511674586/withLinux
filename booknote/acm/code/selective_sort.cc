@@ -1,3 +1,7 @@
+/**
+ * @file selective_sort.cc
+ * @brief implements selective sorting
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"

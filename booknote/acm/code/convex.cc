@@ -1,3 +1,7 @@
+/**
+ * @file convex.cc
+ * @brief finds out convex hull
+ */
 #include <iostream>
 #include <vector>
 #include <cmath>

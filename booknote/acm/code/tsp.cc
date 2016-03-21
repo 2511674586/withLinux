@@ -1,3 +1,7 @@
+/**
+ * @file tsp.cc
+ * @brief solves traveling salesman problem with brute force
+ */
 #include <vector>
 #include <iostream>
 #include "vectorutil"

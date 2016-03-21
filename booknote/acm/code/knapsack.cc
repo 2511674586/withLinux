@@ -1,3 +1,7 @@
+/**
+ * @file knapsack.cc
+ * @brief solves knapsack problem with brute force
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"

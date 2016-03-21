@@ -1,3 +1,7 @@
+/**
+ * @file factorial.cc
+ * @brief calculate factorial recursively.
+ */
 #include <iostream>
 using namespace std;
 

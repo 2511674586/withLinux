@@ -1,3 +1,7 @@
+/** 
+ * @file bfs.cc
+ * @brief breadth-first search
+ */
 #include <iostream>
 #include <queue>
 

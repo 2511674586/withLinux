@@ -1,3 +1,7 @@
+/**
+ * @file gcd.cc
+ * @brief calculate the great common divisor of two numbers, recursively.
+ */
 #include <iostream>
 using namespace std;
 

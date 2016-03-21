@@ -1,3 +1,7 @@
+/**
+ * @file permutation.cc
+ * @brief show all possible permutations of a given vector
+ */
 #include <vector>
 #include <iostream>
 #include "vectorutil"

@@ -1,3 +1,7 @@
+/**
+ * @file vectorutil
+ * @brief some utilities used to manipulate with vectors
+ */
 #include <iostream>
 #include <vector>
 

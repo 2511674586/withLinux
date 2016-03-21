@@ -1,3 +1,8 @@
+/**
+ * @file gcd_wolf.cc
+ * @brief application of gcd.cc, looks for safe caves for the
+ * rabbit, who's being chased by a wolf.
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"

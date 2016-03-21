@@ -1,3 +1,7 @@
+/**
+ * @file nearest_pair.cc
+ * @brief looks for the nearest pair of points with brute force
+ */
 #include <iostream>
 #include <vector>
 #include <cmath>

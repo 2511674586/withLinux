@@ -1,3 +1,7 @@
+/**
+ * @file bubble_sort.cc
+ * @brief implement bubble sorting
+ */
 #include <iostream>
 #include <vector>
 #include "vectorutil"
