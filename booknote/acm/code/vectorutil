@@ -10,7 +10,6 @@ void
 vector_dump (std::vector<DType> buf)
 {
 	using namespace std;
-	cout << endl;
 	for (unsigned int i = 0; i < buf.size(); i++)
 		cout << buf[i] << " ";
 	cout << endl;
