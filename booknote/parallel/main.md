@@ -1,5 +1,11 @@
 Parallel Computing and Implementations
 ---
+
+Extra programs  
+[trap1.c, float number ignores addition of 1.0](./code/trap1.c)  
+[benchmark.c, parallel computing benchmark](./code/benchmark.c)  
+
+
 > 迟学斌，并行计算与实现技术，科学出版社
 
 > MPI, when multiple computers contructing an cluster  
