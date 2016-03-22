@@ -110,4 +110,4 @@ chapter 2 +placeholder
 
 #### decrease-and-conquer method  
 
-
+1. [insert sorting](./code/insert_sort.cc)  
