@@ -244,6 +244,26 @@ dgemm_parallel (const double * A, const double * B,
 }
 
 /**
+ * @brief dgemm, L-3 BLAS, parallel version 2
+ * @f[ A_{m x n} * B_{n x k} -> C_{m x k} @f]
+ */
+void
+dgemm_parallelv2 (const double * A, const double * B,
+	size_t m, size_t n, size_t k, double * C)
+{
+	size_t mm = 0, nn = 0, kk = 0;
+#pragma omp parallel for shared(A, B) private(kk,nn)
+	for (mm = 0; mm < m; mm++) {
+		for (kk = 0; kk < k; kk++) {
+			*(C+mm*k+kk) = 0;
+			for (nn = 0; nn < n; nn++) {
+				*(C+mm*k+kk) += *(A+mm*n+nn) * *(B+nn*k+kk);
+			}
+		}
+	}
+}
+
+/**
  * @brief tell user the time difference in second.
  * @param tvs the starting time stamp.
  * @param tve the ending timp stamp.
@@ -475,6 +495,14 @@ main (int argc, char ** argv, char ** envp)
 		fprintf (stdout, "     X %lf %lf Y %lf %lf DEST %lf %lf \n",
 			*(X), *(X+1), Y[0], Y[1], *(Z), *(Z+1)); // check result
 
+		// parallel v2
+		gettimeofday(&tvs, NULL);
+		dgemm_parallelv2 (X, Y, MMLEN, MMLEN, MMLEN, Z);
+		gettimeofday(&tve, NULL);
+		timediff (tvs, tve, "dgemm in parallelv2");
+
+		fprintf (stdout, "     X %lf %lf Y %lf %lf DEST %lf %lf \n",
+			*(X), *(X+1), Y[0], Y[1], *(Z), *(Z+1)); // check result
 	}
 	hrulefill();
 
