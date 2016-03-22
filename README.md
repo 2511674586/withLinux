@@ -198,17 +198,18 @@ Kali / Security / Penetration
 [Debian GNU/Linux Specific](https://www.debian.org/)  
 ---
 1. [setup unofficial debian archive](./debian/unofficial_archive.txt)  
-2. [(el) setup debian mirror](https://www.debian.org/mirror/ftpmirror)  
-1. [(el) Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
-1. [(el) Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
-1. [(el) Computer language benchmark Game](http://benchmarksgame.alioth.debian.org/)[ its conclusion](http://benchmarksgame.alioth.debian.org/dont-jump-to-conclusions.html)    
-1. [Debian New Maintainer's Guide]
-1. [Debian Policy Manual]
-1. [Debian Developer Reference]
-1. [library packaging guide](https://www.netfort.gr.jp/~dancer/column/libpkg-guide/libpkg-guide.html)  
-1. [rpath issue](https://wiki.debian.org/RpathIssue)  
-1. [python library style guide](https://wiki.debian.org/Python/LibraryStyleGuide)  
-1. [Mentors FAQ](https://wiki.debian.org/DebianMentorsFaq)  
+2. [setup debian mirror (el) ](https://www.debian.org/mirror/ftpmirror)  
+1. Packaging and Policy  
+  1. [Debian Policy Manual]
+  1. [(el) Debian Science Policy Manual](http://debian-science.alioth.debian.org/debian-science-policy.html)  
+  1. [(el) Debian Lua Package Policy Manual](http://pkg-lua.alioth.debian.org/policy.html)  
+  1. [Debian Developer Reference]
+  1. [Debian New Maintainer's Guide]
+  1. [Mentors FAQ](https://wiki.debian.org/DebianMentorsFaq)  
+  1. [python library style guide](https://wiki.debian.org/Python/LibraryStyleGuide)  
+  1. [rpath issue](https://wiki.debian.org/RpathIssue)  
+  1. [library packaging guide](https://www.netfort.gr.jp/~dancer/column/libpkg-guide/libpkg-guide.html)  
+1. [Computer language benchmark Game (el)](http://benchmarksgame.alioth.debian.org/)[ its conclusion](http://benchmarksgame.alioth.debian.org/dont-jump-to-conclusions.html)    
 
 [Looking For Help](http://google.com)  
 ---
