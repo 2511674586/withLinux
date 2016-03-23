@@ -295,7 +295,7 @@ Programming under Linux
 1. [HTML/CSS/JS]
   1. [hello world html sample](./lang/sample.html)  
 1. [GNU Plot]
-  1. [(el) visualizing data with gnu plot](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
+  1. [visualizing data with gnu plot (el) ](http://www.ibm.com/developerworks/cn/linux/l-gnuplot/index.html)  
 1. [IBM CPlex]
 1. Online judges
   1. http://poj.org/  
@@ -364,9 +364,9 @@ In alphabet order.
 Artificial Intelegence / Mathematics  
 ---
 1. Mathematics  
-  1. [(el) Wikipedia: Embedding](https://en.wikipedia.org/wiki/Embedding)  
+  1. [Wikipedia: Embedding (el) ](https://en.wikipedia.org/wiki/Embedding)  
 1. Machine Learning  
-  1. [(eL) stanford:Ng's opencourse](http://openclassroom.stanford.edu/MainFolder/CoursePage.php?course=MachineLearning)  
+  1. [stanford:Ng's opencourse (el) ](http://openclassroom.stanford.edu/MainFolder/CoursePage.php?course=MachineLearning)  
 1. Deep Learning Frameworks  
   1. [theano (python)](http://deeplearning.net/software/theano/)  
     1. [my theano note](ai/theano/main.md)  
