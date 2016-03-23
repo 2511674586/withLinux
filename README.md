@@ -18,7 +18,7 @@ Installing Linux
   1. [Graphic card](./install/dri/graphic_card_driver.txt)  
   2. [Wireless network card](./install/dri/wireless.txt)  
 3. [Turning off graphic card](./install/turn-off-gpu.txt)  
-4. [Tips about Solid State Drive (SSD)](./install/ssd.txt)  
+4. [Tips about Solid State Drive (SSD)](./install/ssd.md)  
   1. [Gentoo wiki/SSD (el) ](https://wiki.gentoo.org/wiki/SSD)  
 5. [Some packages related to EFI/UEFI](./install/efi.txt)  
 6. [My old installation log for a HP server](./install/hpserver)  
