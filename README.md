@@ -250,7 +250,7 @@ Programming under Linux
   2. [crack a C program ... simple example](./lang/c/hexed/simple-hex-edit-binaries.txt)[(foo.c)](./lang/c/hexed/foo.c)[foo2.c](./lang/c/hexed/foo2.c)  
   3. [print source file name and source line number](./lang/c/file_line_.c)  
   4. [berkely db simple demo ... ](./lang/c/db.c) and [makefile](./lang/c/Makefile)  
-  1. [(el) libarchive example](https://github.com/libarchive/libarchive/wiki/Examples)  
+  1. [libarchive example (el) ](https://github.com/libarchive/libarchive/wiki/Examples)  
 3. C++  
   1. [glog demo program](./lang/cpp/glog.cpp) and its [makefile](./lang/cpp/glog.mk)  
   2. [print source file name and source line number](./lang/cpp/file_line_.cpp)  
@@ -258,7 +258,7 @@ Programming under Linux
   4. [template demo](./lang/cpp/template.cpp) and [its makefile](./lang/cpp/Makefile)  
   5. [stl demo](./lang/cpp/stl.cpp)  
   6. [Qt helloworld](./lang/cpp_qt/)  
-    1. [(el) Qt blog](http://blog.51cto.com/zt/20/1/)  
+    1. [Qt blog (el) ](http://blog.51cto.com/zt/20/1/)  
   1. [Very brilliant reference site (el)](http://www.cplusplus.com/)  
 1. tex/LaTeX  
   1. [use opentype font in tex](./lang/tex/tex-opentype-font.txt)  
@@ -277,7 +277,7 @@ Programming under Linux
   1. [learn lua in 15 minutes](http://tylerneylon.com/a/learn-lua/)  
   1. [My lua logging module](./lang/lua/logging/lumin_log.lua)[demo](./lang/lua/logging/demo.lua)  
   1. [Torch7 interface note](./lang/lua/torch/main.md)  
-  1. [(el) lua embedding](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
+  1. [lua embedding (el) ](http://www.ibm.com/developerworks/cn/linux/l-lua.html)  
 1. Light weigt languages
   1. [Sed/Ed]  
   1. [AWK](./lang/awk/)  
