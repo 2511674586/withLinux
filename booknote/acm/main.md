@@ -111,3 +111,11 @@ chapter 2 +placeholder
 #### decrease-and-conquer method  
 
 1. [insert sorting](./code/insert_sort.cc)  
+
+#### ...
+
+#### dynamic programming  
+
+1. [coin1](./code/coin1.cc)  
+1. [coin2]
+1. [coin3]
