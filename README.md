@@ -123,7 +123,7 @@ System Management / Server
 8. [grub ... boot with kali iso image](./admin/grub_kali_iso.txt)  
 9. [time ... hardware time](./admin/hardwaretime.txt)  
 10. [Silence ... no beep from machine](./admin/silent_beep.txt)  
-11. [Smart ... smart attributes](./admin/smart.txt)  
+11. [SMART, hard disk smart attributes](./admin/smart.md)  
 12. [Steam ... install steam on amd64](./admin/steam.txt)  
 13. [Sudo ...](./admin/sudo.txt)  
 14. [Wine ... on amd64](./admin/wine.txt)  
