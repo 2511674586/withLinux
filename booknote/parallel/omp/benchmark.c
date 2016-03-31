@@ -16,28 +16,28 @@
 /**
  * @brief flag, set 1 to dump all debug information
  */
-int debug = 1;
+int debug = 0;
 
 /**
  * @brief vector length used in L-1 benchmarks
  */
-#define VLEN 4
+#define VLEN 1024*1024*16
 
 /**
  * @brief matrix size used in L-2 benchmarks
  */
-#define MVLEN 4
+#define MVLEN 1024*4
 
 /**
  * @brief matrix size used in L-3 benchmarks
  */
-#define MMLEN 4
+#define MMLEN 256
 
 /**
  * @brief IMLEN image size, KLEN kernel size, FLEN(IM,K) feature map size
  */
-#define IMLEN 4
-#define KLEN 2
+#define IMLEN 512
+#define KLEN 17
 #define FLEN(im,k) ((im-k+1))
 
 /**
@@ -453,21 +453,19 @@ fill_matrix (double * m, size_t row, size_t col, double val)
 int
 main (int argc, char ** argv, char ** envp)
 {
-	fprintf (stdout, "Wellcome to Lumin's serial/parallel benchmark, init ... ");
+	fprintf (stdout, "Lumin's serial/parallel benchmark\nI: init ... ");
 	fflush(stdout);
 
 	struct timeval tvs; // tv_s, for starting point
 	struct timeval tve; // tv_e, for ending point
 
-	gettimeofday(&tvs, NULL); // start init time
 
 	// init times
 	struct timeval tvi; // tv_init
 	struct timeval tvt; // tv_terminate
+
 	gettimeofday(&tvi, NULL);
-	gettimeofday(&tve, NULL); // end init time
 	fprintf(stdout, "[OK]\n");
-	timediff(tvs, tve, "initialization");
 
 	hrulefill();
 	{ // copy test
@@ -561,7 +559,7 @@ main (int argc, char ** argv, char ** envp)
 
 		if (debug) dump_vector(A, VLEN);
 		if (debug) dump_vector(C, VLEN);
-		fprintf (stdout, " ddot(A, C) = %lf\n", resB);
+		if (debug) fprintf (stdout, " ddot(A, C) = %lf\n", resB);
 
 		// post-test
 		del_vector(A);
