@@ -8,24 +8,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <omp.h>
 #include <sys/time.h> // high precision timer, gettimeofday()
 #include <assert.h>
 
 /**
+ * @brief flag, set 1 to dump all debug information
+ */
+int debug = 1;
+
+/**
  * @brief vector length used in L-1 benchmarks
  */
-#define VLEN 1024*1024*64
+#define VLEN 4
 
 /**
  * @brief matrix size used in L-2 benchmarks
  */
-#define MLEN 1024*8
+#define MVLEN 4
 
 /**
  * @brief matrix size used in L-3 benchmarks
  */
-#define MMLEN 512
+#define MMLEN 4
+
+/**
+ * @brief IMLEN image size, KLEN kernel size, FLEN(IM,K) feature map size
+ */
+#define IMLEN 4
+#define KLEN 2
+#define FLEN(im,k) ((im-k+1))
 
 /**
  * @breif dcopy, L-1 BLAS, serial
@@ -264,6 +277,59 @@ dgemm_parallelv2 (const double * A, const double * B,
 }
 
 /**
+ * @brief 2-D convolution in serial 
+ * (Computer Vision Convolution, not Signal Convolution)
+ * @param[in] smap source map
+ * @param[in] dmap destination map
+ * @param[in] m smap size
+ * @param[in] k kernel size
+ * @note no padding
+ */
+void
+conv2_serial (const double * smap, const double * kernel,
+	size_t ssize, size_t ksize,
+	double * dmap)
+{
+	for (unsigned int i = 0; i < FLEN(ssize,ksize); i++) { // for each row of output map
+	for (unsigned int j = 0; j < FLEN(ssize,ksize); j++) { // for each column of output map
+		// element wise mult, smap part with kernel
+		double sum = 0.;
+		for (unsigned int m = 0; m < ksize; m++) {
+		for (unsigned int n = 0; n < ksize; n++) {
+			sum += kernel[m*ksize +n] * smap[(i+m)*ssize + j+n];
+		}}
+		// finish (i,j) of output feature map
+		dmap[i*FLEN(ssize,ksize)+j] = sum;
+	}}
+	return;
+}
+
+/**
+ * @brief 2-D convolution in parallel
+ * (Computer Vision Convolution, not Signal Convolution)
+ */
+void
+conv2_parallel (const double * smap, const double * kernel,
+	size_t ssize, size_t ksize,
+	double * dmap)
+{
+	double sum = 0.;
+#pragma omp parallel for collapse(2) shared(smap,kernel,dmap) private(sum)
+	for (unsigned int i = 0; i < FLEN(ssize,ksize); i++) { // for each row of output map
+	for (unsigned int j = 0; j < FLEN(ssize,ksize); j++) { // for each column of output map
+		// element wise mult, smap part with kernel
+		sum = 0.;
+		for (unsigned int m = 0; m < ksize; m++) {
+		for (unsigned int n = 0; n < ksize; n++) {
+			sum += kernel[m*ksize +n] * smap[(i+m)*ssize + j+n];
+		}}
+		// finish (i,j) of output feature map
+		dmap[i*FLEN(ssize,ksize)+j] = sum;
+	}}
+	return;
+}
+
+/**
  * @brief tell user the time difference in second.
  * @param tvs the starting time stamp.
  * @param tve the ending timp stamp.
@@ -292,6 +358,96 @@ hrulefill (void)
 }
 
 /**
+ * @brief dump a vector to screen
+ */
+void
+dump_vector (double * v, size_t size)
+{
+	for (size_t i = 0; i < size; i++)
+		fprintf (stdout, " %.3lf", v[i]);
+	fprintf (stdout, "\n");
+	return;
+}
+
+/**
+ * @brief dump a matrix to screen
+ */
+void
+dump_matrix (double * m, size_t row, size_t col)
+{
+	for (size_t i = 0; i < row; i++) {
+		for (size_t j = 0; j < col; j++)
+			fprintf (stdout, " %.3lf", m[i*col+j]);
+		fprintf (stdout, "\n");
+	}
+	return;
+}
+
+/**
+ * @brief allocate a vector in double
+ * @note values of vector not initialized on allocation.
+ */
+double *
+new_vector (size_t len)
+{
+	double * ret = (double *)malloc(len*sizeof(double));
+	assert(ret != NULL);
+	return ret;
+}
+
+/**
+ * @brief delete a vector in double
+ */
+void
+del_vector (double * v)
+{
+	free(v);
+}
+
+/**
+ * @brief fill a double vector with a value
+ */
+void
+fill_vector (double * v, size_t len, double val)
+{
+	for (size_t i = 0; i < len; i++)
+		v[i] = val;
+	return;
+}
+
+/**
+ * @brief allocate a double matrix
+ */
+double *
+new_matrix (size_t row, size_t col)
+{
+	double * ret = (double *)malloc(row*col*sizeof(double));
+	assert(ret != NULL);
+	return ret;
+}
+
+/**
+ * @brief delete a matrix in double
+ */
+void
+del_matrix (double * m)
+{
+	free(m);
+}
+
+/**
+ * @brief fill a double matrix with a value
+ */
+void
+fill_matrix (double * m, size_t row, size_t col, double val)
+{
+	for (size_t i = 0; i < row; i++)
+		for (size_t j = 0; j < col; j++)
+			m[i*col+j] = val;
+	return;
+}
+
+/**
  * @brief Lumin's benchmark
  */
 int
@@ -305,41 +461,7 @@ main (int argc, char ** argv, char ** envp)
 
 	gettimeofday(&tvs, NULL); // start init time
 
-	// init for L-1
-	double * A = (double *)malloc(VLEN*sizeof(double));
-	double * C = (double *)malloc(VLEN*sizeof(double));
-	assert(A != NULL);
-	assert(C != NULL);
-	memset ((void* )A, 0x00, VLEN*sizeof(double));
-	memset ((void* )C, 0x00, VLEN*sizeof(double));
-	for (long i = 0; i < VLEN; i++)
-		A[i] = (double)(1);
-
-	// init for L-2
-	double * dest = (double *)malloc(MLEN*sizeof(double));
-	double * M = (double *)malloc(MLEN*MLEN*sizeof(double));
-	assert(dest != NULL);
-	assert(M != NULL);
-	memset ((void *)M, 0x00, MLEN*MLEN*sizeof(double));
-	for (size_t i = 0; i < MLEN*MLEN; i++)
-		*(M + i) = 1.;
-
-	// init for L-3
-	double * X = (double *)malloc(MMLEN*MMLEN*sizeof(double));
-	double * Y = (double *)malloc(MMLEN*MMLEN*sizeof(double));
-	double * Z = (double *)malloc(MMLEN*MMLEN*sizeof(double));
-	assert(X != NULL);
-	assert(Y != NULL);
-	assert(Z != NULL);
-	memset ((void *)X, 0x00, MMLEN*MMLEN*sizeof(double));
-	memset ((void *)Y, 0x00, MMLEN*MMLEN*sizeof(double));
-	memset ((void *)Z, 0x00, MMLEN*MMLEN*sizeof(double));
-	for (size_t i = 0; i < MMLEN*MMLEN; i++) {
-		*(X + i) = 1.;
-		*(Y + i) = 1.;
-	}
-
-	// init the rest
+	// init times
 	struct timeval tvi; // tv_init
 	struct timeval tvt; // tv_terminate
 	gettimeofday(&tvi, NULL);
@@ -350,13 +472,20 @@ main (int argc, char ** argv, char ** envp)
 	hrulefill();
 	{ // copy test
 
+		// data
+		double * A = new_vector(VLEN);
+		double * C = new_vector(VLEN);
+		fill_vector(A, VLEN, 1.);
+		fill_vector(C, VLEN, 0.);
+
 		// serial
 		gettimeofday(&tvs, NULL);
 		dcopy_serial (A, C, VLEN);
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dcopy in serial");
 
-		fprintf (stdout, "     A %lf %lf C %lf %lf \n", A[0], A[1], C[0], C[1]); // check result
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
 
 		// parallel
 		gettimeofday(&tvs, NULL);
@@ -364,10 +493,20 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dcopy in parallel");
 
-		fprintf (stdout, "     A %lf %lf C %lf %lf \n", A[0], A[1], C[0], C[1]); // check result
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
+
+		// post-test
+		del_vector(A);
+		del_vector(C);
+
 	}
 	hrulefill();
 	{ // asum test
+
+		// data
+		double * A = new_vector(VLEN);
+		fill_vector(A, VLEN, 1.);
 
 		// serial
 		double resA;
@@ -376,7 +515,8 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dasum serial");
 
-		fprintf (stdout, "     resA %lf\n", resA);
+		if (debug) dump_vector(A, VLEN);
+		if (debug) fprintf (stdout, " dasum(A) = %lf\n", resA);
 
 		// parallel
 		double resB;
@@ -385,10 +525,21 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dasum parallel");
 
-		fprintf (stdout, "     resB %lf\n", resB);
+		if (debug) dump_vector(A, VLEN);
+		if (debug) fprintf (stdout, " dasum(A) = %lf\n", resB);
+
+		// post-test
+		del_vector(A);
+
 	}
 	hrulefill();
 	{ // dot test
+
+		// data
+		double * A = new_vector(VLEN);
+		double * C = new_vector(VLEN);
+		fill_vector(A, VLEN, 1.);
+		fill_vector(C, VLEN, 1.);
 
 		// serial
 		double resA;
@@ -397,7 +548,9 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "ddot in serial");
 
-		fprintf (stdout, "     resA %lf\n", resA);
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
+		if (debug) fprintf (stdout, " ddot(A, C) = %lf\n", resA);
 
 		// parallel
 		double resB;
@@ -406,10 +559,21 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "ddot in parallel");
 
-		fprintf (stdout, "     resB %lf\n", resB);
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
+		fprintf (stdout, " ddot(A, C) = %lf\n", resB);
+
+		// post-test
+		del_vector(A);
+		del_vector(C);
+
 	}
 	hrulefill();
 	{ // scal test
+
+		// data
+		double * A = new_vector(VLEN);
+		fill_vector(A, VLEN, 1.);
 
 		// serial
 		gettimeofday(&tvs, NULL);
@@ -417,7 +581,7 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dscal in serial");
 
-		fprintf (stdout, "     A %lf %lf\n", A[0], A[1]); // check result
+		if (debug) dump_vector(A, VLEN);
 
 		// parallel
 		gettimeofday(&tvs, NULL);
@@ -425,10 +589,20 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dscal in parallel");
 
-		fprintf (stdout, "     A %lf %lf\n", A[0], A[1]); // check result
+		if (debug) dump_vector(A, VLEN);
+
+		// post-test
+		del_vector(A);
+
 	}
 	hrulefill();
 	{ // axpby test
+
+		// data
+		double * A = new_vector(VLEN);
+		double * C = new_vector(VLEN);
+		fill_vector(A, VLEN, 1.);
+		fill_vector(C, VLEN, 1.);
 
 		// serial
 		gettimeofday(&tvs, NULL);
@@ -436,7 +610,8 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "daxpby in serial");
 
-		fprintf (stdout, "     A %lf %lf C %lf %lf \n", A[0], A[1], C[0], C[1]); // check result
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
 
 		// parallel
 		gettimeofday(&tvs, NULL);
@@ -444,47 +619,78 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "daxpby in parallel");
 
-		fprintf (stdout, "     A %lf %lf C %lf %lf \n", A[0], A[1], C[0], C[1]); // check result
+		if (debug) dump_vector(A, VLEN);
+		if (debug) dump_vector(C, VLEN);
+
+		// post-test
+		del_vector(A);
+		del_vector(C);
 	}
 	hrulefill();
 	{ // gemv test
+
+		// data
+		double * M = new_matrix(MVLEN, MVLEN);
+		double * A = new_vector(MVLEN);
+		double * Y = new_vector(MVLEN);
+		fill_matrix(M, MVLEN, MVLEN, 1.);
+		fill_vector(A, MVLEN, 1.);
+		fill_vector(Y, MVLEN, 1.);
 	
+		if (debug) dump_matrix(M, MVLEN, MVLEN);
+		if (debug) dump_vector(A, MVLEN);
+
 		// serial
 		gettimeofday(&tvs, NULL);
-		dgemv_serial (M, 1., A, 1., MLEN, dest);
+		dgemv_serial (M, 1., A, 1., MVLEN, Y);
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemv in serial");
 
-		fprintf (stdout, "     Y %lf %lf DEST %lf %lf \n", A[0], A[1], dest[0], dest[1]); // check result
+		if (debug) dump_vector(Y, MVLEN);
 
 		// parallel
 		gettimeofday(&tvs, NULL);
-		dgemv_parallel (M, 1., A, 1., MLEN, dest);
+		dgemv_parallel (M, 1., A, 1., MVLEN, Y);
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemv in parallel");
 
-		fprintf (stdout, "     Y %lf %lf DEST %lf %lf \n", A[0], A[1], dest[0], dest[1]); // check result
+		if (debug) dump_vector(Y, MVLEN);
 
 		// parallelv2
 		gettimeofday(&tvs, NULL);
-		dgemv_parallelv2 (M, 1., A, 1., MLEN, dest);
+		dgemv_parallelv2 (M, 1., A, 1., MVLEN, Y);
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemv in parallelv2");
 
-		fprintf (stdout, "     Y %lf %lf DEST %lf %lf \n", A[0], A[1], dest[0], dest[1]); // check result
+		if (debug) dump_vector(Y, MVLEN);
+
+		// post-test
+		del_matrix(M);
+		del_vector(A);
+		del_vector(Y);
 
 	}
 	hrulefill();
 	{ // gemm
+
+		// data
+		double * X = new_matrix(MMLEN, MMLEN);
+		double * Y = new_matrix(MMLEN, MMLEN);
+		double * Z = new_matrix(MMLEN, MMLEN);
+		fill_matrix(X, MMLEN, MMLEN, 1.);
+		fill_matrix(Y, MMLEN, MMLEN, 1.);
+		fill_matrix(Z, MMLEN, MMLEN, 0.);
 	
+		if (debug) dump_matrix(X, MMLEN, MMLEN);
+		if (debug) dump_matrix(Y, MMLEN, MMLEN);
+
 		// serial
 		gettimeofday(&tvs, NULL);
 		dgemm_serial (X, Y, MMLEN, MMLEN, MMLEN, Z);
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemm in serial");
 
-		fprintf (stdout, "     X %lf %lf Y %lf %lf DEST %lf %lf \n",
-			*(X), *(X+1), Y[0], Y[1], *(Z), *(Z+1)); // check result
+		if (debug) dump_matrix(Z, MMLEN, MMLEN);
 
 		// parallel
 		gettimeofday(&tvs, NULL);
@@ -492,8 +698,7 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemm in parallel");
 
-		fprintf (stdout, "     X %lf %lf Y %lf %lf DEST %lf %lf \n",
-			*(X), *(X+1), Y[0], Y[1], *(Z), *(Z+1)); // check result
+		if (debug) dump_matrix(Z, MMLEN, MMLEN);
 
 		// parallel v2
 		gettimeofday(&tvs, NULL);
@@ -501,22 +706,55 @@ main (int argc, char ** argv, char ** envp)
 		gettimeofday(&tve, NULL);
 		timediff (tvs, tve, "dgemm in parallelv2");
 
-		fprintf (stdout, "     X %lf %lf Y %lf %lf DEST %lf %lf \n",
-			*(X), *(X+1), Y[0], Y[1], *(Z), *(Z+1)); // check result
+		if (debug) dump_matrix(Z, MMLEN, MMLEN);
+
+		// post-test
+		del_matrix(X);
+		del_matrix(Y);
+		del_matrix(Z);
+
+	}
+	hrulefill();
+	{ // convolution
+
+		// data
+		double * image = new_matrix(IMLEN, IMLEN);
+		double * kernel = new_matrix(KLEN, KLEN);
+		double * fmap = new_matrix(FLEN(IMLEN,KLEN), FLEN(IMLEN,KLEN));
+		fill_matrix(image, IMLEN, IMLEN, 1.);
+		fill_matrix(kernel, KLEN, KLEN, 1.);
+		fill_matrix(fmap, FLEN(IMLEN,KLEN), FLEN(IMLEN,KLEN), 0.);
+
+		if (debug) dump_matrix(image, IMLEN, IMLEN);
+		if (debug) dump_matrix(kernel, KLEN, KLEN);
+
+		// serial
+		gettimeofday(&tvs, NULL);
+		conv2_serial (image, kernel, IMLEN, KLEN, fmap);
+		gettimeofday(&tve, NULL);
+		timediff (tvs, tve, "conv2 in serial");
+
+		if (debug) dump_matrix(fmap, FLEN(IMLEN,KLEN), FLEN(IMLEN,KLEN));
+
+		// parallel
+		gettimeofday(&tvs, NULL);
+		conv2_parallel (image, kernel, IMLEN, KLEN, fmap);
+		gettimeofday(&tve, NULL);
+		timediff (tvs, tve, "conv2 in parallel");
+
+		if (debug) dump_matrix(fmap, FLEN(IMLEN,KLEN), FLEN(IMLEN,KLEN));
+
+		// post-test
+		del_matrix(image);
+		del_matrix(kernel);
+		del_matrix(fmap);
+
 	}
 	hrulefill();
 
 	// how long all the benchmarks take
 	gettimeofday(&tvt, NULL);
 	timediff(tvi, tvt, "All benchmark");
-
-	free(A);
-	free(C);
-	free((void *)dest);
-	free((void *)M);
-	free((void *)X);
-	free((void *)Y);
-	free((void *)Z);
 
 	return 0;
 }
