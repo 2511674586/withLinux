@@ -114,6 +114,8 @@ def tqd(unix):
             #print (type(data))
             log.info('push to queue: {}'.format(str(data)))
             TQ.append(data)
+# FIXME: fork a worker process with the master process as a sequencer,
+# and they communicate in UNIX socket. so we can lookup queue at anytime.
         if len(TQ) != 0:
             log.info('preparing next task ...')
             tqdump(TQ)
