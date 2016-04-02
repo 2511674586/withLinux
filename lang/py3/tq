@@ -100,6 +100,7 @@ def tqd(unix):
             TQ.append(cmd)
         if len(TQ) != 0:
             cmd = TQ.pop(0)
+            log.info('getcwd(): {}'.format(os.getcwd()))
             log.info('executing: {}'.format(cmd))
             log.info(os.popen(cmd).read())
 
@@ -169,11 +170,12 @@ if __name__ == '__main__':
 
     elif sys.argv[1] == '--':
         cmd = ' '.join(sys.argv[2:])
+        print(cmd)
+        cmd = 'cd {};'.format(os.getcwd()) + cmd
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         sock.connect(UNIX)
         sock.send(cmd.encode())
         sock.close() 
-        print(cmd)
         log.info('I: command sent.')
 
     else:
