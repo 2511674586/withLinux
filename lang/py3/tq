@@ -77,6 +77,15 @@ def daemonize(*,
 
     signal.signal(signal.SIGTERM, sigterm_handler)
 
+def tqdump(TQ):
+    if len(TQ) == 0:
+        log.info('task queue empty.')
+    else:
+        log.info('dump task queue')
+        for dct in TQ:
+            log.info('    '+str(dct))
+        log.info('dump task queue OK')
+
 def tqd(unix):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
     os.chdir('/')
@@ -87,7 +96,7 @@ def tqd(unix):
     if os.path.exists(unix):
         os.unlink(unix)
     sock.bind(unix)
-    sock.listen(5)
+    sock.listen(100) # 100 is the max queue length?
     log.debug('Tqd listening UNIX.')
     while True:
         infds,outfds,errfds = select.select([sock],[],[],1)
@@ -96,9 +105,9 @@ def tqd(unix):
             data = b''
             while True:
                 buff = connection.recv(1024)
-                data = data + buff
                 if (len(buff) == 0):
                     break
+                data = data + buff
             connection.close() 
             data = json.loads(data.decode())
             log.debug('Tqd recieved pack')
@@ -106,6 +115,8 @@ def tqd(unix):
             log.info('push to queue: {}'.format(str(data)))
             TQ.append(data)
         if len(TQ) != 0:
+            log.info('preparing next task ...')
+            tqdump(TQ)
             pack = TQ.pop(0)
             #print (type(pack))
             log.info('execute next task ...')
@@ -116,6 +127,8 @@ def tqd(unix):
             with open('tq.out', 'a+') as f:
                 f.write(tqout)
             os.chdir('/')
+            log.info('task complete, task queue status')
+            tqdump(TQ)
 
 def Usage (argv0):
     print('Usage: {} {{COMMAND | -- TASK}}'.format(sys.argv[0]), file=sys.stderr)
@@ -187,8 +200,6 @@ if __name__ == '__main__':
         sock.send(json.dumps(pack).encode())
         sock.close() 
 
-        #print(str(pack['cwd']))
-        #print(str(pack['cmd']))
         print(pack)
         log.info('I: command sent.')
 
