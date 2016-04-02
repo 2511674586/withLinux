@@ -12,6 +12,7 @@ import socket
 import select
 import subprocess
 import time
+import json
 
 import atexit
 import signal
@@ -78,7 +79,8 @@ def daemonize(*,
 
 def tqd(unix):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
-    TQ = [] # Task queue
+    os.chdir('/')
+    TQ = [] # Task queue, list of dictionaries
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     if not os.path.exists(unix):
         os.mknod(unix)
@@ -91,18 +93,29 @@ def tqd(unix):
         infds,outfds,errfds = select.select([sock],[],[],1)
         if len(infds) != 0:
             connection, address = sock.accept()
-            data = connection.recv(4096)
+            data = b''
+            while True:
+                buff = connection.recv(1024)
+                data = data + buff
+                if (len(buff) == 0):
+                    break
             connection.close() 
-            log.debug('Tqd recieved command')
-            #print (data.decode(), file=sys.stderr)
-            cmd = data.decode()
-            log.info('push to queue: {}'.format(str(cmd)))
-            TQ.append(cmd)
+            data = json.loads(data.decode())
+            log.debug('Tqd recieved pack')
+            #print (type(data))
+            log.info('push to queue: {}'.format(str(data)))
+            TQ.append(data)
         if len(TQ) != 0:
-            cmd = TQ.pop(0)
-            log.info('getcwd(): {}'.format(os.getcwd()))
-            log.info('executing: {}'.format(cmd))
-            log.info(os.popen(cmd).read())
+            pack = TQ.pop(0)
+            #print (type(pack))
+            log.info('execute next task ...')
+            log.info('    cwd: {}'.format(str(pack['cwd'])))
+            log.info('    cmd: {}'.format(str(pack['cmd'])))
+            os.chdir(pack['cwd'])
+            tqout = os.popen(pack['cmd']).read()
+            with open('tq.out', 'a+') as f:
+                f.write(tqout)
+            os.chdir('/')
 
 def Usage (argv0):
     print('Usage: {} {{COMMAND | -- TASK}}'.format(sys.argv[0]), file=sys.stderr)
@@ -162,20 +175,21 @@ if __name__ == '__main__':
             if os.path.exists(LOGFILE):
                 os.unlink(LOGFILE)
 
-    elif sys.argv[1] == 'test':
+    elif sys.argv[1] == '--':
+
+        pack = {}
+        pack['cwd'] = os.getcwd()
+        cmd = ' '.join(sys.argv[2:])
+        pack['cmd'] = cmd
+
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         sock.connect(UNIX)
-        sock.send('true'.encode())
+        sock.send(json.dumps(pack).encode())
         sock.close() 
 
-    elif sys.argv[1] == '--':
-        cmd = ' '.join(sys.argv[2:])
-        print(cmd)
-        cmd = 'cd {};'.format(os.getcwd()) + cmd
-        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        sock.connect(UNIX)
-        sock.send(cmd.encode())
-        sock.close() 
+        #print(str(pack['cwd']))
+        #print(str(pack['cmd']))
+        print(pack)
         log.info('I: command sent.')
 
     else:
