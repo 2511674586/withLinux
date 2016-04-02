@@ -1,0 +1,181 @@
+#!/usr/bin/python3
+# @ref python-cookbook
+# @ref http://python3-cookbook.readthedocs.org/zh_CN/latest/c12/p14_launching_daemon_process_on_unix.html
+# @file tq
+# @brief Task Queue Daemon, and Client utils
+# @author Lumin Zhou <cdluminate>
+# @license MIT
+
+import os
+import sys
+import socket
+import select
+import subprocess
+import time
+
+import atexit
+import signal
+
+import logging as log
+log.basicConfig(
+    format='%(levelno)s %(asctime)s %(process)d %(filename)s:%(lineno)d]'
+        +' %(message)s',
+    level=log.DEBUG
+)
+
+def daemonize(*,
+        uid,
+        pidfile,
+        stdin   = '/dev/null',
+        stdout  = '/dev/null',
+        stderr  = '/dev/null'):
+
+    if os.path.exists(pidfile):
+        raise RuntimeError('Already running')
+
+    # First fork (detaches from parent)
+    try:
+        if os.fork() > 0:
+            raise SystemExit(0)   # Parent exit
+    except OSError as e:
+        raise RuntimeError('fork #1 failed.')
+
+    os.chdir('/')
+    os.umask(0)
+    os.setsid()
+    # Second fork (relinquish session leadership)
+    try:
+        if os.fork() > 0:
+            raise SystemExit(0)
+    except OSError as e:
+        raise RuntimeError('fork #2 failed.')
+
+    # Flush I/O buffers
+    sys.stdout.flush()
+    sys.stderr.flush()
+
+    # Replace file descriptors for stdin, stdout, and stderr
+    with open(stdin, 'rb', 0) as f:
+        os.dup2(f.fileno(), sys.stdin.fileno())
+    with open(stdout, 'ab', 0) as f:
+        os.dup2(f.fileno(), sys.stdout.fileno())
+    with open(stderr, 'ab', 0) as f:
+        os.dup2(f.fileno(), sys.stderr.fileno())
+
+    # Write the PID file
+    with open(pidfile,'w') as f:
+        print(os.getpid(),file=f)
+
+    # Arrange to have the PID file removed on exit/signal
+    atexit.register(lambda: os.remove(pidfile))
+
+    # Signal handler for termination (required)
+    def sigterm_handler(signo, frame):
+        log.info('recieved SIGTERM, exit.')
+        raise SystemExit(1)
+
+    signal.signal(signal.SIGTERM, sigterm_handler)
+
+def tqd(unix):
+    log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
+    TQ = [] # Task queue
+    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    if not os.path.exists(unix):
+        os.mknod(unix)
+    if os.path.exists(unix):
+        os.unlink(unix)
+    sock.bind(unix)
+    sock.listen(5)
+    log.debug('Tqd listening UNIX.')
+    while True:
+        infds,outfds,errfds = select.select([sock],[],[],1)
+        if len(infds) != 0:
+            connection, address = sock.accept()
+            data = connection.recv(4096)
+            connection.close() 
+            log.debug('Tqd recieved command')
+            #print (data.decode(), file=sys.stderr)
+            cmd = data.decode()
+            log.info('push to queue: {}'.format(str(cmd)))
+            TQ.append(cmd)
+        if len(TQ) != 0:
+            cmd = TQ.pop(0)
+            log.info('executing: {}'.format(cmd))
+            log.info(os.popen(cmd).read())
+
+def Usage (argv0):
+    print('Usage: {} {{COMMAND | -- TASK}}'.format(sys.argv[0]), file=sys.stderr)
+    print()
+    if os.path.exists(PIDFILE):
+        print('tqd is running.')
+    else:
+        print('tqd is not running.')
+    print()
+    print('        -> show usage, and tqd status')
+    print('start   -> start daemon')
+    print('stop    -> stop daemon')
+    print('log     -> dump daemon log to screen')
+    print('clean   -> remove log file')
+    print('test    -> test daemon')
+    print('-- TASK -> assign task TASK to Tqd')
+    print()
+
+if __name__ == '__main__':
+    UID = os.getuid()
+    PIDFILE = '/tmp/tqd_{}.pid'.format(str(UID))
+    LOGFILE = '/tmp/tqd_{}.log'.format(str(UID))
+    UNIX    = '/tmp/tqd_{}.unix'.format(str(UID))
+
+    if len(sys.argv) < 2:
+        Usage(sys.argv[0])
+        raise SystemExit(1)
+
+    if sys.argv[1] == 'start':
+        log.info('starting Tqd ...')
+        try:
+            daemonize(uid=UID,
+                      pidfile=PIDFILE,
+                      stdout=LOGFILE,
+                      stderr=LOGFILE)
+        except RuntimeError as e:
+            print(e, file=sys.stderr)
+            raise SystemExit(1)
+
+        tqd(UNIX)
+
+    elif sys.argv[1] == 'stop':
+        if os.path.exists(PIDFILE):
+            with open(PIDFILE) as f:
+                os.kill(int(f.read()), signal.SIGTERM)
+        else:
+            log.info('Tqd is NOT running')
+            raise SystemExit(1)
+    
+    elif sys.argv[1] == 'log':
+        if os.path.exists(LOGFILE):
+            with open(LOGFILE, 'r') as log:
+                print(log.read())
+
+    elif sys.argv[1] == 'clean':
+        if not os.path.exists(PIDFILE):
+            if os.path.exists(LOGFILE):
+                os.unlink(LOGFILE)
+
+    elif sys.argv[1] == 'test':
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.connect(UNIX)
+        sock.send('true'.encode())
+        sock.close() 
+
+    elif sys.argv[1] == '--':
+        cmd = ' '.join(sys.argv[2:])
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.connect(UNIX)
+        sock.send(cmd.encode())
+        sock.close() 
+        print(cmd)
+        log.info('I: command sent.')
+
+    else:
+        log.error('Unknown command {!r}'.format(sys.argv[1]))
+        raise SystemExit(1)
