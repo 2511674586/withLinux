@@ -3,8 +3,8 @@
 # @ref http://python3-cookbook.readthedocs.org/zh_CN/latest/c12/p14_launching_daemon_process_on_unix.html
 # @file tq
 # @brief Task Queue Daemon, and Client utils
-# @author Lumin Zhou <cdluminate>
-# @license MIT
+# @author COPYRIGHT (C) 2016 Lumin Zhou <cdluminate@gmail.com>
+# @license MIT License
 
 import os
 import sys
