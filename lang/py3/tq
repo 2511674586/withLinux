@@ -78,27 +78,8 @@ def daemonize(*,
 
     signal.signal(signal.SIGTERM, sigterm_handler)
 
-def tqdump(TQ):
-    if len(TQ) == 0:
-        log.info('task queue empty.')
-    else:
-        log.info('dump task queue')
-        for dct in TQ:
-            log.info('    '+str(dct))
-        log.info('dump task queue OK')
-
-def tqd(unix, dbfile, pidfile):
+def tqd(dbfile, pidfile):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
-    os.chdir('/')
-    TQ = [] # Task queue, list of dictionaries
-    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    if not os.path.exists(unix):
-        os.mknod(unix)
-    if os.path.exists(unix):
-        os.unlink(unix)
-    sock.bind(unix)
-    sock.listen(100) # 100 is the max queue length?
-    log.debug('Tqd listening UNIX.')
 
     if not os.path.exists(dbfile):
         tq = sqlite3.connect(dbfile)
@@ -110,43 +91,12 @@ def tqd(unix, dbfile, pidfile):
     log.debug('Tqd listening on sqlite3')
 
     while True:
-        #infds,outfds,errfds = select.select([sock],[],[],1)
-        #if len(infds) != 0:
-        #    connection, address = sock.accept()
-        #    data = b''
-        #    while True:
-        #        buff = connection.recv(1024)
-        #        if (len(buff) == 0):
-        #            break
-        #        data = data + buff
-        #    connection.close() 
-        #    data = json.loads(data.decode())
-        #    log.debug('Tqd recieved pack')
-        #    #print (type(data))
-        #    log.info('push to queue: {}'.format(str(data)))
-        #    TQ.append(data)
-# FIXME: fork a worker process with the master process as a sequencer,
-# and they communicate in UNIX socket. so we can lookup queue at anytime.
-        #if len(TQ) != 0:
-        #    log.info('preparing next task ...')
-        #    tqdump(TQ)
-        #    pack = TQ.pop(0)
-        #    #print (type(pack))
-        #    log.info('execute next task ...')
-        #    log.info('    cwd: {}'.format(str(pack['cwd'])))
-        #    log.info('    cmd: {}'.format(str(pack['cmd'])))
-        #    os.chdir(pack['cwd'])
-        #    tqout = os.popen(pack['cmd']).read()
-        #    with open('tq.out', 'a+') as f:
-        #        f.write(tqout)
-        #    os.chdir('/')
-        #    log.info('task complete, task queue status')
-        #    tqdump(TQ)
-        log.debug('    tqd check task queue ...')
+
+        #log.debug('    tqd check task queue in sqlite3 ...')
         tq = sqlite3.connect(SQLITE)
         cursor = tq.cursor()
         sql = 'select * from tq where status is null limit 1'
-        log.debug('    sql: {}'.format(sql))
+        #log.debug('    sqlite3> {}'.format(sql))
         cursor.execute(sql)
         values = cursor.fetchall() # len(values) may be 0
         cursor.close()
@@ -155,6 +105,7 @@ def tqd(unix, dbfile, pidfile):
             values = values[0]
             status, cwd, cmd = values[0], values[1], values[2]
             log.info('new task detected, execute next task')
+            log.info('    sqlite3> {}'.format(sql))
             log.info('    cwd = {}'.format(cwd))
             log.info('    cmd = {}'.format(cmd))
             # fork:
@@ -162,33 +113,24 @@ def tqd(unix, dbfile, pidfile):
             #  master> save pid, waitpid, then update sqlite status
             pid = os.fork()
             if pid > 0: # parent
-                log.info('    waiting for worker {}...'.format(pid))
-
-                #tq = sqlite3.connect(SQLITE)
-                #sql = 'update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
-                #log.info('    sql: {}'.format(sql))
-                #tq.execute(sql)
-                #tq.commit()
-                #tq.close()
-
-                os.waitpid(pid, 0)
-                log.info('    worker task complete, update database ...')
+                log.info('waiting for worker {}...'.format(pid))
 
                 tq = sqlite3.connect(SQLITE)
-                sql = 'update tq set status = \'OK\' where (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                sql = 'update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                log.info('    sqlite3> {}'.format(sql))
                 tq.execute(sql)
-                log.info('    sql: {}'.format(sql))
                 tq.commit()
                 tq.close()
 
-                #tq = sqlite3.connect(SQLITE)
-                #cursor = tq.cursor()
-                #cursor.execute('update tq set status = where status is null limit 1')
-                #values = cursor.fetchall()
-                #values = values[0]
-                #status, cwd, cmd = values[0], values[1], values[2]
-                #cursor.close()
-                #tq.close()
+                os.waitpid(-1, 0)
+                log.info('worker task complete, update database ...')
+
+                tq = sqlite3.connect(SQLITE)
+                sql = 'update tq set status = \'OK\' where (status =\'' +str(pid)+ '\') and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                tq.execute(sql)
+                log.info('    sqlite3> {}'.format(sql))
+                tq.commit()
+                tq.close()
 
             else: # worker
                 os.chdir(cwd)
@@ -198,35 +140,36 @@ def tqd(unix, dbfile, pidfile):
                 os._exit(0) # don't remove pidfile! i.e. don't trigger atexit().
         else:
             # there is nothing to do in the queue, just sleep
-            log.debug('    tqd task queue empty ...')
-            time.sleep(3)
+            # log.debug('    tqd task queue empty ...')
+            time.sleep(1)
 
 def Usage (argv0):
     print('Usage: {} {{COMMAND | -- TASK}}'.format(sys.argv[0]), file=sys.stderr)
     print()
-    if os.path.exists(PIDFILE):
-        print('tqd is running.')
-    else:
-        print('tqd is not running.')
+    print('  h       -> show usage, and tqd status')
+    print('  start   -> start daemon')
+    print('  stop    -> stop daemon')
+    print('  log     -> dump daemon log to screen')
+    print('  ls      -> show current task queue and status')
+    print('  clean   -> remove log file')
+    print('  purge   -> remove log file and sqlite3 db file')
+    print('  -- TASK -> assign TASK (a command line)')
     print()
-    print('        -> show usage, and tqd status')
-    print('start   -> start daemon')
-    print('stop    -> stop daemon')
-    print('log     -> dump daemon log to screen')
-    print('clean   -> remove log file')
-    print('test    -> test daemon')
-    print('-- TASK -> assign task TASK to Tqd')
-    print()
+    print('tq version: 0.0a')
 
 if __name__ == '__main__':
     UID = os.getuid()
     PIDFILE = '/tmp/tqd_{}.pid'.format(str(UID))
     LOGFILE = '/tmp/tqd_{}.log'.format(str(UID))
-    UNIX    = '/tmp/tqd_{}.unix'.format(str(UID))
     SQLITE  = '/tmp/tqd_{}.db'.format(str(UID))
 
     if len(sys.argv) < 2:
         Usage(sys.argv[0])
+        print()
+        if os.path.exists(PIDFILE):
+            print('tqd is running.')
+        else:
+            print('tqd is not running.')
         raise SystemExit(1)
 
     if sys.argv[1] == 'start':
@@ -240,7 +183,7 @@ if __name__ == '__main__':
             print(e, file=sys.stderr)
             raise SystemExit(1)
 
-        tqd(UNIX, SQLITE, PIDFILE)
+        tqd(SQLITE, PIDFILE)
 
     elif sys.argv[1] == 'stop':
         if os.path.exists(PIDFILE):
@@ -260,15 +203,23 @@ if __name__ == '__main__':
             if os.path.exists(LOGFILE):
                 os.unlink(LOGFILE)
 
+    elif sys.argv[1] == 'purge':
+        if not os.path.exists(PIDFILE):
+            if os.path.exists(LOGFILE):
+                os.unlink(LOGFILE)
+            if os.path.exists(SQLITE):
+                os.unlink(SQLITE)
+
     elif sys.argv[1] == 'ls':
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
-        else:
+        elif os.path.exists(SQLITE):
             tq = sqlite3.connect(SQLITE)
             cursor = tq.cursor()
             cursor.execute('select * from tq')
             values = cursor.fetchall()
             for item in values:
+                #print ('\'%s\''%item[0], '\'%s\''%item[1], '\'%s\''%item[2], sep='\t')
                 print (item)
             cursor.close()
             tq.close()
@@ -278,14 +229,7 @@ if __name__ == '__main__':
         pack['cwd'] = os.getcwd()
         cmd = ' '.join(sys.argv[2:])
         pack['cmd'] = cmd
-
-        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        sock.connect(UNIX)
-        sock.send(json.dumps(pack).encode())
-        sock.close() 
-
-        print(pack)
-        log.info('I: command sent.')
+        log.info('    {}'.format(str(pack)))
 
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
@@ -297,7 +241,9 @@ if __name__ == '__main__':
             cursor.close()
             tq.commit()
             tq.close()
+        log.info('command sent.')
 
     else:
         log.error('Unknown command {!r}'.format(sys.argv[1]))
         raise SystemExit(1)
+
