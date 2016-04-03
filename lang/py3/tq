@@ -167,9 +167,9 @@ if __name__ == '__main__':
         Usage(sys.argv[0])
         print()
         if os.path.exists(PIDFILE):
-            print('tqd is running.')
+            print('tqd is \x1b[32;1mrunning\x1b[m.')
         else:
-            print('tqd is not running.')
+            print('tqd is \x1b[31;1mnot running\x1b[m.')
         raise SystemExit(1)
 
     if sys.argv[1] == 'start':
