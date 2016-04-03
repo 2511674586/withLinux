@@ -134,8 +134,9 @@ def tqd(dbfile, pidfile):
             else: # worker
                 os.chdir(cwd)
                 tqout = os.popen(cmd).read()
-                with open('tq.out', 'a+') as f:
-                    f.write(tqout)
+                if len(tqout)>0:
+                    with open('tq.out', 'a+') as f:
+                        f.write(tqout)
                 os._exit(0) # don't remove pidfile! i.e. don't trigger atexit().
         else:
             # there is nothing to do in the queue, just sleep
