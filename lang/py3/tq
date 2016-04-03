@@ -154,7 +154,7 @@ def Usage (argv0):
     print('  purge   -> remove log file and sqlite3 db file')
     print('  -- TASK -> assign TASK (a command line)')
     print()
-    print('tq version: 0.0a')
+    print('tq version: 0.0b')
 
 if __name__ == '__main__':
 
@@ -198,19 +198,20 @@ if __name__ == '__main__':
             with open(LOGFILE, 'r') as log:
                 print(log.read())
 
-    elif sys.argv[1] == 'clean':
-        if not os.path.exists(PIDFILE):
-            if os.path.exists(LOGFILE):
-                os.unlink(LOGFILE)
-        if os.path.exists(SQLITE):
-            sqlite3_directexec(SQLITE, 'delete from tq where status = \'OK\'')
-
-    elif sys.argv[1] == 'purge':
-        if not os.path.exists(PIDFILE):
-            if os.path.exists(LOGFILE):
-                os.unlink(LOGFILE)
+    elif sys.argv[1] == 'clean' or sys.argv[1] == 'purge':
+        # clean task queue
+        if sys.argv[1] == 'clean':
             if os.path.exists(SQLITE):
-                os.unlink(SQLITE)
+                sqlite3_directexec(SQLITE, 'delete from tq where status = \'OK\'')
+        # file removal
+        if not os.path.exists(PIDFILE):
+            if os.path.exists(LOGFILE):
+                os.unlink(LOGFILE)
+            if os.path.exists(LOGFILE):
+                os.unlink(LOGFILE)
+            if sys.argv[1] == 'purge':
+                if os.path.exists(SQLITE):
+                    os.unlink(SQLITE)
 
     elif sys.argv[1] == 'ls':
         if not os.path.exists(PIDFILE):
