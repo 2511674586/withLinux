@@ -12,7 +12,6 @@ import socket
 import select
 import subprocess
 import time
-import json # to be replaced with sqlite3
 import sqlite3
 
 import atexit
@@ -202,6 +201,11 @@ if __name__ == '__main__':
         if not os.path.exists(PIDFILE):
             if os.path.exists(LOGFILE):
                 os.unlink(LOGFILE)
+        if os.path.exists(SQLITE):
+            tq = sqlite3.connect(SQLITE)
+            tq.execute('delete from tq where status = \'OK\'')
+            tq.commit()
+            tq.close()
 
     elif sys.argv[1] == 'purge':
         if not os.path.exists(PIDFILE):
