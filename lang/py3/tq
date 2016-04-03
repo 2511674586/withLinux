@@ -30,6 +30,15 @@ def sqlite3_directexec(dbfile, request):
     conn.commit()
     conn.close()
 
+def sqlite3_directquery(dbfile, request):
+    tq = sqlite3.connect(dbfile)
+    cursor = tq.cursor()
+    cursor.execute(request)
+    values = cursor.fetchall() # len(values) may be 0
+    cursor.close()
+    tq.close()
+    return values
+
 def daemonize(*,
         uid,
         pidfile,
@@ -93,14 +102,9 @@ def tqd(dbfile, pidfile):
     while True:
 
         #log.debug('    tqd check task queue in sqlite3 ...')
-        tq = sqlite3.connect(dbfile)
-        cursor = tq.cursor()
         sql = 'select * from tq where status is null limit 1'
-        #log.debug('    sqlite3> {}'.format(sql))
-        cursor.execute(sql)
-        values = cursor.fetchall() # len(values) may be 0
-        cursor.close()
-        tq.close()
+        values = sqlite3_directquery(dbfile, sql)
+
         if len(values) > 0: # there are works to do
             log.info('sqlite3> {}'.format(sql))
             values = values[0]
@@ -115,7 +119,7 @@ def tqd(dbfile, pidfile):
             if pid > 0: # parent
                 log.info('    waiting for worker {}...'.format(pid))
 
-                sql = '    update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                sql = 'update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
                 sqlite3_directexec(dbfile, sql)
                 log.info('    sqlite3> {}'.format(sql))
 
@@ -141,18 +145,19 @@ def tqd(dbfile, pidfile):
 def Usage (argv0):
     print('Usage: {} {{COMMAND | -- TASK}}'.format(sys.argv[0]), file=sys.stderr)
     print()
-    print('  h       -> show usage, and tqd status')
+    print('          -> show usage, and tqd status')
     print('  start   -> start daemon')
     print('  stop    -> stop daemon')
     print('  log     -> dump daemon log to screen')
     print('  ls      -> show current task queue and status')
-    print('  clean   -> remove log file')
+    print('  clean   -> remove log file, clean task queue')
     print('  purge   -> remove log file and sqlite3 db file')
     print('  -- TASK -> assign TASK (a command line)')
     print()
     print('tq version: 0.0a')
 
 if __name__ == '__main__':
+
     UID = os.getuid()
     PIDFILE = '/tmp/tqd_{}.pid'.format(str(UID))
     LOGFILE = '/tmp/tqd_{}.log'.format(str(UID))
@@ -211,28 +216,21 @@ if __name__ == '__main__':
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
         elif os.path.exists(SQLITE):
-            tq = sqlite3.connect(SQLITE)
-            cursor = tq.cursor()
-            cursor.execute('select * from tq')
-            values = cursor.fetchall()
+            values = sqlite3_directquery(SQLITE, 'select * from tq')
             for item in values:
-                #print ('\'%s\''%item[0], '\'%s\''%item[1], '\'%s\''%item[2], sep='\t')
                 print (item)
-            cursor.close()
-            tq.close()
 
     elif sys.argv[1] == '--':
-        pack = {}
-        pack['cwd'] = os.getcwd()
+        cwd = os.getcwd()
         cmd = ' '.join(sys.argv[2:])
-        pack['cmd'] = cmd
-        log.info('    {}'.format(str(pack)))
+        log.info('    {} {}'.format(cwd, cmd))
 
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
         else:
-            sqlite3_directexec(SQLITE, 'insert into tq (cwd, cmd) values (\''
-                + pack['cwd']+ '\',\'' + pack['cmd'] + '\')')
+            sqlite3_directexec(SQLITE, 
+                'insert into tq (cwd, cmd) values (\''
+                +cwd+ '\',\'' +cmd+ '\')')
         log.info('command sent.')
 
     else:
