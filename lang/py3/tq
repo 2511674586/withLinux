@@ -24,6 +24,12 @@ log.basicConfig(
     level=log.DEBUG
 )
 
+def sqlite3_directexec(dbfile, request):
+    conn = sqlite3.connect(dbfile)
+    conn.execute(request)
+    conn.commit()
+    conn.close()
+
 def daemonize(*,
         uid,
         pidfile,
@@ -42,7 +48,7 @@ def daemonize(*,
         raise RuntimeError('fork #1 failed.')
 
     os.chdir('/')
-    os.umask(0)
+    os.umask(0o022)
     os.setsid()
     # Second fork (relinquish session leadership)
     try:
@@ -81,18 +87,13 @@ def tqd(dbfile, pidfile):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
 
     if not os.path.exists(dbfile):
-        tq = sqlite3.connect(dbfile)
-        cursor = tq.cursor()
-        cursor.execute('create table tq (status, cwd, cmd)')
-        cursor.close()
-        tq.commit()
-        tq.close()
+        sqlite3_directexec(dbfile, 'create table tq (status, cwd, cmd)')
     log.debug('Tqd listening on sqlite3')
 
     while True:
 
         #log.debug('    tqd check task queue in sqlite3 ...')
-        tq = sqlite3.connect(SQLITE)
+        tq = sqlite3.connect(dbfile)
         cursor = tq.cursor()
         sql = 'select * from tq where status is null limit 1'
         #log.debug('    sqlite3> {}'.format(sql))
@@ -101,10 +102,10 @@ def tqd(dbfile, pidfile):
         cursor.close()
         tq.close()
         if len(values) > 0: # there are works to do
+            log.info('sqlite3> {}'.format(sql))
             values = values[0]
             status, cwd, cmd = values[0], values[1], values[2]
             log.info('new task detected, execute next task')
-            log.info('    sqlite3> {}'.format(sql))
             log.info('    cwd = {}'.format(cwd))
             log.info('    cmd = {}'.format(cmd))
             # fork:
@@ -112,24 +113,18 @@ def tqd(dbfile, pidfile):
             #  master> save pid, waitpid, then update sqlite status
             pid = os.fork()
             if pid > 0: # parent
-                log.info('waiting for worker {}...'.format(pid))
+                log.info('    waiting for worker {}...'.format(pid))
 
-                tq = sqlite3.connect(SQLITE)
-                sql = 'update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                sql = '    update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                sqlite3_directexec(dbfile, sql)
                 log.info('    sqlite3> {}'.format(sql))
-                tq.execute(sql)
-                tq.commit()
-                tq.close()
 
                 os.waitpid(-1, 0)
-                log.info('worker task complete, update database ...')
+                log.info('    worker task complete, update database ...')
 
-                tq = sqlite3.connect(SQLITE)
                 sql = 'update tq set status = \'OK\' where (status =\'' +str(pid)+ '\') and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
-                tq.execute(sql)
+                sqlite3_directexec(dbfile, sql)
                 log.info('    sqlite3> {}'.format(sql))
-                tq.commit()
-                tq.close()
 
             else: # worker
                 os.chdir(cwd)
@@ -203,10 +198,7 @@ if __name__ == '__main__':
             if os.path.exists(LOGFILE):
                 os.unlink(LOGFILE)
         if os.path.exists(SQLITE):
-            tq = sqlite3.connect(SQLITE)
-            tq.execute('delete from tq where status = \'OK\'')
-            tq.commit()
-            tq.close()
+            sqlite3_directexec(SQLITE, 'delete from tq where status = \'OK\'')
 
     elif sys.argv[1] == 'purge':
         if not os.path.exists(PIDFILE):
@@ -239,16 +231,10 @@ if __name__ == '__main__':
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
         else:
-            tq = sqlite3.connect(SQLITE)
-            cursor = tq.cursor()
-            cursor.execute('insert into tq (cwd, cmd) values (\''
+            sqlite3_directexec(SQLITE, 'insert into tq (cwd, cmd) values (\''
                 + pack['cwd']+ '\',\'' + pack['cmd'] + '\')')
-            cursor.close()
-            tq.commit()
-            tq.close()
         log.info('command sent.')
 
     else:
         log.error('Unknown command {!r}'.format(sys.argv[1]))
         raise SystemExit(1)
-
