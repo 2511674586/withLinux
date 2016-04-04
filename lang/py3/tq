@@ -10,9 +10,11 @@ import os
 import sys
 import socket
 import select
+import io
 import subprocess
 import time
 import sqlite3
+import shlex
 
 import atexit
 import signal
@@ -41,11 +43,13 @@ def sqlite3_directquery(dbfile, request):
 
 def sql_pretty(sql):
     ret = sql
-    pre = 'sqlite3 operation ...'
+    pre = '    sqlite3 operation ...'
     prompt ='    sqlite3>  '
     prompt2='    sqlite3.. '
     ret=ret.replace('select', pre+'\n'+prompt+'select')
     ret=ret.replace('update', pre+'\n'+prompt+'update')
+    ret=ret.replace('insert', pre+'\n'+prompt+'insert')
+    ret=ret.replace('values', '\n'+prompt2+'values')
     ret=ret.replace('where', '\n'+prompt2+'where')
     ret=ret.replace('and', '\n'+prompt2+'and')
     ret=ret.replace('or', '\n'+prompt2+'or')
@@ -69,7 +73,7 @@ def daemonize(*,
         raise RuntimeError('fork #1 failed.')
 
     os.chdir('/')
-    os.umask(0o022)
+    os.umask(0)
     os.setsid()
     # Second fork (relinquish session leadership)
     try:
@@ -148,33 +152,35 @@ def tqd(dbfile, pidfile):
             else: # worker
                 pid = os.getpid()
                 os.chdir(cwd)
-                # TODO: implement this with subprocess.Popen,
-                # instead of os.popen(), which is also implemented
-                # with subprocess.Popen.
-                #try:
-                #    proc = subprocess.Popen(cmd.split(),
-                #        stdin=subprocess.PIPE,
-                #        stdout=subprocess.PIPE,
-                #        stderr=subprocess.PIPE,
-                #        shell=False)
-                #except Exception as _ex:
-                #    log.error('{}'.format(str(_ex)))
-                #    proc = (None, None)
-                #    tqout, tqerr = None, None
-                #    retval = -1
-                #else:
-                #    tqout, tqerr = proc.communicate()
-                #    retval = proc.returncode
-                #tqout = os.popen(cmd).read()
-                t = os.popen(cmd)
-                tqout = t.read()
-                retval = t.close() or 0
+
+                try:
+                    proc = subprocess.Popen(
+                        shlex.split(cmd),
+                        shell=False,
+                        stdin=None,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        cwd=cwd)
+                    tqout, tqerr = proc.communicate()
+                    retval = proc.returncode
+                except FileNotFoundError as e:
+                    log.error('    {}'.format(str(e)))
+                    tqout, tqerr = '', ''
+                    retval = -1
+                except:
+                    log.error('    {}'.format('Unknown Error!'))
+                    tqout, tqerr = '', ''
+                    retval = -1
+                finally:
+                    log.info('    tq_popen done')
+
+                os.chdir(cwd)
                 if len(tqout)>0:
                     with open('tq.out', 'a+') as f:
-                        f.write(tqout)
-                #if len(tqerr)>0:
-                #    with open('tq.err', 'a+') as f:
-                #        f.write(tqerr)
+                        f.write(tqout.decode())
+                if len(tqerr)>0:
+                    with open('tq.err', 'a+') as f:
+                        f.write(tqerr.decode())
                 sql = 'update tq set retval = \''+str(retval)+'\'' \
                     +'where (status = \''+str(pid)+'\')' \
                     +' and (cwd =\'' +cwd+ '\')' \
@@ -269,15 +275,18 @@ if __name__ == '__main__':
     elif sys.argv[1] == '--':
         cwd = os.getcwd()
         cmd = ' '.join(sys.argv[2:])
-        log.info('    {} {}'.format(cwd, cmd))
+        #log.info('    {} {}'.format(cwd, cmd))
+        if len(cmd)==0:
+            log.error('Task missing')
+            raise SystemExit(1)
 
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
         else:
-            sqlite3_directexec(SQLITE, 
-                'insert into tq (cwd, cmd) values (\''
-                +cwd+ '\',\'' +cmd+ '\')')
-        log.info('command sent.')
+            sql = 'insert into tq (cwd, cmd) ' \
+                'values (\'' +cwd+ '\',\'' +cmd+ '\')'
+            sqlite3_directexec(SQLITE, sql)
+        log.info(sql_pretty(sql))
 
     else:
         log.error('Unknown command {!r}'.format(sys.argv[1]))
