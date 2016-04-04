@@ -112,7 +112,8 @@ def tqd(dbfile, pidfile):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
 
     if not os.path.exists(dbfile):
-        sqlite3_directexec(dbfile, 'create table tq (status, cwd, cmd, retval)')
+        sql = 'create table tq (status, cwd, cmd, retval)'
+        sqlite3_directexec(dbfile, sql)
     log.debug('Tqd listening on sqlite3')
 
     while True:
@@ -135,16 +136,15 @@ def tqd(dbfile, pidfile):
             pid = os.fork()
             if pid > 0: # parent
                 log.info('    waiting for worker {}...'.format(pid))
-
-                sql = 'update tq set status = \'' +str(pid)+ '\' where (status is null) and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
-                sqlite3_directexec(dbfile, sql)
-                #log.info('    sqlite3> {}'.format(sql))
-                log.info(sql_pretty(sql))
-
                 os.waitpid(-1, 0)
+
                 log.info('    worker task complete, update database ...')
 
-                sql = 'update tq set status = \'OK\' where (status =\'' +str(pid)+ '\') and (cwd =\'' +cwd+ '\') and (cmd = \'' +cmd+ '\') limit 1'
+                sql = 'update tq set status = \'OK\''\
+                    +' where (status =\'' +str(pid)+ '\')'\
+                    +' and (cwd =\'' +cwd+ '\')'\
+                    +' and (cmd = \'' +cmd+ '\')'\
+                    +' limit 1'
                 sqlite3_directexec(dbfile, sql)
                 #log.info('    sqlite3> {}'.format(sql))
                 log.info(sql_pretty(sql))
@@ -152,6 +152,15 @@ def tqd(dbfile, pidfile):
             else: # worker
                 pid = os.getpid()
                 os.chdir(cwd)
+
+                # register child pid in sqlite3
+                sql = 'update tq set status = \'' +str(pid)+ '\'' \
+                    +' where (status is null)' \
+                    +' and (cwd =\'' +cwd+ '\')' \
+                    +' and (cmd = \'' +cmd+ '\')' \
+                    +' limit 1'
+                sqlite3_directexec(dbfile, sql)
+                log.debug(sql_pretty(sql))
 
                 try:
                     proc = subprocess.Popen(
@@ -182,10 +191,11 @@ def tqd(dbfile, pidfile):
                     with open('tq.err', 'a+') as f:
                         f.write(tqerr.decode())
                 sql = 'update tq set retval = \''+str(retval)+'\'' \
-                    +'where (status = \''+str(pid)+'\')' \
+                    +' where (status = \''+str(pid)+'\')' \
                     +' and (cwd =\'' +cwd+ '\')' \
                     +' and (cmd = \'' +cmd+ '\')' \
                     +' limit 1'
+                log.debug(sql_pretty(sql))
                 sqlite3_directexec(dbfile, sql)
                 os._exit(0) # don't remove pidfile! i.e. don't trigger atexit().
         else:
@@ -205,7 +215,7 @@ def Usage (argv0):
     print('  purge   -> remove log file and sqlite3 db file')
     print('  -- TASK -> assign TASK (a command line)')
     print()
-    print('tq version: 0.0b')
+    print('tq version: 0.0c')
 
 if __name__ == '__main__':
 
@@ -253,7 +263,8 @@ if __name__ == '__main__':
         # clean task queue
         if sys.argv[1] == 'clean':
             if os.path.exists(SQLITE):
-                sqlite3_directexec(SQLITE, 'delete from tq where status = \'OK\'')
+                sql = 'delete from tq where status = \'OK\''
+                sqlite3_directexec(SQLITE, sql)
         # file removal
         if not os.path.exists(PIDFILE):
             if os.path.exists(LOGFILE):
@@ -268,7 +279,8 @@ if __name__ == '__main__':
         if not os.path.exists(PIDFILE):
             log.error('Tqd is not running.')
         elif os.path.exists(SQLITE):
-            values = sqlite3_directquery(SQLITE, 'select * from tq')
+            sql = 'select * from tq'
+            values = sqlite3_directquery(SQLITE, sql)
             for item in values:
                 print (item)
 
