@@ -217,6 +217,18 @@ def Usage (argv0):
     print()
     print('tq version: 0.0c')
 
+def tqd_start(uid, pidfile, logfile, sqlite):
+    log.info('starting Tqd ...')
+    try:
+        daemonize(uid=uid,
+                  pidfile=pidfile,
+                  stdout=logfile,
+                  stderr=logfile)
+    except RuntimeError as e:
+        print(e, file=sys.stderr)
+        raise SystemExit(1)
+    tqd(sqlite, pidfile)
+
 if __name__ == '__main__':
 
     UID = os.getuid()
@@ -234,17 +246,7 @@ if __name__ == '__main__':
         raise SystemExit(1)
 
     if sys.argv[1] == 'start':
-        log.info('starting Tqd ...')
-        try:
-            daemonize(uid=UID,
-                      pidfile=PIDFILE,
-                      stdout=LOGFILE,
-                      stderr=LOGFILE)
-        except RuntimeError as e:
-            print(e, file=sys.stderr)
-            raise SystemExit(1)
-
-        tqd(SQLITE, PIDFILE)
+        tqd_start(UID, PIDFILE, LOGFILE, SQLITE)
 
     elif sys.argv[1] == 'stop':
         if os.path.exists(PIDFILE):
@@ -298,7 +300,7 @@ if __name__ == '__main__':
             sql = 'insert into tq (cwd, cmd) ' \
                 'values (\'' +cwd+ '\',\'' +cmd+ '\')'
             sqlite3_directexec(SQLITE, sql)
-        log.info(sql_pretty(sql))
+            log.info(sql_pretty(sql))
 
     else:
         log.error('Unknown command {!r}'.format(sys.argv[1]))
