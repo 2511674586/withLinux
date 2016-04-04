@@ -108,7 +108,7 @@ def tqd(dbfile, pidfile):
     log.info('Tqd started with pid {} uid {}'.format(os.getpid(), str(UID)))
 
     if not os.path.exists(dbfile):
-        sqlite3_directexec(dbfile, 'create table tq (status, cwd, cmd)')
+        sqlite3_directexec(dbfile, 'create table tq (status, cwd, cmd, retval)')
     log.debug('Tqd listening on sqlite3')
 
     while True:
@@ -146,11 +146,41 @@ def tqd(dbfile, pidfile):
                 log.info(sql_pretty(sql))
 
             else: # worker
+                pid = os.getpid()
                 os.chdir(cwd)
-                tqout = os.popen(cmd).read()
+                # TODO: implement this with subprocess.Popen,
+                # instead of os.popen(), which is also implemented
+                # with subprocess.Popen.
+                #try:
+                #    proc = subprocess.Popen(cmd.split(),
+                #        stdin=subprocess.PIPE,
+                #        stdout=subprocess.PIPE,
+                #        stderr=subprocess.PIPE,
+                #        shell=False)
+                #except Exception as _ex:
+                #    log.error('{}'.format(str(_ex)))
+                #    proc = (None, None)
+                #    tqout, tqerr = None, None
+                #    retval = -1
+                #else:
+                #    tqout, tqerr = proc.communicate()
+                #    retval = proc.returncode
+                #tqout = os.popen(cmd).read()
+                t = os.popen(cmd)
+                tqout = t.read()
+                retval = t.close() or 0
                 if len(tqout)>0:
                     with open('tq.out', 'a+') as f:
                         f.write(tqout)
+                #if len(tqerr)>0:
+                #    with open('tq.err', 'a+') as f:
+                #        f.write(tqerr)
+                sql = 'update tq set retval = \''+str(retval)+'\'' \
+                    +'where (status = \''+str(pid)+'\')' \
+                    +' and (cwd =\'' +cwd+ '\')' \
+                    +' and (cmd = \'' +cmd+ '\')' \
+                    +' limit 1'
+                sqlite3_directexec(dbfile, sql)
                 os._exit(0) # don't remove pidfile! i.e. don't trigger atexit().
         else:
             # there is nothing to do in the queue, just sleep
