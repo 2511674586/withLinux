@@ -384,6 +384,10 @@ Artificial Intelegence / Mathematics
 1. Datasets  
   1. [MS COCO](https://github.com/CDLuminate/cocofetch)  
   1. [Imagenet](http://image-net.org/index)  
+1. Wolfram  
+  1. [Introduction to Wolfram language (el)](http://www.wolfram.com/language/elementary-introduction/)  
+  1. [Wolfram Alpha (el)](http://www.wolframalpha.com/)  
+  1. [Wolfram Mathworld (el)](http://mathworld.wolfram.com/)  
 1. [WikiCFP](http://www.wikicfp.com/cfp/)  
   
 ## LICENSE
