@@ -15,7 +15,6 @@ import subprocess
 import time
 import sqlite3
 import shlex
-
 import atexit
 import signal
 
@@ -215,7 +214,7 @@ def Usage (argv0):
     print('  purge   -> remove log file and sqlite3 db file')
     print('  -- TASK -> assign TASK (a command line)')
     print()
-    print('tq version: 0.0c')
+    print('tq version: 0.0d')
 
 def tqd_start(uid, pidfile, logfile, sqlite):
     log.info('starting Tqd ...')
@@ -295,7 +294,9 @@ if __name__ == '__main__':
             raise SystemExit(1)
 
         if not os.path.exists(PIDFILE):
-            log.error('Tqd is not running.')
+            log.error('Tqd is not running, starting tqd ...')
+            os.system(' '.join([sys.argv[0], 'start']))
+            os.system(' '.join(sys.argv))
         else:
             sql = 'insert into tq (cwd, cmd) ' \
                 'values (\'' +cwd+ '\',\'' +cmd+ '\')'
