@@ -163,4 +163,153 @@ irb(main):013:0> mult(5, 5)
 ```
 
 # class and module
+```
+irb(main):001:0> class Calculator
+irb(main):002:1>  def divide(x, y)
+irb(main):003:2>   x/y
+irb(main):004:2>  end
+irb(main):005:1> end
+=> :divide
+irb(main):006:0> c = Calculator.new
+=> #<Calculator:0x00000001e78500>
+irb(main):007:0> c.class
+=> Calculator
+irb(main):008:0> c.divide(10, 2)
+=> 5
+irb(main):009:0> divide(10, 2)
+NoMethodError: undefined method `divide' for main:Object
+from (irb):9
+from /usr/bin/irb:11:in `<main>'
+irb(main):010:0> class MultiplyingCalculator < Calculator
+irb(main):011:1>  def multiply(x, y)
+irb(main):012:2>   x * y
+irb(main):013:2>  end
+irb(main):014:1> end
+=> :multiply
+irb(main):016:0> mc = MultiplyingCalculator.new
+=> #<MultiplyingCalculator:0x00000001e94778>
+irb(main):017:0> mc.class
+=> MultiplyingCalculator
+irb(main):018:0> mc.class.superclass
+=> Calculator
+irb(main):019:0> mc.multiply(10, 2)
+=> 20
+irb(main):020:0> mc.divide(10, 2)
+=> 5
+```
 
+```
+class BinaryMultiplyingCalculator < MultiplyingCalculator
+ def multiply(x, y)
+  result = super(x, y)
+  result.to_s(2)
+ end
+end
+
+bmc = BinaryMultiplyingCalculator.new
+
+bmc.multiply(10, 2)
+=> "10100"
+```
+
+```
+module Addition
+ def add(x, y)
+  x+y
+ end
+end
+
+class AddingCalculator
+ inclue Addition
+end
+
+ac = AddingCalculator.new
+
+ac.add(10, 2)
+=> 12
+```
+
+# other
+
+### local variable and value assigning
+```
+greeting = 'hello'
+
+width, height, depth = [ 1000, 2000, 200 ]
+```
+
+### string insertion
+```
+"hello #{'dlrow'.reverse}"
+=> "hello world"
+```
+
+```
+o = Object.new
+def o.to_s
+ 'a new object'
+end
+
+"here is #{o}"
+=> "here is a new object"
+```
+
+### checking object
+```
+o = Object.new
+def o.inspect
+ '[my object]'
+end
+
+o
+=> [my object]
+```
+
+### string printing
+```
+x = 128
+while x < 1000
+ puts "x is #{x}"
+ x = x * 2
+end
+```
+
+### variadic method
+```
+def join_with_commas(*words)
+ word.join(', ')
+end
+
+join_with_commas('one', 'two')
+=> "one, two"
+```
+
+```
+def join_with_commas(before, *words, after)
+ before + words.join(', ') + after
+end
+
+join_with_commas('testing: ', 'one', 'two', '.')
+=> "testing: one, two."
+
+arguments = ['testing: ', 'one', 'two', '.']
+join_with_commas(*arguments)
+
+before, *words, after = ['testing: ', 'one', 'two', '.']
+```
+
+### code block  
+```
+def do_three_times
+ yield
+ yield
+ yield
+end
+
+do_three_times { puts 'hello' }
+=> hello
+=> hello
+=> hello
+```
+
+TODO
