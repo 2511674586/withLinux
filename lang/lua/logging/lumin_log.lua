@@ -1,9 +1,10 @@
 #!/usr/bin/lua
 -- Lumin's lua Logging facility module
--- COPYRIGHT (C) 2016 Lumin Zhou
+-- COPYRIGHT (C) 2016 Zhou Mo <cdluminate@gmail.com>
 -- MIT LICENSE
 -- changelog:
 --   mar 13 2016, add alias for all public functions
+--   apr 10 2016, add fatal logging level
 
 local LOG = {}
 function LOG.__CORE (level, dt, di, message)
@@ -54,6 +55,15 @@ function LOG.ERROR (message)
 end
 function LOG.error (message)
 	return LOG.ERROR (message)
+end
+
+function LOG.FATAL (message)
+	io.write ('\x1b[35;1m')
+	LOG._CORE ('F', message)
+	io.write ('\x1b[m')
+end
+function LOG.fatal (message)
+	return LOG.FATAL (message)
 end
 
 return LOG
